@@ -5,10 +5,7 @@ import com.wurmonline.server.Servers;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.MessageBuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.entities.ChannelType;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.StatusChangeEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,6 +16,7 @@ import org.jubaroo.mods.wurm.server.server.Constants;
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.function.Function;
@@ -85,6 +83,27 @@ public class DiscordHandler extends ListenerAdapter {
         }
     }
 
+    private static void sendSafe(CustomChannel channel, String msg) {
+        MessageBuilder builder = new MessageBuilder();
+        builder.append(msg);
+
+        List<Guild> guilds = jda.getGuildsByName(Constants.serverName, true);
+        if (guilds.size() < 1) {
+            RequiemLogging.logWarning(String.format("Server '%s' not found on discord, unable to send messages", Constants.serverName));
+            return;
+        }
+
+        List<TextChannel> channels = guilds.get(0).getTextChannelsByName(channel.discordName, true);
+        if (channels.size() < 1) {
+            RequiemLogging.logWarning(String.format("Channel '%s' not found on discord (for %s), unable to send messages", channel.discordName, channel));
+            return;
+        }
+
+        channels.get(0).sendMessage(builder.build())
+                .queue(null, e -> RequiemLogging.logException("Error sending to discord", e));
+
+    }
+
     public static void sendToDiscord(CustomChannel channel, String msg) {
         try {
             if (jda == null || channel.discordName == null) return;
@@ -92,10 +111,7 @@ public class DiscordHandler extends ListenerAdapter {
                 RequiemLogging.logInfo(String.format("Discord not ready, queueing: [%s] %s", channel, msg));
                 sendQueues.get(channel).add(msg);
             } else {
-                MessageBuilder builder = new MessageBuilder();
-                builder.append(msg);
-                jda.getGuildsByName(Constants.serverName, true).get(0).getTextChannelsByName(channel.discordName, true).get(0).sendMessage(builder.build())
-                        .queue(null, e -> RequiemLogging.logException("Error sending to discord", e));
+                sendSafe(channel, msg);
             }
         } catch (Exception e) {
             RequiemLogging.logException("Error sending to discord", e);
@@ -117,9 +133,7 @@ public class DiscordHandler extends ListenerAdapter {
                         while (!sendQueue.isEmpty()) {
                             String msg = sendQueue.poll();
                             RequiemLogging.logInfo(String.format("Sending queued: [%s] %s", channel, msg));
-                            MessageBuilder builder = new MessageBuilder();
-                            builder.append(msg);
-                            discordChannel.sendMessage(builder.build()).queue(null, e -> RequiemLogging.logException("Error sending to discord", e));
+                            sendSafe(channel, msg);
                         }
                     }
                 }
