@@ -12,6 +12,7 @@ import com.wurmonline.server.utils.logging.TileEvent;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -40,7 +41,7 @@ public class EnchantGroundAction implements ModAction, BehaviourProvider, Action
     private boolean canUse(final Creature performer, final Item source, final int tile) {
         if (performer.isPlayer() && source != null && source.getTemplateId() == CustomItems.lifeCrystal.getTemplateId() &&
                 source.getTopParent() == performer.getInventory().getWurmId()) {
-            return RandomUtils.isTreeGrassBushTile(Tiles.decodeType(tile));
+            return RequiemTools.isTreeGrassBushTile(Tiles.decodeType(tile));
         } else return false;
     }
 
@@ -67,7 +68,7 @@ public class EnchantGroundAction implements ModAction, BehaviourProvider, Action
                 performer.getCommunicator().sendNormalServerMessage(String.format("The %s cannot access that power right now, you will need to wait before you can do that again.", source.getName()));
                 return true;
             }
-            if (!RandomUtils.isTreeGrassBushTile(Tiles.decodeType(tile))) {
+            if (!RequiemTools.isTreeGrassBushTile(Tiles.decodeType(tile))) {
                 performer.getCommunicator().sendNormalServerMessage("The area refuses to accept the crystals power.");
                 return true;
             }

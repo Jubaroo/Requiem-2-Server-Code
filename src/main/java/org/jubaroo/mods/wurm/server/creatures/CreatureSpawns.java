@@ -26,6 +26,8 @@ import org.jubaroo.mods.wurm.server.items.ItemTools;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
 import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.io.IOException;
 
@@ -225,7 +227,7 @@ public class CreatureSpawns {
             }
             // Insert Clubs into Creatures
             else if (id == CustomCreatures.cyclopsId || id == CustomCreatures.fireGiantId || id == CustomCreatures.facebreykerId || id == CustomCreatures.giantId || id == CustomCreatures.depotTrollId) {
-                Item shodClub = ItemFactory.createItem(ItemList.clubHuge, (float) RequiemUtilities.generateRandomDouble(50, 99), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
+                Item shodClub = ItemFactory.createItem(ItemList.clubHuge, (float) RequiemTools.generateRandomDouble(50, 99), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shodClub, true);
             }
             // White Buffalo
@@ -254,7 +256,7 @@ public class CreatureSpawns {
             }
             // Dock Worker
             else if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
-                Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RequiemUtilities.generateRandomDouble(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
+                Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RequiemTools.generateRandomDouble(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(mallet, true);
                 Constants.soundEmissionNpcs.add(creature);
             }

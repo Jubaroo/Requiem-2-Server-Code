@@ -168,8 +168,8 @@ public class LootBounty {
         Server.getInstance().broadCastAlert(String.format("The death of the %s has blessed the world with valuable ores!", mob.getTemplate().getName()));
     }
 
-    public static void spawnFriyanTablets() {
-        int i = 5 + Server.rand.nextInt(5);
+    public static void spawnFriyanTablets(int min, int max) {
+        int i = Server.rand.nextInt((max - min) + 1) + min;
         while (i > 0) {
             int x = Server.rand.nextInt(Server.surfaceMesh.getSize());
             int y = Server.rand.nextInt(Server.surfaceMesh.getSize());
@@ -184,9 +184,12 @@ public class LootBounty {
                 i--;
             }
         }
+        String message = String.format("%d Tablets of Friyan were created somewhere in the world!", i);
+        Server.getInstance().broadCastAlert(message);
+        DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
     }
 
-    public static void handleDragonLoot(Creature mob, Item corpse) {
+    public static void handleDragonLoot(Creature mob) {
         try {
             int mTemplate = mob.getTemplate().getTemplateId();
             int lootTemplate = ItemList.drakeHide;
@@ -202,13 +205,15 @@ public class LootBounty {
             float x = mob.getPosX();
             float y = mob.getPosY();
 
+            /*
             // Spawn the spectral drake.
-            //RequiemLogging.logInfo("Spawning a spectral drake.");
-            //CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(CustomCreatures.spectralDragonHatchlingId);
-            //Creature spectralDrake = Creature.doNew(template.getTemplateId(), true, x, y, Server.rand.nextFloat() * 360f, mob.getLayer(), template.getName(), (byte) 0, mob.getKingdomId(), ctype, false, (byte) 150);
-            //Server.getInstance().broadCastAction("The spirit of the " + mob.getTemplate().getName() + " is released into the world!", mob, 20);
-            //Server.getInstance().broadCastAlert(spectralDrake.getName() + " is released from the soul of the " + mob.getTemplate().getName() + ", seeking vengeance for its physical form!");
+            RequiemLogging.logInfo("Spawning a spectral drake.");
+            CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(CustomCreatures.spectralDragonHatchlingId);
+            Creature spectralDrake = Creature.doNew(template.getTemplateId(), true, x, y, Server.rand.nextFloat() * 360f, mob.getLayer(), template.getName(), (byte) 0, mob.getKingdomId(), ctype, false, (byte) 150);
+            Server.getInstance().broadCastAction("The spirit of the " + mob.getTemplate().getName() + " is released into the world!", mob, 20);
+            Server.getInstance().broadCastAlert(spectralDrake.getName() + " is released from the soul of the " + mob.getTemplate().getName() + ", seeking vengeance for its physical form!");
             // Insert extra hide / scale
+
             RequiemLogging.logInfo(String.format("Generating extra hide & scale to insert on the corpse of %s.", mob.getName()));
             ItemTemplate itemTemplate = ItemTemplateFactory.getInstance().getTemplate(lootTemplate);
             for (int i = 0; i < 2; i++) {
@@ -233,6 +238,7 @@ public class LootBounty {
                 loot.setWeight((int) ((weightGrams * 0.05f) + (weightGrams * 0.05f * Server.rand.nextFloat())), true);
                 corpse.insertItem(loot);
             }
+             */
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,6 +17,7 @@ import com.wurmonline.server.spells.Dominate;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.util.Collections;
 import java.util.List;
@@ -128,7 +129,7 @@ public class TamingStickAction implements ModAction, ActionPerformer, BehaviourP
                 }
             if (counter == 1f) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("You pull the %s from your pocket and point it at the %s. The end of the stick begins to faintly glow...", source.getName(), creature.getName()), (byte) 3);
-                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and points it at the %s.", performer.getName(), RequiemUtilities.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), creature.getName()), performer, 5);
+                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and points it at the %s.", performer.getName(), RequiemTools.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), creature.getName()), performer, 5);
                 action.setTimeLeft(timeLeft);
                 performer.sendActionControl("controlling", true, timeLeft);
             } else if (counter * 10f > action.getTimeLeft()) {

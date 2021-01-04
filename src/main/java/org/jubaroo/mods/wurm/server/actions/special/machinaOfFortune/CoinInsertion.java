@@ -12,6 +12,10 @@ import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
+
+import static org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneHelpers.singleItemTwoRollInsert;
+import static org.jubaroo.mods.wurm.server.tools.RequiemTools.*;
 
 
 class CoinInsertion {
@@ -97,34 +101,34 @@ class CoinInsertion {
                     MachinaOfFortuneHelpers.multipleItemOneRollInsert(5, ItemList.eye, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_5:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(60, rollMultiplier, ItemList.sleepPowder, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(60, rollMultiplier, ItemList.sleepPowder, 100f, source, performer, comm);
                     break;
                 case ROLL_6:
                     MachinaOfFortuneHelpers.multipleSilverCoinInsert(1000, rollMultiplier, 50, source, performer, comm);
                     break;
                 case ROLL_7:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(150, rollMultiplier, ItemList.adamantineBar, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, ItemList.adamantineBar, 100f, source, performer, comm);
                     break;
                 case ROLL_8:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(150, rollMultiplier, ItemList.glimmerSteelBar, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, ItemList.glimmerSteelBar, 100f, source, performer, comm);
                     break;
                 case ROLL_9:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftCrystal, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftCrystal, 100f, source, performer, comm);
                     break;
                 case ROLL_10:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftWood, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftWood, 100f, source, performer, comm);
                     break;
                 case ROLL_11:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftStone, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.riftStone, 100f, source, performer, comm);
                     break;
                 case ROLL_12:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(20, rollMultiplier, ItemList.fireworks, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(20, rollMultiplier, ItemList.fireworks, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_13:
                     MachinaOfFortuneHelpers.multipleItemOneRollInsert(10, RandomUtils.randomFishTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_14:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomGem(false), 10f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomGem(false), 10f, 100f, source, performer, comm);
                     break;
                 case ROLL_15:
                     MachinaOfFortuneHelpers.addRandomSkillTwoRoll(200, rollMultiplier, getRandArrayInt(SkillList.skillArray), source, performer, comm);
@@ -142,40 +146,40 @@ class CoinInsertion {
                     }
                     break;
                 case ROLL_17:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, RandomUtils.randomMineDoorTemplates(), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, RandomUtils.randomMineDoorTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_18:
                     MachinaOfFortuneHelpers.singleItemOneRollInsert(RandomUtils.randomFlowerTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_19:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(10, rollMultiplier, ItemList.steak, 1f, 100f, (float) generateRandomDouble(1f, 5f), source, performer, comm);
+                    singleItemTwoRollInsert(10, rollMultiplier, ItemList.steak, 1f, 100f, (float) generateRandomDouble(1f, 5f), source, performer, comm);
                     break;
                 case ROLL_20:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.teleportationTwig, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.teleportationTwig, 100f, source, performer, comm);
                     break;
                 case ROLL_21:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.teleportationStone, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.teleportationStone, 100f, source, performer, comm);
                     break;
                 case ROLL_22:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, ItemList.joists, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, ItemList.joists, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_23:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(1500, rollMultiplier, 10500/*Server Portal*/, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(1500, rollMultiplier, 10500/*Server Portal*/, 100f, source, performer, comm);
                     break;
                 case ROLL_24:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(40, rollMultiplier, Server.rand.nextBoolean() ? ItemList.gardenGnomeGreen : ItemList.gardenGnome, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(40, rollMultiplier, Server.rand.nextBoolean() ? ItemList.gardenGnomeGreen : ItemList.gardenGnome, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_25:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(1250, rollMultiplier, ItemList.chestNoDecaySmall, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(1250, rollMultiplier, ItemList.chestNoDecaySmall, 100f, source, performer, comm);
                     break;
                 case ROLL_26:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(1250, rollMultiplier, ItemList.chestNoDecayLarge, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(1250, rollMultiplier, ItemList.chestNoDecayLarge, 100f, source, performer, comm);
                     break;
                 case ROLL_27:
                     MachinaOfFortuneHelpers.singleItemTwoRollContainerInsert(75, rollMultiplier, ItemList.flaskPottery, ItemList.potionTransmutation, 1f, 100f, 1f, 100f, 250, source, performer, comm);
                     break;
                 case ROLL_28:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.tuningFork, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.tuningFork, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_29:
                     if (rollMultiplier * Server.rand.nextInt(150 - 1) == 0) {
@@ -187,37 +191,37 @@ class CoinInsertion {
                     }
                     break;
                 case ROLL_30:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, ItemList.handMirror, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, ItemList.handMirror, 100f, source, performer, comm);
                     break;
                 case ROLL_31:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(150, rollMultiplier, ItemList.goldenMirror, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, ItemList.goldenMirror, 100f, source, performer, comm);
                     break;
                 case ROLL_32:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(100, rollMultiplier, RandomUtils.randomPotionTemplates(), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(100, rollMultiplier, RandomUtils.randomPotionTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_33:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(200, rollMultiplier, ItemList.drakeHide, 1f, 100f, (float) generateRandomDouble(1f, 2f), source, performer, comm);
+                    singleItemTwoRollInsert(200, rollMultiplier, ItemList.drakeHide, 1f, 100f, (float) generateRandomDouble(1f, 2f), source, performer, comm);
                     break;
                 case ROLL_34:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(150, rollMultiplier, RandomUtils.randomGem(true), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, RandomUtils.randomGem(true), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_35:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(70, rollMultiplier, ItemList.coinCopper, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(70, rollMultiplier, ItemList.coinCopper, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_36:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(40, rollMultiplier, ItemList.coinIronTwenty, 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(40, rollMultiplier, ItemList.coinIronTwenty, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_37:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(200, rollMultiplier, ItemList.wandSculpting, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(200, rollMultiplier, ItemList.wandSculpting, 100f, source, performer, comm);
                     break;
                 case ROLL_38:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, ItemList.shakerOrb, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, ItemList.shakerOrb, 100f, source, performer, comm);
                     break;
                 case ROLL_39:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(200, rollMultiplier, ItemList.rodTransmutation, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(200, rollMultiplier, ItemList.rodTransmutation, 100f, source, performer, comm);
                     break;
                 case ROLL_40:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(75, rollMultiplier, ItemList.resurrectionStone, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(75, rollMultiplier, ItemList.resurrectionStone, 100f, source, performer, comm);
                     break;
                 case ROLL_41:
                     singleItemTwoRollInsert(25, rollMultiplier, CustomItems.essenceOfWoodId, 1f, 100f, RandomUtils.randomWoodMaterialIds(), MiscConstants.COMMON, source, performer, comm);
@@ -226,25 +230,25 @@ class CoinInsertion {
                     singleItemTwoRollInsert(150, rollMultiplier, CustomItems.treasureBoxId, 10f, 100f, randomRarity(), 1f, source, performer, comm);
                     break;
                 case ROLL_43:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(150, rollMultiplier, CustomItems.affinityOrbId, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, CustomItems.affinityOrbId, 100f, source, performer, comm);
                     break;
                 case ROLL_44:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, CustomItems.gemCache.getTemplateId(), 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, CustomItems.gemCache.getTemplateId(), 100f, source, performer, comm);
                     break;
                 case ROLL_45:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, CustomItems.moonCache.getTemplateId(), 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, CustomItems.moonCache.getTemplateId(), 100f, source, performer, comm);
                     break;
                 case ROLL_46:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, CustomItems.potionCache.getTemplateId(), 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, CustomItems.potionCache.getTemplateId(), 100f, source, performer, comm);
                     break;
                 case ROLL_47:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, CustomItems.treasureMapCache.getTemplateId(), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, CustomItems.treasureMapCache.getTemplateId(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_48:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(10, rollMultiplier, CustomItems.heraldicCertificateId, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(10, rollMultiplier, CustomItems.heraldicCertificateId, 100f, source, performer, comm);
                     break;
                 case ROLL_49:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(1500, rollMultiplier, CustomItems.scrollOfTownPortal.getTemplateId(), 100f, source, performer, comm);
+                    singleItemTwoRollInsert(1500, rollMultiplier, CustomItems.scrollOfTownPortal.getTemplateId(), 100f, source, performer, comm);
                     break;
                 case ROLL_50:
                     MachinaOfFortuneHelpers.singleItemTwoRollDataChangeInsert(100, rollMultiplier, ItemList.blood, 100f, -1, 3 + Server.rand.nextInt(115), (byte) -1, source, performer, comm);
@@ -253,14 +257,14 @@ class CoinInsertion {
                     MachinaOfFortuneHelpers.multipleItemOneRollInsert(10, ItemList.baitWurm, 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_52:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomMaskTemplates(), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomMaskTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_53:
-                    MachinaOfFortuneHelpers.singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomHorseEquipmentTemplates(), 1f, 100f, source, performer, comm);
+                    singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomHorseEquipmentTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_54:
                     if (rollMultiplier * Server.rand.nextInt(100 - 1) == 0) {
-                        Item item = ItemFactory.createItem(RandomUtils.randomRuneMaterialIds(), (float) RequiemUtilities.generateRandomDouble(10f, 100f), "");
+                        Item item = ItemFactory.createItem(RandomUtils.randomRuneMaterialIds(), (float) generateRandomDouble(10f, 100f), "");
                         item.setMaterial(RandomUtils.randomRuneMaterialIds());
                         item.setRealTemplate(RandomUtils.randomRiftItemTemplates());
                         performer.getInventory().insertItem(item, true);

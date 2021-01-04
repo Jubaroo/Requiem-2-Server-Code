@@ -9,6 +9,8 @@ import com.wurmonline.shared.constants.Enchants;
 import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.server.Constants;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
@@ -83,7 +85,7 @@ public class ItemTools {
             if (effs == null) {
                 effs = new ItemSpellEffects(enchantOrb.getWurmId());
             }
-            byte enchant = (byte) RequiemUtilities.getRandArrayByte(enchantOrbEnchants); // changed
+            byte enchant = (byte) RequiemTools.getRandArrayByte(enchantOrbEnchants); // changed
             SpellEffect eff = new SpellEffect(enchantOrb.getWurmId(), enchant, power, 20000000);
             effs.addSpellEffect(eff);
             enchantOrb.setDescription(String.format("%s %d", eff.getName(), Math.round(power)));
@@ -164,7 +166,7 @@ public class ItemTools {
                     ItemList.stoneChisel,
                     ItemList.anvilSmall
             };
-            int template = RequiemUtilities.getRandArrayInt(templates);
+            int template = RequiemTools.getRandArrayInt(templates);
             float quality = 100;
             for (int i = 0; i < 2; i++) {
                 quality = Math.min(quality, Math.max((float) 10, 70 * Server.rand.nextFloat()));
@@ -184,7 +186,7 @@ public class ItemTools {
                     Materials.MATERIAL_GLIMMERSTEEL,
                     Materials.MATERIAL_SERYLL
             };
-            byte material = (byte) RequiemUtilities.getRandArrayByte(materials); // changed
+            byte material = (byte) RequiemTools.getRandArrayByte(materials); // changed
             byte rarity = 0;
             if (Server.rand.nextInt(80) <= 2) {
                 rarity = 1;

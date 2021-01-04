@@ -15,6 +15,9 @@ import java.lang.reflect.InvocationTargetException;
 
 public class CreatureSize {
 
+    //TODO
+    //move to creature tools
+
     // Enable adjusting size for creatures
     public static float getAdjustedSizeMod(CreatureStatus status) {
         try {

@@ -14,7 +14,8 @@ import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.CreatureTypes;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,7 +71,7 @@ public class DiseasePotionAction implements ModAction, ActionPerformer, Behaviou
             }
             if (counter == 1f) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("You pull the %s from your pocket and feed it to %s. The end of the wand begins to faintly glow...", source.getName(), creature.getName()));
-                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and points it at the %s.", performer.getName(), RequiemUtilities.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), creature.getName()), performer, 5);
+                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and points it at the %s.", performer.getName(), RequiemTools.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), creature.getName()), performer, 5);
                 action.setTimeLeft(timeLeft);
                 performer.sendActionControl("curing", true, timeLeft);
             } else if (counter * 10f > action.getTimeLeft()) {

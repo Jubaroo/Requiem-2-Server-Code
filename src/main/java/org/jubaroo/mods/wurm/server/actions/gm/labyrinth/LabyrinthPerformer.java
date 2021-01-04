@@ -13,6 +13,7 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.misc.maze.Maze;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -132,7 +133,7 @@ public class LabyrinthPerformer implements ModAction {
                     return true;
                 }
                 final String playerEffect = performer.getName() + LabyrinthPerformer.effectName;
-                if (!RequiemUtilities.isPrivateTestServer() && performer.getPower() < LabyrinthPerformer.requiredGMlevel && Cooldowns.isOnCooldown(playerEffect, LabyrinthPerformer.cooldown)) {
+                if (!RequiemTools.isPrivateTestServer() && performer.getPower() < LabyrinthPerformer.requiredGMlevel && Cooldowns.isOnCooldown(playerEffect, LabyrinthPerformer.cooldown)) {
                     performer.getCommunicator().sendNormalServerMessage(String.format("You will need to wait %s before you can do that again.", Cooldowns.timeRemaining(playerEffect, cooldown)));
                     return true;
                 }

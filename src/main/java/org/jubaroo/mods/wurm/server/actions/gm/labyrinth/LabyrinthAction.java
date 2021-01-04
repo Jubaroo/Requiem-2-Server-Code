@@ -126,7 +126,7 @@ public class LabyrinthAction implements ModAction {
                     return true;
                 }
                 //final String playerEffect = performer.getName() + LabyrinthAction.effectName;
-                //if (!RequiemUtilities.isPrivateTestServer() && performer.getPower() < LabyrinthAction.requiredGMlevel && Cooldowns.isOnCooldown(playerEffect, LabyrinthAction.cooldown)) {
+                //if (!RequiemTools.isPrivateTestServer() && performer.getPower() < LabyrinthAction.requiredGMlevel && Cooldowns.isOnCooldown(playerEffect, LabyrinthAction.cooldown)) {
                 //    performer.getCommunicator().sendNormalServerMessage(String.format("You will need to wait %s before you can do that again.", Cooldowns.timeRemaining(playerEffect, cooldown)));
                 //    return true;
                 //}

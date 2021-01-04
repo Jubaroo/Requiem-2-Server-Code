@@ -11,6 +11,7 @@ import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 
 import java.util.Collections;
@@ -78,7 +79,7 @@ public class MachinaOfFortuneAction implements ModAction, ActionPerformer, Behav
             }
             if (counter == 1f) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("You pull a coin from your pocket and insert it into a small slot on the %s. The machine starts to hum with magic...", target.getName()));
-                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and inserts it into the %s.", performer.getName(), RequiemUtilities.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), target.getName()), performer, 5);
+                Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and inserts it into the %s.", performer.getName(), RequiemTools.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), target.getName()), performer, 5);
                 action.setTimeLeft(Math.max(timeLeft, 0));
                 performer.sendActionControl("waiting for fortune", true, action.getTimeLeft());
             } else if (counter * 10f > action.getTimeLeft()) {
@@ -136,7 +137,7 @@ public class MachinaOfFortuneAction implements ModAction, ActionPerformer, Behav
                         CoinInsertion.coinInsert(performer, performer.getCommunicator(), source, rollMultiplier);
                     }
                 }
-                RequiemLogging.logInfo(String.format("%s has used %s %s %s on a %s", RequiemUtilities.a_an_FromTemplateId(source.getTemplateId()), performer.getNameWithoutPrefixes(), source.getMaterial(), source.getName(), target.getName()));
+                RequiemLogging.logInfo(String.format("%s has used %s %s %s on a %s", RequiemTools.a_an_FromTemplateId(source.getTemplateId()), performer.getNameWithoutPrefixes(), source.getMaterial(), source.getName(), target.getName()));
                 return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
             }
             return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

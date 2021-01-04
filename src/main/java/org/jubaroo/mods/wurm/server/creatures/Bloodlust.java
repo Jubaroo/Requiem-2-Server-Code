@@ -15,17 +15,16 @@ public class Bloodlust {
     protected static HashMap<Long, Float> lusts = new HashMap<>();
     protected static HashMap<Long, Long> lastLusted = new HashMap<>();
 
-
     public static float lustUnique(Creature creature) {
         long wurmid = creature.getWurmId();
         if (lusts.containsKey(wurmid)) {
             float currentLust = lusts.get(wurmid);
             if (currentLust >= 1f) { // When dealing more than 100% extra damage
-                Server.getInstance().broadCastAction(creature.getName() + " becomes enraged!", creature, 50);
+                Server.getInstance().broadCastAction(String.format("%s becomes enraged!", creature.getName()), creature, 50);
             } else if (currentLust >= 0.49f) { // When dealing between 50% and 100% extra damage.
-                Server.getInstance().broadCastAction(creature.getName() + " is becoming enraged!", creature, 50);
+                Server.getInstance().broadCastAction(String.format("%s is becoming enraged!", creature.getName()), creature, 50);
             } else {
-                Server.getInstance().broadCastAction(creature.getName() + " is beginning to see red!", creature, 50);
+                Server.getInstance().broadCastAction(String.format("%s is beginning to see red!", creature.getName()), creature, 50);
             }
             lusts.put(wurmid, currentLust + 0.01f);
         } else {
@@ -47,10 +46,10 @@ public class Bloodlust {
     public static void pollLusts() {
         for (Long wurmid : lastLusted.keySet()) {
             if (System.currentTimeMillis() >= lastLusted.get(wurmid) + TimeConstants.MINUTE_MILLIS * 10) {
-                RequiemLogging.logInfo("Bloodlust for " + wurmid + " expired. Removing from lists.");
+                RequiemLogging.logInfo(String.format("Bloodlust for %d expired. Removing from lists.", wurmid));
                 Creature creature = Creatures.getInstance().getCreatureOrNull(wurmid);
                 if (creature != null && !creature.isDead()) {
-                    Server.getInstance().broadCastAction(creature.getName() + " calms down and is no longer enraged.", creature, 50);
+                    Server.getInstance().broadCastAction(String.format("%s calms down and is no longer enraged.", creature.getName()), creature, 50);
                 }
                 lastLusted.remove(wurmid);
                 lusts.remove(wurmid);

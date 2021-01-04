@@ -10,6 +10,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -71,7 +72,7 @@ public class ScrollOfVillageCreateAction implements ModAction, ActionPerformer, 
                 action.setTimeLeft(timeLeft);
                 performer.sendActionControl(actStrVerb, true, timeLeft);
             } else if (counter * 10f > action.getTimeLeft()) {
-                float bonus = v.getFaithCreateValue() + RequiemUtilities.getRandomIntegerInRange(1, 10);
+                float bonus = v.getFaithCreateValue() + RequiemTools.getRandomIntegerInRange(1, 10);
                 v.setFaithCreate(bonus);
                 Items.destroyItem(source.getWurmId());
                 performer.getCommunicator().sendNormalServerMessage("The scroll crumbles to dust as you read the last word. You have added a faith bonus to  your settlement: Enchanting faith bonus is now (" + nf.format(v.getFaithCreateValue()) + "): " + nf.format(v.getFaithCreateBonus()) + "%, Rarity window: " + (int)Math.min(10.0f, v.getFaithCreateValue()) + " bonus seconds.");

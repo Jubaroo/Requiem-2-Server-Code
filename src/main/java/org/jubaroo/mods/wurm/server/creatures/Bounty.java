@@ -13,7 +13,6 @@ import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.creatures.bounty.PlayerBounty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,9 +97,10 @@ public class Bounty {
             final Class<Bounty> thisClass = Bounty.class;
 
             CtClass ctCreature = classPool.get("com.wurmonline.server.creatures.Creature");
-
-            // Give coin bounty based on creature strength
             String replace;
+
+            /*
+            // Give coin bounty based on creature strength
             replace = String.format("%s.checkPlayerBounty(player, this);$_ = $proceed($$);", PlayerBounty.class.getName());
             Util.instrumentDeclared(thisClass, ctCreature, "modifyFightSkill", "checkCoinAward", replace);
 
@@ -115,7 +115,7 @@ public class Bounty {
 
             replace = String.format("$_ = $proceed($$);%s.checkLootTable(this, corpse);", CreatureLootOnDeath.class.getName());
             Util.instrumentDescribed(thisClass, ctCreature, "die", desc1, "setRotation", replace);
-
+            */
             CtClass[] params = {
                     CtClass.intType,
                     CtClass.booleanType,
@@ -131,6 +131,7 @@ public class Bounty {
                     CtClass.byteType,
                     CtClass.intType
             };
+
             String desc = Descriptor.ofMethod(ctCreature, params);
 
             // Debugging to show all new creatures created.

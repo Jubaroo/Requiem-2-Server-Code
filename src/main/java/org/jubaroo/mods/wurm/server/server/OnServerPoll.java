@@ -19,7 +19,8 @@ import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.Misc;
-import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
 import java.lang.reflect.InvocationHandler;
@@ -40,7 +41,7 @@ public class OnServerPoll {
                     @Override
                     public Object invoke(Object object, Method method, Object[] args) throws Throwable {
                         long now = System.currentTimeMillis();
-                        //if (!RequiemUtilities.isPrivateTestServer()) {
+                        //if (!RequiemTools.isPrivateTestServer()) {
                             if (now - Constants.lastPolledMyceliumChange > Constants.delayMyceliumChange) {
                                 RequiemLogging.debug(String.format("OnServerPoll change to mycelium at %d, time since last poll : %d minute(s)", Constants.lastPolledMyceliumChange, (now - Constants.lastPolledMyceliumChange) / TimeConstants.MINUTE_MILLIS));
                                 Constants.lastPolledMyceliumChange = now;
@@ -90,7 +91,7 @@ public class OnServerPoll {
                                 }
                             }
                             if (now - Constants.lastPolledFogGoblins > Constants.delayFogGoblins) {
-                                RequiemLogging.debug(String.format("OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemUtilities.toPercentage(Server.getWeather().getFog(), 2)));
+                                RequiemLogging.debug(String.format("OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemTools.toPercentage(Server.getWeather().getFog(), 2)));
                                 Constants.lastPolledFogGoblins = now;
                                 Misc.pollFogGoblins();
                             }
@@ -155,7 +156,7 @@ public class OnServerPoll {
                         //        }
                         //    }
                         //    if (now - Constants.lastPolledFogGoblins > Constants.testDelayFogGoblins) {
-                        //        RequiemLogging.debug(String.format("=== TESTING ===  OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemUtilities.toPercentage(Server.getWeather().getFog(), 2)));
+                        //        RequiemLogging.debug(String.format("=== TESTING ===  OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemTools.toPercentage(Server.getWeather().getFog(), 2)));
                         //        Constants.lastPolledFogGoblins = now;
                         //        Misc.pollFogGoblins();
                         //    }
@@ -286,7 +287,7 @@ public class OnServerPoll {
                 Creature creature = allCreatures.remove(Server.rand.nextInt(allCreatures.size()));
                 if (!creature.isPlayer() && CreatureTools.isOkToDestroy(creature)) {
                     creature.destroy();
-                    RequiemLogging.debug(String.format("Culling %s %s (WurmId: %s) in %s", RequiemUtilities.a_an(creature.getNameWithoutPrefixes()), creature.getNameWithoutPrefixes(), creature.getWurmId(), zone.getName()));
+                    RequiemLogging.debug(String.format("Culling %s %s (WurmId: %s) in %s", RequiemTools.a_an(creature.getNameWithoutPrefixes()), creature.getNameWithoutPrefixes(), creature.getWurmId(), zone.getName()));
                 }
             }
         });
@@ -325,7 +326,7 @@ public class OnServerPoll {
                         Server.setSurfaceTile(x, y, Tiles.decodeHeight(tile), theTile.getTreeType(data).asMyceliumTree(), data);
                     else if (theTile.isBush())
                         Server.setSurfaceTile(x, y, Tiles.decodeHeight(tile), theTile.getBushType(data).asMyceliumBush(), data);
-                    else if (theTile.isRoad() || RequiemUtilities.isMineDoor(theTile) || theTile.getId() == Tiles.TILE_TYPE_DIRT_PACKED || theTile.isEnchanted() || Tiles.isMineDoor(theTile) || theTile.getId() == Tiles.TILE_TYPE_ROCK || theTile.getId() == Tiles.TILE_TYPE_CLAY || theTile.getId() == Tiles.TILE_TYPE_MOSS || theTile.getId() == Tiles.TILE_TYPE_PEAT || theTile.getId() == Tiles.TILE_TYPE_SAND)
+                    else if (theTile.isRoad() || RequiemTools.isMineDoor(theTile) || theTile.getId() == Tiles.TILE_TYPE_DIRT_PACKED || theTile.isEnchanted() || Tiles.isMineDoor(theTile) || theTile.getId() == Tiles.TILE_TYPE_ROCK || theTile.getId() == Tiles.TILE_TYPE_CLAY || theTile.getId() == Tiles.TILE_TYPE_MOSS || theTile.getId() == Tiles.TILE_TYPE_PEAT || theTile.getId() == Tiles.TILE_TYPE_SAND)
                         continue;
                     else
                         Server.setSurfaceTile(x, y, Tiles.decodeHeight(tile), Tiles.Tile.TILE_MYCELIUM.id, (byte) 0);

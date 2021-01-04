@@ -3,7 +3,7 @@ package org.jubaroo.mods.wurm.server.communication.commands;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.creatures.Creature;
-import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 
 import java.util.HashMap;
 import java.util.SortedSet;

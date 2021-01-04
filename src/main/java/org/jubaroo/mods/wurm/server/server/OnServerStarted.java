@@ -16,7 +16,7 @@ import org.jubaroo.mods.wurm.server.misc.SkillChanges;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
 import org.jubaroo.mods.wurm.server.tools.CmdTools;
-import org.jubaroo.mods.wurm.server.tools.CreatureHelper;
+import org.jubaroo.mods.wurm.server.creatures.CreatureHelper;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 import org.jubaroo.mods.wurm.server.utils.Compat3D;
 

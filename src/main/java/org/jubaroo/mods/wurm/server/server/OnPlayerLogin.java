@@ -12,7 +12,8 @@ import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.MiscHooks;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
-import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 public class OnPlayerLogin {
 
@@ -61,55 +62,55 @@ public class OnPlayerLogin {
     }
 
     private static void holidayLogin(Player player) {
-        if (WurmCalendar.isEaster() | RequiemUtilities.isPrivateTestServer()) {
+        if (WurmCalendar.isEaster() | RequiemTools.isPrivateTestServer()) {
             String message = "Happy Easter! Be on the lookout for the Easter Bunny and its eggs!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemValentinesDay() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemValentinesDay() | RequiemTools.isPrivateTestServer()) {
             String message = "Happy Valentines Day!";
             RequiemValentinesGift.onPlayerLogin(player);
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemIndependenceDay() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemIndependenceDay() | RequiemTools.isPrivateTestServer()) {
             RequiemIndependenceDayGift.onPlayerLogin(player);
             String message = "Happy Independence Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemCanadaDay() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemCanadaDay() | RequiemTools.isPrivateTestServer()) {
             RequiemCanadaDayGift.onPlayerLogin(player);
             String message = "Happy Canada Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemVictoriaDay() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemVictoriaDay() | RequiemTools.isPrivateTestServer()) {
             RequiemVictoriaDayGift.onPlayerLogin(player);
             String message = "Happy Victoria Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemThanksgiving() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemThanksgiving() | RequiemTools.isPrivateTestServer()) {
             RequiemThanksgivingGift.onPlayerLogin(player);
             String message = "Happy Thanksgiving Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemHalloween() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemHalloween() | RequiemTools.isPrivateTestServer()) {
             String message = "Happy Halloween! The creepy crawly creatures are out and about. Go out and find some Halloween fun, but don't eat too many sweets!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemAnniversary() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemAnniversary() | RequiemTools.isPrivateTestServer()) {
             RequiemAnniversaryGift.onPlayerLogin(player);
             String message = String.format("It is now Requiem of Wurm's %s anniversary! December 1st through December 14th, we are celebrating our %s year here at Requiem of Wurm. Thank you for your support and for choosing this server. See you next year!", RequiemAnniversaryGift.formattedYear, RequiemAnniversaryGift.formattedYear);
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemChristmas() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemChristmas() | RequiemTools.isPrivateTestServer()) {
             RequiemChristmasGift.onPlayerLogin(player);
             String message = "Merry Christmas to you! Enjoy your presents from Santa and be careful that the grinch does not pay you a visit.";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemNewYear() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemNewYear() | RequiemTools.isPrivateTestServer()) {
             RequiemNewYearGift.onPlayerLogin(player);
             String message = "Happy New Year!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        if (Holidays.isRequiemStPatricksDay() | RequiemUtilities.isPrivateTestServer()) {
+        if (Holidays.isRequiemStPatricksDay() | RequiemTools.isPrivateTestServer()) {
             RequiemStPatrickDayGift.onPlayerLogin(player);
             String message = "Happy St. Patrick's Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);

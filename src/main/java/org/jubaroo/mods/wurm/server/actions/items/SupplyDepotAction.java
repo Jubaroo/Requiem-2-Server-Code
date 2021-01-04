@@ -16,7 +16,8 @@ import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
-import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.util.Collections;
 import java.util.List;
@@ -90,10 +91,10 @@ public class SupplyDepotAction implements ModAction {
                             }
                             performer.sendActionControl("Capturing", true, act.getTimeLeft());
                             SupplyDepotBehaviour.maybeBroadcastOpen(performer);
-                            int newCreature = RequiemUtilities.getRandArrayInt(CreatureTools.randomDepotCreature);
+                            int newCreature = RequiemTools.getRandArrayInt(CreatureTools.randomDepotCreature);
                             if (item.getAuxData() == 0) {
-                                for (int i = 0; i < (int) RequiemUtilities.generateRandomDouble(3, 6); i++) {
-                                    Creature creature = Creature.doNew(newCreature, (byte) RequiemUtilities.getRandArrayInt(CreatureTools.randomCreatureType), item.getPosX() - 5f + Server.rand.nextFloat() * 10, item.getPosY() - 5f + Server.rand.nextFloat() * 10, Server.rand.nextFloat() * 360f, performer.getLayer(), "", Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
+                                for (int i = 0; i < (int) RequiemTools.generateRandomDouble(3, 6); i++) {
+                                    Creature creature = Creature.doNew(newCreature, (byte) RequiemTools.getRandArrayInt(CreatureTools.randomCreatureType), item.getPosX() - 5f + Server.rand.nextFloat() * 10, item.getPosY() - 5f + Server.rand.nextFloat() * 10, Server.rand.nextFloat() * 360f, performer.getLayer(), "", Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                                     final boolean done = performer.getCombatHandler().attack(creature, Server.getCombatCounter(), false, counter, act);
                                     CreatureBehaviour.setOpponent(creature, performer, done, act);
                                     //creature.setOpponent(performer);
@@ -103,10 +104,10 @@ public class SupplyDepotAction implements ModAction {
                             }
                         } else if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
                             Item inv = performer.getInventory();
-                            inv.insertItem(ItemFactory.createItem(CustomItems.requiemDepotCacheId, (float) RequiemUtilities.generateRandomDouble(99, 99.9), ""), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.sorceryFragmentId, (float) RequiemUtilities.generateRandomDouble(99, 99.9), ""), true);
+                            inv.insertItem(ItemFactory.createItem(CustomItems.requiemDepotCacheId, (float) RequiemTools.generateRandomDouble(99, 99.9), ""), true);
+                            inv.insertItem(ItemFactory.createItem(CustomItems.sorceryFragmentId, (float) RequiemTools.generateRandomDouble(99, 99.9), ""), true);
                             //ItemTool.lumps.setWeight(20000, true);
-                            //inv.insertItem(ItemFactory.createItem(RequiemUtilities.getRandArrayInt(ItemTool.lumpTemplates), (float) RequiemUtilities.generateRandomDouble(90, 99), ""), true);
+                            //inv.insertItem(ItemFactory.createItem(RequiemTools.getRandArrayInt(ItemTool.lumpTemplates), (float) RequiemTools.generateRandomDouble(90, 99), ""), true);
                             comm.sendSafeServerMessage("You have successfully captured the depot!");
                             Server.getInstance().broadCastAction(String.format("%s successfully captures the depot!", performer.getName()), performer, 50);
                             SupplyDepotBehaviour.broadcastCapture(performer);

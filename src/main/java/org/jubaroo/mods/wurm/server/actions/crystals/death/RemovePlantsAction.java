@@ -12,6 +12,7 @@ import com.wurmonline.server.items.Item;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -34,7 +35,7 @@ public class RemovePlantsAction implements ModAction, BehaviourProvider, ActionP
         if (performer.isPlayer() && object != null && object.getTemplateId() == CustomItems.deathCrystal.getTemplateId() &&
                 object.getTopParent() == performer.getInventory().getWurmId()) {
 
-            return RequiemUtilities.isTreeGrassBushTile(Tiles.decodeType(tile)) || RequiemUtilities.isEnchantedTile(Tiles.decodeType(tile));
+            return RequiemTools.isTreeGrassBushTile(Tiles.decodeType(tile)) || RequiemTools.isEnchantedTile(Tiles.decodeType(tile));
 
         } else return false;
     }
