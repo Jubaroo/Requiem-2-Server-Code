@@ -7,12 +7,12 @@ import com.wurmonline.shared.constants.Enchants;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.MiscHooks;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
-import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 public class OnPlayerLogin {

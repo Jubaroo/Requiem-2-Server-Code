@@ -145,7 +145,7 @@ public class MethodsBestiary {
             Util.instrumentDeclared(thisClass, ctCreature, "checkPregnancy", "saveCreatureName", replace);
 
             Util.setReason("Set custom corpse sizes.");
-            replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", CreatureSize.class.getName(), CreatureSize.class.getName());
+            replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", CreatureTools.class.getName(), CreatureTools.class.getName());
             Util.instrumentDescribed(thisClass, ctCreature, "die", desc5, "addItem", replace);
 
             Util.setReason("Add spell resistance to custom creatures.");

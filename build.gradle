@@ -19,10 +19,10 @@ configurations {
 }
 
 dependencies {
-    shadowed 'net.dv8tion:JDA:3.8.3_462'
+    shadowed 'net.dv8tion:JDA:4.2.0_225'
     shadowed 'org.slf4j:slf4j-jdk14:1.7.25'
     compile 'org.gotti.wurmunlimited:server-modlauncher:0.43'
-    compile 'com.github.bdew-wurm:bdew_server_mod_tools:v1.0.0'
+    implementation 'com.github.bdew-wurm:bdew_server_mod_tools:loot-SNAPSHOT'
     compile 'com.github.bdew-wurm:threedee:v0.20'
     compile 'com.github.Sindusk:sindusklibrary:v2.5'
     compile 'com.github.Sindusk:TreasureHunting:v2.1'

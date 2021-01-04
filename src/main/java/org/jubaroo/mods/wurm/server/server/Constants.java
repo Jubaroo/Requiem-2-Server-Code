@@ -429,7 +429,7 @@ public class Constants {
     //===================================================================
     //=========================== LOGGING ===============================
     //===================================================================
-    public static String VERSION = "2.0";
+    public static String VERSION = "2.1";
     public static boolean executionCostLogging = true;
     public static boolean debug = false;
     public static boolean logExecutionCost = true;

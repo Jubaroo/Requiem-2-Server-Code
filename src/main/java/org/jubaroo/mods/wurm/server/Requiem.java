@@ -36,7 +36,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             RequiemLogging.logInfo("======= Adding Creatures & Mount Settings for Creatures=======");
             CustomCreatures.registerCustomCreatures();
             CreatureSpawns.spawnTable();
-            MountedChanges.registerCustomCreaturesVehicleSettings();
+            CustomMountSettings.registerCustomMountSettings();
             RequiemLogging.logInfo("======= Creating Item Mod items =======");
             RequiemLogging.logInfo("======= Creating Cache items =======");
             if (!Constants.disableItemMods) {

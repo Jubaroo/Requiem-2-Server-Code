@@ -7,6 +7,7 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.AddActions;
 import org.jubaroo.mods.wurm.server.communication.KeyEvent;
 import org.jubaroo.mods.wurm.server.communication.commands.*;
+import org.jubaroo.mods.wurm.server.creatures.CreatureHelper;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
@@ -16,7 +17,6 @@ import org.jubaroo.mods.wurm.server.misc.SkillChanges;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
 import org.jubaroo.mods.wurm.server.tools.CmdTools;
-import org.jubaroo.mods.wurm.server.creatures.CreatureHelper;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 import org.jubaroo.mods.wurm.server.utils.Compat3D;
 

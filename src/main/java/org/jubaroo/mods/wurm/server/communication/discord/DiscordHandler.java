@@ -1,19 +1,18 @@
 package org.jubaroo.mods.wurm.server.communication.discord;
 
-import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Players;
 import com.wurmonline.server.Servers;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.ChannelType;
-import net.dv8tion.jda.core.entities.Game;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.StatusChangeEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.ChannelType;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.StatusChangeEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.server.Constants;
 
@@ -56,7 +55,7 @@ public class DiscordHandler extends ListenerAdapter {
         }
 
         try {
-            jda = new JDABuilder(AccountType.BOT).setToken(Constants.botToken).addEventListener(new DiscordHandler()).build();
+            jda = JDABuilder.create(Constants.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
         } catch (LoginException e) {
             RequiemLogging.logException("Error connecting to discord", e);
         }
@@ -66,14 +65,11 @@ public class DiscordHandler extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         if (event.isFromType(ChannelType.TEXT) && !event.getAuthor().isBot()) {
             CustomChannel channel = CustomChannel.findByDiscordName(event.getTextChannel().getName());
-            if (channel != null && !channel.discordOnly) {
-                String name = event.getMember().getNickname();
-                if (name == null) name = event.getAuthor().getName();
+            if (channel != null && !channel.discordOnly && event.getMember() != null) {
+                String name = event.getMember().getEffectiveName();
                 for (Message.Attachment att : event.getMessage().getAttachments()) {
                     String url = att.getUrl();
-                    if (url != null) {
-                        ChatHandler.sendToPlayersAndServers(channel, "@" + name, url, MiscConstants.NOID, -1, -1, -1);
-                    }
+                    ChatHandler.sendToPlayersAndServers(channel, "@" + name, url, -10L, -1, -1, -1);
                 }
                 String msg = event.getMessage().getContentDisplay().trim();
                 for (Map.Entry<String, String> p : emojis.entrySet()) {
@@ -82,7 +78,7 @@ public class DiscordHandler extends ListenerAdapter {
                 for (String part : msg.split("\n")) {
                     part = part.trim();
                     if (part.length() > 0) {
-                        ChatHandler.sendToPlayersAndServers(channel, "@" + name, part, MiscConstants.NOID, -1, -1, -1);
+                        ChatHandler.sendToPlayersAndServers(channel, "@" + name, part, -10L, -1, -1, -1);
                     }
                 }
             }
@@ -137,13 +133,13 @@ public class DiscordHandler extends ListenerAdapter {
         if (System.currentTimeMillis() > lastStatusUpdate + 30000 && jda != null && jda.getStatus() == JDA.Status.CONNECTED) {
             lastStatusUpdate = System.currentTimeMillis();
 
-            int players = Arrays.stream(Servers.getAllServers())
+            int players = Arrays.stream(com.wurmonline.server.Servers.getAllServers())
                     .filter(i -> i.id != Servers.localServer.id)
                     .mapToInt(i -> i.currentPlayers)
                     .sum() + Players.getInstance().getNumberOfPlayers();
 
             if (players != lastPlayers) {
-                jda.getPresence().setGame(Game.watching(String.format("%d player%s online", players, players == 1 ? "" : "s")));
+                jda.getPresence().setActivity(Activity.watching(String.format("%d player%s online", players, players == 1 ? "" : "s")));
                 RequiemLogging.logInfo(String.format("Sent status update (%d) players", players));
                 lastPlayers = players;
             }

@@ -38,7 +38,7 @@ public class PreInit {
             RareSpawns.preInit();
             MethodsBestiary.preInit();
             MeditationPerks.preInit();
-            MountedChanges.preInit();
+            CustomMountSettings.preInit();
             QualityOfLife.preInit();
             ItemRemoval.preInit();
             Fishing.preInit();

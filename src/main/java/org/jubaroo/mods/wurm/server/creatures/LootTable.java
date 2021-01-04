@@ -13,6 +13,8 @@ import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.villages.Villages;
 import com.wurmonline.shared.constants.ItemMaterials;
 import com.wurmonline.shared.constants.SoundNames;
+import net.bdew.wurm.tools.server.loot.LootManager;
+import net.bdew.wurm.tools.server.loot.LootRule;
 import org.gotti.wurmunlimited.modsupport.IdFactory;
 import org.gotti.wurmunlimited.modsupport.IdType;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
@@ -34,6 +36,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LootTable {
+
+
 
     private static <T> Stream<T> streamOfNullable(T v) {
         return v == null ? Stream.empty() : Stream.of(v);
@@ -67,41 +71,20 @@ public class LootTable {
         }
     }
 
-    private static void lootDrop(Creature creature, Map<Long, Long>attackers, int creatureId) {
-        long now = System.currentTimeMillis();
-        Set<Player> killers = attackers.entrySet().stream()
-                .filter(e -> now - e.getValue() < (TimeConstants.MINUTE_MILLIS * 10) && WurmId.getType(e.getKey()) == 0)
-                .flatMap(e -> streamOfNullable(Players.getInstance().getPlayerOrNull(e.getKey())))
-                .collect(Collectors.toSet());
-
-        if (creature.getTemplate().getTemplateId() == creatureId) {
-            killers.forEach(killer -> {
-                Item inv = killer.getInventory();
-                //TODO find a way to make loot drops work
-                for (int i = 0; i < 2; i++) {
-                    inv.insertItem(Objects.requireNonNull(ItemTools.createRandomToolWeapon(1f, 99f, "")));
-                }
-                for (int i = 0; i < 4; i++) {
-                    try {
-                        inv.insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1, 99), ""));
-                    } catch (FailedException | NoSuchTemplateException e) {
-                        e.printStackTrace();
-                    }
-                }
-                try {
-                    inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                } catch (FailedException | NoSuchTemplateException e) {
-                    e.printStackTrace();
-                }
-                inv.insertItem(Objects.requireNonNull(ItemTools.createEnchantOrb(110)));
-                Titans.addTitanLoot(killer);
-                killer.addTitle(Titles.Title.getTitle(CustomTitles.TITAN_SLAYER));
-                if (killer.hasLink()) {
-                    killer.getCommunicator().sendNormalServerMessage(String.format("You grab some gems, an enchant orb, and some other things from the corpse of the titan %s.", creature.getNameWithoutPrefixes()));
-                }
-            });
-        }
-
+    /**
+     * Here we decide the loot for killing creatures
+     */
+    public static void creatureDied() {
+        LootManager.add(
+                LootRule.create()
+                        .requireTemplateIds(CustomCreatures.blackKnightId, CustomCreatures.blackKnightId)
+                        .addDrop(CustomItems.lesserFireCrystal.getTemplateId(), 99f, MiscConstants.COMMON, ItemMaterials.MATERIAL_CRYSTAL)
+                        .addTrigger((c, p) -> {
+                            if (p.hasLink()) {
+                                p.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", c.getNameWithoutPrefixes()));
+                            }
+                        })
+        );
     }
 
     /**

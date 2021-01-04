@@ -145,7 +145,7 @@ public class Bounty {
 
             // -- Enable adjusting size for creatures -- //
             CtClass ctCreatureStatus = classPool.get("com.wurmonline.server.creatures.CreatureStatus");
-            Util.setBodyDeclared(thisClass, ctCreatureStatus, "getSizeMod", String.format("{return %s.getAdjustedSizeMod(this);}", CreatureSize.class.getName()));
+            Util.setBodyDeclared(thisClass, ctCreatureStatus, "getSizeMod", String.format("{return %s.getAdjustedSizeMod(this);}", CreatureTools.class.getName()));
 
         } catch (NotFoundException e) {
             throw new HookException(e);
