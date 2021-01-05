@@ -35,11 +35,6 @@ import java.util.stream.Stream;
 
 public class LootTable {
 
-
-    private static <T> Stream<T> streamOfNullable(T v) {
-        return v == null ? Stream.empty() : Stream.of(v);
-    }
-
     private static void handleChampionLoot(Player killer) {
         Item inv = killer.getInventory();
         if (!Constants.disableCreatureLoot) {
@@ -73,6 +68,7 @@ public class LootTable {
      * Here we decide what happens when a creature dies
      */
     public static void creatureDied() {
+        // Uniques
         LootManager.add(
                 LootRule.create()
                         .requireUnique()
@@ -94,35 +90,97 @@ public class LootTable {
                             }
                         })
         );
+        // Rare Creatures
         LootManager.add(
                 LootRule.create()
-                        //.addDrop(ItemTools.createRandomMaterialsConstruction(30f, 99f, ""))
                         .addTrigger((c, p) -> {
-                            MethodsBestiary.isRareCreature(c);
+                            if (p.hasLink() && MethodsBestiary.isRareCreature(c)) {
+                                try {
+                                    for (int i = 0; i < 3; i++) {
+                                        p.getInventory().insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsConstruction(30f, 99f, "")));
+                                    }
+                                    for (int i = 0; i < 5; i++) {
+                                        p.getInventory().insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
+                                    }
+                                    p.getInventory().insertItem(ItemFactory.createItem(CustomItems.riftCache.getTemplateId(), 50f + (30f * Server.rand.nextFloat()), c.getName()), true);
+                                } catch (FailedException | NoSuchTemplateException e) {
+                                    e.printStackTrace();
+                                }
+                                p.getCommunicator().sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes()));
+                            }
+                        })
+        );
+        // Titans
+        LootManager.add(
+                LootRule.create()
+                        .addDrop(CustomItems.treasureBoxId, RequiemTools.getRandomFloatInRange(50f, 99f), Materials.MATERIAL_GOLD, RequiemTools.randomRarity())
+                        .addTrigger((c, p) -> {
+                            if (p.hasLink() && Titans.isTitan(c)) {
+                                DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("The Titan %s has been defeated!", c.getNameWithoutPrefixes()));
+                                p.getCommunicator().sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes()));
+                                for (int i = 0; i < 2; i++) {
+                                    p.getInventory().insertItem(Objects.requireNonNull(ItemTools.createRandomToolWeapon(1f, 99f, "")));
+                                }
+                                for (int i = 0; i < 4; i++) {
+                                    try {
+                                        p.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1, 99), ""));
+                                    } catch (FailedException | NoSuchTemplateException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                try {
+                                    p.getInventory().insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
+                                } catch (FailedException | NoSuchTemplateException e) {
+                                    e.printStackTrace();
+                                }
+                                p.getInventory().insertItem(Objects.requireNonNull(ItemTools.createEnchantOrb(110)));
+                                Titans.addTitanLoot(p);
+                                p.addTitle(Titles.Title.getTitle(CustomTitles.TITAN_SLAYER));
+                            }
+                        })
+        );
+
+        //TODO move to bottom
+        // All creatures
+        LootManager.add(
+                LootRule.create()
+                        .triggerChance(3f)
+                        .addDrop(CustomItems.scrollOfVillageCreation.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON)
+                        .triggerChance(3f)
+                        .addDrop(CustomItems.scrollOfVillageWar.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON)
+                        .triggerChance(3f)
+                        .addDrop(CustomItems.scrollOfVillageHeal.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON)
+                        .addTrigger((c, p) -> {
                             if (p.hasLink()) {
+                                p.getCommunicator().sendNormalServerMessage(String.format("You find something useful on the corpse of %s.", c.getNameWithoutPrefixes()));
+                            }
+                        })
+        );
+        // Champions
+        LootManager.add(
+                LootRule.create()
+                        .addTrigger((c, p) -> {
+                            if (p.hasLink() && c.getStatus().isChampion()) {
+                                handleChampionLoot(p);
                                 p.getCommunicator().sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes()));
                             }
                         })
         );
 
+        LootManager.add(
+                LootRule.create()
+                        .requireTemplateIds(CustomCreatures.blackKnightId)
+                        .addDrop(CustomItems.lesserFireCrystal.getTemplateId(), 99f, MiscConstants.COMMON, ItemMaterials.MATERIAL_CRYSTAL)
+                        .addTrigger((c, p) -> {
+                            if (p.hasLink()) {
+                                p.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", c.getNameWithoutPrefixes()));
+                            }
+                        })
+        );
     }
 
 
     public static void creatureDied(Creature creature, Map<Long, Long> attackers) {
-        int templateId = creature.getTemplate().getTemplateId();
-        int boneChance = 99;
-        int shoulderChance = 50;
-        int maskChance = 50;
-        int candyChance = 5;
-        int taxidermyChance = 45;
-        int xmasChance = 50;
-        int xmasHat = 40;
-        boolean sendLootHelp = false;
-
-        if (creature.isReborn() || creature.isBred()) {
-            return;
-        }
-
         long now = System.currentTimeMillis();
         Set<Player> killers = attackers.entrySet().stream()
                 .filter(e -> now - e.getValue() < (TimeConstants.MINUTE_MILLIS * 10) && WurmId.getType(e.getKey()) == 0)
@@ -135,84 +193,6 @@ public class LootTable {
 
         if (!Constants.disableCreatureLoot) {
             try {
-                if (attackers == null || attackers.isEmpty()) return;
-
-                if (Titans.isTitan(creature)) {
-                    DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("The Titan %s has been defeated!", creature.getNameWithoutPrefixes()));
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        for (int i = 0; i < 2; i++) {
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomToolWeapon(1f, 99f, "")));
-                        }
-                        for (int i = 0; i < 4; i++) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1, 99), ""));
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            e.printStackTrace();
-                        }
-                        inv.insertItem(Objects.requireNonNull(ItemTools.createEnchantOrb(110)));
-                        Titans.addTitanLoot(killer);
-                        killer.addTitle(Titles.Title.getTitle(CustomTitles.TITAN_SLAYER));
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some gems, an enchant orb, and some other things from the corpse of the titan %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (MethodsBestiary.isRareCreature(creature)) {
-                    killers.forEach(killer -> {
-                        try {
-                            Item inv = killer.getInventory();
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsConstruction(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsConstruction(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsConstruction(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomMaterialsLumps(30f, 99f, "")));
-                            inv.insertItem(Objects.requireNonNull(ItemTools.createRandomToolWeapon(30f, 99f, "")));
-                            inv.insertItem(ItemFactory.createItem(CustomItems.riftCache.getTemplateId(), 50f + (30f * Server.rand.nextFloat()), creature.getName()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            e.printStackTrace();
-                        }
-
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId > 0) {
-                    killers.forEach(killer -> {
-                        try {
-                            int roll = Server.rand.nextInt(500);
-                            if (roll == 0) {
-                                Item inv = killer.getInventory();
-                                inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageCreation.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
-                            } else if (roll == 1) {
-                                Item inv = killer.getInventory();
-                                inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageWar.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
-                            } else if (roll == 2) {
-                                Item inv = killer.getInventory();
-                                inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageHeal.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
-                            }
-
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            e.printStackTrace();
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You found a scroll on the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
                 if (creature.getStatus().isChampion()) {
                     killers.forEach(killer -> {
                         handleChampionLoot(killer);

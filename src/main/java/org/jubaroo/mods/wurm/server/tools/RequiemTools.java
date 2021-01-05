@@ -59,6 +59,10 @@ public class RequiemTools {
         return (byte) Server.rand.nextInt(3);
     }
 
+    public static float getRandomFloatInRange(float min, float max) {
+        return Server.rand.nextFloat() * (max - min) + min;
+    }
+
     public static int getRandomIntegerInRange(int min, int max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");

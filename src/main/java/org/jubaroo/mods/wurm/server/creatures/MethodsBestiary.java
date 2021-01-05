@@ -719,13 +719,6 @@ public class MethodsBestiary {
         try {
             ClassPool classPool = HookManager.getInstance().getClassPool();
 
-            CtClass ctCreature = classPool.get("com.wurmonline.server.creatures.Creature");
-
-            if (!Constants.disableCreatureLoot) {
-                ctCreature.getMethod("setDeathEffects", "(ZII)V")
-                        .insertBefore(String.format("%s.creatureDied(this, this.attackers);", LootTable.class.getName()));
-            }
-
             classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z")
                     .insertAfter(String.format("%s.addCreatureHook(this, $1);", EffectsTools.class.getName()));
 
