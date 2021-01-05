@@ -33,6 +33,10 @@ public class ItemTools {
         }
     }
 
+    public static byte randomRarity() {
+        return (byte) Server.rand.nextInt(3);
+    }
+
     public static void applyEnchant(Item item, byte enchant, float power) {
         ItemSpellEffects effs = item.getSpellEffects();
         if (effs == null) {

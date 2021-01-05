@@ -6,9 +6,11 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.CreatureTemplateFactory;
 import com.wurmonline.server.creatures.Creatures;
 import com.wurmonline.server.items.*;
+import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.villages.Villages;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.communication.discord.ChatHandler;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.Bounty;
@@ -19,12 +21,12 @@ import java.util.ArrayList;
 
 public class LootBounty {
 
-    public static void sendLootAssist(Creature c) {
+    public static void sendLootAssist(Creature c, Player p) {
         RequiemLogging.logInfo("Beginning loot assistance message generation...");
-        LootBounty.displayLootAssistance(c);
+        LootBounty.displayLootAssistance(c, p);
     }
 
-    public static void displayLootAssistance(Creature mob) {
+    public static void displayLootAssistance(Creature mob, Player player) {
         if (Bounty.dealtDamage.containsKey(mob.getWurmId())) {
             RequiemLogging.logInfo("Found the damageDealt entry, parsing...");
             ArrayList<String> names = new ArrayList<String>();
@@ -52,7 +54,7 @@ public class LootBounty {
                     strBuilder += ", ";
                 }
             }
-            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, strBuilder);
+            ChatHandler.systemMessage(player, CustomChannel.EVENTS, strBuilder);
             RequiemLogging.logInfo("Broadcast loot assistance message success [Damage].");
         } else {
             RequiemLogging.logWarning(String.format("Powerful creature %s died, but no players were credited to its death [Damage].", mob.getName()));

@@ -227,7 +227,7 @@ class CoinInsertion {
                     singleItemTwoRollInsert(25, rollMultiplier, CustomItems.essenceOfWoodId, 1f, 100f, RandomUtils.randomWoodMaterialIds(), MiscConstants.COMMON, source, performer, comm);
                     break;
                 case ROLL_42:
-                    singleItemTwoRollInsert(150, rollMultiplier, CustomItems.treasureBoxId, 10f, 100f, randomRarity(), 1f, source, performer, comm);
+                    singleItemTwoRollInsert(150, rollMultiplier, CustomItems.treasureBoxId, 10f, 100f, ItemTools.randomRarity(), 1f, source, performer, comm);
                     break;
                 case ROLL_43:
                     singleItemTwoRollInsert(150, rollMultiplier, CustomItems.affinityOrbId, 100f, source, performer, comm);

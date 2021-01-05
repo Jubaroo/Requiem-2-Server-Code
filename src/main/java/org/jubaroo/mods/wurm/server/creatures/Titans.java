@@ -1,7 +1,6 @@
 package org.jubaroo.mods.wurm.server.creatures;
 
 import com.wurmonline.mesh.Tiles;
-import com.wurmonline.server.FailedException;
 import com.wurmonline.server.Players;
 import com.wurmonline.server.Server;
 import com.wurmonline.server.TimeConstants;
@@ -11,9 +10,6 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.Creatures;
 import com.wurmonline.server.creatures.MineDoorPermission;
 import com.wurmonline.server.creatures.SpellEffects;
-import com.wurmonline.server.items.Item;
-import com.wurmonline.server.items.ItemFactory;
-import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.spells.SpellEffect;
 import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.villages.Villages;
@@ -30,8 +26,6 @@ import org.gotti.wurmunlimited.modsupport.ModSupportDb;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
-import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
 import org.jubaroo.mods.wurm.server.server.Constants;
 
 import java.sql.Connection;
@@ -79,25 +73,6 @@ public class Titans {
         }
         RequiemLogging.logInfo("Initialized Titan timer: " + lastSpawnedTitan);
         initializedTitans = true;
-    }
-
-    public static void addTitanLoot(Creature titan) {
-        Item inv = titan.getInventory();
-        int i = 0;
-        while (i < 3) {
-            Item sorcery = ItemTools.createRandomSorcery((byte) 1);
-            if (sorcery != null) {
-                inv.insertItem(sorcery, true);
-            }
-            i++;
-        }
-
-        try {
-            Item cache = ItemFactory.createItem(CustomItems.artifactCache.getTemplateId(), 90f + (10f * Server.rand.nextFloat()), titan.getName());
-            inv.insertItem(cache, true);
-        } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void checkDestroyMineDoor(Creature titan, int x, int y) {

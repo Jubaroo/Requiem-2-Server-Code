@@ -95,6 +95,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                     ItemMod.init();
                     Bounty.init();
                     MethodsBestiary.init();
+                    LootTable.creatureDied();
                     Misc.init();
                     //OnServerPoll.init();
                     QualityOfLife.init();

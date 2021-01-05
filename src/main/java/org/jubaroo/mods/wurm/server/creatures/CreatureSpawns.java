@@ -207,7 +207,6 @@ public class CreatureSpawns {
             if (Titans.isTitan(creature)) {
                 String message = String.format("The titan %s has stepped into the mortal realm. Challenge %s if you dare", creature.getNameWithoutPrefixes(), creature.getHisHerItsString());
                 Titans.addTitan(creature);
-                Titans.addTitanLoot(creature);
                 DiscordHandler.sendToDiscord(CustomChannel.TITAN, message);
                 Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
             }

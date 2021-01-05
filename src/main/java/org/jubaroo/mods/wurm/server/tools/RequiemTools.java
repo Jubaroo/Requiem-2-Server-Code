@@ -55,10 +55,6 @@ public class RequiemTools {
         return ThreadLocalRandom.current().nextDouble(min, max);
     }
 
-    public static byte randomRarity() {
-        return (byte) Server.rand.nextInt(3);
-    }
-
     public static float getRandomFloatInRange(float min, float max) {
         return Server.rand.nextFloat() * (max - min) + min;
     }
