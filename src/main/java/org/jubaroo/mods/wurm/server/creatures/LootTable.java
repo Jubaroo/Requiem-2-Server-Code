@@ -9,8 +9,6 @@ import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.players.Titles;
 import com.wurmonline.server.sounds.SoundPlayer;
-import com.wurmonline.server.villages.Village;
-import com.wurmonline.server.villages.Villages;
 import com.wurmonline.shared.constants.ItemMaterials;
 import com.wurmonline.shared.constants.SoundNames;
 import net.bdew.wurm.tools.server.loot.LootManager;
@@ -36,7 +34,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LootTable {
-
 
 
     private static <T> Stream<T> streamOfNullable(T v) {
@@ -71,28 +68,47 @@ public class LootTable {
         }
     }
 
+
     /**
-     * Here we decide the loot for killing creatures
+     * Here we decide what happens when a creature dies
      */
     public static void creatureDied() {
         LootManager.add(
                 LootRule.create()
-                        .requireTemplateIds(CustomCreatures.blackKnightId, CustomCreatures.blackKnightId)
-                        .addDrop(CustomItems.lesserFireCrystal.getTemplateId(), 99f, MiscConstants.COMMON, ItemMaterials.MATERIAL_CRYSTAL)
+                        .requireUnique()
+                        .triggerChance(50f)
                         .addTrigger((c, p) -> {
                             if (p.hasLink()) {
-                                p.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", c.getNameWithoutPrefixes()));
+                                CreatureTemplate template;
+                                try {
+                                    template = CreatureTemplateFactory.getInstance().getTemplate(RequiemTools.getRandArrayInt(CreatureTools.randomUndead));
+                                    byte ctype = (byte) Math.max(0, Server.rand.nextInt(17) - 5);
+                                    String mes = "An undead creature is released from the underworld, seeking the soul of a powerful creature!";
+                                    Creature.doNew(template.getTemplateId(), true, c.getPosX(), c.getPosY(), Server.rand.nextFloat() * 360f, c.getLayer(), template.getName(), (byte) 0, c.getKingdomId(), ctype, false, (byte) 150);
+                                    p.getCommunicator().sendNormalServerMessage(mes);
+                                    Server.getInstance().broadCastAlert(mes);
+                                    LootBounty.spawnFriyanTablets(5, 10);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         })
         );
+        LootManager.add(
+                LootRule.create()
+                        //.addDrop(ItemTools.createRandomMaterialsConstruction(30f, 99f, ""))
+                        .addTrigger((c, p) -> {
+                            MethodsBestiary.isRareCreature(c);
+                            if (p.hasLink()) {
+                                p.getCommunicator().sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes()));
+                            }
+                        })
+        );
+
     }
 
-    /**
-     * Here we decide the loot for killing creatures
-     * @param creature Creature that died and will give loot
-     * @param attackers Players that were responsible for killing the Creature
-     */
-    public static void creatureDied(Creature creature, Map<Long, Long>attackers) {
+
+    public static void creatureDied(Creature creature, Map<Long, Long> attackers) {
         int templateId = creature.getTemplate().getTemplateId();
         int boneChance = 99;
         int shoulderChance = 50;
@@ -180,12 +196,10 @@ public class LootTable {
                             if (roll == 0) {
                                 Item inv = killer.getInventory();
                                 inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageCreation.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
-                            }
-                            else if (roll == 1) {
+                            } else if (roll == 1) {
                                 Item inv = killer.getInventory();
                                 inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageWar.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
-                            }
-                            else if (roll == 2) {
+                            } else if (roll == 2) {
                                 Item inv = killer.getInventory();
                                 inv.insertItem(ItemFactory.createItem(CustomItems.scrollOfVillageHeal.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON, null), true);
                             }
@@ -790,44 +804,7 @@ public class LootTable {
                     }
                 }
 
-                if (creature.isUnique() && !MethodsBestiary.isRequiemGhost(creature)) {
-                    // Added in new test if statement to prevent spawning stuff from arena kills
-                    Village v = Villages.getVillage(creature.getTileX(), creature.getTileY(), creature.isOnSurface());
-                    if (!v.getName().equals("Event Center")) {
-                        // Spawn random addy/glimmer veins throughout the world
-                        LootBounty.blessWorldWithMoonVeins(creature);
-                    }
-                    // Spawn 5-10 friyan tablets throughout the world.
-                    LootBounty.spawnFriyanTablets(5,10);
-                    // Spawn Spectral Drake
-                    if (Server.rand.nextInt(partsChance) == 0) {
-                        if (creature.isDragon()) {
-                            // Spawn the spectral drake and add extra hide/scale
-                            LootBounty.handleDragonLoot(creature);
-                        }
-                    } else {
-                        // Spawn undead
-                        try {
-                            if (Server.rand.nextInt(partsChance) == 0) {
-                                byte ctype = (byte) Math.max(0, Server.rand.nextInt(17) - 5);
-                                CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(RequiemTools.getRandArrayInt(CreatureTools.randomUndead));
-                                Creature.doNew(template.getTemplateId(), true, creature.getPosX(), creature.getPosY(), Server.rand.nextFloat() * 360f, creature.getLayer(), template.getName(), (byte) 0, creature.getKingdomId(), ctype, false, (byte) 150);
-                                Server.getInstance().broadCastAction(String.format("The death of the %s attracts a powerful being from below, seeking to claim it's soul.", creature.getNameWithoutPrefixes()), creature, 20);
-                                Server.getInstance().broadCastAlert("An undead creature is released from the underworld, seeking the soul of a powerful creature!");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    sendLootHelp = true;
-                }
-
                 CreatureSpawns.creatureSpawnOnDeath(creature);
-
-                if (sendLootHelp) {
-                    RequiemLogging.logInfo("Beginning loot assistance message generation...");
-                    LootBounty.displayLootAssistance(creature);
-                }
 
                 if (Constants.creatureDeathLogging) {
                     RequiemLogging.CreatureDeathLogging(creature);

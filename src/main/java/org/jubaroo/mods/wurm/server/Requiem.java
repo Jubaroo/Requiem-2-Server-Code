@@ -69,6 +69,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         CustomChannel.TITAN.discordName = properties.getProperty("titanName");
         CustomChannel.TRADE.discordName = properties.getProperty("tradeName");
         CustomChannel.LOGINS.discordName = properties.getProperty("loginsName");
+        CustomChannel.SERVER_STATUS.discordName = properties.getProperty("serverStatusName");
     }
 
     @Override

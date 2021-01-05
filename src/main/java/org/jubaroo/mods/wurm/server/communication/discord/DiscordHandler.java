@@ -129,7 +129,6 @@ public class DiscordHandler extends ListenerAdapter {
                 for (CustomChannel channel : CustomChannel.values()) {
                     ConcurrentLinkedQueue<String> sendQueue = sendQueues.get(channel);
                     if (!sendQueue.isEmpty()) {
-                        TextChannel discordChannel = jda.getGuildsByName(Constants.serverName, true).get(0).getTextChannelsByName(channel.discordName, true).get(0);
                         while (!sendQueue.isEmpty()) {
                             String msg = sendQueue.poll();
                             RequiemLogging.logInfo(String.format("Sending queued: [%s] %s", channel, msg));
@@ -158,6 +157,6 @@ public class DiscordHandler extends ListenerAdapter {
                 lastPlayers = players;
             }
         }
-
     }
+
 }

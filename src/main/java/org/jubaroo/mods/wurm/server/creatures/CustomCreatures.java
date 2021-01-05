@@ -5495,7 +5495,7 @@ public class CustomCreatures {
                 .headbuttDamString("bite")
                 .maxAge(500)
                 .armourType(ArmourTemplate.ARMOUR_TYPE_SCALE)
-                .baseCombatRating(50f)
+                .baseCombatRating(53f)
                 .combatDamageType(Wound.TYPE_COLD)
                 .setCombatMoves(new int[]{CombatMove.BASH, CombatMove.STOMP, CombatMove.STUN})
                 .alignment(100f)

@@ -19,6 +19,11 @@ import java.util.ArrayList;
 
 public class LootBounty {
 
+    public static void sendLootAssist(Creature c) {
+        RequiemLogging.logInfo("Beginning loot assistance message generation...");
+        LootBounty.displayLootAssistance(c);
+    }
+
     public static void displayLootAssistance(Creature mob) {
         if (Bounty.dealtDamage.containsKey(mob.getWurmId())) {
             RequiemLogging.logInfo("Found the damageDealt entry, parsing...");

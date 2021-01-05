@@ -131,27 +131,27 @@ public class ChatHandler {
         if (Servers.localServer.LOGINSERVER) {
             RequiemLogging.logInfo("Server started, connecting to discord");
             DiscordHandler.initJda();
-            DiscordHandler.sendToDiscord(CustomChannel.GLOBAL, "**Servers are starting up...**");
+            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:green_circle: Servers are starting up... :green_circle:**");
         }
     }
 
     public static void serverStopped() {
         if (Servers.localServer.LOGINSERVER) {
             RequiemLogging.logInfo("Sending shutdown notice");
-            DiscordHandler.sendToDiscord(CustomChannel.GLOBAL, "**Servers are shutting down. Byeeee~**");
+            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:octagonal_sign: Servers are shutting down. :octagonal_sign:**");
         }
     }
 
     public static void serverAvailable(ServerEntry ent, boolean available) {
         if (Servers.localServer.LOGINSERVER) {
             RequiemLogging.logInfo(String.format("Notifying available change - %s %s", ent.getName(), available));
-            DiscordHandler.sendToDiscord(CustomChannel.GLOBAL, String.format("**%s is %s**", ent.getName(), available ? "now online!" : "shutting down."));
+            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, String.format("**%s is %s**", ent.getName(), available ? "now online!" : "shutting down."));
         }
     }
 
     public static void handleBroadcast(String msg) {
         if (msg.startsWith("The settlement of") || msg.startsWith("Rumours of") || msg.endsWith("has been slain.")) {
-            ChatHandler.sendToPlayersAndServers(CustomChannel.GLOBAL, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
         }
     }
 }

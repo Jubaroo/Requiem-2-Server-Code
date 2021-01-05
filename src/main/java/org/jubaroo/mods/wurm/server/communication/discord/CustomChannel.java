@@ -8,8 +8,9 @@ public enum CustomChannel {
     EVENTS("Events", (byte) -5, false, false),
     TITAN("Titan", (byte) -6, false, false),
     TRADE("Trade", (byte) -7, true, false),
-    TICKETS("*", (byte) -8, false, true),
-    LOGINS("*", (byte) -9, false, true);
+    SERVER_STATUS("*", (byte) -8, false, true),
+    TICKETS("*", (byte) -9, false, true),
+    LOGINS("*", (byte) -10, false, true);
 
     public final String ingameName;
     public String discordName;
