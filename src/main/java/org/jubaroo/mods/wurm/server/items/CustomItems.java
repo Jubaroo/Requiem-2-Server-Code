@@ -2848,8 +2848,8 @@ public class CustomItems {
         nymphPortal = registerPortal("nymph", "nymph portal", "A portal statue. It is in the shape of a nymph.", "nymph");
     }
 
-    private static ItemTemplate registerElementalCrystal(String id, String name, String description, short icon) throws IOException {
-        return new ItemTemplateBuilder(String.format("jubaroo.item.crystal.%s.", id))
+    private static ItemTemplate registerElementalCrystal(String id, String name, String description, short icon, boolean fragments) throws IOException {
+        ItemTemplate temp = new ItemTemplateBuilder(String.format("jubaroo.item.crystal.%s.", id))
                 .name(name, name, description)
                 .imageNumber(icon)
                 .modelName("model.resource.crystal.")
@@ -2868,14 +2868,21 @@ public class CustomItems {
                 .difficulty(200f)
                 .material(ItemMaterials.MATERIAL_CRYSTAL)
                 .build();
+
+        if (fragments) {
+            if (id.equals("lesser.fire")) {
+                temp.setFragmentAmount(5);
+            }
+        }
+        return temp;
     }
 
     private static void registerElementalCrystals() throws IOException {
-        deathCrystal = registerElementalCrystal("death", "crystal of death and decay", "A dark and sinister crystal. It emits an aura of death and decay.", (short) IconConstants.ICON_ARTIFACT_SCAIL_LIBILA);
-        fireCrystal = registerElementalCrystal("fire", "crystal of eternal flame", "A glowing red crystal. It is on fire, yet you are able to hold it in your hand. It emits an aura of burning flames.", (short) IconConstants.ICON_ARTIFACT_ORB_DOOM);
-        frostCrystal = registerElementalCrystal("frost", "crystal of permafrost", "A shiny blue crystal. It is extremely cold in your hand. It emits an aura of wintry chill.", (short) IconConstants.ICON_ARTIFACT_EAR_VYNORA);
-        lifeCrystal = registerElementalCrystal("life", "crystal of life", "A glimmering green crystal. It emits a warm and calming aura.", (short) IconConstants.ICON_ARTIFACT_CHARM_FO);
-        lesserFireCrystal = registerElementalCrystal("lesser.fire", "lesser crystal of eternal flame", "A glowing red crystal. It is on fire, yet you are able to hold it in your hand. It emits an aura of burning flames. It will be destroyed when used.", (short) IconConstants.ICON_ARTIFACT_ORB_DOOM);
+        deathCrystal = registerElementalCrystal("death", "crystal of death and decay", "A dark and sinister crystal. It emits an aura of death and decay.", (short) IconConstants.ICON_ARTIFACT_SCAIL_LIBILA, false);
+        fireCrystal = registerElementalCrystal("fire", "crystal of eternal flame", "A glowing red crystal. It is on fire, yet you are able to hold it in your hand. It emits an aura of burning flames.", (short) IconConstants.ICON_ARTIFACT_ORB_DOOM, false);
+        frostCrystal = registerElementalCrystal("frost", "crystal of permafrost", "A shiny blue crystal. It is extremely cold in your hand. It emits an aura of wintry chill.", (short) IconConstants.ICON_ARTIFACT_EAR_VYNORA, false);
+        lifeCrystal = registerElementalCrystal("life", "crystal of life", "A glimmering green crystal. It emits a warm and calming aura.", (short) IconConstants.ICON_ARTIFACT_CHARM_FO, false);
+        lesserFireCrystal = registerElementalCrystal("lesser.fire", "lesser crystal of eternal flame", "A glowing red crystal. It is on fire, yet you are able to hold it in your hand. It emits an aura of burning flames. It will be destroyed when used.", (short) IconConstants.ICON_ARTIFACT_ORB_DOOM, true);
     }
 
     private static ItemTemplate registerToolBackpack(String id, String name) throws IOException {

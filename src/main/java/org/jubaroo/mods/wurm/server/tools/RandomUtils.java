@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RandomUtils {
 
-    private static final List<Integer> maskTemplates = Arrays.asList(
+    public static final List<Integer> maskTemplates = Arrays.asList(
             ItemList.maskEnlightended,
             ItemList.maskRavager,
             ItemList.maskPale,
