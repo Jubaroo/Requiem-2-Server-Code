@@ -19,7 +19,7 @@ public class OnPlayerLogout {
     private static void logoutAnnouncement(Player player) {
         if (player.getPower() < 5)
             if (!Constants.disableDiscordReliance) {
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s has logged out.", player.getNameWithoutPrefixes()));
+                DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("%s has logged out.", player.getNameWithoutPrefixes()));
             }
     }
 

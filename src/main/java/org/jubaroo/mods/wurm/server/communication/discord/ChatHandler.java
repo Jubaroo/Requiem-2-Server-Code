@@ -138,7 +138,7 @@ public class ChatHandler {
     public static void serverStopped() {
         if (Servers.localServer.LOGINSERVER) {
             RequiemLogging.logInfo("Sending shutdown notice");
-            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:octagonal_sign: Servers are shutting down. :octagonal_sign:**");
+            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:octagonal_sign: Servers are shutting down :octagonal_sign:**");
         }
     }
 

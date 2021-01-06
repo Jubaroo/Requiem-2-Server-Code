@@ -48,7 +48,7 @@ public class RequiemTools {
         return (StringUtilities.isVowel(name.charAt(0))) ? "an" : "a";
     }
 
-    public static double generateRandomDouble(double min, double max) {
+    public static double generateRandomDoubleInRange(double min, double max) {
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }

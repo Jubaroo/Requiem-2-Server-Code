@@ -37,6 +37,19 @@ public class ItemTools {
         return (byte) Server.rand.nextInt(3);
     }
 
+    public static byte makeRarity(int chance, boolean alwaysRare) {
+        byte rarity = 0;
+        if (alwaysRare || Server.rand.nextInt(chance) == 0) {
+            rarity = 1;
+            if (Server.rand.nextInt(chance) == 0) {
+                rarity = 2;
+                if (Server.rand.nextInt(chance) == 0) {
+                    rarity = 3;
+                }
+            }
+        }
+        return rarity;
+    }
     public static void applyEnchant(Item item, byte enchant, float power) {
         ItemSpellEffects effs = item.getSpellEffects();
         if (effs == null) {

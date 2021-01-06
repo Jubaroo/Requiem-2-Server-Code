@@ -135,7 +135,7 @@ class CoinInsertion {
                     break;
                 case ROLL_16:
                     if (rollMultiplier * Server.rand.nextInt(100 - 1) == 0) {
-                        Item item = ItemTools.createEnchantOrb((float) generateRandomDouble(1f, 100f));
+                        Item item = ItemTools.createEnchantOrb((float) generateRandomDoubleInRange(1f, 100f));
                         if (item != null) {
                             performer.getInventory().insertItem(item);
                             MachinaOfFortuneHelpers.sendColoredSingleItemFortune(item, comm);
@@ -152,7 +152,7 @@ class CoinInsertion {
                     MachinaOfFortuneHelpers.singleItemOneRollInsert(RandomUtils.randomFlowerTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_19:
-                    singleItemTwoRollInsert(10, rollMultiplier, ItemList.steak, 1f, 100f, (float) generateRandomDouble(1f, 5f), source, performer, comm);
+                    singleItemTwoRollInsert(10, rollMultiplier, ItemList.steak, 1f, 100f, (float) generateRandomDoubleInRange(1f, 5f), source, performer, comm);
                     break;
                 case ROLL_20:
                     singleItemTwoRollInsert(100, rollMultiplier, ItemList.teleportationTwig, 100f, source, performer, comm);
@@ -200,7 +200,7 @@ class CoinInsertion {
                     singleItemTwoRollInsert(100, rollMultiplier, RandomUtils.randomPotionTemplates(), 1f, 100f, source, performer, comm);
                     break;
                 case ROLL_33:
-                    singleItemTwoRollInsert(200, rollMultiplier, ItemList.drakeHide, 1f, 100f, (float) generateRandomDouble(1f, 2f), source, performer, comm);
+                    singleItemTwoRollInsert(200, rollMultiplier, ItemList.drakeHide, 1f, 100f, (float) generateRandomDoubleInRange(1f, 2f), source, performer, comm);
                     break;
                 case ROLL_34:
                     singleItemTwoRollInsert(150, rollMultiplier, RandomUtils.randomGem(true), 1f, 100f, source, performer, comm);
@@ -264,7 +264,7 @@ class CoinInsertion {
                     break;
                 case ROLL_54:
                     if (rollMultiplier * Server.rand.nextInt(100 - 1) == 0) {
-                        Item item = ItemFactory.createItem(RandomUtils.randomRuneMaterialIds(), (float) generateRandomDouble(10f, 100f), "");
+                        Item item = ItemFactory.createItem(RandomUtils.randomRuneMaterialIds(), (float) generateRandomDoubleInRange(10f, 100f), "");
                         item.setMaterial(RandomUtils.randomRuneMaterialIds());
                         item.setRealTemplate(RandomUtils.randomRiftItemTemplates());
                         performer.getInventory().insertItem(item, true);

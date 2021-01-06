@@ -9,7 +9,6 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
-import org.jubaroo.mods.wurm.server.misc.MiscChanges;
 
 public class CustomChat {
 
@@ -29,16 +28,6 @@ public class CustomChat {
 
     public static void preInit() {
         try {
-            ClassPool classPool = HookManager.getInstance().getClassPool();
-            final Class<MiscChanges> thisClass = MiscChanges.class;
-            String replace;
-
-            // - Announce player titles - //
-            CtClass ctPlayer = classPool.get("com.wurmonline.server.players.Player");
-            Util.setReason("Announce player titles in the titles tab.");
-            replace = String.format("$_ = $proceed($$);if(!com.wurmonline.server.Servers.localServer.PVPSERVER && this.getPower() < 1){  %s.sendTitleTabMessage(\"event\", this.getName()+\" just earned the title of \"+title.getName(this.isNotFemale())+\"!\", 200, 100, 0);}", CustomChat.class.getName());
-            Util.instrumentDeclared(thisClass, ctPlayer, "addTitle", "sendNormalServerMessage", replace);
-
             // Show custom slash commands in /help readout
             ClassPool classpool = HookManager.getInstance().getClassPool();
             Util.setReason("Show Custom Slash Commands In /help Readout");

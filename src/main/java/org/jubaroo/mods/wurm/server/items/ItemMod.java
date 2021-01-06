@@ -215,6 +215,7 @@ public class ItemMod {
         ItemHelper.setFragments(treasureMapCache.getTemplateId(), 38);
         ItemHelper.setFragments(affinityOrbId, 25);
         ItemHelper.setFragments(arcaneShardId, 100);
+        ItemHelper.setFragments(lesserFireCrystal.getTemplateId(), 4);
         // Tier 4
         ItemHelper.setFragments(ItemList.statueWorg, 40);
         ItemHelper.setFragments(ItemList.statueEagle, 40);

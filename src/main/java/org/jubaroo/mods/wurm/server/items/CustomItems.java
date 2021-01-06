@@ -41,7 +41,7 @@ public class CustomItems {
             affinityOrbId, arrowPackHuntingId, arrowPackWarId, bookOfConversionId, chaosCrystalId, depthDrillId,
             disintegrationRodId, enchantersCrystalId, enchantOrbId, eternalOrbId, friyanTabletId, keyFragmentId, requiemDepotCacheId,
             requiemDepotId, sealedMapId, skeletonDecorationId, sorceryFragmentId, titaniumLumpId, titaniumSocketId,
-            treasureBoxId;
+            treasureBoxId, zombiePracticeDollId;
 
     public static ItemTemplate empireMolRehanMilitaryTent, crusadersMilitaryTent, pandemoniumMilitaryTent,
             dreadnoughtMilitaryTent, hotsMilitaryTent, jennKellonMilitaryTent, molRehanMilitaryTent, woodlandCamoMilitaryTent;
@@ -264,6 +264,7 @@ public class CustomItems {
         registerLootBox();
         registerTradeGoodTent();
         registerTradeGood();
+        registerZombieTrainingDoll();
         registerStructureTemplates();
         registerSpawnerTemplates();
         registerScrollTemplates();
@@ -1243,6 +1244,30 @@ public class CustomItems {
                 .build();
 
         tradeGoodsId = temp.getTemplateId();
+    }
+
+    private static void registerZombieTrainingDoll() throws IOException {
+        ItemTemplate temp = new ItemTemplateBuilder("jubaroo.item.training.zombie")
+                .name("practice doll (zombie)", "practice doll (zombie)", "An exquisite mansized practice doll made from shafts, a pair of planks and a pumpkin. It looks like a zombie!")
+                .modelName("model.decoration.practicedoll.zombie")
+                .imageNumber((short) IconConstants.ICON_DECO_PRACTICEDOLL)
+                .weightGrams(7000)
+                .value(10000)
+                .difficulty(5f)
+                .dimensions(10, 30, 180)
+                .decayTime(TimeConstants.DECAYTIME_WOOD)
+                .material(ItemMaterials.MATERIAL_WOOD_BIRCH)
+                .behaviourType(BehaviourList.practiceDollBehaviour)
+                .itemTypes(new short[]{
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_REPAIRABLE
+                })
+                .isTraded(true)
+                .build();
+
+        zombiePracticeDollId = temp.getTemplateId();
     }
 
     private static void registerStructureTemplates() throws IOException {

@@ -10,6 +10,8 @@ import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
 
 public class CustomItemCreationEntries {
 
+    //TODO flags have no creation entries!!!
+
     private static void canopyBedCreationEntry(int id) {
         final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.CARPENTRY_FINE, ItemList.bedHeadboard, ItemList.bedFrame, id, false, false, 0f, true, true, 0, 65.0, CreationCategories.FURNITURE);
         entry.addRequirement(new CreationRequirement(1, ItemList.bedFootboard, 1, true));
@@ -686,7 +688,7 @@ public class CustomItemCreationEntries {
         CreationEntryCreator.createSimpleEntry(SkillList.LEATHERWORKING, ItemList.needleIron, spectralHideId, spectralVest.getTemplateId(), false, true, 0f, false, false, CreationCategories.ARMOUR);
         CreationEntryCreator.createSimpleEntry(SkillList.LEATHERWORKING, ItemList.needleCopper, spectralHideId, spectralVest.getTemplateId(), false, true, 0f, false, false, CreationCategories.ARMOUR);
         // Other Armor
-        CreationEntryCreator.createSimpleEntry(SkillList.ALCHEMY_NATURAL, ItemList.skull, ItemList.leatherStrip, dragonSkullHelmet.getTemplateId(), true, true, 0f, false, false, CreationCategories.ARMOUR);
+        //CreationEntryCreator.createSimpleEntry(SkillList.ALCHEMY_NATURAL, ItemList.skull, ItemList.leatherStrip, dragonSkullHelmet.getTemplateId(), true, true, 0f, false, false, CreationCategories.ARMOUR);
         // Weapons
         CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.clothString, ItemList.shaft, battleYoyoId, false, true, 0f, false, false, CreationCategories.WEAPONS);
         CreationEntryCreator.createSimpleEntry(SkillList.CARPENTRY, ItemList.knifeCarving, ItemList.log, clubId, false, true, 0f, false, false, CreationCategories.WEAPONS);

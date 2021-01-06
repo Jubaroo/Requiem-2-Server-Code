@@ -41,7 +41,7 @@ public class LootBounty {
                     }
                 }
             }
-            RequiemLogging.logInfo("Names have been added: " + names);
+            RequiemLogging.logInfo(String.format("Names have been added: %s", names));
             String strBuilder = String.format("Loot Assistance <Damagers> (%s): ", mob.getName());
             DecimalFormat formatter = new DecimalFormat("#,###,###");
             while (names.size() > 0) {

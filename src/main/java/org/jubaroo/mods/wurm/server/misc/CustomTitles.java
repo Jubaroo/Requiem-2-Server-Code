@@ -7,8 +7,13 @@ import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.players.Titles;
+import javassist.*;
+import mod.sin.lib.Util;
 import net.bdew.wurm.tools.server.ModTitles;
+import org.gotti.wurmunlimited.modloader.classhooks.HookException;
+import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.communication.CustomChat;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
@@ -158,6 +163,23 @@ public class CustomTitles {
             player.getInventory().insertItem(ItemFactory.createItem(CustomItems.titanCache.getTemplateId(), 99f, creature.getName()), true);
             DatabaseHelper.addPlayerStat(player.getName(), "TITANS");
             PlayerBounty.rewardPowerfulLoot(player, creature);
+        }
+    }
+
+    public static void announceTitles() {
+        try {
+            ClassPool classPool = HookManager.getInstance().getClassPool();
+            final Class<MiscChanges> thisClass = MiscChanges.class;
+            String replace;
+
+            // - Announce player titles - //
+            CtClass ctPlayer = classPool.get("com.wurmonline.server.players.Player");
+            Util.setReason("Announce player titles in the titles tab.");
+            replace = String.format("$_ = $proceed($$);if(this.getPower() < 1){  %s.sendTitleTabMessage(\"event\", this.getName()+\" just earned the title of \"+title.getName(this.isNotFemale())+\"!\", 200, 100, 0);}", CustomChat.class.getName());
+            Util.instrumentDeclared(thisClass, ctPlayer, "addTitle", "sendNormalServerMessage", replace);
+
+        } catch (NotFoundException | IllegalArgumentException | ClassCastException e) {
+            throw new HookException(e);
         }
     }
 

@@ -539,134 +539,134 @@ public class MethodsBestiary {
         // Set fog spider corpse models
         String fog_spider = "fogspider.";
         String zombie = "zombie.butchered.free.";
-        TemplateModifier.setCorpseModel(CustomCreatures.avengerId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.spiritTrollId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.spectralDragonHatchlingId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.chargerId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.spiritStagId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloSpiritId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.frostyId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.snowmanId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.blackWidowId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.avengerId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritTrollId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spectralDragonHatchlingId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.chargerId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritStagId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloSpiritId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.frostyId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.snowmanId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.blackWidowId, fog_spider);
         // Set custom creature corpse models
-        TemplateModifier.setCorpseModel(CustomCreatures.injuredPirateId, "islestowerguard.free.");
-        TemplateModifier.setCorpseModel(CustomCreatures.cobraId, "anaconda.");
-        TemplateModifier.setCorpseModel(CustomCreatures.fireCrabId, "crab.");
-        TemplateModifier.setCorpseModel(CustomCreatures.gorillaId, "mountaingorilla.");
-        TemplateModifier.setCorpseModel(CustomCreatures.hyenaId, "rabidhyena.");
-        TemplateModifier.setCorpseModel(CustomCreatures.largeBoarId, "wildboar.");
-        TemplateModifier.setCorpseModel(CustomCreatures.viperId, "kingcobra.");
-        TemplateModifier.setCorpseModel(CustomCreatures.warHoundId, "riftbeast.");
-        TemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloId, "greatwhitebuffalo.");
-        TemplateModifier.setCorpseModel(CustomCreatures.wolfPackmasterId, "blackwolf.");
-        TemplateModifier.setCorpseModel(CustomCreatures.blackWyvernId, "blackdragonhatchling.");
-        TemplateModifier.setCorpseModel(CustomCreatures.greenWyvernId, "greendragonhatchling.");
-        TemplateModifier.setCorpseModel(CustomCreatures.redWyvernId, "reddragonhatchling.");
-        TemplateModifier.setCorpseModel(CustomCreatures.whiteWyvernId, "whitedragonhatchling.");
-        TemplateModifier.setCorpseModel(CustomCreatures.blueWyvernId, "bluedragonhatchling.");
-        TemplateModifier.setCorpseModel(CustomCreatures.facebreykerId, "riftogre.");
-        TemplateModifier.setCorpseModel(CustomCreatures.kongId, "mountaingorilla.");
-        TemplateModifier.setCorpseModel(CustomCreatures.reanimatedSkeletonId, "skeleton.");
-        TemplateModifier.setCorpseModel(CustomCreatures.zombieHulkId, zombie);
-        TemplateModifier.setCorpseModel(CustomCreatures.zombieLeaderId, zombie);
-        TemplateModifier.setCorpseModel(CustomCreatures.zombieWalkerId, zombie);
-        TemplateModifier.setCorpseModel(CustomCreatures.forestSpiderId, "hugespider.");
-        TemplateModifier.setCorpseModel(CustomCreatures.giantId, "forestgiant.");
-        TemplateModifier.setCorpseModel(CustomCreatures.hornedPonyId, "unicorn.");
-        TemplateModifier.setCorpseModel(CustomCreatures.cyclopsId, "kyklops.");
-        TemplateModifier.setCorpseModel(CustomCreatures.clucksterId, "rooster.");
-        TemplateModifier.setCorpseModel(CustomCreatures.ridingRoosterId, "rooster.");
-        TemplateModifier.setCorpseModel(CustomCreatures.treasureGoblinMenageristGoblinId, "treasuregoblin.");
-        TemplateModifier.setCorpseModel(CustomCreatures.golemId, "lavafiend.");
-        TemplateModifier.setCorpseModel(CustomCreatures.golemlingId, "lavafiend.");
-        TemplateModifier.setCorpseModel(CustomCreatures.bloblingId, "blob.");
-        TemplateModifier.setCorpseModel(CustomCreatures.mimicId, "blob.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.injuredPirateId, "islestowerguard.free.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.cobraId, "anaconda.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.fireCrabId, "crab.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.gorillaId, "mountaingorilla.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.hyenaId, "rabidhyena.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.largeBoarId, "wildboar.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.viperId, "kingcobra.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.warHoundId, "riftbeast.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloId, "greatwhitebuffalo.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.wolfPackmasterId, "blackwolf.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.blackWyvernId, "blackdragonhatchling.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.greenWyvernId, "greendragonhatchling.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.redWyvernId, "reddragonhatchling.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.whiteWyvernId, "whitedragonhatchling.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.blueWyvernId, "bluedragonhatchling.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.facebreykerId, "riftogre.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.kongId, "mountaingorilla.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.reanimatedSkeletonId, "skeleton.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.zombieHulkId, zombie);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.zombieLeaderId, zombie);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.zombieWalkerId, zombie);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.forestSpiderId, "hugespider.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.giantId, "forestgiant.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.hornedPonyId, "unicorn.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.cyclopsId, "kyklops.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.clucksterId, "rooster.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.ridingRoosterId, "rooster.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.treasureGoblinMenageristGoblinId, "treasuregoblin.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.golemId, "lavafiend.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.golemlingId, "lavafiend.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.bloblingId, "blob.");
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.mimicId, "blob.");
         // Set titan corpse models
-        TemplateModifier.setCorpseModel(CustomCreatures.lilithId, fog_spider);
-        TemplateModifier.setCorpseModel(CustomCreatures.ifritId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.lilithId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.ifritId, fog_spider);
         // Set No Corpse
-        TemplateModifier.setNoCorpse(CustomCreatures.iceCatId);
-        TemplateModifier.setNoCorpse(CustomCreatures.ifritFiendId);
-        TemplateModifier.setNoCorpse(CustomCreatures.ifritSpiderId);
-        TemplateModifier.setNoCorpse(CustomCreatures.lilithWraithId);
-        TemplateModifier.setNoCorpse(CustomCreatures.lilithZombieId);
-        TemplateModifier.setNoCorpse(CustomCreatures.fireGiantId);
-        TemplateModifier.setNoCorpse(CustomCreatures.terrorId);
-        TemplateModifier.setNoCorpse(CustomCreatures.golemId);
-        TemplateModifier.setNoCorpse(CustomCreatures.blobId);
-        TemplateModifier.setNoCorpse(CustomCreatures.prismaticBlobId);
-        TemplateModifier.setNoCorpse(CustomCreatures.spiritStagId);
-        TemplateModifier.setNoCorpse(CustomCreatures.reaperId);
-        TemplateModifier.setNoCorpse(CustomCreatures.spectralDragonHatchlingId);
-        TemplateModifier.setNoCorpse(CustomCreatures.mimicChestId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.iceCatId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.ifritFiendId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.ifritSpiderId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.lilithWraithId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.lilithZombieId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.fireGiantId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.terrorId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.golemId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.blobId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.prismaticBlobId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.spiritStagId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.reaperId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.spectralDragonHatchlingId);
+        CreatureTemplateModifier.setNoCorpse(CustomCreatures.mimicChestId);
         // Set creatures base combat rating
         //setCombatRating(CreatureTemplateIds.GUARD_SPIRIT_GOOD_DANGEROUS, 30f);
         // Also apply the ghost modifier
-        TemplateModifier.setGhost(CustomCreatures.spiritTrollId);
-        TemplateModifier.setGhost(CustomCreatures.avengerId);
-        TemplateModifier.setGhost(CustomCreatures.lilithWraithId);
-        TemplateModifier.setGhost(CustomCreatures.chargerId);
+        CreatureTemplateModifier.setGhost(CustomCreatures.spiritTrollId);
+        CreatureTemplateModifier.setGhost(CustomCreatures.avengerId);
+        CreatureTemplateModifier.setGhost(CustomCreatures.lilithWraithId);
+        CreatureTemplateModifier.setGhost(CustomCreatures.chargerId);
         // Make uniques no rebirth and non-regenerative.
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_BLACK_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_BLUE_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_GREEN_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_RED_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_WHITE_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_BLACK_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_BLUE_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_GREEN_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_RED_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_WHITE_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.GOBLIN_LEADER_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.FOREST_GIANT_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.TROLL_KING_CID);
-        TemplateModifier.setUniqueTypes(CreatureTemplateIds.CYCLOPS_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_BLACK_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_BLUE_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_GREEN_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_RED_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAGON_WHITE_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_BLACK_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_BLUE_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_GREEN_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_RED_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.DRAKE_WHITE_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.GOBLIN_LEADER_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.FOREST_GIANT_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.TROLL_KING_CID);
+        CreatureTemplateModifier.setUniqueTypes(CreatureTemplateIds.CYCLOPS_CID);
         // Natural Armour Increases:
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_BLUE_CID, 0.035f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_WHITE_CID, 0.035f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_BLACK_CID, 0.045f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_WHITE_CID, 0.035f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_RED_CID, 0.065f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_BLUE_CID, 0.065f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_WHITE_CID, 0.075f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_GREEN_CID, 0.065f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_BLACK_CID, 0.055f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.GOBLIN_LEADER_CID, 0.055f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_FREEDOM, 0.045f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_JENN, 0.045f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_MOLREHAN, 0.045f);
-        TemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_LIBILA, 0.045f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_BLUE_CID, 0.035f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_WHITE_CID, 0.035f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_BLACK_CID, 0.045f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAGON_WHITE_CID, 0.035f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_RED_CID, 0.065f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_BLUE_CID, 0.065f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_WHITE_CID, 0.075f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_GREEN_CID, 0.065f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.DRAKE_BLACK_CID, 0.055f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.GOBLIN_LEADER_CID, 0.055f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_FREEDOM, 0.045f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_JENN, 0.045f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_MOLREHAN, 0.045f);
+        CreatureTemplateModifier.setNaturalArmour(CreatureTemplateIds.GUARD_KINGDOM_TOWER_LIBILA, 0.045f);
         // Set Grazers
-        //TemplateModifier.setGrazer(CreatureTemplateIds.HEN_CID);
-        //TemplateModifier.setGrazer(CreatureTemplateIds.CHICKEN_CID);
-        //TemplateModifier.setGrazer(CreatureTemplateIds.ROOSTER_CID);
-        //TemplateModifier.setGrazer(CreatureTemplateIds.PIG_CID);
+        //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.HEN_CID);
+        //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.CHICKEN_CID);
+        //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.ROOSTER_CID);
+        //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.PIG_CID);
         // Domesticate whales and enable milking
         if (Constants.milkWhales) {
-            TemplateModifier.setMilkable(CreatureTemplateIds.BLUE_WHALE_CID);// Set Milkable
-            TemplateModifier.setDomestic(CreatureTemplateIds.BLUE_WHALE_CID);// Set Domestic
+            CreatureTemplateModifier.setMilkable(CreatureTemplateIds.BLUE_WHALE_CID);// Set Milkable
+            CreatureTemplateModifier.setDomestic(CreatureTemplateIds.BLUE_WHALE_CID);// Set Domestic
         }
         // Set worg fields
-        TemplateModifier.setWorgFields();
+        CreatureTemplateModifier.setWorgFields();
         // Set leaderTemplateId
-        TemplateModifier.setLeaderTemplateId(CreatureTemplateIds.WOLF_BLACK_CID, CustomCreatures.wolfPackmasterId);
+        CreatureTemplateModifier.setLeaderTemplateId(CreatureTemplateIds.WOLF_BLACK_CID, CustomCreatures.wolfPackmasterId);
         // Set age
-        TemplateModifier.setMaxAge(CreatureTemplateIds.SKELETON_CID, 100);
-        TemplateModifier.setMaxAge(CreatureTemplateIds.WORG_CID, 100);
+        CreatureTemplateModifier.setMaxAge(CreatureTemplateIds.SKELETON_CID, 100);
+        CreatureTemplateModifier.setMaxAge(CreatureTemplateIds.WORG_CID, 100);
         // Set skills for certain creatures
-        //TemplateModifier.setSkill(CreatureTemplateIds.CYCLOPS_CID, SkillList.GROUP_FIGHTING, 50.0f);
+        //CreatureTemplateModifier.setSkill(CreatureTemplateIds.CYCLOPS_CID, SkillList.GROUP_FIGHTING, 50.0f);
         // Set combat rating for creatures to improve their bounty
-        TemplateModifier.setBaseCombatRating(CreatureTemplateIds.SON_OF_NOGUMP_CID, 30.0f);
-        TemplateModifier.setBaseCombatRating(CreatureTemplateIds.GUARD_KINGDOM_TOWER_FREEDOM, 80.0f);
+        CreatureTemplateModifier.setBaseCombatRating(CreatureTemplateIds.SON_OF_NOGUMP_CID, 30.0f);
+        CreatureTemplateModifier.setBaseCombatRating(CreatureTemplateIds.GUARD_KINGDOM_TOWER_FREEDOM, 80.0f);
         // Set grazer
-        TemplateModifier.setGrazer(CreatureTemplateIds.HEN_CID);
+        CreatureTemplateModifier.setGrazer(CreatureTemplateIds.HEN_CID);
         // Set Description
-        //TemplateModifier.setLongDesc(CreatureTemplateIds.HUMAN_CID, "A fearsome warrior that never seems to stay dead for very long.");
+        //CreatureTemplateModifier.setLongDesc(CreatureTemplateIds.HUMAN_CID, "A fearsome warrior that never seems to stay dead for very long.");
         // Set Speed
-        TemplateModifier.setSpeed(CreatureTemplateIds.DRAKESPIRIT_CID, 0.5f);
-        TemplateModifier.setSpeed(CreatureTemplateIds.EAGLESPIRIT_CID, 0.5f);
+        CreatureTemplateModifier.setSpeed(CreatureTemplateIds.DRAKESPIRIT_CID, 0.5f);
+        CreatureTemplateModifier.setSpeed(CreatureTemplateIds.EAGLESPIRIT_CID, 0.5f);
         // Set non-Sentinel
-        TemplateModifier.setNonSentinel(CustomCreatures.npcTravelingTraderId);
+        CreatureTemplateModifier.setNonSentinel(CustomCreatures.npcTravelingTraderId);
     }
 
     public static boolean spawnCreature(final int templateId, final Creature performer, final boolean scroll) {

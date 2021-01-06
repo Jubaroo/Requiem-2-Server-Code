@@ -93,7 +93,7 @@ public class SupplyDepotAction implements ModAction {
                             SupplyDepotBehaviour.maybeBroadcastOpen(performer);
                             int newCreature = RequiemTools.getRandArrayInt(CreatureTools.randomDepotCreature);
                             if (item.getAuxData() == 0) {
-                                for (int i = 0; i < (int) RequiemTools.generateRandomDouble(3, 6); i++) {
+                                for (int i = 0; i < (int) RequiemTools.generateRandomDoubleInRange(3, 6); i++) {
                                     Creature creature = Creature.doNew(newCreature, (byte) RequiemTools.getRandArrayInt(CreatureTools.randomCreatureType), item.getPosX() - 5f + Server.rand.nextFloat() * 10, item.getPosY() - 5f + Server.rand.nextFloat() * 10, Server.rand.nextFloat() * 360f, performer.getLayer(), "", Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                                     final boolean done = performer.getCombatHandler().attack(creature, Server.getCombatCounter(), false, counter, act);
                                     CreatureBehaviour.setOpponent(creature, performer, done, act);
@@ -104,8 +104,8 @@ public class SupplyDepotAction implements ModAction {
                             }
                         } else if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
                             Item inv = performer.getInventory();
-                            inv.insertItem(ItemFactory.createItem(CustomItems.requiemDepotCacheId, (float) RequiemTools.generateRandomDouble(99, 99.9), ""), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.sorceryFragmentId, (float) RequiemTools.generateRandomDouble(99, 99.9), ""), true);
+                            inv.insertItem(ItemFactory.createItem(CustomItems.requiemDepotCacheId, (float) RequiemTools.generateRandomDoubleInRange(99, 99.9), ""), true);
+                            inv.insertItem(ItemFactory.createItem(CustomItems.sorceryFragmentId, (float) RequiemTools.generateRandomDoubleInRange(99, 99.9), ""), true);
                             //ItemTool.lumps.setWeight(20000, true);
                             //inv.insertItem(ItemFactory.createItem(RequiemTools.getRandArrayInt(ItemTool.lumpTemplates), (float) RequiemTools.generateRandomDouble(90, 99), ""), true);
                             comm.sendSafeServerMessage("You have successfully captured the depot!");

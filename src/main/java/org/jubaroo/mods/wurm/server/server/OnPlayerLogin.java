@@ -130,7 +130,7 @@ public class OnPlayerLogin {
     private static void loginAnnouncement(Player player) {
         if (player.getPower() == 0)
             if (!Constants.disableDiscordReliance)
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s has logged in.", player.getNameWithoutPrefixes()));
+                DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("%s has logged in.", player.getNameWithoutPrefixes()));
     }
 
 }

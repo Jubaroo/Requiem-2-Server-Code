@@ -226,7 +226,7 @@ public class CreatureSpawns {
             }
             // Insert Clubs into Creatures
             else if (id == CustomCreatures.cyclopsId || id == CustomCreatures.fireGiantId || id == CustomCreatures.facebreykerId || id == CustomCreatures.giantId || id == CustomCreatures.depotTrollId) {
-                Item shodClub = ItemFactory.createItem(ItemList.clubHuge, (float) RequiemTools.generateRandomDouble(50, 99), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
+                Item shodClub = ItemFactory.createItem(ItemList.clubHuge, (float) RequiemTools.generateRandomDoubleInRange(50, 99), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shodClub, true);
             }
             // White Buffalo
@@ -255,7 +255,7 @@ public class CreatureSpawns {
             }
             // Dock Worker
             else if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
-                Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RequiemTools.generateRandomDouble(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
+                Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RequiemTools.generateRandomDoubleInRange(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(mallet, true);
                 Constants.soundEmissionNpcs.add(creature);
             }
@@ -545,6 +545,10 @@ public class CreatureSpawns {
         }
     }
 
+    /**
+     * Spawn a creature when the original creature dies
+     * @param creature The creature used to determine the creature(s) spawned when it dies
+     */
     static void creatureSpawnOnDeath(Creature creature) {
         int templateId = creature.getTemplate().getTemplateId();
 
@@ -581,10 +585,19 @@ public class CreatureSpawns {
             CreatureSpawns.spawnHorsemanDeath(creature);
         }
     }
+
+    /**
+     * @param itemId Id of the item to be used in the template for the Black Knight
+     * @return Item template to be used for spawning Black Knight items
+     */
     private static Item blackKnightItemSpawn(int itemId) throws NoSuchTemplateException, FailedException {
         return ItemFactory.createItem(itemId, 50f + (Server.rand.nextFloat() * 30f), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, "Black Knight");
     }
 
+    /**
+     * Spawn items and make the Black Knight equip them
+     * @param creature Black Knight
+     */
     public static void BlackKnightSpawn(Creature creature) {
         try {
             Item twoHandSword = blackKnightItemSpawn(ItemList.swordTwoHander);

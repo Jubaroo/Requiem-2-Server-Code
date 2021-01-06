@@ -215,44 +215,38 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     }
 
     //TODO
-    // [18:45:54] Tilex: 1191, tiley=1037
+    // Make lesser fire crystal have 3 charges
+    // ---> Horse traits do not show up in GM trait set list after trait 40 <--- important
     // *** redo all items to be in one file ***
     // action for patreons to use a mailbox to order more blueprints
-    // labyrinthia deed that has a maze that changes once a week. the maze has a chest in the middle with random loot each time
+    // Labyrinthia deed that has a maze that changes once a week. the maze has a chest in the middle with random loot each time
     // change the descriptions of the animals that relate to real life
     // Need to make a healing fountain action and item for the arena. new model also!!!
     // Make an action/question to reset ALL skills to 1 and apply a certain permanent "buff" that will increase each time you reset all skills. Example req. would be to have x amount of skills at 99 or above
-    // Hook into Player.spawn and add monthly buffs
-    // Add treasure goblins and such to the leaderboard mod?
-    // Make factions with reputation that can be gained
+    // Hook into Player.spawn? and add monthly buffs
+    // Add treasure goblins and such to the leaderboard mod? -> check if done already haha <-
+    // Make factions with reputation that can be gained?
     // tablets of fryian spawn inside buildings, stop that!
-    // Item to summon a dragon. If players fail to kill it after a set amount of time, the dragon disappears. Possibly make it a question as to what to summon?
+    // Item to summon a creature. If players fail to kill it after a set amount of time, the dragon disappears. Possibly make it a question as to what to summon?
     // make noob tips display once in a while unless the player types a certain command to turn it off? Database function required?
     // golden drake with treasure goblin effect
     // reindeer corpse
-    // fix logging wagon
-    // hook into MethodsCreatures.milkMethodsCreatures.milk
-    // add deed create and remove to discord
+    // make a new action for milking whales
     // zombie doing a rummage action looping
-    // create new sword model from butchering knife and sword handle
-    // invisible item as a smoke emitter
     // Make HotA creatures (in HotA zone) have a chance to give out a token or something to exchange for goods at a special vendor
-    // Storage units seem to be messed up as far as volume of items inside
     // Make eyes able to be put into bulk storage
     // Make different types of beds give different sleep bonus rates
-    // Make help channel in game and Discord. Remove the CA help channel
     // Make capes work!!!
-    // ----------> Setup gradle build for Requiem mod Integrate all server.jar code<----------
     // Portable bank or another item to be used as one
-    // Horse traits do not show up in GM trait set list after trait 40
+    // .
     // Make an action/question to trade in a HotA statue for a different kind?
     // Make weak "cannibal tribes" that roam globally like The Forest?
     // Make new undead creature that only spawns at night and leaves no body when it dies so they can mass de-spawn at dawn like a wraith
     // Make a headless horseman with an invisible helm so that it looks like he has no head? Or figure out the pumpkin helm
-    // Auto turn unknown grass tiles into normal grass tiles
+    // Auto turn unknown grass tiles into normal grass tiles <--- hopefully wont need on new map
     // Fix rainbow unicorns foal to adult transition
     // White hell horse spawns a black one now and then
-    // Create invisible, immortal animal(s) to hitch to the carpet to emulate it being pulled. or make an animal invisible when hitched to the carpet Look in VehicleBehaviour.actionHitch
+    // Copy bdews code from halloween broom to make carpet work
     // Alchemy overhaul. Make health potions, favor potions, etc?
     // Players with high Proteins value will receive a bonus to Body skill gain and it's sub-skills?
     // Make enchant grass ability from crystal apply the effect to a 3x3 area
@@ -261,26 +255,23 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     // Necromancer that equips black clothes, a staff and cast spells and has skeleton followers
     // Custom naming tool that will change the names of animals to whatever the player types in
     // Mark HotA zone with light beams when HotA is active?
-    // A ring that works as a portal. Super hard to make and very expensive
-    // player appreciation day on a certain day each year
-    // Add new things to TempStates in com.wurmonline.server.items.TempStates or Item.tempMod
-    // Merchant ships that travel the seas selling items. Salesman with a cog model that goes in the water. Or have it teleport around the map like athanor mechanism
+    // A ring that works as a portal. Super hard to make and very expensive?
+    // ---> player appreciation day on a certain day each year <---
+    // Add new things to TempStates in com.wurmonline.server.items.TempStates or Item.tempMod <--- reference
     // make combat rating based on soul skill for DeathAction
     // keep the same color trait after rebirth
     // make the sub menu for both labyrinth actions work!!!
     // Make an action to pack up a wagon into a kit using Karma or some other "currency"
-    // damage dealt is causing issues with phantom creatures. After an animal dies, it keeps fighting you even though you cannot see it
     // make The Cluckster spawn special chicks to attack the player when at half health
     // Fix supply depot spawn times <--------
     // absorb health through a corpse with death crystal?
     // Update Dyno bot to give an awesome greeting like the discord channel for the game Raft.
-    // Make an action/item to increase bank slots for players. Database edits needed most likely
     // Make an NPC that sells animals
     // Make an NPC that sells titles
     // Make backpack of steel tools disappear when opened like treasure chest - currently does not work 100%
     // Make treasure chest a rare container of some kind. Maybe a new bank item that is portable?
     // Fix Cluckster and minions!!!
-    // Make Life Crystal Rebirth action spawn new creature and delete the corpse of the old one
+    // Make Life Crystal Rebirth action delete the corpse of the old one and show a cooldown message
     // Make Eternal Reservoirs use less fuel
     // Make bark harvest-able from any over-aged tree
     // Bag that only holds tools. Able to hold tools a normal backpack cannot

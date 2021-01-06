@@ -178,12 +178,12 @@ public class TreasureHuntChestAction implements ModAction {
 
     private static void itemsInsert(Creature performer) throws NoSuchTemplateException, FailedException {
         for (int i = 0; i < 2; i++) {
-            performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), (float) RequiemTools.generateRandomDouble(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
         }
         for (int i = 0; i < 3; i++) {
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftStone, (float) RequiemTools.generateRandomDouble(50, 99), null), true);
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftWood, (float) RequiemTools.generateRandomDouble(50, 99), null), true);
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftCrystal, (float) RequiemTools.generateRandomDouble(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftStone, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftWood, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftCrystal, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
         }
         for (int i = 0; i < 3; i++) {
             performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomPotionTemplates(), 99f, null), true);

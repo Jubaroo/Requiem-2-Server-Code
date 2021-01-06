@@ -16,6 +16,7 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.ItemRemoval;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.misc.*;
+import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
 public class PreInit {
@@ -32,6 +33,9 @@ public class PreInit {
             MissionCreator.preInit();
             //TreasureChestsBehaviour.preInit();
             CustomChat.preInit();
+            if (!RequiemTools.isPrivateTestServer()) {
+                CustomTitles.announceTitles();
+            }
             MiscChanges.preInit();
             Misc.preInit();
             Titans.preInit();
