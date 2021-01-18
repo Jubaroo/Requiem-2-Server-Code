@@ -2,30 +2,30 @@ package org.jubaroo.mods.wurm.server.creatures;
 
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Server;
-import com.wurmonline.server.Servers;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.CreatureTemplate;
 import com.wurmonline.server.creatures.CreatureTemplateFactory;
 import com.wurmonline.server.creatures.CreatureTemplateIds;
-import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.ItemList;
-import com.wurmonline.server.items.Materials;
 import com.wurmonline.server.players.Titles;
 import net.bdew.wurm.tools.server.loot.LootDrop;
 import net.bdew.wurm.tools.server.loot.LootManager;
 import net.bdew.wurm.tools.server.loot.LootRule;
 import org.gotti.wurmunlimited.modsupport.IdFactory;
 import org.gotti.wurmunlimited.modsupport.IdType;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.bounty.LootBounty;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
-import org.jubaroo.mods.wurm.server.misc.CustomTitles;
+import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.CustomTitles;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
-import static org.jubaroo.mods.wurm.server.items.ItemTools.makeRarity;
+import static org.jubaroo.mods.wurm.server.tools.ItemTools.makeRarity;
 
 public class LootTable {
 
@@ -61,65 +61,51 @@ public class LootTable {
         // Uniques
         LootManager.add(LootRule.create()
                 .requireUnique()
-
+                .addTrigger((c, k) -> DatabaseHelper.addPlayerStat(k.getName(), "UNIQUES"))
                 // Spawn Undead Creature
                 .addSubRule(LootRule.create()
-                        .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
-                        .addTriggerOnce((c, k) -> {
-                            try {
-                                CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(RequiemTools.getRandArrayInt(CreatureTools.randomUndead));
-                                byte ctype = (byte) Math.max(0, Server.rand.nextInt(17) - 5);
-                                Creature.doNew(template.getTemplateId(), true, c.getPosX(), c.getPosY(), Server.rand.nextFloat() * 360f, c.getLayer(), template.getName(), (byte) 0, c.getKingdomId(), ctype, false, (byte) 60);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            Server.getInstance().broadCastAlert("An undead creature is released from the underworld, seeking the soul of a powerful creature!");
-                            LootBounty.spawnFriyanTablets(5, 10);
-                        })
-                        .commTrigger((c, comm) -> comm.sendNormalServerMessage("An undead creature is released from the underworld, seeking the soul of a powerful creature!"))
+                                .chance(c -> c.getStatus().isChampion() ? 0.25f : 0.1f)
+                                .addTriggerOnce((c, k) -> {
+                                    try {
+                                        CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(RandomUtils.getRandArrayInt(CreatureTools.randomUndead));
+                                        byte ctype = (byte) Math.max(0, Server.rand.nextInt(17) - 5);
+                                        Creature.doNew(template.getTemplateId(), true, c.getPosX(), c.getPosY(), Server.rand.nextFloat() * 360f, c.getLayer(), template.getName(), (byte) 0, c.getKingdomId(), ctype, false, (byte) 60);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Server.getInstance().broadCastAlert("An undead creature is released from the underworld, seeking the soul of a powerful creature!");
+                                    LootBounty.spawnFriyanTablets(5, 10);
+                                })
+                                .commTrigger((c, comm) -> comm.sendNormalServerMessage("An undead creature is released from the underworld, seeking the soul of a powerful creature!"))
 
-                        // Tomes
-                        .addSubRule(LootRule.create()
-                                .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
-                                .addDrop(LootDrop.create((c, k) -> ItemList.bloodAngels + Server.rand.nextInt(16))
-                                        .rarity(MiscConstants.RARE)
-                                        .aux((byte) 2)
+                                // Tomes
+                                .addSubRule(LootRule.create()
+                                        .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
+                                        .addDrop(LootDrop.create((c, k) -> ItemList.bloodAngels + Server.rand.nextInt(16))
+                                                .rarity(MiscConstants.RARE)
+                                                .aux((byte) 2)
+                                        )
                                 )
-                        )
 
-                        // Pet eggs
-                        .addSubRule(LootRule.create()
-                                .chance(0.5f)
-                                .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
-                                        .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
+                                // Pet eggs
+                                .addSubRule(LootRule.create()
+                                        .chance(0.1f)
+                                        .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
+                                                .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
+                                        )
                                 )
-                        )
 
-                        // dragon slayer trophy
-                        .addSubRule(LootRule.create()
-                                .requireUnique()
-                                .requireCreature(Creature::isDragon))
-                                .addDrop(LootDrop.create(ItemList.goldChallengeStatue)
-                                        .rarity(MiscConstants.RARE)
-                                        .weight(1000)
-                                        .name((c, k) -> String.format("%s slayer trophy", c.getTemplate().getName().toLowerCase()))
-                                )
-                                //.addTrigger((c, k) -> k.achievement(MyAchievementIds.FRESH_DRAGON_SLAYER))
-                        )
-        );
-
-        // fire crystal fragments
-        LootManager.add(LootRule.create()
-                .requireTemplateIds(CustomCreatures.fireCrabId, CustomCreatures.fireGiantId, CreatureTemplateIds.LAVA_CREATURE_CID, CreatureTemplateIds.LAVA_SPIDER_CID, CreatureTemplateIds.HELL_HOUND_CID, CreatureTemplateIds.HELL_SCORPION_CID)
-                .chance((c -> c.getStatus().isChampion() ? 1f : 0.05f))
-                .addDrop(LootDrop.create(ItemList.itemFragment)
-                        .rarity((c, k) -> MiscConstants.COMMON)
-                        .data1(1)
-                        .data2(0)
-                        .aux((byte) 1)
-                        .weight(CustomItems.lesserFireCrystal.getWeightGrams() / CustomItems.lesserFireCrystal.getFragmentAmount())
+                                // dragon slayer trophy
+                                .addSubRule(LootRule.create()
+                                        .requireUnique()
+                                        .requireCreature(Creature::isDragon)
+                                        .addDrop(LootDrop.create(ItemList.goldChallengeStatue)
+                                                .rarity(MiscConstants.RARE)
+                                                .weight(1000)
+                                                .name((c, k) -> String.format("%s slayer trophy", c.getTemplate().getName().toLowerCase()))
+                                        ))
+                        //.addTrigger((c, k) -> k.achievement(MyAchievementIds.FRESH_DRAGON_SLAYER))
                 )
-                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
         );
 
         // fire crystal fragments
@@ -144,12 +130,14 @@ public class LootTable {
                                 .ql(Server.rand.nextFloat() * 100)
                                 .repeat(3)
                         )
+                        .chance(0.5f)
                         .addDrop(LootDrop.create(RandomUtils.randomLumpTemplates())
                                 .repeat(5)
                                 .ql((c, k) -> (Server.rand.nextFloat() * 100))
                         )
-                                .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId())
-                                )
+                        .chance(0.5f)
+                        .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId())
+                        )
                         .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
         );
 
@@ -157,6 +145,139 @@ public class LootTable {
         LootManager.add(
                 LootRule.create()
                         .requireTemplateIds(CustomCreatures.lilithId, CustomCreatures.ifritId)
+                        .addTrigger((c, k) -> ItemTools.createEnchantOrb(110))
+                        .addTrigger((c, k) -> ItemTools.createRandomSorcery((byte) 1))
+                        .addDrop(LootDrop.create(CustomItems.treasureBoxId)
+                                .rarity((c, k) -> makeRarity(25, true))
+                        )
+                        .addDrop(LootDrop.create(RandomUtils.randomToolWeaponTemplates())
+                                .rarity((c, k) -> makeRarity(65, true))
+                        )
+                        .addDrop(LootDrop.create(RandomUtils.randomGem(true))
+                                .rarity((c, k) -> makeRarity(33, true))
+                        )
+                        .addDrop(LootDrop.create(RandomUtils.randomMaterialConstructionTemplates())
+                                .rarity((c, k) -> makeRarity(33, false))
+                                .repeat(6)
+                                .ql((c, k) -> Server.rand.nextFloat() * 100)
+                        )
+                        .addDrop(LootDrop.create(CustomItems.artifactCache.getTemplateId())
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+                        .addTrigger((c, k) -> {
+                            k.addTitle(Titles.Title.getTitle(CustomTitles.TITAN_SLAYER));
+                            DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("The Titan %s has been defeated!", c.getNameWithoutPrefixes()));
+                        })
+        );
+
+        // Champions
+        LootManager.add(
+                LootRule.create()
+                        .requireCreature(Creature::isChampion)
+                        .addSubRule(LootRule.create()
+                                .chance(0.20f)
+                                .addDrop(LootDrop.create(Server.rand.nextBoolean() ? ItemList.adamantineBar : ItemList.glimmerSteelBar)
+                                        .ql((c, k) -> Server.rand.nextFloat() * 100)
+                                )
+                        )
+                        .addSubRule(LootRule.create()
+                                .chance(0.20f)
+                                .addTrigger((c, k) -> RandomUtils.randomMaskTemplates())
+                                .addDrop((LootDrop) RandomUtils.maskTemplates)
+                        )
+                        .addSubRule(LootRule.create()
+                                .chance(0.05f)
+                                .addDrop(LootDrop.create(ItemList.boneCollar)
+                                        .rarity((c, k) -> makeRarity(50, true))
+                                )
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find something useful on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // Treasure Goblins
+        LootManager.add(
+                LootRule.create()
+                        .requireTemplateIds(CustomCreatures.treasureGoblinId, CustomCreatures.treasureGoblinBloodThiefId, CustomCreatures.treasureGoblinGemHoarderId, CustomCreatures.treasureGoblinBloodThiefId, CustomCreatures.treasureGoblinMenageristGoblinId, CustomCreatures.treasureGoblinRainbowGoblinId, CustomCreatures.treasureGoblinMalevolentTormentorId, CustomCreatures.treasureGoblinOdiousCollectorId)
+                        .addSubRule(LootRule.create()
+                                .chance(0.5f)
+                                .addDrop(LootDrop.create(ItemList.boneCollar)
+                                        .rarity((c, k) -> makeRarity(50, true))
+                                )
+                        )
+                        .addSubRule(LootRule.create()
+                                .chance(0.5f)
+                                .addDrop(LootDrop.create(CustomItems.affinityOrbId))
+                        )
+                        .addSubRule(LootRule.create()
+                                .chance(0.5f)
+                                .addDrop(LootDrop.create(CustomItems.gemCache.getTemplateId()))
+                        )
+                        .addSubRule(LootRule.create()
+                                .requireTemplateIds(CustomCreatures.treasureGoblinId)
+                                .addDrop(LootDrop.create(CustomItems.treasureBoxId)
+                                        .rarity((c, k) -> makeRarity(75, true)))
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+                        .addTrigger((c, k) -> {
+                            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes()));
+                            k.addTitle(Titles.Title.getTitle(CustomTitles.TREASURE_GOBLIN));
+                            DatabaseHelper.addPlayerStat(k.getName(), "GOBLINS");
+                        })
+                        .addSubRule(LootRule.create()
+                                .requireTemplateIds(CustomCreatures.treasureGoblinMenageristGoblinId)
+                                .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
+                                        .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE))
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+                        .addTrigger((c, k) -> {
+                            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes()));
+                            k.addTitle(Titles.Title.getTitle(CustomTitles.TREASURE_GOBLIN));
+                            DatabaseHelper.addPlayerStat(k.getName(), "GOBLINS");
+                        })
+        );
+
+        // Rift loot
+        LootManager.add(LootRule.create()
+                .requireCreature(c -> riftLootChance(c) > 0)
+                .addTrigger((c, k) -> {
+                    //MyAchievements.triggerAchievement(k, MyAchievements.riftSlayer);
+                    if (c.getTemplateId() == CreatureTemplateIds.RIFT_JACKAL_FOUR_CID)
+                        k.addTitle(Titles.Title.getTitle(CustomTitles.RIFT_SLAYER));
+                })
+                .chance((c) -> 1f / riftLootChance(c))
+                .addSubRule(LootRule.create()
+                        .addDrop(LootDrop.create(ItemList.sleepPowder)
+                                .repeat(2)
+                        )
+                        //.addTrigger((c, k) -> MyAchievements.triggerAchievement(k, MyAchievements.othRiftShard))
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some sleep powder from the corpse of %s.", c.getName())))
+                )
+                .chance((c) -> 3f / riftLootChance(c))
+                .addSubRule(LootRule.create()
+                        .addDrop(LootDrop.create(ItemList.seryllBar)
+                                .ql((c, k) -> 90f + Server.rand.nextFloat() * 10)
+                                .rarity((c, k) -> makeRarity(25, false))
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab a lump of strange metal from the corpse of %s.", c.getName())))
+                )
+        );
+
+        // fire crystal fragments
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.fireCrabId, CustomCreatures.fireGiantId, CreatureTemplateIds.LAVA_CREATURE_CID, CreatureTemplateIds.LAVA_SPIDER_CID, CreatureTemplateIds.HELL_HOUND_CID, CreatureTemplateIds.HELL_SCORPION_CID)
+                .chance((c -> c.getStatus().isChampion() ? 1f : 0.2f))
+                .addDrop(LootDrop.create(ItemList.itemFragment)
+                        .data1(1)
+                        .data2(0)
+                        .aux((byte) 1)
+                        .weight(CustomItems.lesserFireCrystal.getWeightGrams() / CustomItems.lesserFireCrystal.getFragmentAmount()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
+        );
+
+        // Black Knight
+        LootManager.add(
+                LootRule.create()
+                        .requireTemplateIds(CustomCreatures.blackKnightId)
                         .addTrigger((c, k) -> ItemTools.createEnchantOrb(110))
                         .addTrigger((c, k) -> ItemTools.createRandomSorcery((byte) 1))
                         .addDrop(LootDrop.create(CustomItems.treasureBoxId)
@@ -185,107 +306,36 @@ public class LootTable {
                         })
         );
 
-        // Champions
-        LootManager.add(
-                LootRule.create()
-                        .requireCreature(Creature::isChampion)
-                        .addSubRule(LootRule.create()
-                                .chance(0.20f)
-                                .addDrop(LootDrop.create(Server.rand.nextBoolean() ? ItemList.adamantineBar : ItemList.glimmerSteelBar)
-                                        .ql((c, k) -> Server.rand.nextFloat() * 100)
-                                )
-                                .addSubRule(LootRule.create()
-                                        .chance(0.20f)
-                                        .addDrop((LootDrop) RandomUtils.maskTemplates)
-                                )
-                                        .addSubRule(LootRule.create()
-                                                .chance(0.05f)
-                                                .addDrop(LootDrop.create(ItemList.boneCollar)
-                                                        .rarity((c, k) -> makeRarity(50, true))
-                                                )
-                                                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find something useful on the corpse of %s.", c.getNameWithoutPrefixes())))
-                                        )
-                        )
-        );
-
-        // Treasure Goblins
-        LootManager.add(
-                LootRule.create()
-                        .requireTemplateIds(CustomCreatures.treasureGoblinId, CustomCreatures.treasureGoblinBloodThiefId, CustomCreatures.treasureGoblinGemHoarderId, CustomCreatures.treasureGoblinBloodThiefId, CustomCreatures.treasureGoblinMenageristGoblinId, CustomCreatures.treasureGoblinRainbowGoblinId, CustomCreatures.treasureGoblinMalevolentTormentorId, CustomCreatures.treasureGoblinOdiousCollectorId)
-                        .addSubRule(LootRule.create()
-                                .chance(0.05f)
-                                .addDrop(LootDrop.create(ItemList.boneCollar)
-                                        .rarity((c, k) -> makeRarity(50, true))
-                                )
-                                .addDrop(LootDrop.create(CustomItems.affinityOrbId))
-                                .addDrop(LootDrop.create(CustomItems.gemCache.getTemplateId())
-                                )
-                        )
-                        .addSubRule(LootRule.create()
-                                        .requireTemplateIds(CustomCreatures.treasureGoblinId)
-                                .addDrop(LootDrop.create(CustomItems.treasureBoxId)
-                                        .rarity((c, k) -> makeRarity(75, true))
-                                )
-                                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
-                                        .addTrigger((c, k) -> DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes())))
-                                .addSubRule(LootRule.create()
-                                                .requireTemplateIds(CustomCreatures.treasureGoblinMenageristGoblinId)
-                                                .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
-                                                        .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
-                                                )
-                                                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
-                                                .addTrigger((c, k) -> DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes())))))
-        );
-
-        // Rift loot
+        // Ice Cat
         LootManager.add(LootRule.create()
-                .requireCreature(c -> riftLootChance(c) > 0)
-                .addTrigger((c, k) -> {
-                    //MyAchievements.triggerAchievement(k, MyAchievements.riftSlayer);
-                    if (c.getTemplateId() == CreatureTemplateIds.RIFT_JACKAL_FOUR_CID)
-                        //MyAchievements.triggerAchievement(k, MyAchievements.freshRiftSlayer);
-                })
-                .addSubRule(LootRule.create()
-                        .chance((c) -> 1f / riftLootChance(c))
-                        .addDrop(LootDrop.create(JewelItemsCrafting.arcaneShardId)
-                                .rarity((c, k) -> MyTools.makeRarity(25, false))
-                        )
-                        //.addTrigger((c, k) -> MyAchievements.triggerAchievement(k, MyAchievements.othRiftShard))
-                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab a magical shard from the corpse of %s.", c.getName())))
-                )
-                .addSubRule(LootRule.create()
-                        .chance((c) -> 3f / riftLootChance(c))
-                        .addDrop(LootDrop.create(ItemList.seryllBar)
-                                .ql((c, k) -> 90f + Server.rand.nextFloat() * 10)
-                                .rarity((c, k) -> MyTools.makeRarity(25, false))
-                        )
-                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab a lump of strange metal from the corpse of %s.", c.getName())))
-                )
+                .requireTemplateIds(CustomCreatures.iceCatId)
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("The frozen body of %s shatters into pieces with the final blow.", c.getName())))
         );
 
+        //TODO move 'All creatures' to the bottom when done
         // All creatures
         LootManager.add(
                 LootRule.create()
+                        .chance(0.01f)
+                        .addSubRule(LootRule.create()
+                                .addDrop(LootDrop.create(CustomItems.scrollOfVillageCreation.getTemplateId())))
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
                         .chance(3f)
-                        .addDrop(LootDrop.staticDrop(CustomItems.scrollOfVillageCreation.getTemplateId())
-                                .addSubRule(LootRule.create()
-                                .chance(3f)
-                                .addDrop(CustomItems.scrollOfVillageWar.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON)
-                                .triggerChance(3f)
-                                .addDrop(CustomItems.scrollOfVillageHeal.getTemplateId(), 99f, Materials.MATERIAL_PAPER, MiscConstants.COMMON)
-                                .triggerChance(100f)
-                                .addDrop(ItemList.skull, 99f, Materials.MATERIAL_BONE, MiscConstants.COMMON)
-                                .addTrigger((c, p) -> {
-                                    if (p.hasLink()) {
-                                        p.getCommunicator().sendNormalServerMessage(String.format("You find something useful on the corpse of %s.", c.getNameWithoutPrefixes()));
-                                        LootBounty.sendLootAssist(c, p);
-                                    }
-                                })
-                        );
+                        .addSubRule(LootRule.create()
+                                .addDrop(LootDrop.create(CustomItems.scrollOfVillageWar.getTemplateId())))
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
+                        .chance(3f)
+                        .addSubRule(LootRule.create()
+                                .addDrop(LootDrop.create(CustomItems.scrollOfVillageHeal.getTemplateId())))
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
+                        .addTrigger((c, k) -> {
+                            if (Constants.creatureDeathLogging)
+                                RequiemLogging.CreatureDeathLogging(c);
+                        })
+        );
 
     }
 
-    //TODO move 'All creatures' to the bottom when done
 
 
     /*
@@ -303,46 +353,6 @@ public class LootTable {
         if (!Constants.disableCreatureLoot) {
             try {
 
-                if (templateId == CustomCreatures.treasureGoblinId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_MAGIC, (byte) (Server.rand.nextInt(3)), null), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.gemCache.getTemplateId(), 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You find a box of treasure, a strange bone, affinity orb, and a valuable cache of gems on the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                        DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", creature.getNameWithoutPrefixes(), killer.getNameWithoutPrefixes()));
-                    });
-                }
-
-                if (templateId == CustomCreatures.treasureGoblinMenageristGoblinId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            for (int i = 0; i < 4; i++) {
-                                Item item;
-                                item = ItemFactory.createItem(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE), 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_MAGIC, Server.rand.nextBoolean() ? (byte) 1 : (byte) 3, creature.getNameWithoutPrefixes());
-                                item.setAuxData((byte) Server.rand.nextInt(102));
-                                inv.insertItem(item, true);
-                            }
-                            inv.insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_MAGIC, (byte) (Server.rand.nextInt(3)), null), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.gemCache.getTemplateId(), 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You find some interesting eggs and some other goodies from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                        DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", creature.getNameWithoutPrefixes(), killer.getNameWithoutPrefixes()));
-                    });
-                }
 
                 if (templateId == CustomCreatures.reanimatedSkeletonId) {
                     killers.forEach(killer -> {

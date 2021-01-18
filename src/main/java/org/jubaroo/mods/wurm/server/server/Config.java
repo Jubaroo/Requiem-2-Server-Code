@@ -1,6 +1,8 @@
 package org.jubaroo.mods.wurm.server.server;
 
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
+import org.jubaroo.mods.wurm.server.misc.LoginServerEffect;
 
 import java.util.Properties;
 
@@ -83,6 +85,11 @@ public class Config {
         if (Constants.mailboxEnchantPower < 1.0f || Constants.mailboxEnchantPower > 101.0f) {
             Constants.mailboxEnchantPower = 30.0f;
         }
+        // ========================== Portals ===========================
+        PortalMod.costPerMin = Integer.parseInt(properties.getProperty("costPerMin", String.valueOf(PortalMod.costPerMin)));
+        PortalMod.costToActivate = Integer.parseInt(properties.getProperty("costToActivate", String.valueOf(PortalMod.costToActivate)));
+        PortalMod.activateBankAmount = Integer.parseInt(properties.getProperty("activateBankAmount", String.valueOf(PortalMod.activateBankAmount)));
+        PortalMod.craftPortals = Boolean.parseBoolean(properties.getProperty("craftPortals", Boolean.toString(PortalMod.craftPortals)));
         // ========================== Labyrinth ===========================
         Constants.logExecutionCost = Constants.executionCostLogging;
         Constants.executionCostLogging = Boolean.parseBoolean(properties.getProperty("executionCostLogging", "false"));
@@ -160,6 +167,8 @@ public class Config {
         Constants.enableAthanorMechanism = Boolean.parseBoolean(properties.getProperty("enableAthanorMechanism", "false"));
         Constants.disableDiscordReliance = Boolean.parseBoolean(properties.getProperty("disableDiscordReliance", "false"));
         Constants.disableScrollGearBinding = Boolean.parseBoolean(properties.getProperty("disableScrollGearBinding", "false"));
+        LoginServerEffect.tileX = Integer.parseInt(properties.getProperty("LoginServerEffectX"));
+        LoginServerEffect.tileY = Integer.parseInt(properties.getProperty("LoginServerEffectY"));
         RequiemLogging.logInfo("all configure completed");
     }
 }

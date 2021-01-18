@@ -1,4 +1,4 @@
-package org.jubaroo.mods.wurm.server.misc;
+package org.jubaroo.mods.wurm.server.tools;
 
 import com.wurmonline.server.FailedException;
 import com.wurmonline.server.TimeConstants;
@@ -7,7 +7,9 @@ import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.players.Titles;
-import javassist.*;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
 import mod.sin.lib.Util;
 import net.bdew.wurm.tools.server.ModTitles;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
@@ -19,7 +21,9 @@ import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.creatures.bounty.PlayerBounty;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.misc.MiscChanges;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.server.Constants;
 
 public class CustomTitles {
     public static int DONOR = 10000;
@@ -72,10 +76,12 @@ public class CustomTitles {
     public static int GEMCRAFTING_MASTER = 12012;
     public static int GEMCRAFTING_EPIC = 12013;
     public static int GEMCRAFTING_LEGENDARY = 12014;
+    public static int RIFT_WARRIOR = 12015;
+    public static int RIFT_SLAYER = 12016;
 
     public static void register() {
         RequiemLogging.logInfo("Registering Custom Titles");
-        ModTitles.addTitle(DONOR,"Donor");
+        ModTitles.addTitle(DONOR, "Donor");
         ModTitles.addTitle(PATREON, "Patreon");
         ModTitles.addTitle(SERPENTS_SIN, "the Serpent's Sin");
         ModTitles.addTitle(DAME_DE_DRAGONS, "Dame de Dragons");
@@ -115,16 +121,18 @@ public class CustomTitles {
         ModTitles.addTitle(PROPHET_EAR, "Prophet Ear");
         ModTitles.addTitle(KOZA, "Koza");
         ModTitles.addTitle(HOME_DECORATOR, "Home Decorator");
-        ModTitles.addTitle(TAXIDERMY_MINOR, "Junior Taxidermist", 10096, "MINOR");
-        ModTitles.addTitle(TAXIDERMY_NORMAL, "Anthropomorphic Taxidermist", 10096, "NORMAL");
-        ModTitles.addTitle(TAXIDERMY_MASTER, "Head Hunter", 10096, "MASTER");
-        ModTitles.addTitle(TAXIDERMY_EPIC, "Epic Taxidermist", 10096, "EPIC");
-        ModTitles.addTitle(TAXIDERMY_LEGENDARY, "Legendary Taxidermist", 10096, "LEGENDARY");
-        ModTitles.addTitle(GEMCRAFTING_MINOR, "Facetor", 11100, "MINOR");
-        ModTitles.addTitle(GEMCRAFTING_NORMAL, "Gem Stone Cutter", 11100, "NORMAL");
-        ModTitles.addTitle(GEMCRAFTING_MASTER, "Diamond Driller", 11100, "MASTER");
-        ModTitles.addTitle(GEMCRAFTING_EPIC, "Gem Expert", 11100, "EPIC");
-        ModTitles.addTitle(GEMCRAFTING_LEGENDARY, "Gemologist", 11100, "LEGENDARY");
+        ModTitles.addTitle(TAXIDERMY_MINOR, "Junior Taxidermist", Constants.skillTaxidermy, "MINOR");
+        ModTitles.addTitle(TAXIDERMY_NORMAL, "Anthropomorphic Taxidermist", Constants.skillTaxidermy, "NORMAL");
+        ModTitles.addTitle(TAXIDERMY_MASTER, "Head Hunter", Constants.skillTaxidermy, "MASTER");
+        ModTitles.addTitle(TAXIDERMY_EPIC, "Epic Taxidermist", Constants.skillTaxidermy, "EPIC");
+        ModTitles.addTitle(TAXIDERMY_LEGENDARY, "Legendary Taxidermist", Constants.skillTaxidermy, "LEGENDARY");
+        ModTitles.addTitle(GEMCRAFTING_MINOR, "Facetor", Constants.skillGemCrafting, "MINOR");
+        ModTitles.addTitle(GEMCRAFTING_NORMAL, "Gem Stone Cutter", Constants.skillGemCrafting, "NORMAL");
+        ModTitles.addTitle(GEMCRAFTING_MASTER, "Diamond Driller", Constants.skillGemCrafting, "MASTER");
+        ModTitles.addTitle(GEMCRAFTING_EPIC, "Gem Expert", Constants.skillGemCrafting, "EPIC");
+        ModTitles.addTitle(GEMCRAFTING_LEGENDARY, "Gemologist", Constants.skillGemCrafting, "LEGENDARY");
+        ModTitles.addTitle(RIFT_WARRIOR, "Rift Warrior");
+        ModTitles.addTitle(RIFT_SLAYER, "Rift Slayer");
     }
 
     public static void playerLoginTitles(Player player) {

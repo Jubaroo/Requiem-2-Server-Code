@@ -37,6 +37,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
+@SuppressWarnings("CommentedOutCode")
 public class MiscChanges {
     private static final int rarityChance = 3600;
     private static final HashMap<Long, Integer> pseudoMap = new HashMap<>();
@@ -534,12 +535,14 @@ public class MiscChanges {
             replace = "$_ = 1;";
             Util.instrumentDeclared(thisClass, ctAbilities, "isInProperLocation", "getTemplateId", replace);
 
+/*
             Util.setReason("Make the key of the heavens only usable on PvE");
             replace = "if($1.getTemplateId() == 794 && com.wurmonline.server.Servers.localServer.PVPSERVER){" +
                     "  $2.getCommunicator().sendNormalServerMessage(\"The \"+$1.getName()+\" may not be used on PvP.\");" +
                     "  return false;" +
                     "}";
             Util.insertBeforeDeclared(thisClass, ctAbilities, "isInProperLocation", replace);
+*/
 
             Util.setReason("Disable GM commands from displaying in /help unless the player is a GM.");
             CtClass ctServerTweaksHandler = classPool.get("com.wurmonline.server.ServerTweaksHandler");

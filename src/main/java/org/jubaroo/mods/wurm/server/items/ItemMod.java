@@ -25,7 +25,7 @@ import org.jubaroo.mods.wurm.server.actions.magicItems.PortalTeleportAction;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
 import org.jubaroo.mods.wurm.server.server.Constants;
 import org.jubaroo.mods.wurm.server.server.OnItemTemplateCreated;
-import org.jubaroo.mods.wurm.server.tools.EffectsTools;
+import org.jubaroo.mods.wurm.server.tools.Hooks;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationHandler;
@@ -72,7 +72,7 @@ public class ItemMod {
 
     }
 
-    static void createCustomArmours(){
+    static void createCustomArmours() {
         try {
             RequiemLogging.logInfo("Beginning custom armour creation.");
             // Spectral
@@ -101,31 +101,31 @@ public class ItemMod {
     public static int getModdedImproveTemplateId(Item item) {
         try {
             int tid = item.getTemplateId();
-        if (tid == spectralBoot.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == spectralCap.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == spectralGlove.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == spectralLeggings.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == spectralVest.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == spectralSleeve.getTemplateId()) {
-            return spectralHideId;
-        } else if (tid == glimmerscaleBoot.getTemplateId()) {
-            return glimmerscaleId;
-        } else if (tid == glimmerscaleGlove.getTemplateId()) {
-            return glimmerscaleId;
-        } else if (tid == glimmerscaleHelmet.getTemplateId()) {
-            return glimmerscaleId;
-        } else if (tid == glimmerscaleLeggings.getTemplateId()) {
-            return glimmerscaleId;
-        } else if (tid == glimmerscaleSleeve.getTemplateId()) {
-            return glimmerscaleId;
-        } else if (tid == glimmerscaleVest.getTemplateId()) {
-            return glimmerscaleId;
-        }
+            if (tid == spectralBoot.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == spectralCap.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == spectralGlove.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == spectralLeggings.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == spectralVest.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == spectralSleeve.getTemplateId()) {
+                return spectralHideId;
+            } else if (tid == glimmerscaleBoot.getTemplateId()) {
+                return glimmerscaleId;
+            } else if (tid == glimmerscaleGlove.getTemplateId()) {
+                return glimmerscaleId;
+            } else if (tid == glimmerscaleHelmet.getTemplateId()) {
+                return glimmerscaleId;
+            } else if (tid == glimmerscaleLeggings.getTemplateId()) {
+                return glimmerscaleId;
+            } else if (tid == glimmerscaleSleeve.getTemplateId()) {
+                return glimmerscaleId;
+            } else if (tid == glimmerscaleVest.getTemplateId()) {
+                return glimmerscaleId;
+            }
         } catch (IllegalArgumentException | ClassCastException e) {
             e.printStackTrace();
         }
@@ -673,54 +673,12 @@ public class ItemMod {
         return item.getTemplateId() == ItemList.villageToken;
     }
 
-    // Make searched dens tick down and be able to be searched again
-    public static void itemTick(Item item) {
-        if (item.getTemplateId() == ItemList.creatureSpawn) {
-            if (item.getData2() > 0) {
-                item.setData2(item.getData2() - 1);
-                if (item.getData2() == 0)
-                    RequiemLogging.debug(String.format("A %s (creature den) at location X:%s Y:%s is now able to be searched again.", item.getName(), item.getPosX() / 4, item.getPosY() / 4));
-            }
-        }
-    }
-
     /**
-     * @param source item to be checked to move
-     * @param target what item the source cannot be put into
+     * @param source    item to be checked to move
+     * @param target    what item the source cannot be put into
      * @param performer the player
      * @return whether or not that an item will be blocked from moving into the target
      */
-    // Block items from being moved to certain items
-    public static boolean blockMove(Item source, Item target, Creature performer) {
-        if (target.getTemplateId() == CustomVehicles.loggingWagon.getTemplateId()) {
-            if (source.getTemplateId() != ItemList.logHuge) {
-                performer.getCommunicator().sendNormalServerMessage("Only felled trees can be put into a logging wagon.");
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // change item size
-    public static int resizeItemId;
-    public static float resizeItemSize;
-
-    public float getSizeMod(Item item) {
-        //resizeItemId = 0;
-        //resizeItemSize = 1f;
-        int id = item.getTemplate().getTemplateId();
-        //RequiemLogging.debug("ItemMod.itemSizeMod called");
-        if (id == CustomItems.machinaOfFortuneId) {
-            return -2.5f;
-        } else if (id == ItemList.sleepPowder) {
-            return 3f;
-        } else if (id == largeWheelId) {
-            return -2.0f;
-        } else if (id == resizeItemId) {
-            return resizeItemSize;
-        }
-        return 1f;
-    }
 
     public void preInit() {
         try {
@@ -728,7 +686,7 @@ public class ItemMod {
             CtClass ctItem = classPool.getCtClass("com.wurmonline.server.items.Item");
             // Change the size of items
             ctItem.getMethod("getSizeMod", "()F")
-                    .insertAfter(String.format("$_ = $_ * %s.getSizeMod(this);", ItemMod.class.getName()));
+                    .insertAfter(String.format("$_ = $_ * %s.getSizeModifier(this);", Hooks.class.getName()));
         } catch (CannotCompileException | NotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -740,18 +698,17 @@ public class ItemMod {
             final ClassPool classPool = HookManager.getInstance().getClassPool();
             final CtClass ctCommunicator = classPool.get("com.wurmonline.server.creatures.Communicator");
 
-
             // Sends effects to items
             ctCommunicator.getMethod("sendItem", "(Lcom/wurmonline/server/items/Item;JZ)V")
-                    .insertAfter(String.format("%s.sendItemHook(this, $1);", EffectsTools.class.getName()));
+                    .insertAfter(String.format("%s.sendItemHook(this, $1);", Hooks.class.getName()));
 
             // Removes effects from items
             ctCommunicator.getMethod("sendRemoveItem", "(Lcom/wurmonline/server/items/Item;)V")
-                    .insertAfter(String.format("%s.removeItemHook(this, $1);", ItemRemoval.class.getName()));
+                    .insertAfter(String.format("%s.removeItemHook(this, $1);", Hooks.class.getName()));
 
             // Make searched dens tick down and be able to be searched again
             CtClass ctItem = classPool.get("com.wurmonline.server.items.Item");
-            ctItem.getMethod("poll", "(ZZJ)Z").insertAfter(String.format("%s.itemTick(this);", ItemMod.class.getName()));
+            ctItem.getMethod("poll", "(ZZJ)Z").insertAfter(String.format("%s.itemTick(this);", Hooks.class.getName()));
 
             // block certain items from moving to another
             classPool.getCtClass("com.wurmonline.server.items.Item")
@@ -762,7 +719,7 @@ public class ItemMod {
                         @Override
                         public void edit(MethodCall m) throws CannotCompileException {
                             if (!patched && m.getMethodName().equals("getItem")) {
-                                m.replace(String.format("$_=$proceed($$); if (%s.blockMove(this, $_, mover)) return false;", ItemMod.class.getName()));
+                                m.replace(String.format("$_=$proceed($$); if (%s.blockMove(this, $_, mover)) return false;", Hooks.class.getName()));
                                 RequiemLogging.logInfo(String.format("Hooking Item.moveToItem at %d", m.getLineNumber()));
                                 patched = true;
                             }
@@ -777,9 +734,9 @@ public class ItemMod {
                         @Override
                         public Object invoke(Object object, Method method, Object[] args) throws Throwable {
                             Item item = (Item) object;
-                            for ( StructureTemplate template : Constants.structureTemplates) {
+                            for (StructureTemplate template : Constants.structureTemplates) {
                                 if (item.getTemplateId() == template.templateID) {
-                                    return item.getItemCount() < 1000;
+                                    return item.getItemCount() < 500;
                                 }
                             }
                             if (item.getTemplateId() == CustomVehicles.loggingWagon.getTemplateId()) {

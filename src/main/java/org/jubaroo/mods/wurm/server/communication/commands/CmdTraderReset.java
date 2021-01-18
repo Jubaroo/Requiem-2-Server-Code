@@ -29,7 +29,7 @@ public class CmdTraderReset extends WurmCmd {
                 ReflectionUtil.callPrivateMethod(null, ReflectionUtil.getMethod(Shop.class, "createShop", new Class[]{Creature.class}), creature);
                 affected++;
             } catch (Exception e) {
-                RequiemLogging.logException( "Error in shop refresh", e);
+                RequiemLogging.logException("Error in shop refresh", e);
             }
         }
         return affected;

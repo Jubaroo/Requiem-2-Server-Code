@@ -20,47 +20,47 @@ public class Horse implements ModCreature {
     private static final int COLOR_GOLD = ModTraits.COLOR_GOLD;
     private static final int COLOR_BROWN = ModTraits.COLOR_BROWN;
     private static final int COLOR_SKEWBALD = 26;
-    private static final int COLOR_ROCKY_MOUNTAIN = 30;
-    private static final int COLOR_REGULAR_BAY = 31;
-    private static final int COLOR_MANGA_LARGA_MARCHADOR = 32;
-    private static final int COLOR_PIEBALD = 33;
-    private static final int COLOR_XAPPALOOSA = 34;
-    private static final int COLOR_KNABSTRUPPER = 35;
-    private static final int COLOR_XAPPALOOSA2 = 36;
-    private static final int COLOR_CREAMY_PALAMINO = 37;
-    private static final int COLOR_KNABSTRUPPER2 = 38;
-    private static final int COLOR_DUN = 39;
-    private static final int COLOR_DAPPLED_GREY = 40;
-    private static final int COLOR_BROWN2 = 41;
-    private static final int COLOR_CREAMY_PALAMINO_MIX = 42;
-    private static final int COLOR_PAINTED = 43;
-    private static final int COLOR_KNABSTRUPPER3 = 44;
-    private static final int COLOR_YELLOW2 = 45;
+    private static final int COLOR_ROCKY_MOUNTAIN = 27;
+    private static final int COLOR_REGULAR_BAY = 28;
+    private static final int COLOR_MANGA_LARGA_MARCHADOR = 29;
+    private static final int COLOR_PIEBALD = 30;
+    private static final int COLOR_XAPPALOOSA = 31;
+    private static final int COLOR_KNABSTRUPPER = 32;
+    private static final int COLOR_XAPPALOOSA2 = 33;
+    private static final int COLOR_CREAMY_PALAMINO = 34;
+    private static final int COLOR_KNABSTRUPPER2 = 35;
+    private static final int COLOR_DUN = 36;
+    private static final int COLOR_DAPPLED_GREY = 37;
+    private static final int COLOR_BROWN2 = 38;
+    private static final int COLOR_CREAMY_PALAMINO_MIX = 39;
+    private static final int COLOR_PAINTED = 40;
+    private static final int COLOR_KNABSTRUPPER3 = 41;
+    private static final int COLOR_YELLOW2 = 42;
     private static final int COLOR_TRAITS =
             1 << COLOR_EBONY_BLACK |
-            1 << COLOR_BLOOD_BAY |
-            1 << COLOR_PIEBALD_PINTO |
-            1 << COLOR_WHITE |
-            1 << COLOR_BLACK |
-            1 << COLOR_GOLD |
-            1 << COLOR_BROWN |
-            1 << COLOR_SKEWBALD |
-            1 << COLOR_ROCKY_MOUNTAIN |
-            1 << COLOR_REGULAR_BAY |
-            1 << COLOR_MANGA_LARGA_MARCHADOR |
-            1 << COLOR_PIEBALD |
-            1 << COLOR_XAPPALOOSA |
-            1 << COLOR_KNABSTRUPPER |
-            1 << COLOR_XAPPALOOSA2 |
-            1 << COLOR_CREAMY_PALAMINO |
-            1 << COLOR_KNABSTRUPPER2 |
-            1 << COLOR_DUN |
-            1 << COLOR_DAPPLED_GREY |
-            1 << COLOR_BROWN2 |
-            1 << COLOR_CREAMY_PALAMINO_MIX |
-            1 << COLOR_PAINTED |
-            1 << COLOR_KNABSTRUPPER3 |
-            1 << COLOR_YELLOW2;
+                    1 << COLOR_BLOOD_BAY |
+                    1 << COLOR_PIEBALD_PINTO |
+                    1 << COLOR_WHITE |
+                    1 << COLOR_BLACK |
+                    1 << COLOR_GOLD |
+                    1 << COLOR_BROWN |
+                    1 << COLOR_SKEWBALD |
+                    1 << COLOR_ROCKY_MOUNTAIN |
+                    1 << COLOR_REGULAR_BAY |
+                    1 << COLOR_MANGA_LARGA_MARCHADOR |
+                    1 << COLOR_PIEBALD |
+                    1 << COLOR_XAPPALOOSA |
+                    1 << COLOR_KNABSTRUPPER |
+                    1 << COLOR_XAPPALOOSA2 |
+                    1 << COLOR_CREAMY_PALAMINO |
+                    1 << COLOR_KNABSTRUPPER2 |
+                    1 << COLOR_DUN |
+                    1 << COLOR_DAPPLED_GREY |
+                    1 << COLOR_BROWN2 |
+                    1 << COLOR_CREAMY_PALAMINO_MIX |
+                    1 << COLOR_PAINTED |
+                    1 << COLOR_KNABSTRUPPER3 |
+                    1 << COLOR_YELLOW2;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.HORSE_CID;
@@ -221,7 +221,7 @@ public class Horse implements ModCreature {
             traitsSetter.setTraitBit(COLOR_PAINTED, true);
         } else if (rand < 157) {
             traitsSetter.setTraitBit(COLOR_KNABSTRUPPER3, true);
-        } else if (rand < 175) {
+        } else {
             traitsSetter.setTraitBit(COLOR_YELLOW2, true);
         }
     }

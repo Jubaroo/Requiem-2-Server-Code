@@ -160,30 +160,27 @@ public class MeditationPerks {
 
             Util.setReason("Enable buff icons for meditation.");
             CtClass ctCultist = classPool.get("com.wurmonline.server.players.Cultist");
-            replace = MeditationPerks.class.getName() + ".sendPassiveBuffs($0);";
+            replace = String.format("%s.sendPassiveBuffs($0);", MeditationPerks.class.getName());
             Util.insertBeforeDeclared(thisClass, ctCultist, "sendPassiveBuffs", replace);
 
             Util.setReason("Make meditating paths more straightforward.");
             CtClass ctCults = classPool.get("com.wurmonline.server.players.Cults");
-            replace = "{ return " + MeditationPerks.class.getName() + ".getNewPathFor($1, $2, $3); }";
+            replace = String.format("{ return %s.getNewPathFor($1, $2, $3); }", MeditationPerks.class.getName());
             Util.setBodyDeclared(thisClass, ctCults, "getPathFor", replace);
 
             Util.setReason("Replace stamina modifier for new Insanity ability.");
             CtClass ctActions = classPool.get("com.wurmonline.server.behaviours.Actions");
-            replace = "{ return " + MeditationPerks.class.getName() + ".newStaminaModifierFor($1, $2); }";
+            replace = String.format("{ return %s.newStaminaModifierFor($1, $2); }", MeditationPerks.class.getName());
             Util.setBodyDeclared(thisClass, ctActions, "getStaminaModiferFor", replace);
 
             Util.setReason("Increase movement speed for Path of Hate users.");
             CtClass ctMovementScheme = classPool.get("com.wurmonline.server.creatures.MovementScheme");
-            replace = "if($_ > 0){" +
-                    "  $_ = $_ * " + MeditationPerks.class.getName() + ".getCultistSpeedMultiplier(this);" +
-                    "}";
+            replace = String.format("if($_ > 0){  $_ = $_ * %s.getCultistSpeedMultiplier(this);}", MeditationPerks.class.getName());
             Util.insertAfterDeclared(thisClass, ctMovementScheme, "getSpeedModifier", replace);
 
             Util.setReason("Scale path of power stamina bonus from level 7 onwards.");
             CtClass ctCreatureStatus = classPool.get("com.wurmonline.server.creatures.CreatureStatus");
-            replace = "staminaMod += " + MeditationPerks.class.getName() + ".getPowerStaminaBonus(this.statusHolder);" +
-                    "$_ = false;";
+            replace = String.format("staminaMod += %s.getPowerStaminaBonus(this.statusHolder);$_ = false;", MeditationPerks.class.getName());
             Util.instrumentDeclared(thisClass, ctCreatureStatus, "modifyStamina", "usesNoStamina", replace);
 
             Util.setReason("Scale path of knowledge skill gain from level 7 onwards.");
@@ -196,8 +193,7 @@ public class MeditationPerks {
                     CtClass.doubleType
             };
             String desc1 = Descriptor.ofMethod(CtClass.voidType, params1);
-            replace = "staminaMod *= " + MeditationPerks.class.getName() + ".getKnowledgeSkillGain(player);" +
-                    "$_ = false;";
+            replace = String.format("staminaMod *= %s.getKnowledgeSkillGain(player);$_ = false;", MeditationPerks.class.getName());
             Util.instrumentDescribed(thisClass, ctSkill, "alterSkill", desc1, "levelElevenSkillgain", replace);
 
             Util.setReason("Remove shield of the gone effect.");
@@ -213,37 +209,37 @@ public class MeditationPerks {
             Util.instrumentDeclared(thisClass, ctCults, "meditate", "getLastMeditated", replace);
 
             // - Reduce meditation cooldowns - //
-            replace = "return this.path == 1 && this.level > 3 && System.currentTimeMillis() - this.cooldown1 > " + (TimeConstants.HOUR_MILLIS * 8) + ";";
+            replace = String.format("return this.path == 1 && this.level > 3 && System.currentTimeMillis() - this.cooldown1 > %d;", TimeConstants.HOUR_MILLIS * 8);
             Util.setBodyDeclared(thisClass, ctCultist, "mayRefresh", replace);
 
-            replace = "return this.path == 1 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > " + (TimeConstants.HOUR_MILLIS * 8) + ";";
+            replace = String.format("return this.path == 1 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > %d;", TimeConstants.HOUR_MILLIS * 8);
             Util.setBodyDeclared(thisClass, ctCultist, "mayEnchantNature", replace);
 
-            replace = "return this.path == 1 && this.level > 8 && System.currentTimeMillis() - this.cooldown3 > " + (TimeConstants.HOUR_MILLIS * 4) + ";";
+            replace = String.format("return this.path == 1 && this.level > 8 && System.currentTimeMillis() - this.cooldown3 > %d;", TimeConstants.HOUR_MILLIS * 4);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartLoveEffect", replace);
 
-            replace = "return this.path == 2 && this.level > 6 && System.currentTimeMillis() - this.cooldown1 > " + (TimeConstants.HOUR_MILLIS * 6) + ";";
+            replace = String.format("return this.path == 2 && this.level > 6 && System.currentTimeMillis() - this.cooldown1 > %d;", TimeConstants.HOUR_MILLIS * 6);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartDoubleWarDamage", replace);
 
-            replace = "return this.path == 2 && this.level > 3 && System.currentTimeMillis() - this.cooldown2 > " + (TimeConstants.HOUR_MILLIS * 4) + ";";
+            replace = String.format("return this.path == 2 && this.level > 3 && System.currentTimeMillis() - this.cooldown2 > %d;", TimeConstants.HOUR_MILLIS * 4);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartDoubleStructDamage", replace);
 
-            replace = "return this.path == 2 && this.level > 8 && System.currentTimeMillis() - this.cooldown3 > " + (TimeConstants.HOUR_MILLIS * 6) + ";";
+            replace = String.format("return this.path == 2 && this.level > 8 && System.currentTimeMillis() - this.cooldown3 > %d;", TimeConstants.HOUR_MILLIS * 6);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartFearEffect", replace);
 
-            replace = "return this.path == 5 && this.level > 8 && System.currentTimeMillis() - this.cooldown1 > " + (TimeConstants.HOUR_MILLIS * 6) + ";";
+            replace = String.format("return this.path == 5 && this.level > 8 && System.currentTimeMillis() - this.cooldown1 > %d;", TimeConstants.HOUR_MILLIS * 6);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartNoElementalDamage", replace);
 
-            replace = "return this.path == 5 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > " + (TimeConstants.HOUR_MILLIS * 8) + ";";
+            replace = String.format("return this.path == 5 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > %d;", TimeConstants.HOUR_MILLIS * 8);
             Util.setBodyDeclared(thisClass, ctCultist, "maySpawnVolcano", replace);
 
-            replace = "return this.path == 5 && this.level > 3 && System.currentTimeMillis() - this.cooldown3 > " + (TimeConstants.HOUR_MILLIS * 4) + ";";
+            replace = String.format("return this.path == 5 && this.level > 3 && System.currentTimeMillis() - this.cooldown3 > %d;", TimeConstants.HOUR_MILLIS * 4);
             Util.setBodyDeclared(thisClass, ctCultist, "mayStartIgnoreTraps", replace);
 
-            replace = "return this.path == 3 && this.level > 3 && System.currentTimeMillis() - this.cooldown1 > " + (TimeConstants.HOUR_MILLIS * 4) + ";";
+            replace = String.format("return this.path == 3 && this.level > 3 && System.currentTimeMillis() - this.cooldown1 > %d;", TimeConstants.HOUR_MILLIS * 4);
             Util.setBodyDeclared(thisClass, ctCultist, "mayCreatureInfo", replace);
 
-            replace = "return this.path == 3 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > " + (TimeConstants.HOUR_MILLIS * 4) + ";";
+            replace = String.format("return this.path == 3 && this.level > 6 && System.currentTimeMillis() - this.cooldown2 > %d;", TimeConstants.HOUR_MILLIS * 4);
             Util.setBodyDeclared(thisClass, ctCultist, "mayInfoLocal", replace);
 
         } catch (NotFoundException | IllegalArgumentException | ClassCastException e) {

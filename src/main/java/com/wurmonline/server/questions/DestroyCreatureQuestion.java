@@ -7,7 +7,7 @@ import com.wurmonline.server.behaviours.MethodsCreatures;
 import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.NoSuchCreatureException;
-import org.jubaroo.mods.wurm.server.actions.creatures.KillCreatureAction;
+import org.jubaroo.mods.wurm.server.actions.gm.KillCreatureAction;
 
 import java.util.Properties;
 

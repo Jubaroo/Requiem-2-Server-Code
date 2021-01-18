@@ -72,7 +72,7 @@ public class RequiemAnniversaryGift {
                 ps.close();
             }
         } catch (SQLException e) {
-            RequiemLogging.logException( "Error in onServerStarted()", e);
+            RequiemLogging.logException("Error in onServerStarted()", e);
             throw new RuntimeException(e);
         }
     }
@@ -112,9 +112,9 @@ public class RequiemAnniversaryGift {
             // Insert items into players inventory
             player.getInventory().insertItem(ItemFactory.createItem(ItemList.fireworks, 99f, Materials.MATERIAL_WOOD_BIRCH, MaterialUtilities.COMMON, null), true);
             player.getInventory().insertItem(pouch, true);
-            player.getCommunicator().sendServerMessage("Some items have been placed in your inventory to help celebrate our server. Thank you for playing.", 255,192,203);
+            player.getCommunicator().sendServerMessage("Some items have been placed in your inventory to help celebrate our server. Thank you for playing.", 255, 192, 203);
         } catch (FailedException | NoSuchTemplateException e) {
-            RequiemLogging.logException( "Error in giveItems()", e);
+            RequiemLogging.logException("Error in giveItems()", e);
             throw new RuntimeException(e);
         }
     }

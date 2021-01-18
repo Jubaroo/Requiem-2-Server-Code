@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Sheep implements ModCreature {
     public static int templateId;
-    private static final int BROWN = 26;
+    private static final int BROWN = 24;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.SHEEP_CID;

@@ -1,5 +1,6 @@
 package org.jubaroo.mods.wurm.server.actions.special.events;
 
+import com.wurmonline.server.Servers;
 import com.wurmonline.server.TimeConstants;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
@@ -11,7 +12,6 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -78,13 +78,13 @@ public class ReplacementChristmasGiftAction implements ModAction {
                             return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                         }
                         performer.getInventory().insertItem(ItemFactory.createItem(10000, 99f, performer.getNameWithoutPrefixes()), true);
-                        if (performer.getPower() < 3 || !RequiemTools.isPrivateTestServer()) {
+                        if (performer.getPower() < 3 || !Servers.isThisATestServer()) {
                             Cooldowns.setUsed(playerEffect);
                         }
                         performer.getCommunicator().sendNormalServerMessage("You are given a Rune of Recall!");
                         return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                     } else {
-                        RequiemLogging.logWarning( String.format("Somehow a non-player activated %s...", ReplacementChristmasGiftAction.class.getName()));
+                        RequiemLogging.logWarning(String.format("Somehow a non-player activated %s...", ReplacementChristmasGiftAction.class.getName()));
                     }
                     return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {

@@ -45,7 +45,6 @@ public class BookConversionAction implements ModAction {
                 if (performer instanceof Player && object != null && object.getTemplateId() == CustomItems.bookOfConversionId) {
                     return Collections.singletonList(actionEntry);
                 }
-
                 return null;
             }
         };

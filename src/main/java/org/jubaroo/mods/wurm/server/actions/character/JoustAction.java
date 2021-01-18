@@ -2,6 +2,7 @@ package org.jubaroo.mods.wurm.server.actions.character;
 
 import com.wurmonline.server.Items;
 import com.wurmonline.server.Server;
+import com.wurmonline.server.Servers;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.ActionTypesProxy;
@@ -23,7 +24,6 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.util.Collections;
 import java.util.List;
@@ -457,7 +457,7 @@ public class JoustAction implements ModAction {
                     Server.getInstance().broadCastMessage(String.format("%s missed!", attacker.getName()), attacker.getTileX(), attacker.getTileY(), true, broadcastRange);
                 }
 
-                if (RequiemTools.isPrivateTestServer()) {
+                if (Servers.isThisATestServer()) {
                     attacker.getCommunicator().sendToGlobalKingdomChat(debugStr);
                     RequiemLogging.logInfo(debugStr);
                 }

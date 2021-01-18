@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Pig implements ModCreature {
     public static int templateId;
-    private static final int RED_WATTLE = 26;
+    private static final int RED_WATTLE = 24;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.PIG_CID;

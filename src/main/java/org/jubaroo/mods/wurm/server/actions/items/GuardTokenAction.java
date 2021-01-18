@@ -28,7 +28,7 @@ public class GuardTokenAction implements ModAction, ActionPerformer, BehaviourPr
         // Get the action id
         this.actionId = (short) ModActions.getNextActionId();
         // Create the action entry
-        this.actionEntry = new ActionEntryBuilder(this.actionId, "Add guard upkeep", "adding upkeep", new int[] {ActionTypesProxy.ACTION_TYPE_NOMOVE}).range(8).build();
+        this.actionEntry = new ActionEntryBuilder(this.actionId, "Add guard upkeep", "adding upkeep", new int[]{ActionTypesProxy.ACTION_TYPE_NOMOVE}).range(8).build();
         // Register the action entry
         ModActions.registerAction(this.actionEntry);
     }

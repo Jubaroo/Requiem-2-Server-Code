@@ -1,15 +1,16 @@
-org/jubaroo/mods/wurm/server/actions/crystals/death/RemovePlantsAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.death.RemovePlantsAction
-org/jubaroo/mods/wurm/server/actions/magicItems/EnchantersCrystalInfuseAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction$2
+org/jubaroo/mods/wurm/server/misc/maze/events/ShortEventDispatcher.java
+ org.jubaroo.mods.wurm.server.misc.maze.events.ShortEventDispatcher
+ org.jubaroo.mods.wurm.server.misc.maze.events.ShortEventDispatcher$1
+org/jubaroo/mods/wurm/server/vehicles/util/VehicleFacadeImpl.java
+ org.jubaroo.mods.wurm.server.vehicles.util.VehicleFacadeImpl
 org/jubaroo/mods/wurm/server/vehicles/util/VehicleFacade.java
  org.jubaroo.mods.wurm.server.vehicles.util.VehicleFacade
 org/jubaroo/mods/wurm/server/items/ItemHelper.java
  org.jubaroo.mods.wurm.server.items.ItemHelper
-org/jubaroo/mods/wurm/server/vehicles/CustomVehicleCreationEntries.java
- org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries
+org/jubaroo/mods/wurm/server/misc/maze/events/EventOnce.java
+ org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce
+ org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce$1
+ org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce$Unit
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Lamb.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Lamb
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Lamb$1
@@ -18,27 +19,28 @@ org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Sheep.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Sheep$1
 org/jubaroo/mods/wurm/server/communication/commands/CmdAddSleepBonus.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdAddSleepBonus
-org/jubaroo/mods/wurm/server/creatures/CreatureHelper.java
- org.jubaroo.mods.wurm.server.creatures.CreatureHelper
+org/jubaroo/mods/wurm/server/misc/LoginServerEffect.java
+ org.jubaroo.mods.wurm.server.misc.LoginServerEffect
+org/jubaroo/mods/wurm/server/actions/magicItems/SorcerySplitAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction$2
 com/wurmonline/server/questions/ChangeItemModelQuestion.java
  com.wurmonline.server.questions.ChangeItemModelQuestion
-org/jubaroo/mods/wurm/server/creatures/CreatureTools.java
- org.jubaroo.mods.wurm.server.creatures.CreatureTools
-org/jubaroo/mods/wurm/server/actions/crystals/fire/LightFireAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.fire.LightFireAction
-org/jubaroo/mods/wurm/server/actions/magicItems/ChampionOrbAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction
- org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction$2
+org/jubaroo/mods/wurm/server/actions/character/ReceiveMailAction.java
+ org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction
+ org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction$1
+ org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction$2
+com/wurmonline/server/questions/BookConversionQuestion.java
+ com.wurmonline.server.questions.BookConversionQuestion
 org/jubaroo/mods/wurm/server/communication/commands/CmdAddAff.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdAddAff
 org/jubaroo/mods/wurm/server/actions/character/JoustAction.java
  org.jubaroo.mods.wurm.server.actions.character.JoustAction
  org.jubaroo.mods.wurm.server.actions.character.JoustAction$1
  org.jubaroo.mods.wurm.server.actions.character.JoustAction$2
-org/jubaroo/mods/wurm/server/actions/items/DyeDragonArmorAction.java
- org.jubaroo.mods.wurm.server.actions.items.DyeDragonArmorAction
- org.jubaroo.mods.wurm.server.actions.items.DyeDragonArmorAction$DyeAction
+org/jubaroo/mods/wurm/server/utils/Cooldowns.java
+ org.jubaroo.mods.wurm.server.utils.Cooldowns
 org/jubaroo/mods/wurm/server/misc/MeditationPerks.java
  org.jubaroo.mods.wurm.server.misc.MeditationPerks
 org/jubaroo/mods/wurm/server/actions/gm/GMUnprotectAction.java
@@ -49,37 +51,32 @@ org/jubaroo/mods/wurm/server/actions/character/LeaderboardAction.java
  org.jubaroo.mods.wurm.server.actions.character.LeaderboardAction
  org.jubaroo.mods.wurm.server.actions.character.LeaderboardAction$1
  org.jubaroo.mods.wurm.server.actions.character.LeaderboardAction$2
-org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageHealAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageHealAction
-org/jubaroo/mods/wurm/server/utils/Compat3D.java
- org.jubaroo.mods.wurm.server.utils.Compat3D
- org.jubaroo.mods.wurm.server.utils.Compat3D$1
- org.jubaroo.mods.wurm.server.utils.Compat3D$2
- org.jubaroo.mods.wurm.server.utils.Compat3D$3
- org.jubaroo.mods.wurm.server.utils.Compat3D$4
- org.jubaroo.mods.wurm.server.utils.Compat3D$5
+org/jubaroo/mods/wurm/server/communication/discord/ChatHandler.java
+ org.jubaroo.mods.wurm.server.communication.discord.ChatHandler
+org/jubaroo/mods/wurm/server/utils/MethodQuery.java
+ org.jubaroo.mods.wurm.server.utils.MethodQuery
+org/jubaroo/mods/wurm/server/actions/character/AddSubGroupAction.java
+ org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction
+ org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction$1
+ org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction$2
 org/jubaroo/mods/wurm/server/communication/commands/CmdCull.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdCull
 org/jubaroo/mods/wurm/server/actions/character/UnequipAllAction.java
  org.jubaroo.mods.wurm.server.actions.character.UnequipAllAction
  org.jubaroo.mods.wurm.server.actions.character.UnequipAllAction$1
  org.jubaroo.mods.wurm.server.actions.character.UnequipAllAction$2
-org/jubaroo/mods/wurm/server/actions/items/WagonKitPackAction.java
- org.jubaroo.mods.wurm.server.actions.items.WagonKitPackAction
-org/jubaroo/mods/wurm/server/actions/items/SealedMapAction.java
- org.jubaroo.mods.wurm.server.actions.items.SealedMapAction
- org.jubaroo.mods.wurm.server.actions.items.SealedMapAction$1
- org.jubaroo.mods.wurm.server.actions.items.SealedMapAction$2
-org/jubaroo/mods/wurm/server/actions/magicItems/FriyanTabletAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction
- org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction$2
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Hen.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Hen
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Hen$1
+org/jubaroo/mods/wurm/server/actions/vehicles/AltarWagonPrayAction.java
+ org.jubaroo.mods.wurm.server.actions.vehicles.AltarWagonPrayAction
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Bull.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Bull
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Bull$1
 com/wurmonline/server/questions/TownPortalQuestion.java
  com.wurmonline.server.questions.TownPortalQuestion
-org/jubaroo/mods/wurm/server/actions/magicItems/SorceryCombineAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction
- org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction$2
+org/jubaroo/mods/wurm/server/actions/scrolls/LearnScrollAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.LearnScrollAction
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Chicken.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Chicken
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Chicken$1
@@ -90,35 +87,41 @@ org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Cat.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Cat$1
 org/jubaroo/mods/wurm/server/actions/magicItems/SkullAction.java
  org.jubaroo.mods.wurm.server.actions.magicItems.SkullAction
-org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/MachinaOfFortuneHelpers.java
- org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneHelpers
+org/jubaroo/mods/wurm/server/creatures/MethodsBestiary.java
+ org.jubaroo.mods.wurm.server.creatures.MethodsBestiary
+ org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$1
+ org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$2
+ org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$3
+ org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$3$1
 org/jubaroo/mods/wurm/server/server/OnPlayerLogout.java
  org.jubaroo.mods.wurm.server.server.OnPlayerLogout
 org/jubaroo/mods/wurm/server/communication/commands/CmdGmCommands.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdGmCommands
-org/jubaroo/mods/wurm/server/actions/magicItems/EnchantOrbAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction$2
+org/jubaroo/mods/wurm/server/actions/gm/GmProtectAction.java
+ org.jubaroo.mods.wurm.server.actions.gm.GmProtectAction
 org/jubaroo/mods/wurm/server/misc/database/holidays/Holidays.java
  org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays
 org/jubaroo/mods/wurm/server/misc/maze/Maze.java
  org.jubaroo.mods.wurm.server.misc.maze.Maze
 com/wurmonline/server/questions/NewsletterQuestion.java
  com.wurmonline.server.questions.NewsletterQuestion
-org/jubaroo/mods/wurm/server/actions/items/NewsletterAction.java
- org.jubaroo.mods.wurm.server.actions.items.NewsletterAction
- org.jubaroo.mods.wurm.server.actions.items.NewsletterAction$1
- org.jubaroo.mods.wurm.server.actions.items.NewsletterAction$2
-org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/CoinInsertion.java
- org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.CoinInsertion
-org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageCreateAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageCreateAction
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Rooster.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Rooster
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Rooster$1
+com/wurmonline/server/questions/LeaderboardAchievementQuestion.java
+ com.wurmonline.server.questions.LeaderboardAchievementQuestion
+org/jubaroo/mods/wurm/server/misc/Fishing.java
+ org.jubaroo.mods.wurm.server.misc.Fishing
+ org.jubaroo.mods.wurm.server.misc.Fishing$1
 org/jubaroo/mods/wurm/server/creatures/CustomMountSettings.java
  org.jubaroo.mods.wurm.server.creatures.CustomMountSettings
  org.jubaroo.mods.wurm.server.creatures.CustomMountSettings$1
  org.jubaroo.mods.wurm.server.creatures.CustomMountSettings$2
  org.jubaroo.mods.wurm.server.creatures.CustomMountSettings$3
+org/jubaroo/mods/wurm/server/misc/MiscHooks.java
+ org.jubaroo.mods.wurm.server.misc.MiscHooks
+ org.jubaroo.mods.wurm.server.misc.MiscHooks$1
+ org.jubaroo.mods.wurm.server.misc.MiscHooks$2
 org/jubaroo/mods/wurm/server/communication/commands/ArgumentTokenizer.java
  org.jubaroo.mods.wurm.server.communication.commands.ArgumentTokenizer
 org/jubaroo/mods/wurm/server/communication/commands/CmdMassSleepBonus.java
@@ -129,50 +132,72 @@ org/jubaroo/mods/wurm/server/misc/database/DatabaseHelper.java
  org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper
 com/wurmonline/server/behaviours/ActionTypesProxy.java
  com.wurmonline.server.behaviours.ActionTypesProxy
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/LargeRat.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.LargeRat
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.LargeRat$1
 org/jubaroo/mods/wurm/server/communication/commands/CmdSendToHome.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdSendToHome
 org/jubaroo/mods/wurm/server/actions/gm/MissionRemoveAction.java
  org.jubaroo.mods.wurm.server.actions.gm.MissionRemoveAction
  org.jubaroo.mods.wurm.server.actions.gm.MissionRemoveAction$1
  org.jubaroo.mods.wurm.server.actions.gm.MissionRemoveAction$2
-org/jubaroo/mods/wurm/server/items/behaviours/AthanorMechanismBehaviour.java
- org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour
-org/jubaroo/mods/wurm/server/Requiem.java
- org.jubaroo.mods.wurm.server.Requiem
-org/jubaroo/mods/wurm/server/actions/items/DepthDrillAction.java
- org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction
- org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction$1
- org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction$2
-org/jubaroo/mods/wurm/server/actions/crystals/fire/BurnCorpseAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.fire.BurnCorpseAction
-org/jubaroo/mods/wurm/server/actions/items/HolyBookPrayAction.java
- org.jubaroo.mods.wurm.server.actions.items.HolyBookPrayAction
-org/jubaroo/mods/wurm/server/actions/items/PortableBankAction.java
- org.jubaroo.mods.wurm.server.actions.items.PortableBankAction
+org/jubaroo/mods/wurm/server/creatures/Titans.java
+ org.jubaroo.mods.wurm.server.creatures.Titans
+com/wurmonline/server/questions/ChangeItemSizeQuestion.java
+ com.wurmonline.server.questions.ChangeItemSizeQuestion
+org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemStPatrickDayGift.java
+ org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemStPatrickDayGift
+org/jubaroo/mods/wurm/server/actions/special/LightningStormAction.java
+ org.jubaroo.mods.wurm.server.actions.special.LightningStormAction
+org/jubaroo/mods/wurm/server/tools/SpellTools.java
+ org.jubaroo.mods.wurm.server.tools.SpellTools
+org/jubaroo/mods/wurm/server/communication/commands/CmdCoffers.java
+ org.jubaroo.mods.wurm.server.communication.commands.CmdCoffers
 org/jubaroo/mods/wurm/server/actions/creatures/npc/ManageBehaviourProvider.java
  org.jubaroo.mods.wurm.server.actions.creatures.npc.ManageBehaviourProvider
-org/jubaroo/mods/wurm/server/actions/crystals/death/DeathAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.death.DeathAction
-org/jubaroo/mods/wurm/server/actions/crystals/life/GrowTreesAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.life.GrowTreesAction
-org/jubaroo/mods/wurm/server/actions/AddActions.java
- org.jubaroo.mods.wurm.server.actions.AddActions
+org/jubaroo/mods/wurm/server/misc/Misc.java
+ org.jubaroo.mods.wurm.server.misc.Misc
+ org.jubaroo.mods.wurm.server.misc.Misc$1
+ org.jubaroo.mods.wurm.server.misc.Misc$10
+ org.jubaroo.mods.wurm.server.misc.Misc$2
+ org.jubaroo.mods.wurm.server.misc.Misc$3
+ org.jubaroo.mods.wurm.server.misc.Misc$4
+ org.jubaroo.mods.wurm.server.misc.Misc$5
+ org.jubaroo.mods.wurm.server.misc.Misc$6
+ org.jubaroo.mods.wurm.server.misc.Misc$6$1
+ org.jubaroo.mods.wurm.server.misc.Misc$7
+ org.jubaroo.mods.wurm.server.misc.Misc$7$1
+ org.jubaroo.mods.wurm.server.misc.Misc$8
+ org.jubaroo.mods.wurm.server.misc.Misc$8$1
+ org.jubaroo.mods.wurm.server.misc.Misc$9
+ org.jubaroo.mods.wurm.server.misc.Misc$9$1
+org/jubaroo/mods/wurm/server/communication/KeyEvent.java
+ org.jubaroo.mods.wurm.server.communication.KeyEvent
+ org.jubaroo.mods.wurm.server.communication.KeyEvent$Response
+org/jubaroo/mods/wurm/server/communication/commands/WurmCmd.java
+ org.jubaroo.mods.wurm.server.communication.commands.WurmCmd
+org/jubaroo/mods/wurm/server/tools/CreatureTools.java
+ org.jubaroo.mods.wurm.server.tools.CreatureTools
+org/jubaroo/mods/wurm/server/actions/magicItems/CrystalCombineAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction$2
 com/wurmonline/server/questions/HeraldicQuestion.java
  com.wurmonline.server.questions.HeraldicQuestion
-org/jubaroo/mods/wurm/server/actions/gm/RequiemReloadAction.java
- org.jubaroo.mods.wurm.server.actions.gm.RequiemReloadAction
+org/jubaroo/mods/wurm/server/actions/items/TentSleepAction.java
+ org.jubaroo.mods.wurm.server.actions.items.TentSleepAction
 org/jubaroo/mods/wurm/server/utils/MissionCreator.java
  org.jubaroo.mods.wurm.server.utils.MissionCreator
-org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemAnniversaryGift.java
- org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemAnniversaryGift
+org/jubaroo/mods/wurm/server/actions/creatures/InnkeeperFoodAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction
+ org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction$1
+ org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction$2
 org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemValentinesGift.java
  org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemValentinesGift
 com/wurmonline/server/questions/TentSleepQuestion.java
  com.wurmonline.server.questions.TentSleepQuestion
-org/jubaroo/mods/wurm/server/actions/scrolls/HorseScrollAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction
- org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction$1
- org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction$2
+org/jubaroo/mods/wurm/server/actions/magicItems/PortalTeleportAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.PortalTeleportAction
 org/jubaroo/mods/wurm/server/actions/gm/SpawnTowerGuardAction.java
  org.jubaroo.mods.wurm.server.actions.gm.SpawnTowerGuardAction
 org/jubaroo/mods/wurm/server/server/OnPlayerLogin.java
@@ -182,8 +207,8 @@ org/jubaroo/mods/wurm/server/communication/commands/CmdMovePlayer.java
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Horse.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Horse
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Horse$1
-org/jubaroo/mods/wurm/server/actions/items/HeraldicCertificateAction.java
- org.jubaroo.mods.wurm.server.actions.items.HeraldicCertificateAction
+org/jubaroo/mods/wurm/server/tools/EffectsTools.java
+ org.jubaroo.mods.wurm.server.tools.EffectsTools
 org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemThanksgivingGift.java
  org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemThanksgivingGift
 org/jubaroo/mods/wurm/server/communication/commands/CmdTraderReset.java
@@ -224,10 +249,14 @@ org/jubaroo/mods/wurm/server/actions/items/PlaceGemAction.java
  org.jubaroo.mods.wurm.server.actions.items.PlaceGemAction$2
 org/jubaroo/mods/wurm/server/misc/maze/events/GrowMazeHedgeEvent.java
  org.jubaroo.mods.wurm.server.misc.maze.events.GrowMazeHedgeEvent
+org/jubaroo/mods/wurm/server/actions/items/EmptyTrashHeapAction.java
+ org.jubaroo.mods.wurm.server.actions.items.EmptyTrashHeapAction
+ org.jubaroo.mods.wurm.server.actions.items.EmptyTrashHeapAction$1
+ org.jubaroo.mods.wurm.server.actions.items.EmptyTrashHeapAction$2
 com/wurmonline/server/questions/NewSpawnQuestion.java
  com.wurmonline.server.questions.NewSpawnQuestion
-org/jubaroo/mods/wurm/server/actions/items/GemSmashAction.java
- org.jubaroo.mods.wurm.server.actions.items.GemSmashAction
+org/jubaroo/mods/wurm/server/server/PreInit.java
+ org.jubaroo.mods.wurm.server.server.PreInit
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Cow.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Cow
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Cow$1
@@ -237,14 +266,14 @@ org/jubaroo/mods/wurm/server/actions/creatures/BartenderFoodAction.java
  org.jubaroo.mods.wurm.server.actions.creatures.BartenderFoodAction
  org.jubaroo.mods.wurm.server.actions.creatures.BartenderFoodAction$1
  org.jubaroo.mods.wurm.server.actions.creatures.BartenderFoodAction$2
-org/jubaroo/mods/wurm/server/RequiemLogging.java
- org.jubaroo.mods.wurm.server.RequiemLogging
-org/jubaroo/mods/wurm/server/actions/magicItems/ConvertWoodTypeAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.ConvertWoodTypeAction
-org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageWarAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageWarAction
-org/jubaroo/mods/wurm/server/misc/Caches.java
- org.jubaroo.mods.wurm.server.misc.Caches
+org/jubaroo/mods/wurm/server/utils/ClassMap.java
+ org.jubaroo.mods.wurm.server.utils.ClassMap
+com/wurmonline/server/questions/LeaderboardCustomQuestion.java
+ com.wurmonline.server.questions.LeaderboardCustomQuestion
+com/wurmonline/server/questions/AffinityOrbQuestion.java
+ com.wurmonline.server.questions.AffinityOrbQuestion
+com/wurmonline/server/creatures/CreaturesProxy.java
+ com.wurmonline.server.creatures.CreaturesProxy
 org/jubaroo/mods/wurm/server/actions/character/SmashAction.java
  org.jubaroo.mods.wurm.server.actions.character.SmashAction
  org.jubaroo.mods.wurm.server.actions.character.SmashAction$1
@@ -257,45 +286,42 @@ org/jubaroo/mods/wurm/server/misc/maze/events/CreateMazeHedgeEvent.java
  org.jubaroo.mods.wurm.server.misc.maze.events.CreateMazeHedgeEvent
 org/jubaroo/mods/wurm/server/misc/templates/StructureTemplate.java
  org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate
-org/jubaroo/mods/wurm/server/actions/items/ArrowPackUnpackAction.java
- org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction
- org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction$1
- org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction$2
+org/jubaroo/mods/wurm/server/creatures/CreatureSpawns.java
+ org.jubaroo.mods.wurm.server.creatures.CreatureSpawns
 org/jubaroo/mods/wurm/server/tools/RequiemTools.java
  org.jubaroo.mods.wurm.server.tools.RequiemTools
 org/jubaroo/mods/wurm/server/actions/scrolls/UseEnchantScrollAction.java
  org.jubaroo.mods.wurm.server.actions.scrolls.UseEnchantScrollAction
 org/jubaroo/mods/wurm/server/actions/gm/labyrinth/LabyrinthMenuProvider.java
  org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthMenuProvider
-org/jubaroo/mods/wurm/server/actions/magicItems/AffinityCatcherConsumeAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction$2
+org/jubaroo/mods/wurm/server/creatures/Bloodlust.java
+ org.jubaroo.mods.wurm.server.creatures.Bloodlust
 org/jubaroo/mods/wurm/server/utils/TransferUtils.java
  org.jubaroo.mods.wurm.server.utils.TransferUtils
 org/jubaroo/mods/wurm/server/tools/CmdTools.java
  org.jubaroo.mods.wurm.server.tools.CmdTools
 org/jubaroo/mods/wurm/server/creatures/Spawn.java
  org.jubaroo.mods.wurm.server.creatures.Spawn
-org/jubaroo/mods/wurm/server/items/CustomItems.java
- org.jubaroo.mods.wurm.server.items.CustomItems
+org/jubaroo/mods/wurm/server/actions/items/ShopSignAction.java
+ org.jubaroo.mods.wurm.server.actions.items.ShopSignAction
 org/jubaroo/mods/wurm/server/items/ItemRemoval.java
  org.jubaroo.mods.wurm.server.items.ItemRemoval
 com/wurmonline/server/questions/NewPlayerQuestion.java
  com.wurmonline.server.questions.NewPlayerQuestion
 com/wurmonline/server/questions/LeaderboardSkillQuestion.java
  com.wurmonline.server.questions.LeaderboardSkillQuestion
-org/jubaroo/mods/wurm/server/server/OnServerStarted.java
- org.jubaroo.mods.wurm.server.server.OnServerStarted
-org/jubaroo/mods/wurm/server/actions/items/TreasureBoxAction.java
- org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction
- org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction$1
- org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction$2
+org/jubaroo/mods/wurm/server/creatures/RareSpawns.java
+ org.jubaroo.mods.wurm.server.creatures.RareSpawns
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Anaconda.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Anaconda
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Anaconda$1
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Ram.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Ram
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Ram$1
-org/jubaroo/mods/wurm/server/server/OnItemTemplateCreated.java
- org.jubaroo.mods.wurm.server.server.OnItemTemplateCreated
+org/jubaroo/mods/wurm/server/actions/character/LeaderboardSkillAction.java
+ org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction
+ org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction$1
+ org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction$2
 org/jubaroo/mods/wurm/server/actions/creatures/CorpseBountyAction.java
  org.jubaroo.mods.wurm.server.actions.creatures.CorpseBountyAction
 org/jubaroo/mods/wurm/server/vehicles/special/MagicCarpet.java
@@ -305,8 +331,10 @@ com/wurmonline/server/questions/LeaderboardQuestion.java
  com.wurmonline.server.questions.LeaderboardQuestion
  com.wurmonline.server.questions.LeaderboardQuestion$1
  com.wurmonline.server.questions.LeaderboardQuestion$2
-org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/MachinaOfFortuneAction.java
- org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneAction
+org/jubaroo/mods/wurm/server/actions/gm/KillCreatureAction.java
+ org.jubaroo.mods.wurm.server.actions.gm.KillCreatureAction
+org/jubaroo/mods/wurm/server/actions/creatures/BaseManagementAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.BaseManagementAction
 org/jubaroo/mods/wurm/server/misc/MiscChanges.java
  org.jubaroo.mods.wurm.server.misc.MiscChanges
  org.jubaroo.mods.wurm.server.misc.MiscChanges$1
@@ -331,22 +359,25 @@ org/jubaroo/mods/wurm/server/actions/special/decorative/DecorativeKingdoms.java
  org.jubaroo.mods.wurm.server.actions.special.decorative.DecorativeKingdoms$TowerApplicable
 com/wurmonline/server/questions/HealingFountainQuestion.java
  com.wurmonline.server.questions.HealingFountainQuestion
-org/jubaroo/mods/wurm/server/actions/items/BookConversionAction.java
- org.jubaroo.mods.wurm.server.actions.items.BookConversionAction
- org.jubaroo.mods.wurm.server.actions.items.BookConversionAction$1
- org.jubaroo.mods.wurm.server.actions.items.BookConversionAction$2
-org/jubaroo/mods/wurm/server/actions/items/HealingFountainAction.java
- org.jubaroo.mods.wurm.server.actions.items.HealingFountainAction
+com/wurmonline/server/questions/DestroyCreatureQuestion.java
+ com.wurmonline.server.questions.DestroyCreatureQuestion
+org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Calf.java
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Calf
+ org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Calf$1
 org/jubaroo/mods/wurm/server/actions/items/OpenCrateAction.java
  org.jubaroo.mods.wurm.server.actions.items.OpenCrateAction
  org.jubaroo.mods.wurm.server.actions.items.OpenCrateAction$1
  org.jubaroo.mods.wurm.server.actions.items.OpenCrateAction$2
 org/jubaroo/mods/wurm/server/creatures/CreatureTemplateModifier.java
  org.jubaroo.mods.wurm.server.creatures.CreatureTemplateModifier
-org/jubaroo/mods/wurm/server/creatures/LootTable.java
- org.jubaroo.mods.wurm.server.creatures.LootTable
-org/jubaroo/mods/wurm/server/misc/CustomTitles.java
- org.jubaroo.mods.wurm.server.misc.CustomTitles
+org/jubaroo/mods/wurm/server/communication/commands/CmdAdd5BankSlots.java
+ org.jubaroo.mods.wurm.server.communication.commands.CmdAdd5BankSlots
+org/jubaroo/mods/wurm/server/misc/templates/SpawnerTemplate.java
+ org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate
+com/wurmonline/server/creatures/ai/AiProxy.java
+ com.wurmonline.server.creatures.ai.AiProxy
+org/jubaroo/mods/wurm/server/misc/database/patreon/PatreonSleepPowderGift.java
+ org.jubaroo.mods.wurm.server.misc.database.patreon.PatreonSleepPowderGift
 org/jubaroo/mods/wurm/server/communication/commands/CmdMassBuff.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdMassBuff
 org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Pig.java
@@ -354,24 +385,23 @@ org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Pig.java
  org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Pig$1
 org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemNewYearGift.java
  org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemNewYearGift
-org/jubaroo/mods/wurm/server/actions/creatures/BuyStarterKitAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction
- org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction$1
- org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction$2
+org/jubaroo/mods/wurm/server/actions/character/SprintAction.java
+ org.jubaroo.mods.wurm.server.actions.character.SprintAction
+ org.jubaroo.mods.wurm.server.actions.character.SprintAction$1
+ org.jubaroo.mods.wurm.server.actions.character.SprintAction$2
 org/jubaroo/mods/wurm/server/actions/terrain/SmoothTerrainAction.java
  org.jubaroo.mods.wurm.server.actions.terrain.SmoothTerrainAction
  org.jubaroo.mods.wurm.server.actions.terrain.SmoothTerrainAction$1
  org.jubaroo.mods.wurm.server.actions.terrain.SmoothTerrainAction$2
-org/jubaroo/mods/wurm/server/actions/magicItems/AffinityOrbAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction$2
-org/jubaroo/mods/wurm/server/actions/items/SupplyDepotAction.java
- org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction
- org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction$1
- org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction$2
+org/jubaroo/mods/wurm/server/communication/commands/CmdMassRefresh.java
+ org.jubaroo.mods.wurm.server.communication.commands.CmdMassRefresh
+com/wurmonline/server/questions/RenameQuestion.java
+ com.wurmonline.server.questions.RenameQuestion
 org/jubaroo/mods/wurm/server/communication/commands/CmdFillUp.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdFillUp
+org/jubaroo/mods/wurm/server/communication/CustomChat.java
+ org.jubaroo.mods.wurm.server.communication.CustomChat
+ org.jubaroo.mods.wurm.server.communication.CustomChat$1
 org/jubaroo/mods/wurm/server/actions/gm/MissionAddAction.java
  org.jubaroo.mods.wurm.server.actions.gm.MissionAddAction
  org.jubaroo.mods.wurm.server.actions.gm.MissionAddAction$1
@@ -395,195 +425,248 @@ org/jubaroo/mods/wurm/server/server/OnServerPoll.java
  org.jubaroo.mods.wurm.server.server.OnServerPoll$1$1
 org/jubaroo/mods/wurm/server/misc/maze/TileMaze.java
  org.jubaroo.mods.wurm.server.misc.maze.TileMaze
-org/jubaroo/mods/wurm/server/misc/Crystals.java
- org.jubaroo.mods.wurm.server.misc.Crystals
+org/jubaroo/mods/wurm/server/vehicles/util/SeatsFacadeImpl.java
+ org.jubaroo.mods.wurm.server.vehicles.util.SeatsFacadeImpl
 org/jubaroo/mods/wurm/server/misc/SkillChanges.java
  org.jubaroo.mods.wurm.server.misc.SkillChanges
-org/jubaroo/mods/wurm/server/actions/crystals/frost/FreezeLavaAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.frost.FreezeLavaAction
+org/jubaroo/mods/wurm/server/actions/creatures/DisturbDenAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.DisturbDenAction
 org/jubaroo/mods/wurm/server/creatures/CustomCreatures.java
  org.jubaroo.mods.wurm.server.creatures.CustomCreatures
-org/jubaroo/mods/wurm/server/actions/items/TreasureCacheOpenAction.java
- org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction
- org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction$1
- org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction$2
+org/jubaroo/mods/wurm/server/misc/QualityOfLife.java
+ org.jubaroo.mods.wurm.server.misc.QualityOfLife
+ org.jubaroo.mods.wurm.server.misc.QualityOfLife$1
 org/jubaroo/mods/wurm/server/misc/DeityChanges.java
  org.jubaroo.mods.wurm.server.misc.DeityChanges
 org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemIndependenceDayGift.java
  org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemIndependenceDayGift
 org/jubaroo/mods/wurm/server/communication/commands/CmdGoTo.java
  org.jubaroo.mods.wurm.server.communication.commands.CmdGoTo
+org/jubaroo/mods/wurm/server/actions/special/events/ReplacementChristmasGiftAction.java
+ org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction
+ org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction$1
+ org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction$2
 org/jubaroo/mods/wurm/server/misc/templates/EnchantScrollTemplate.java
  org.jubaroo.mods.wurm.server.misc.templates.EnchantScrollTemplate
-org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemChristmasGift.java
- org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemChristmasGift
+org/jubaroo/mods/wurm/server/misc/maze/HedgeMaze.java
+ org.jubaroo.mods.wurm.server.misc.maze.HedgeMaze
 org/jubaroo/mods/wurm/server/tools/RandomUtils.java
  org.jubaroo.mods.wurm.server.tools.RandomUtils
-org/jubaroo/mods/wurm/server/items/CustomItemCreationEntries.java
- org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries
+org/jubaroo/mods/wurm/server/actions/creatures/npc/FaceMeAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.npc.FaceMeAction
 org/jubaroo/mods/wurm/server/communication/discord/DiscordHandler.java
  org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler
 org/jubaroo/mods/wurm/server/utils/GoTo.java
  org.jubaroo.mods.wurm.server.utils.GoTo
-org/jubaroo/mods/wurm/server/actions/character/CreateAshAction.java
- org.jubaroo.mods.wurm.server.actions.character.CreateAshAction
+org/jubaroo/mods/wurm/server/creatures/LootTable.java
+ org.jubaroo.mods.wurm.server.creatures.LootTable
 org/jubaroo/mods/wurm/server/vehicles/util/SeatsFacade.java
  org.jubaroo.mods.wurm.server.vehicles.util.SeatsFacade
-org/jubaroo/mods/wurm/server/actions/crystals/fire/HeatUpAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.fire.HeatUpAction
-org/jubaroo/mods/wurm/server/actions/special/events/TreasureHuntChestAction.java
- org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction
- org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction$1
- org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction$2
-org/jubaroo/mods/wurm/server/vehicles/CustomVehicles.java
- org.jubaroo.mods.wurm.server.vehicles.CustomVehicles
- org.jubaroo.mods.wurm.server.vehicles.CustomVehicles$1
- org.jubaroo.mods.wurm.server.vehicles.CustomVehicles$1$1
+org/jubaroo/mods/wurm/server/actions/creatures/npc/EquipmentAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.npc.EquipmentAction
+org/jubaroo/mods/wurm/server/actions/gm/ItemRenameAction.java
+ org.jubaroo.mods.wurm.server.actions.gm.ItemRenameAction
+org/jubaroo/mods/wurm/server/actions/creatures/AbortAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.AbortAction
+ org.jubaroo.mods.wurm.server.actions.creatures.AbortAction$1
+ org.jubaroo.mods.wurm.server.actions.creatures.AbortAction$2
 org/jubaroo/mods/wurm/server/server/OnKingdomMessage.java
  org.jubaroo.mods.wurm.server.server.OnKingdomMessage
-org/jubaroo/mods/wurm/server/actions/potions/DiseasePotionAction.java
- org.jubaroo.mods.wurm.server.actions.potions.DiseasePotionAction
-org/jubaroo/mods/wurm/server/actions/scrolls/BankSlotsAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction
- org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction$1
- org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction$2
+org/jubaroo/mods/wurm/server/communication/discord/CustomChannel.java
+ org.jubaroo.mods.wurm.server.communication.discord.CustomChannel
+org/jubaroo/mods/wurm/server/communication/discord/TicketHandler.java
+ org.jubaroo.mods.wurm.server.communication.discord.TicketHandler
 org/jubaroo/mods/wurm/server/utils/StdRandom.java
  org.jubaroo.mods.wurm.server.utils.StdRandom
 org/jubaroo/mods/wurm/server/actions/gm/labyrinth/LabyrinthRemovePerformer.java
  org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthRemovePerformer
  org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthRemovePerformer$1
  org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthRemovePerformer$2
+org/jubaroo/mods/wurm/server/actions/crystals/death/RemovePlantsAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.death.RemovePlantsAction
+org/jubaroo/mods/wurm/server/actions/magicItems/EnchantersCrystalInfuseAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantersCrystalInfuseAction$2
+org/jubaroo/mods/wurm/server/vehicles/CustomVehicleCreationEntries.java
+ org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries
+org/jubaroo/mods/wurm/server/misc/Crystals.java
+ org.jubaroo.mods.wurm.server.misc.Crystals
+org/jubaroo/mods/wurm/server/actions/crystals/frost/FreezeLavaAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.frost.FreezeLavaAction
+org/jubaroo/mods/wurm/server/server/OnItemTemplateCreated.java
+ org.jubaroo.mods.wurm.server.server.OnItemTemplateCreated
+org/jubaroo/mods/wurm/server/actions/items/TreasureCacheOpenAction.java
+ org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction
+ org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction$1
+ org.jubaroo.mods.wurm.server.actions.items.TreasureCacheOpenAction$2
+org/jubaroo/mods/wurm/server/tools/CustomTitles.java
+ org.jubaroo.mods.wurm.server.tools.CustomTitles
+org/jubaroo/mods/wurm/server/actions/crystals/fire/LightFireAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.fire.LightFireAction
+org/jubaroo/mods/wurm/server/actions/magicItems/ChampionOrbAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.ChampionOrbAction$2
+org/jubaroo/mods/wurm/server/actions/items/DyeDragonArmorAction.java
+ org.jubaroo.mods.wurm.server.actions.items.DyeDragonArmorAction
+ org.jubaroo.mods.wurm.server.actions.items.DyeDragonArmorAction$DyeAction
+org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemChristmasGift.java
+ org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemChristmasGift
+org/jubaroo/mods/wurm/server/actions/crystals/life/EnchantGroundAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.life.EnchantGroundAction
+org/jubaroo/mods/wurm/server/creatures/bounty/PlayerBounty.java
+ org.jubaroo.mods.wurm.server.creatures.bounty.PlayerBounty
+org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageHealAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageHealAction
+org/jubaroo/mods/wurm/server/utils/Compat3D.java
+ org.jubaroo.mods.wurm.server.utils.Compat3D
+ org.jubaroo.mods.wurm.server.utils.Compat3D$1
+ org.jubaroo.mods.wurm.server.utils.Compat3D$2
+ org.jubaroo.mods.wurm.server.utils.Compat3D$3
+ org.jubaroo.mods.wurm.server.utils.Compat3D$4
+ org.jubaroo.mods.wurm.server.utils.Compat3D$5
+org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfGearBindingAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfGearBindingAction
+org/jubaroo/mods/wurm/server/actions/items/WagonKitPackAction.java
+ org.jubaroo.mods.wurm.server.actions.items.WagonKitPackAction
+org/jubaroo/mods/wurm/server/actions/special/events/TreasureHuntChestAction.java
+ org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction
+ org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction$1
+ org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction$2
+org/jubaroo/mods/wurm/server/actions/items/SealedMapAction.java
+ org.jubaroo.mods.wurm.server.actions.items.SealedMapAction
+ org.jubaroo.mods.wurm.server.actions.items.SealedMapAction$1
+ org.jubaroo.mods.wurm.server.actions.items.SealedMapAction$2
+org/jubaroo/mods/wurm/server/vehicles/CustomVehicles.java
+ org.jubaroo.mods.wurm.server.vehicles.CustomVehicles
+ org.jubaroo.mods.wurm.server.vehicles.CustomVehicles$1
+ org.jubaroo.mods.wurm.server.vehicles.CustomVehicles$1$1
+org/jubaroo/mods/wurm/server/actions/magicItems/FriyanTabletAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.FriyanTabletAction$2
+org/jubaroo/mods/wurm/server/actions/potions/DiseasePotionAction.java
+ org.jubaroo.mods.wurm.server.actions.potions.DiseasePotionAction
+org/jubaroo/mods/wurm/server/actions/scrolls/BankSlotsAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction
+ org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction$1
+ org.jubaroo.mods.wurm.server.actions.scrolls.BankSlotsAction$2
 org/jubaroo/mods/wurm/server/actions/magicItems/DisintegrationRodAction.java
  org.jubaroo.mods.wurm.server.actions.magicItems.DisintegrationRodAction
  org.jubaroo.mods.wurm.server.actions.magicItems.DisintegrationRodAction$1
  org.jubaroo.mods.wurm.server.actions.magicItems.DisintegrationRodAction$2
-com/wurmonline/server/questions/RenameQuestion.java
- com.wurmonline.server.questions.RenameQuestion
-org/jubaroo/mods/wurm/server/misc/maze/events/EventOnce.java
- org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce
- org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce$1
- org.jubaroo.mods.wurm.server.misc.maze.events.EventOnce$Unit
-org/jubaroo/mods/wurm/server/actions/creatures/DisturbDenAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.DisturbDenAction
-org/jubaroo/mods/wurm/server/misc/QualityOfLife.java
- org.jubaroo.mods.wurm.server.misc.QualityOfLife
- org.jubaroo.mods.wurm.server.misc.QualityOfLife$1
-org/jubaroo/mods/wurm/server/communication/commands/CmdMassRefresh.java
- org.jubaroo.mods.wurm.server.communication.commands.CmdMassRefresh
+org/jubaroo/mods/wurm/server/actions/magicItems/SorceryCombineAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.SorceryCombineAction$2
+org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/MachinaOfFortuneHelpers.java
+ org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneHelpers
+org/jubaroo/mods/wurm/server/actions/magicItems/EnchantOrbAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.EnchantOrbAction$2
+org/jubaroo/mods/wurm/server/actions/items/NewsletterAction.java
+ org.jubaroo.mods.wurm.server.actions.items.NewsletterAction
+ org.jubaroo.mods.wurm.server.actions.items.NewsletterAction$1
+ org.jubaroo.mods.wurm.server.actions.items.NewsletterAction$2
 org/jubaroo/mods/wurm/server/actions/crystals/death/CrystalAbortAction.java
  org.jubaroo.mods.wurm.server.actions.crystals.death.CrystalAbortAction
-org/jubaroo/mods/wurm/server/items/ItemTools.java
- org.jubaroo.mods.wurm.server.items.ItemTools
-com/wurmonline/server/questions/BookConversionQuestion.java
- com.wurmonline.server.questions.BookConversionQuestion
+org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/CoinInsertion.java
+ org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.CoinInsertion
+org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageCreateAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageCreateAction
 org/jubaroo/mods/wurm/server/actions/creatures/RenameAction.java
  org.jubaroo.mods.wurm.server.actions.creatures.RenameAction
-org/jubaroo/mods/wurm/server/actions/creatures/npc/FaceMeAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.npc.FaceMeAction
-org/jubaroo/mods/wurm/server/actions/character/SprintAction.java
- org.jubaroo.mods.wurm.server.actions.character.SprintAction
- org.jubaroo.mods.wurm.server.actions.character.SprintAction$1
- org.jubaroo.mods.wurm.server.actions.character.SprintAction$2
-org/jubaroo/mods/wurm/server/misc/database/patreon/PatreonSleepPowderGift.java
- org.jubaroo.mods.wurm.server.misc.database.patreon.PatreonSleepPowderGift
-com/wurmonline/server/creatures/ai/AiProxy.java
- com.wurmonline.server.creatures.ai.AiProxy
-org/jubaroo/mods/wurm/server/communication/commands/CmdAdd5BankSlots.java
- org.jubaroo.mods.wurm.server.communication.commands.CmdAdd5BankSlots
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Hen.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Hen
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Hen$1
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Calf.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Calf
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Calf$1
-com/wurmonline/server/questions/DestroyCreatureQuestion.java
- com.wurmonline.server.questions.DestroyCreatureQuestion
-org/jubaroo/mods/wurm/server/actions/gm/ItemRenameAction.java
- org.jubaroo.mods.wurm.server.actions.gm.ItemRenameAction
-org/jubaroo/mods/wurm/server/actions/vehicles/AltarWagonPrayAction.java
- org.jubaroo.mods.wurm.server.actions.vehicles.AltarWagonPrayAction
+org/jubaroo/mods/wurm/server/tools/Hooks.java
+ org.jubaroo.mods.wurm.server.tools.Hooks
+org/jubaroo/mods/wurm/server/actions/crystals/life/GrowGrassAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.life.GrowGrassAction
+org/jubaroo/mods/wurm/server/items/pottals/PortalItems.java
+ org.jubaroo.mods.wurm.server.items.pottals.PortalItems
+org/jubaroo/mods/wurm/server/items/behaviours/AthanorMechanismBehaviour.java
+ org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour
+org/jubaroo/mods/wurm/server/actions/magicItems/AffinityOrbAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityOrbAction$2
+org/jubaroo/mods/wurm/server/actions/items/DepthDrillAction.java
+ org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction
+ org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction$1
+ org.jubaroo.mods.wurm.server.actions.items.DepthDrillAction$2
+org/jubaroo/mods/wurm/server/actions/crystals/fire/BurnCorpseAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.fire.BurnCorpseAction
+org/jubaroo/mods/wurm/server/actions/items/HolyBookPrayAction.java
+ org.jubaroo.mods.wurm.server.actions.items.HolyBookPrayAction
+org/jubaroo/mods/wurm/server/actions/items/PortableBankAction.java
+ org.jubaroo.mods.wurm.server.actions.items.PortableBankAction
+org/jubaroo/mods/wurm/server/actions/crystals/death/DeathAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.death.DeathAction
 org/jubaroo/mods/wurm/server/actions/items/RequiemCacheOpenAction.java
  org.jubaroo.mods.wurm.server.actions.items.RequiemCacheOpenAction
  org.jubaroo.mods.wurm.server.actions.items.RequiemCacheOpenAction$1
  org.jubaroo.mods.wurm.server.actions.items.RequiemCacheOpenAction$2
+org/jubaroo/mods/wurm/server/creatures/bounty/LootBounty.java
+ org.jubaroo.mods.wurm.server.creatures.bounty.LootBounty
+org/jubaroo/mods/wurm/server/actions/items/BookConversionAction.java
+ org.jubaroo.mods.wurm.server.actions.items.BookConversionAction
+ org.jubaroo.mods.wurm.server.actions.items.BookConversionAction$1
+ org.jubaroo.mods.wurm.server.actions.items.BookConversionAction$2
 org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfTitlesAction.java
  org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfTitlesAction
-org/jubaroo/mods/wurm/server/actions/character/LeaderboardSkillAction.java
- org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction
- org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction$1
- org.jubaroo.mods.wurm.server.actions.character.LeaderboardSkillAction$2
+org/jubaroo/mods/wurm/server/actions/items/HealingFountainAction.java
+ org.jubaroo.mods.wurm.server.actions.items.HealingFountainAction
 org/jubaroo/mods/wurm/server/items/behaviours/TreasureChestsBehaviour.java
  org.jubaroo.mods.wurm.server.items.behaviours.TreasureChestsBehaviour
  org.jubaroo.mods.wurm.server.items.behaviours.TreasureChestsBehaviour$1
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Rooster.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Rooster
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Rooster$1
-org/jubaroo/mods/wurm/server/actions/special/events/ReplacementChristmasGiftAction.java
- org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction
- org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction$1
- org.jubaroo.mods.wurm.server.actions.special.events.ReplacementChristmasGiftAction$2
-org/jubaroo/mods/wurm/server/utils/Cooldowns.java
- org.jubaroo.mods.wurm.server.utils.Cooldowns
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Anaconda.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Anaconda
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Anaconda$1
+org/jubaroo/mods/wurm/server/actions/items/GuardTokenAction.java
+ org.jubaroo.mods.wurm.server.actions.items.GuardTokenAction
+org/jubaroo/mods/wurm/server/actions/gm/RequiemReloadAction.java
+ org.jubaroo.mods.wurm.server.actions.gm.RequiemReloadAction
 org/jubaroo/mods/wurm/server/actions/magicItems/EternalOrbAction.java
  org.jubaroo.mods.wurm.server.actions.magicItems.EternalOrbAction
  org.jubaroo.mods.wurm.server.actions.magicItems.EternalOrbAction$1
  org.jubaroo.mods.wurm.server.actions.magicItems.EternalOrbAction$2
 org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/MachinaOfFortuneInstructionsAction.java
  org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneInstructionsAction
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/LargeRat.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.LargeRat
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.LargeRat$1
-com/wurmonline/server/questions/ChangeItemSizeQuestion.java
- com.wurmonline.server.questions.ChangeItemSizeQuestion
-org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemStPatrickDayGift.java
- org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemStPatrickDayGift
-org/jubaroo/mods/wurm/server/communication/commands/CmdCoffers.java
- org.jubaroo.mods.wurm.server.communication.commands.CmdCoffers
-org/jubaroo/mods/wurm/server/creatures/Bloodlust.java
- org.jubaroo.mods.wurm.server.creatures.Bloodlust
-org/jubaroo/mods/wurm/server/actions/gm/GmProtectAction.java
- org.jubaroo.mods.wurm.server.actions.gm.GmProtectAction
+org/jubaroo/mods/wurm/server/misc/database/holidays/RequiemAnniversaryGift.java
+ org.jubaroo.mods.wurm.server.misc.database.holidays.RequiemAnniversaryGift
+org/jubaroo/mods/wurm/server/actions/scrolls/HorseScrollAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction
+ org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction$1
+ org.jubaroo.mods.wurm.server.actions.scrolls.HorseScrollAction$2
+org/jubaroo/mods/wurm/server/actions/items/HeraldicCertificateAction.java
+ org.jubaroo.mods.wurm.server.actions.items.HeraldicCertificateAction
 org/jubaroo/mods/wurm/server/actions/crystals/frost/PreserveFoodAction.java
  org.jubaroo.mods.wurm.server.actions.crystals.frost.PreserveFoodAction
-com/wurmonline/server/creatures/CreaturesProxy.java
- com.wurmonline.server.creatures.CreaturesProxy
-com/wurmonline/server/questions/AffinityOrbQuestion.java
- com.wurmonline.server.questions.AffinityOrbQuestion
 org/jubaroo/mods/wurm/server/misc/EconomicChanges.java
  org.jubaroo.mods.wurm.server.misc.EconomicChanges
-org/jubaroo/mods/wurm/server/actions/crystals/ArcaneShardAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.ArcaneShardAction
-org/jubaroo/mods/wurm/server/actions/items/ShopSignAction.java
- org.jubaroo.mods.wurm.server.actions.items.ShopSignAction
-org/jubaroo/mods/wurm/server/server/PreInit.java
- org.jubaroo.mods.wurm.server.server.PreInit
-com/wurmonline/server/questions/LeaderboardCustomQuestion.java
- com.wurmonline.server.questions.LeaderboardCustomQuestion
-org/jubaroo/mods/wurm/server/utils/ClassMap.java
- org.jubaroo.mods.wurm.server.utils.ClassMap
+org/jubaroo/mods/wurm/server/actions/items/SupplyDepotAction.java
+ org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction
+ org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction$1
+ org.jubaroo.mods.wurm.server.actions.items.SupplyDepotAction$2
 org/jubaroo/mods/wurm/server/actions/scrolls/TownScrollAction.java
  org.jubaroo.mods.wurm.server.actions.scrolls.TownScrollAction
-org/jubaroo/mods/wurm/server/creatures/CreatureSpawns.java
- org.jubaroo.mods.wurm.server.creatures.CreatureSpawns
-org/jubaroo/mods/wurm/server/tools/EffectsTools.java
- org.jubaroo.mods.wurm.server.tools.EffectsTools
-org/jubaroo/mods/wurm/server/actions/magicItems/PortalTeleportAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.PortalTeleportAction
-org/jubaroo/mods/wurm/server/actions/creatures/InnkeeperFoodAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction
- org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction$1
- org.jubaroo.mods.wurm.server.actions.creatures.InnkeeperFoodAction$2
-org/jubaroo/mods/wurm/server/creatures/RareSpawns.java
- org.jubaroo.mods.wurm.server.creatures.RareSpawns
-org/jubaroo/mods/wurm/server/actions/items/TentSleepAction.java
- org.jubaroo.mods.wurm.server.actions.items.TentSleepAction
-org/jubaroo/mods/wurm/server/actions/magicItems/CrystalCombineAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction
- org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.CrystalCombineAction$2
+org/jubaroo/mods/wurm/server/actions/crystals/life/RebirthAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.life.RebirthAction
+org/jubaroo/mods/wurm/server/actions/magicItems/AffinityCatcherCaptureAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction$2
+org/jubaroo/mods/wurm/server/actions/creatures/BuyStarterKitAction.java
+ org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction
+ org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction$1
+ org.jubaroo.mods.wurm.server.actions.creatures.BuyStarterKitAction$2
+org/jubaroo/mods/wurm/server/actions/magicItems/ConvertWoodTypeAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.ConvertWoodTypeAction
+org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfVillageWarAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfVillageWarAction
+org/jubaroo/mods/wurm/server/misc/Caches.java
+ org.jubaroo.mods.wurm.server.misc.Caches
+org/jubaroo/mods/wurm/server/actions/items/ArrowPackUnpackAction.java
+ org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction
+ org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction$1
+ org.jubaroo.mods.wurm.server.actions.items.ArrowPackUnpackAction$2
 org/jubaroo/mods/wurm/server/items/ItemMod.java
  org.jubaroo.mods.wurm.server.items.ItemMod
  org.jubaroo.mods.wurm.server.items.ItemMod$1
@@ -591,134 +674,85 @@ org/jubaroo/mods/wurm/server/items/ItemMod.java
  org.jubaroo.mods.wurm.server.items.ItemMod$2$1
  org.jubaroo.mods.wurm.server.items.ItemMod$3
  org.jubaroo.mods.wurm.server.items.ItemMod$3$1
-org/jubaroo/mods/wurm/server/communication/commands/WurmCmd.java
- org.jubaroo.mods.wurm.server.communication.commands.WurmCmd
-org/jubaroo/mods/wurm/server/actions/creatures/KillCreatureAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.KillCreatureAction
-org/jubaroo/mods/wurm/server/actions/creatures/BaseManagementAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.BaseManagementAction
-org/jubaroo/mods/wurm/server/communication/discord/CustomChannel.java
- org.jubaroo.mods.wurm.server.communication.discord.CustomChannel
-org/jubaroo/mods/wurm/server/communication/KeyEvent.java
- org.jubaroo.mods.wurm.server.communication.KeyEvent
- org.jubaroo.mods.wurm.server.communication.KeyEvent$Response
-org/jubaroo/mods/wurm/server/actions/creatures/AbortAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.AbortAction
- org.jubaroo.mods.wurm.server.actions.creatures.AbortAction$1
- org.jubaroo.mods.wurm.server.actions.creatures.AbortAction$2
-org/jubaroo/mods/wurm/server/actions/scrolls/SummonScrollAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.SummonScrollAction
-org/jubaroo/mods/wurm/server/tools/SpellTools.java
- org.jubaroo.mods.wurm.server.tools.SpellTools
+org/jubaroo/mods/wurm/server/actions/magicItems/AffinityCatcherConsumeAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction$1
+ org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherConsumeAction$2
+org/jubaroo/mods/wurm/server/actions/special/machinaOfFortune/MachinaOfFortuneAction.java
+ org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneAction
+org/jubaroo/mods/wurm/server/actions/magicItems/TamingStickAction.java
+ org.jubaroo.mods.wurm.server.actions.magicItems.TamingStickAction
 org/jubaroo/mods/wurm/server/actions/items/LabelAction.java
  org.jubaroo.mods.wurm.server.actions.items.LabelAction
  org.jubaroo.mods.wurm.server.actions.items.LabelAction$1
  org.jubaroo.mods.wurm.server.actions.items.LabelAction$2
-org/jubaroo/mods/wurm/server/creatures/Titans.java
- org.jubaroo.mods.wurm.server.creatures.Titans
-org/jubaroo/mods/wurm/server/misc/templates/SpawnerTemplate.java
- org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate
 org/jubaroo/mods/wurm/server/actions/special/events/SummoningStoneAction.java
  org.jubaroo.mods.wurm.server.actions.special.events.SummoningStoneAction
-org/jubaroo/mods/wurm/server/misc/MiscHooks.java
- org.jubaroo.mods.wurm.server.misc.MiscHooks
- org.jubaroo.mods.wurm.server.misc.MiscHooks$1
- org.jubaroo.mods.wurm.server.misc.MiscHooks$2
-org/jubaroo/mods/wurm/server/actions/items/KeyCombinationAction.java
- org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction
- org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction$1
- org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction$2
-org/jubaroo/mods/wurm/server/misc/Fishing.java
- org.jubaroo.mods.wurm.server.misc.Fishing
- org.jubaroo.mods.wurm.server.misc.Fishing$1
-com/wurmonline/server/questions/LeaderboardAchievementQuestion.java
- com.wurmonline.server.questions.LeaderboardAchievementQuestion
+org/jubaroo/mods/wurm/server/items/CustomItems.java
+ org.jubaroo.mods.wurm.server.items.CustomItems
 org/jubaroo/mods/wurm/server/actions/magicItems/ChaosCrystalInfuseAction.java
  org.jubaroo.mods.wurm.server.actions.magicItems.ChaosCrystalInfuseAction
  org.jubaroo.mods.wurm.server.actions.magicItems.ChaosCrystalInfuseAction$1
  org.jubaroo.mods.wurm.server.actions.magicItems.ChaosCrystalInfuseAction$2
-org/jubaroo/mods/wurm/server/actions/magicItems/TamingStickAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.TamingStickAction
-org/jubaroo/mods/wurm/server/creatures/MethodsBestiary.java
- org.jubaroo.mods.wurm.server.creatures.MethodsBestiary
- org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$1
- org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$2
- org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$3
- org.jubaroo.mods.wurm.server.creatures.MethodsBestiary$3$1
-org/jubaroo/mods/wurm/server/actions/scrolls/LearnScrollAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.LearnScrollAction
-org/jubaroo/mods/wurm/server/communication/CustomChat.java
- org.jubaroo.mods.wurm.server.communication.CustomChat
- org.jubaroo.mods.wurm.server.communication.CustomChat$1
-org/jubaroo/mods/wurm/server/communication/discord/TicketHandler.java
- org.jubaroo.mods.wurm.server.communication.discord.TicketHandler
-org/jubaroo/mods/wurm/server/misc/Misc.java
- org.jubaroo.mods.wurm.server.misc.Misc
- org.jubaroo.mods.wurm.server.misc.Misc$1
- org.jubaroo.mods.wurm.server.misc.Misc$10
- org.jubaroo.mods.wurm.server.misc.Misc$2
- org.jubaroo.mods.wurm.server.misc.Misc$3
- org.jubaroo.mods.wurm.server.misc.Misc$4
- org.jubaroo.mods.wurm.server.misc.Misc$5
- org.jubaroo.mods.wurm.server.misc.Misc$6
- org.jubaroo.mods.wurm.server.misc.Misc$6$1
- org.jubaroo.mods.wurm.server.misc.Misc$7
- org.jubaroo.mods.wurm.server.misc.Misc$7$1
- org.jubaroo.mods.wurm.server.misc.Misc$8
- org.jubaroo.mods.wurm.server.misc.Misc$8$1
- org.jubaroo.mods.wurm.server.misc.Misc$9
- org.jubaroo.mods.wurm.server.misc.Misc$9$1
-org/jubaroo/mods/wurm/server/creatures/traitedCreatures/Bull.java
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Bull
- org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Bull$1
-org/jubaroo/mods/wurm/server/actions/items/GuardTokenAction.java
- org.jubaroo.mods.wurm.server.actions.items.GuardTokenAction
-org/jubaroo/mods/wurm/server/creatures/bounty/LootBounty.java
- org.jubaroo.mods.wurm.server.creatures.bounty.LootBounty
-org/jubaroo/mods/wurm/server/actions/scrolls/ScrollOfGearBindingAction.java
- org.jubaroo.mods.wurm.server.actions.scrolls.ScrollOfGearBindingAction
-org/jubaroo/mods/wurm/server/server/Config.java
- org.jubaroo.mods.wurm.server.server.Config
-org/jubaroo/mods/wurm/server/actions/creatures/npc/EquipmentAction.java
- org.jubaroo.mods.wurm.server.actions.creatures.npc.EquipmentAction
-org/jubaroo/mods/wurm/server/actions/character/AddSubGroupAction.java
- org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction
- org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction$1
- org.jubaroo.mods.wurm.server.actions.character.AddSubGroupAction$2
-org/jubaroo/mods/wurm/server/utils/MethodQuery.java
- org.jubaroo.mods.wurm.server.utils.MethodQuery
-org/jubaroo/mods/wurm/server/communication/discord/ChatHandler.java
- org.jubaroo.mods.wurm.server.communication.discord.ChatHandler
-org/jubaroo/mods/wurm/server/creatures/bounty/PlayerBounty.java
- org.jubaroo.mods.wurm.server.creatures.bounty.PlayerBounty
-org/jubaroo/mods/wurm/server/misc/maze/HedgeMaze.java
- org.jubaroo.mods.wurm.server.misc.maze.HedgeMaze
-org/jubaroo/mods/wurm/server/actions/crystals/life/EnchantGroundAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.life.EnchantGroundAction
-org/jubaroo/mods/wurm/server/actions/magicItems/AffinityCatcherCaptureAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.AffinityCatcherCaptureAction$2
-org/jubaroo/mods/wurm/server/actions/character/ReceiveMailAction.java
- org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction
- org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction$1
- org.jubaroo.mods.wurm.server.actions.character.ReceiveMailAction$2
-org/jubaroo/mods/wurm/server/actions/crystals/life/RebirthAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.life.RebirthAction
-org/jubaroo/mods/wurm/server/actions/crystals/frost/CoolAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.frost.CoolAction
-org/jubaroo/mods/wurm/server/actions/magicItems/SorcerySplitAction.java
- org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction
- org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction$1
- org.jubaroo.mods.wurm.server.actions.magicItems.SorcerySplitAction$2
+org/jubaroo/mods/wurm/server/actions/items/TreasureBoxAction.java
+ org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction
+ org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction$1
+ org.jubaroo.mods.wurm.server.actions.items.TreasureBoxAction$2
+org/jubaroo/mods/wurm/server/actions/items/KeyCombinationAction.java
+ org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction
+ org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction$1
+ org.jubaroo.mods.wurm.server.actions.items.KeyCombinationAction$2
 org/jubaroo/mods/wurm/server/items/behaviours/SupplyDepotBehaviour.java
  org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour
-org/jubaroo/mods/wurm/server/vehicles/util/SeatsFacadeImpl.java
- org.jubaroo.mods.wurm.server.vehicles.util.SeatsFacadeImpl
-org/jubaroo/mods/wurm/server/actions/crystals/life/GrowGrassAction.java
- org.jubaroo.mods.wurm.server.actions.crystals.life.GrowGrassAction
-org/jubaroo/mods/wurm/server/vehicles/util/VehicleFacadeImpl.java
- org.jubaroo.mods.wurm.server.vehicles.util.VehicleFacadeImpl
-org/jubaroo/mods/wurm/server/misc/maze/events/ShortEventDispatcher.java
- org.jubaroo.mods.wurm.server.misc.maze.events.ShortEventDispatcher
- org.jubaroo.mods.wurm.server.misc.maze.events.ShortEventDispatcher$1
+org/jubaroo/mods/wurm/server/items/pottals/ActivatePortalAction.java
+ org.jubaroo.mods.wurm.server.items.pottals.ActivatePortalAction
+org/jubaroo/mods/wurm/server/actions/crystals/ArcaneShardAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.ArcaneShardAction
+org/jubaroo/mods/wurm/server/items/pottals/PortalAction.java
+ org.jubaroo.mods.wurm.server.items.pottals.PortalAction
+org/jubaroo/mods/wurm/server/items/pottals/PollPortals.java
+ org.jubaroo.mods.wurm.server.items.pottals.PollPortals
+com/wurmonline/server/questions/PortalAddLocationQuestion.java
+ com.wurmonline.server.questions.PortalAddLocationQuestion
+org/jubaroo/mods/wurm/server/Requiem.java
+ org.jubaroo.mods.wurm.server.Requiem
+org/jubaroo/mods/wurm/server/actions/items/GemSmashAction.java
+ org.jubaroo.mods.wurm.server.actions.items.GemSmashAction
+org/jubaroo/mods/wurm/server/tools/ItemTools.java
+ org.jubaroo.mods.wurm.server.tools.ItemTools
+org/jubaroo/mods/wurm/server/items/CustomItemCreationEntries.java
+ org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries
+org/jubaroo/mods/wurm/server/items/pottals/PortalEditAction.java
+ org.jubaroo.mods.wurm.server.items.pottals.PortalEditAction
+org/jubaroo/mods/wurm/server/RequiemLogging.java
+ org.jubaroo.mods.wurm.server.RequiemLogging
+org/jubaroo/mods/wurm/server/items/pottals/AddUpkeepAction.java
+ org.jubaroo.mods.wurm.server.items.pottals.AddUpkeepAction
+org/jubaroo/mods/wurm/server/items/pottals/PortalAddLocationAction.java
+ org.jubaroo.mods.wurm.server.items.pottals.PortalAddLocationAction
+org/jubaroo/mods/wurm/server/server/Config.java
+ org.jubaroo.mods.wurm.server.server.Config
+com/wurmonline/server/questions/PortalUpkeepQuestion.java
+ com.wurmonline.server.questions.PortalUpkeepQuestion
+org/jubaroo/mods/wurm/server/actions/character/CreateAshAction.java
+ org.jubaroo.mods.wurm.server.actions.character.CreateAshAction
+org/jubaroo/mods/wurm/server/actions/crystals/life/GrowTreesAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.life.GrowTreesAction
+com/wurmonline/server/questions/PortalQuestion.java
+ com.wurmonline.server.questions.PortalQuestion
+org/jubaroo/mods/wurm/server/actions/crystals/fire/HeatUpAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.fire.HeatUpAction
+com/wurmonline/server/questions/ActivatePortalQuestion.java
+ com.wurmonline.server.questions.ActivatePortalQuestion
+org/jubaroo/mods/wurm/server/actions/AddActions.java
+ org.jubaroo.mods.wurm.server.actions.AddActions
+org/jubaroo/mods/wurm/server/actions/scrolls/SummonScrollAction.java
+ org.jubaroo.mods.wurm.server.actions.scrolls.SummonScrollAction
+org/jubaroo/mods/wurm/server/items/pottals/PortalMod.java
+ org.jubaroo.mods.wurm.server.items.pottals.PortalMod
+org/jubaroo/mods/wurm/server/actions/crystals/frost/CoolAction.java
+ org.jubaroo.mods.wurm.server.actions.crystals.frost.CoolAction
+com/wurmonline/server/questions/PortalEditQuestion.java
+ com.wurmonline.server.questions.PortalEditQuestion
+org/jubaroo/mods/wurm/server/server/OnServerStarted.java
+ org.jubaroo.mods.wurm.server.server.OnServerStarted

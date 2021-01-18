@@ -48,9 +48,11 @@ public class SprintAction implements ModAction {
             public List<ActionEntry> getBehavioursFor(final Creature performer, final int tilex, final int tiley, final boolean onSurface, final int tile, final int dir) {
                 return Collections.singletonList(SprintAction.this.actionEntry);
             }
+
             public List<ActionEntry> getBehavioursFor(final Creature performer, final Item subject, final int tilex, final int tiley, final boolean onSurface, final int tile) {
                 return Collections.singletonList(SprintAction.this.actionEntry);
             }
+
             public List<ActionEntry> getBehavioursFor(final Creature performer, final int tilex, final int tiley, final boolean onSurface, final int tile) {
                 return Collections.singletonList(SprintAction.this.actionEntry);
             }

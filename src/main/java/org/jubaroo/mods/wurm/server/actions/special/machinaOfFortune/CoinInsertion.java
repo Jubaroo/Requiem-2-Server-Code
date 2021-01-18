@@ -11,11 +11,11 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
 import static org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneHelpers.singleItemTwoRollInsert;
-import static org.jubaroo.mods.wurm.server.tools.RequiemTools.*;
+import static org.jubaroo.mods.wurm.server.tools.RandomUtils.generateRandomDoubleInRange;
 
 
 class CoinInsertion {
@@ -131,7 +131,7 @@ class CoinInsertion {
                     singleItemTwoRollInsert(50, rollMultiplier, RandomUtils.randomGem(false), 10f, 100f, source, performer, comm);
                     break;
                 case ROLL_15:
-                    MachinaOfFortuneHelpers.addRandomSkillTwoRoll(200, rollMultiplier, getRandArrayInt(SkillList.skillArray), source, performer, comm);
+                    MachinaOfFortuneHelpers.addRandomSkillTwoRoll(200, rollMultiplier, RandomUtils.getRandArrayInt(SkillList.skillArray), source, performer, comm);
                     break;
                 case ROLL_16:
                     if (rollMultiplier * Server.rand.nextInt(100 - 1) == 0) {
@@ -183,7 +183,7 @@ class CoinInsertion {
                     break;
                 case ROLL_29:
                     if (rollMultiplier * Server.rand.nextInt(150 - 1) == 0) {
-                        int karma = getRandomIntegerInRange(100, 300);
+                        int karma = RandomUtils.getRandomIntegerInRange(100, 300);
                         performer.setKarma(performer.getKarma() + karma);
                         MachinaOfFortuneHelpers.sendColoredGenericFortune(String.format("%d karma points", karma), comm);
                     } else {

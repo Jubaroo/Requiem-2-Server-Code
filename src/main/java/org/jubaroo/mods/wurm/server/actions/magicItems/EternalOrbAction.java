@@ -34,14 +34,12 @@ public class EternalOrbAction implements ModAction {
 
 
     @Override
-    public BehaviourProvider getBehaviourProvider()
-    {
+    public BehaviourProvider getBehaviourProvider() {
         return new BehaviourProvider() {
             // Menu with activated object
             @Override
-            public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item object)
-            {
-                if(performer instanceof Player && source != null && object != null && source.getTemplateId() == CustomItems.eternalOrbId && source != object){
+            public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item object) {
+                if (performer instanceof Player && source != null && object != null && source.getTemplateId() == CustomItems.eternalOrbId && source != object) {
                     return Collections.singletonList(actionEntry);
                 }
                 return null;
@@ -50,8 +48,7 @@ public class EternalOrbAction implements ModAction {
     }
 
     @Override
-    public ActionPerformer getActionPerformer()
-    {
+    public ActionPerformer getActionPerformer() {
         return new ActionPerformer() {
 
             @Override
@@ -61,49 +58,48 @@ public class EternalOrbAction implements ModAction {
 
             // With activated object
             @Override
-            public boolean action(Action act, Creature performer, Item source, Item target, short action, float counter)
-            {
-                if(performer instanceof Player){
+            public boolean action(Action act, Creature performer, Item source, Item target, short action, float counter) {
+                if (performer instanceof Player) {
                     Player player = (Player) performer;
-                    if(source.getTemplate().getTemplateId() != CustomItems.eternalOrbId){
+                    if (source.getTemplate().getTemplateId() != CustomItems.eternalOrbId) {
                         player.getCommunicator().sendNormalServerMessage("You must use an Eternal Orb to absorb enchants.");
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
-                    if(source.getWurmId() == target.getWurmId()){
+                    if (source.getWurmId() == target.getWurmId()) {
                         player.getCommunicator().sendNormalServerMessage("You cannot absorb the orb with itself!");
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
-                    if(target.getTemplateId() == ItemList.arrowHunting || target.getTemplateId() == ItemList.arrowWar){
+                    if (target.getTemplateId() == ItemList.arrowHunting || target.getTemplateId() == ItemList.arrowWar) {
                         player.getCommunicator().sendNormalServerMessage("You cannot use Eternal Orbs on arrows.");
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
                     ItemSpellEffects teffs = target.getSpellEffects();
-                    if(teffs == null || teffs.getEffects().length == 0){
-                        player.getCommunicator().sendNormalServerMessage("The "+target.getTemplate().getName()+" has no enchants.");
+                    if (teffs == null || teffs.getEffects().length == 0) {
+                        player.getCommunicator().sendNormalServerMessage("The " + target.getTemplate().getName() + " has no enchants.");
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
-                    for(SpellEffect eff : teffs.getEffects()){
-                        if(eff.type == 120){
-                            player.getCommunicator().sendNormalServerMessage("The "+eff.getName()+" enchant makes this item immune to the effects of the "+source.getName()+".");
+                    for (SpellEffect eff : teffs.getEffects()) {
+                        if (eff.type == 120) {
+                            player.getCommunicator().sendNormalServerMessage("The " + eff.getName() + " enchant makes this item immune to the effects of the " + source.getName() + ".");
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     }
                     try {
                         Item enchantOrb = ItemFactory.createItem(CustomItems.eternalOrbId, source.getCurrentQualityLevel(), "");
                         ItemSpellEffects effs = enchantOrb.getSpellEffects();
-                        if(effs == null){
+                        if (effs == null) {
                             effs = new ItemSpellEffects(enchantOrb.getWurmId());
                         }
-                        for(SpellEffect teff : teffs.getEffects()){
+                        for (SpellEffect teff : teffs.getEffects()) {
                             byte type = teff.type;
                             SpellEffect newEff = new SpellEffect(enchantOrb.getWurmId(), type, teff.getPower(), 20000000);
                             effs.addSpellEffect(newEff);
                             teffs.removeSpellEffect(type);
                             player.getCommunicator().sendSafeServerMessage(String.format("The %s transfers to the %s.", teff.getName(), enchantOrb.getTemplate().getName()));
-                            if(enchantOrb.getDescription().equals("")){
-                                enchantOrb.setDescription(newEff.getName().charAt(0)+String.format("%d", (int) newEff.getPower()));
-                            }else{
-                                enchantOrb.setDescription(enchantOrb.getDescription()+" "+newEff.getName().charAt(0)+String.format("%d", (int) newEff.getPower()));
+                            if (enchantOrb.getDescription().equals("")) {
+                                enchantOrb.setDescription(newEff.getName().charAt(0) + String.format("%d", (int) newEff.getPower()));
+                            } else {
+                                enchantOrb.setDescription(enchantOrb.getDescription() + " " + newEff.getName().charAt(0) + String.format("%d", (int) newEff.getPower()));
                             }
                         }
                         performer.getInventory().insertItem(enchantOrb, true);
@@ -111,7 +107,7 @@ public class EternalOrbAction implements ModAction {
                     } catch (FailedException | NoSuchTemplateException e) {
                         e.printStackTrace();
                     }
-                }else{
+                } else {
                     RequiemLogging.logInfo("Somehow a non-player activated an Enchant Orb...");
                 }
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

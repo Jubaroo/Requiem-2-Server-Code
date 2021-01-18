@@ -63,70 +63,70 @@ public class TamingStickAction implements ModAction, ActionPerformer, BehaviourP
                 performer.getCommunicator().sendNormalServerMessage(String.format("You must be closer to the %s.", creature.getName()), (byte) 3);
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
-                if (source.getTopParentOrNull() != performer.getInventory()) {
-                    performer.getCommunicator().sendNormalServerMessage("You must have the stick in your inventory to use it.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (performer.getPet() != null && DbCreatureStatus.getIsLoaded(performer.getPet().getWurmId()) == 1) {
-                    performer.getCommunicator().sendNormalServerMessage("You have a pet in a cage, remove it first, to dominate this one.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (source.getTemplate().getTemplateId() != CustomItems.tamingStickId && source.getTemplate().getTemplateId() != ItemList.wandDeity) {
-                    performer.getCommunicator().sendNormalServerMessage("You cannot use a taming stick without a taming stick!", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isCaredFor((Player) performer) && creature.getCareTakerId() != performer.getWurmId()) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is cared for by someone else.", creature.getName()), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isBranded() && creature.getBrandVillage() != performer.getCitizenVillage()) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is branded by another village.", creature.getName()), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (performer.getCurrentVillage() != null && (!performer.getCurrentVillage().isActionAllowed(Actions.BRAND, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.TAME, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.ATTACK, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.LEAD, performer))) {
-                    performer.getCommunicator().sendNormalServerMessage("The current village permissions do not allow that.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isDominated() && creature.getDominator() != performer) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is dominated by someone else.", creature.getName()), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isDominated() && creature.getDominator() == performer) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is dominated by someone you already.", creature.getName()), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isUnique() || MethodsBestiary.isRareCreature(creature)) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is too strong.", creature.getName()), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (MethodsBestiary.isChristmasMob(creature) || MethodsBestiary.isHalloweenMob(creature)) {
-                    performer.getCommunicator().sendNormalServerMessage("You cannot control holiday creatures.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (MethodsBestiary.isRequiemNPC(creature) || creature.isNpc() || creature.isTrader() || creature.isNpcTrader() || creature.isBartender() || creature.isGuide()) {
-                    performer.getCommunicator().sendNormalServerMessage("You cannot control NPC's.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isPlayer()) {
-                    performer.getCommunicator().sendNormalServerMessage("You cannot control players.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                //if (performer.hasPet()) {
-                //    performer.getCommunicator().sendNormalServerMessage("You cannot control any more creatures.", (byte)3);
-                //    return true;
-                //}
-                if (creature.isGuard()) {
-                    performer.getCommunicator().sendNormalServerMessage("You cannot control guards.", (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isRidden()) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("%s is currently riding that creature. Dismount and try again.", PermissionsByPlayer.getPlayerOrGroupName(creature.getHitched().pilotId)), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
-                if (creature.isHitched()) {
-                    performer.getCommunicator().sendNormalServerMessage(String.format("That creature is currently hitched to the %s.", creature.getHitched().name), (byte) 3);
-                    return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }
+            if (source.getTopParentOrNull() != performer.getInventory()) {
+                performer.getCommunicator().sendNormalServerMessage("You must have the stick in your inventory to use it.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (performer.getPet() != null && DbCreatureStatus.getIsLoaded(performer.getPet().getWurmId()) == 1) {
+                performer.getCommunicator().sendNormalServerMessage("You have a pet in a cage, remove it first, to dominate this one.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (source.getTemplate().getTemplateId() != CustomItems.tamingStickId && source.getTemplate().getTemplateId() != ItemList.wandDeity) {
+                performer.getCommunicator().sendNormalServerMessage("You cannot use a taming stick without a taming stick!", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isCaredFor((Player) performer) && creature.getCareTakerId() != performer.getWurmId()) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("The %s is cared for by someone else.", creature.getName()), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isBranded() && creature.getBrandVillage() != performer.getCitizenVillage()) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("The %s is branded by another village.", creature.getName()), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (performer.getCurrentVillage() != null && (!performer.getCurrentVillage().isActionAllowed(Actions.BRAND, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.TAME, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.ATTACK, performer) || !performer.getCurrentVillage().isActionAllowed(Actions.LEAD, performer))) {
+                performer.getCommunicator().sendNormalServerMessage("The current village permissions do not allow that.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isDominated() && creature.getDominator() != performer) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("The %s is dominated by someone else.", creature.getName()), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isDominated() && creature.getDominator() == performer) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("The %s is dominated by someone you already.", creature.getName()), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isUnique() || MethodsBestiary.isRareCreature(creature)) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("The %s is too strong.", creature.getName()), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (MethodsBestiary.isChristmasMob(creature) || MethodsBestiary.isHalloweenMob(creature)) {
+                performer.getCommunicator().sendNormalServerMessage("You cannot control holiday creatures.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (MethodsBestiary.isRequiemNPC(creature) || creature.isNpc() || creature.isTrader() || creature.isNpcTrader() || creature.isBartender() || creature.isGuide()) {
+                performer.getCommunicator().sendNormalServerMessage("You cannot control NPC's.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isPlayer()) {
+                performer.getCommunicator().sendNormalServerMessage("You cannot control players.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            //if (performer.hasPet()) {
+            //    performer.getCommunicator().sendNormalServerMessage("You cannot control any more creatures.", (byte)3);
+            //    return true;
+            //}
+            if (creature.isGuard()) {
+                performer.getCommunicator().sendNormalServerMessage("You cannot control guards.", (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isRidden()) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("%s is currently riding that creature. Dismount and try again.", PermissionsByPlayer.getPlayerOrGroupName(creature.getHitched().pilotId)), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
+            if (creature.isHitched()) {
+                performer.getCommunicator().sendNormalServerMessage(String.format("That creature is currently hitched to the %s.", creature.getHitched().name), (byte) 3);
+                return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
+            }
             if (counter == 1f) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("You pull the %s from your pocket and point it at the %s. The end of the stick begins to faintly glow...", source.getName(), creature.getName()), (byte) 3);
                 Server.getInstance().broadCastAction(String.format("%s pulls %s %s from %s pocket and points it at the %s.", performer.getName(), RequiemTools.a_an(source.getName()), source.getName(), performer.getHisHerItsString(), creature.getName()), performer, 5);

@@ -14,12 +14,12 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.terrain.SmoothTerrainAction;
-import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 import org.jubaroo.mods.wurm.server.creatures.RareSpawns;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.Misc;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
@@ -42,70 +42,70 @@ public class OnServerPoll {
                     public Object invoke(Object object, Method method, Object[] args) throws Throwable {
                         long now = System.currentTimeMillis();
                         //if (!RequiemTools.isPrivateTestServer()) {
-                            if (now - Constants.lastPolledMyceliumChange > Constants.delayMyceliumChange) {
-                                RequiemLogging.debug(String.format("OnServerPoll change to mycelium at %d, time since last poll : %d minute(s)", Constants.lastPolledMyceliumChange, (now - Constants.lastPolledMyceliumChange) / TimeConstants.MINUTE_MILLIS));
-                                Constants.lastPolledMyceliumChange = now;
-                                //changeToMyceliumZone();
-                                changeToMyceliumDeed();
+                        if (now - Constants.lastPolledMyceliumChange > Constants.delayMyceliumChange) {
+                            RequiemLogging.debug(String.format("OnServerPoll change to mycelium at %d, time since last poll : %d minute(s)", Constants.lastPolledMyceliumChange, (now - Constants.lastPolledMyceliumChange) / TimeConstants.MINUTE_MILLIS));
+                            Constants.lastPolledMyceliumChange = now;
+                            //changeToMyceliumZone();
+                            changeToMyceliumDeed();
+                        }
+                        //if (now - Constants.lastPolledHolidayMessage > Constants.delayHolidayMessage) {
+                        //    RequiemLogging.debug(String.format("OnServerPoll holiday message at %d, time since last poll : %d minute(s)", Constants.lastPolledHolidayMessage, (now - Constants.lastPolledHolidayMessage) / TimeConstants.MINUTE_MILLIS));
+                        //    Constants.lastPolledHolidayMessage = now;
+                        //    Holidays.holidayDiscordMessage();
+                        //}
+                        //if (now - Constants.lastPolledCullHotA > Constants.delayCullHotA) {
+                        //    RequiemLogging.debug(String.format("OnServerPoll cull HotA at %d, time since last poll : %d minute(s)", Constants.lastPolledCullHotA, (now - Constants.lastPolledCullHotA) / TimeConstants.MINUTE_MILLIS));
+                        //    Constants.lastPolledCullHotA = now;
+                        //    cullCreaturesHotA();
+                        //}
+                        if (now - Constants.lastPolledTradeTents > Constants.delayTradeTents) {
+                            RequiemLogging.debug(String.format("OnServerPoll trade tents at %d, time since last poll : %d minute(s)", Constants.lastPolledTradeTents, (now - Constants.lastPolledTradeTents) / TimeConstants.MINUTE_MILLIS));
+                            Constants.lastPolledTradeTents = now;
+                            Misc.pollTradeTents();
+                        }
+                        if (now - Constants.lastPolledResourcePoints > Constants.delayResourcePoints) {
+                            RequiemLogging.debug(String.format("OnServerPoll resource points at %d, time since last poll : %d minute(s)", Constants.lastPolledResourcePoints, (now - Constants.lastPolledResourcePoints) / TimeConstants.MINUTE_MILLIS));
+                            Constants.lastPolledResourcePoints = now;
+                            Misc.pollResourcePoints();
+                        }
+                        //if (now - Constants.lastPolledLootCarpets > Constants.delayLootCarpets) {
+                        //    RequiemLogging.debug(String.format("OnServerPoll loot carpets at %d, time since last poll : %d minute(s)", Constants.lastPolledLootCarpets, (now - Constants.lastPolledLootCarpets) / TimeConstants.MINUTE_MILLIS));
+                        //    Constants.lastPolledLootCarpets = now;
+                        //    Misc.pollLootCarpets();
+                        //}
+                        if (now - Constants.lastPolledMobSpawners > Constants.delayMobSpawners) {
+                            RequiemLogging.debug(String.format("OnServerPoll mob spawners at %d, time since last poll : %d minute(s)", Constants.lastPolledMobSpawners, (now - Constants.lastPolledMobSpawners) / TimeConstants.MINUTE_MILLIS));
+                            Constants.lastPolledMobSpawners = now;
+                            Misc.pollMobSpawners();
+                        }
+                        if (Constants.enableAthanorMechanism) {
+                            if (now - Constants.lastPolledAthanorMechanism > Constants.delayAthanorMechanism) {
+                                RequiemLogging.debug(String.format("OnServerPoll athanor mechanism at %d, time since last poll : %d minute(s)", Constants.lastPolledAthanorMechanism, (now - Constants.lastPolledAthanorMechanism) / TimeConstants.MINUTE_MILLIS));
+                                Constants.lastPolledAthanorMechanism = now;
+                                AthanorMechanismBehaviour.phaseShiftAthanorMechanism();
                             }
-                            //if (now - Constants.lastPolledHolidayMessage > Constants.delayHolidayMessage) {
-                            //    RequiemLogging.debug(String.format("OnServerPoll holiday message at %d, time since last poll : %d minute(s)", Constants.lastPolledHolidayMessage, (now - Constants.lastPolledHolidayMessage) / TimeConstants.MINUTE_MILLIS));
-                            //    Constants.lastPolledHolidayMessage = now;
-                            //    Holidays.holidayDiscordMessage();
-                            //}
-                            //if (now - Constants.lastPolledCullHotA > Constants.delayCullHotA) {
-                            //    RequiemLogging.debug(String.format("OnServerPoll cull HotA at %d, time since last poll : %d minute(s)", Constants.lastPolledCullHotA, (now - Constants.lastPolledCullHotA) / TimeConstants.MINUTE_MILLIS));
-                            //    Constants.lastPolledCullHotA = now;
-                            //    cullCreaturesHotA();
-                            //}
-                            if (now - Constants.lastPolledTradeTents > Constants.delayTradeTents) {
-                                RequiemLogging.debug(String.format("OnServerPoll trade tents at %d, time since last poll : %d minute(s)", Constants.lastPolledTradeTents, (now - Constants.lastPolledTradeTents) / TimeConstants.MINUTE_MILLIS));
-                                Constants.lastPolledTradeTents = now;
-                                Misc.pollTradeTents();
+                            if (now - Constants.lastPolledAthanorMechanismPoll > Constants.delayAthanorMechanismPoll) {
+                                RequiemLogging.debug(String.format("OnServerPoll athanor mechanism at %d, time since last poll : %d minute(s)", Constants.lastPolledAthanorMechanismPoll, (now - Constants.lastPolledAthanorMechanismPoll) / TimeConstants.MINUTE_MILLIS));
+                                Constants.lastPolledAthanorMechanismPoll = now;
+                                AthanorMechanismBehaviour.pollAthanorMechanism();
                             }
-                            if (now - Constants.lastPolledResourcePoints > Constants.delayResourcePoints) {
-                                RequiemLogging.debug(String.format("OnServerPoll resource points at %d, time since last poll : %d minute(s)", Constants.lastPolledResourcePoints, (now - Constants.lastPolledResourcePoints) / TimeConstants.MINUTE_MILLIS));
-                                Constants.lastPolledResourcePoints = now;
-                                Misc.pollResourcePoints();
-                            }
-                            //if (now - Constants.lastPolledLootCarpets > Constants.delayLootCarpets) {
-                            //    RequiemLogging.debug(String.format("OnServerPoll loot carpets at %d, time since last poll : %d minute(s)", Constants.lastPolledLootCarpets, (now - Constants.lastPolledLootCarpets) / TimeConstants.MINUTE_MILLIS));
-                            //    Constants.lastPolledLootCarpets = now;
-                            //    Misc.pollLootCarpets();
-                            //}
-                            if (now - Constants.lastPolledMobSpawners > Constants.delayMobSpawners) {
-                                RequiemLogging.debug(String.format("OnServerPoll mob spawners at %d, time since last poll : %d minute(s)", Constants.lastPolledMobSpawners, (now - Constants.lastPolledMobSpawners) / TimeConstants.MINUTE_MILLIS));
-                                Constants.lastPolledMobSpawners = now;
-                                Misc.pollMobSpawners();
-                            }
-                            if (Constants.enableAthanorMechanism) {
-                                if (now - Constants.lastPolledAthanorMechanism > Constants.delayAthanorMechanism) {
-                                    RequiemLogging.debug(String.format("OnServerPoll athanor mechanism at %d, time since last poll : %d minute(s)", Constants.lastPolledAthanorMechanism, (now - Constants.lastPolledAthanorMechanism) / TimeConstants.MINUTE_MILLIS));
-                                    Constants.lastPolledAthanorMechanism = now;
-                                    AthanorMechanismBehaviour.phaseShiftAthanorMechanism();
-                                }
-                                if (now - Constants.lastPolledAthanorMechanismPoll > Constants.delayAthanorMechanismPoll) {
-                                    RequiemLogging.debug(String.format("OnServerPoll athanor mechanism at %d, time since last poll : %d minute(s)", Constants.lastPolledAthanorMechanismPoll, (now - Constants.lastPolledAthanorMechanismPoll) / TimeConstants.MINUTE_MILLIS));
-                                    Constants.lastPolledAthanorMechanismPoll = now;
-                                    AthanorMechanismBehaviour.pollAthanorMechanism();
-                                }
-                            }
-                            if (now - Constants.lastPolledFogGoblins > Constants.delayFogGoblins) {
-                                RequiemLogging.debug(String.format("OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemTools.toPercentage(Server.getWeather().getFog(), 2)));
-                                Constants.lastPolledFogGoblins = now;
-                                Misc.pollFogGoblins();
-                            }
-                            //if (now - Constants.lastPolledWallRepair > Constants.delayWallRepair) {
-                            //    RequiemLogging.debug(String.format("OnServerPoll auto wall repair at %d, time since last poll : %d minute(s)", Constants.lastPolledWallRepair, (now - Constants.lastPolledWallRepair) / TimeConstants.MINUTE_MILLIS));
-                            //    Constants.lastPolledWallRepair = now;
-                            //    repairWallsHotA();
-                            //}
-                            //if (now - Constants.lastPolledRepairingNpcs > Constants.delayRepairingNpcs) {
-                            //    RequiemLogging.debug(String.format("OnServerPoll repairing NPC's sound & animation at %d, time since last poll : %d minute(s) %d second(s)", Constants.lastPolledRepairingNpcs, (now - Constants.lastPolledRepairingNpcs) / TimeConstants.MINUTE_MILLIS, (now - Constants.lastPolledRepairingNpcs) / TimeConstants.SECOND_MILLIS));
-                            //    Constants.lastPolledRepairingNpcs = now;
-                            //    Misc.pollRepairingNPCs();
-                            //}
-                            // ===================================== TESTING =====================================
+                        }
+                        if (now - Constants.lastPolledFogGoblins > Constants.delayFogGoblins) {
+                            RequiemLogging.debug(String.format("OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", Constants.lastPolledFogGoblins, (now - Constants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemTools.toPercentage(Server.getWeather().getFog(), 2)));
+                            Constants.lastPolledFogGoblins = now;
+                            Misc.pollFogGoblins();
+                        }
+                        //if (now - Constants.lastPolledWallRepair > Constants.delayWallRepair) {
+                        //    RequiemLogging.debug(String.format("OnServerPoll auto wall repair at %d, time since last poll : %d minute(s)", Constants.lastPolledWallRepair, (now - Constants.lastPolledWallRepair) / TimeConstants.MINUTE_MILLIS));
+                        //    Constants.lastPolledWallRepair = now;
+                        //    repairWallsHotA();
+                        //}
+                        //if (now - Constants.lastPolledRepairingNpcs > Constants.delayRepairingNpcs) {
+                        //    RequiemLogging.debug(String.format("OnServerPoll repairing NPC's sound & animation at %d, time since last poll : %d minute(s) %d second(s)", Constants.lastPolledRepairingNpcs, (now - Constants.lastPolledRepairingNpcs) / TimeConstants.MINUTE_MILLIS, (now - Constants.lastPolledRepairingNpcs) / TimeConstants.SECOND_MILLIS));
+                        //    Constants.lastPolledRepairingNpcs = now;
+                        //    Misc.pollRepairingNPCs();
+                        //}
+                        // ===================================== TESTING =====================================
                         //} else {
                         //    if (now - Constants.lastPolledMyceliumChange > Constants.testDelayMyceliumChange) {
                         //        RequiemLogging.debug(String.format("=== TESTING === OnServerPoll change to mycelium at %d, time since last poll : %d minute(s)", Constants.lastPolledMyceliumChange, (now - Constants.lastPolledMyceliumChange) / TimeConstants.MINUTE_MILLIS));

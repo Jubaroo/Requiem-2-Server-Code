@@ -800,9 +800,7 @@ public class Titans {
 
             Util.setReason("Disable natural regeneration on titan.");
             CtClass ctWound = classPool.get("com.wurmonline.server.bodys.Wound");
-            replace = "if(!" + Titans.class.getName() + ".isTitan(this.creature)){"
-                    + "  $_ = $proceed($$);"
-                    + "}";
+            replace = String.format("if(!%s.isTitan(this.creature)){  $_ = $proceed($$);}", Titans.class.getName());
             Util.instrumentDeclared(thisClass, ctWound, "poll", "modifySeverity", replace);
             Util.instrumentDeclared(thisClass, ctWound, "poll", "checkInfection", replace);
             Util.instrumentDeclared(thisClass, ctWound, "poll", "checkPoison", replace);
@@ -817,10 +815,7 @@ public class Titans {
 
             Util.setReason("Disable casting Worm Brains on titan.");
             CtClass ctWormBrains = classPool.get("com.wurmonline.server.spells.WormBrains");
-            replace = "if(" + Titans.class.getName() + ".isTitan($3)){"
-                    + "  $2.getCommunicator().sendNormalServerMessage(\"Titans are immune to that spell.\");"
-                    + "  return false;"
-                    + "}";
+            replace = String.format("if(%s.isTitan($3)){  $2.getCommunicator().sendNormalServerMessage(\"Titans are immune to that spell.\");  return false;}", Titans.class.getName());
             Util.insertBeforeDeclared(thisClass, ctWormBrains, "precondition", replace);
 
             //CtClass ctCreature = classPool.get("com.wurmonline.server.creatures.Creature");

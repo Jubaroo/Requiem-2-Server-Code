@@ -1,6 +1,7 @@
 package org.jubaroo.mods.wurm.server.actions.character;
 
 import com.wurmonline.server.Players;
+import com.wurmonline.server.Servers;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.ActionTypesProxy;
@@ -14,7 +15,6 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -80,7 +80,7 @@ public class StealthAction implements ModAction {
                 final String playerEffect = performer.getName() + effectName;
                 if (Cooldowns.isOnCooldown(playerEffect, cooldown)) {
                     performer.getCommunicator().sendNormalServerMessage(String.format("You will need to wait %s before you can do that again.", Cooldowns.timeRemaining(playerEffect, cooldown)));
-                    if (!RequiemTools.isPrivateTestServer()) {
+                    if (!Servers.isThisATestServer()) {
                         return true;
                     }
                     performer.getCommunicator().sendNormalServerMessage("... but you are on a test server, so allowing it!");

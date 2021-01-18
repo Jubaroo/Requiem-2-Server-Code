@@ -14,6 +14,8 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
+import org.jubaroo.mods.wurm.server.items.pottals.PollPortals;
+import org.jubaroo.mods.wurm.server.items.pottals.PortalItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.QualityOfLife;
 import org.jubaroo.mods.wurm.server.server.*;
@@ -46,6 +48,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                 RequiemLogging.debug("======= Editing existing item templates =======");
                 ItemMod.modifyItemsOnCreated();
             }
+            new PortalItems();
             CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
             new OnItemTemplateCreated();
         } catch (IllegalArgumentException | ClassCastException | IOException e) {
@@ -95,7 +98,6 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                     ItemMod.init();
                     Bounty.init();
                     MethodsBestiary.init();
-                    LootTable.creatureDied();
                     Misc.init();
                     //OnServerPoll.init();
                     QualityOfLife.init();
@@ -116,8 +118,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         try {
             if (!Constants.disableEntireMod) {
                 OnServerStarted.onServerStarted();
+                if (!Servers.isThisATestServer()) ChatHandler.serverStarted();
             }
-            ChatHandler.serverStarted();
         } catch (IllegalArgumentException | ClassCastException e) {
             RequiemLogging.logException("Error in modifyItemsOnServerStarted()", e);
         }
@@ -136,34 +138,32 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public MessagePolicy onPlayerMessage(Communicator communicator, String message, String title) {
-        final Player player = communicator.getPlayer();
         String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
+        final Player p = communicator.getPlayer();
         if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
             DiscordHandler.initJda();
             return MessagePolicy.DISCARD;
         } else if (communicator.player.getPower() >= 1 && message.startsWith("#eventmsg")) {
             String msg = message.replace("#eventmsg", "").trim();
             ChatHandler.setUpcomingEvent(msg);
-            if (msg.length() > 0) {
-                communicator.sendNormalServerMessage("Set event line: " + msg);
-            } else {
+            if (msg.length() > 0)
+                communicator.sendNormalServerMessage(String.format("Set event line: %s", msg));
+            else
                 communicator.sendNormalServerMessage("Cleared event line.");
-            }
             return MessagePolicy.DISCARD;
         } else if (!message.startsWith("#") && !message.startsWith("/")) {
             CustomChannel chan = CustomChannel.findByIngameName(title);
             if (chan != null) {
-                if (chan.canPlayersSend) {
+                if (chan.canPlayersSend)
                     ChatHandler.handleGlobalMessage(chan, communicator, message);
-                }
                 return MessagePolicy.DISCARD;
             } else return MessagePolicy.PASS;
-        } else if (OnServerStarted.cmdtool.runWurmCmd(player, argv)) {
-            return MessagePolicy.PASS;
         } else if (!message.startsWith("/me ") && (message.equals("help") || message.contains("guard!") || message.contains("guards!") || message.contains("help guard") || message.contains("help guards"))) {
-            player.getCommunicator().sendNormalServerMessage("Guards have been called!");
-            player.callGuards();
+            p.getCommunicator().sendNormalServerMessage("Guards have been called!");
+            p.callGuards();
             return MessagePolicy.DISCARD;
+        } else if (OnServerStarted.cmdtool.runWurmCmd(p, argv)) {
+            return MessagePolicy.PASS;
         } else {
             return MessagePolicy.PASS;
         }
@@ -203,6 +203,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         if (!Constants.disableEntireMod) {
             OnServerPoll.onServerPoll();
             Misc.noobTips();
+            PollPortals.pollportal();
             //Titans.locateTitans();
         }
         if (Servers.localServer.LOGINSERVER)
@@ -215,6 +216,12 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     }
 
     //TODO
+    // Add portal action into an action performer and make them a list instead of 4 different actions in the main right click menu
+    // So just noticed in the ship building menu, knarr's don't have custom sail options.  Also, Caravels are listed as "...caravels caravel," and caravels and cogs are listed twice for each custom sail model.
+    // add lava/fire creatures to Creature.doLavaDamage()
+    // Login server is the Volcano Island map and the starter village is trying to flee and you have to choose a portal to leave through
+    // Make special login banners for the test server
+    // I wish more enchants could be put on shields..seems like shared pain should be allowed
     // Make lesser fire crystal have 3 charges
     // ---> Horse traits do not show up in GM trait set list after trait 40 <--- important
     // *** redo all items to be in one file ***
@@ -238,7 +245,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     // Make different types of beds give different sleep bonus rates
     // Make capes work!!!
     // Portable bank or another item to be used as one
-    // .
+    // Redo the mimic creature to be a real chest with a custom action that turns it into a monster
     // Make an action/question to trade in a HotA statue for a different kind?
     // Make weak "cannibal tribes" that roam globally like The Forest?
     // Make new undead creature that only spawns at night and leaves no body when it dies so they can mass de-spawn at dawn like a wraith

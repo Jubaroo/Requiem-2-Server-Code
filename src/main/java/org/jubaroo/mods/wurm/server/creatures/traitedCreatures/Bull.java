@@ -16,7 +16,7 @@ public class Bull extends Cow {
                 try {
                     return CreatureTemplateFactory.getInstance().getTemplate(templateId);
                 } catch (NoSuchCreatureTemplateException e) {
-                    throw new RuntimeException((Throwable) e);
+                    throw new RuntimeException(e);
                 }
             }
         };

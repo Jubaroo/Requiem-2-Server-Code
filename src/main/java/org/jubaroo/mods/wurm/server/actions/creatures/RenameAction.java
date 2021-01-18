@@ -24,7 +24,7 @@ public class RenameAction implements ModAction, BehaviourProvider, ActionPerform
 
     public RenameAction() {
         actionId = (short) ModActions.getNextActionId();
-        actionEntry = new ActionEntryBuilder(actionId, "Rename Creature", "renaming", new int[] {
+        actionEntry = new ActionEntryBuilder(actionId, "Rename Creature", "renaming", new int[]{
                 ActionTypesProxy.ACTION_TYPE_ENEMY_NEVER,
                 ActionTypesProxy.ACTION_TYPE_ALWAYS_USE_ACTIVE_ITEM
         }).build();
@@ -48,7 +48,7 @@ public class RenameAction implements ModAction, BehaviourProvider, ActionPerform
     public boolean action(Action action, Creature performer, Item subject, Creature target, short num, float counter) {
         if (target.isAnimal() || target.isMonster() || !target.isUnique() || !target.isNpc()) { // Sanity check, and a fallback if someone uses actions mod.
             vCheck = performer.getCitizenVillage();
-            if (performer.getPower() >= MiscConstants.POWER_DEMIGOD ) {
+            if (performer.getPower() >= MiscConstants.POWER_DEMIGOD) {
                 RenameQuestion.send(performer, target, subject);
             } else {
 

@@ -98,10 +98,7 @@ public class RareSpawns {
 
             Util.setReason("Disable casting Worm Brains on rares.");
             CtClass ctWormBrains = classPool.get("com.wurmonline.server.spells.WormBrains");
-            replace = "if(" + MethodsBestiary.class.getName() + ".isRareCreature($3)){"
-                    + "  $2.getCommunicator().sendNormalServerMessage(\"This creature is immune to Worm Brains.\");"
-                    + "  return false;"
-                    + "}";
+            replace = String.format("if(%s.isRareCreature($3)){  $2.getCommunicator().sendNormalServerMessage(\"This creature is immune to Worm Brains.\");  return false;}", MethodsBestiary.class.getName());
             Util.insertBeforeDeclared(thisClass, ctWormBrains, "precondition", replace);
 
             //removed for update 1.9.0.0

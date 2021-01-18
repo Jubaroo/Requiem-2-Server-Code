@@ -57,10 +57,10 @@ public class PlaceGemAction implements ModAction {
                 for (int i = 0; i < 1; i++) {
                     player.getInventory().insertItem(newItem);
                 }
-                    player.getCommunicator().sendSafeServerMessage(String.format("A %s and some other items emerge from the mechanism.", newItem.getName().toLowerCase()));
+                player.getCommunicator().sendSafeServerMessage(String.format("A %s and some other items emerge from the mechanism.", newItem.getName().toLowerCase()));
                 Items.destroyItem(gem.getWurmId());
             } catch (Exception ex) {
-                RequiemLogging.logWarning( ex.getMessage() + ex);
+                RequiemLogging.logWarning(ex.getMessage() + ex);
             }
         }
     }
@@ -140,7 +140,7 @@ public class PlaceGemAction implements ModAction {
                         }
                     }
                 } catch (Exception e) {
-                    RequiemLogging.logWarning( e.getMessage() + e);
+                    RequiemLogging.logWarning(e.getMessage() + e);
                     return true;
                 }
                 return false;

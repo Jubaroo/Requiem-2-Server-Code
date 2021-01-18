@@ -65,7 +65,7 @@ public class RequiemStPatrickDayGift {
                 ps.close();
             }
         } catch (SQLException e) {
-            RequiemLogging.logException( "Error in onServerStarted()", e);
+            RequiemLogging.logException("Error in onServerStarted()", e);
             throw new RuntimeException(e);
         }
     }
@@ -80,7 +80,7 @@ public class RequiemStPatrickDayGift {
             player.getInventory().insertItem(ItemFactory.createItem(ItemList.sleepPowder, 99f, Materials.MATERIAL_WHEAT, MaterialUtilities.COMMON, null), true);
             player.getCommunicator().sendServerMessage("A shadowy figure appears behind you and your pocket gets heavier. You quickly turn around to see what is going on only to find that nobody is there.", 255, 192, 203);
         } catch (FailedException | NoSuchTemplateException e) {
-            RequiemLogging.logException( "Error in giveItems()", e);
+            RequiemLogging.logException("Error in giveItems()", e);
             throw new RuntimeException(e);
         }
     }

@@ -26,6 +26,7 @@ import org.jubaroo.mods.wurm.server.actions.items.*;
 import org.jubaroo.mods.wurm.server.actions.magicItems.*;
 import org.jubaroo.mods.wurm.server.actions.potions.DiseasePotionAction;
 import org.jubaroo.mods.wurm.server.actions.scrolls.*;
+import org.jubaroo.mods.wurm.server.actions.special.LightningStormAction;
 import org.jubaroo.mods.wurm.server.actions.special.events.SummoningStoneAction;
 import org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction;
 import org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneAction;
@@ -33,6 +34,7 @@ import org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFo
 import org.jubaroo.mods.wurm.server.actions.vehicles.AltarWagonPrayAction;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
+import org.jubaroo.mods.wurm.server.items.pottals.*;
 import org.jubaroo.mods.wurm.server.server.Constants;
 
 import static org.jubaroo.mods.wurm.server.server.Constants.*;
@@ -41,8 +43,15 @@ public class AddActions {
 
     public static void registerActions() {
         RequiemLogging.debug("Registering Item actions...");
-        ModActions.registerAction( new JoustAction(CustomItems.joustingLanceId, LanceDamage, BaseHitChance, SpearSkillRange, BonusLanceDamage, LoseHelmetChance, PerKMDamageBoost, AllowSkillGain, LanceRange));
+        //ModActions.registerAction( new JoustAction(CustomItems.joustingLanceId, LanceDamage, BaseHitChance, SpearSkillRange, BonusLanceDamage, LoseHelmetChance, PerKMDamageBoost, AllowSkillGain, LanceRange));
         ItemMod.addActPortal();
+        ModActions.registerAction(new PortalAction());
+        ModActions.registerAction(new PortalAddLocationAction());
+        ModActions.registerAction(new PortalEditAction());
+        ModActions.registerAction(new AddUpkeepAction());
+        ModActions.registerAction(new ActivatePortalAction());
+        ModActions.registerAction(new EmptyTrashHeapAction());
+        ModActions.registerAction(new LightningStormAction());
         ModActions.registerAction(new TreasureHuntChestAction());
         ModActions.registerAction(new SummoningStoneAction());
         ModActions.registerAction(new ShopSignAction());

@@ -3,6 +3,7 @@ package org.jubaroo.mods.wurm.server.items;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 import org.jubaroo.mods.wurm.server.server.Constants;
 
 import static com.wurmonline.server.items.ItemList.*;
@@ -778,6 +779,29 @@ public class CustomItemCreationEntries {
         rockCrusher.addRequirement(new CreationRequirement(5, ItemList.nailsIronLarge, 3, true));
         rockCrusher.addRequirement(new CreationRequirement(6, ItemList.sheetIron, 3, true));
         rockCrusher.addRequirement(new CreationRequirement(7, ItemList.brassBand, 2, true));
+        // Portals
+        if (PortalMod.craftPortals) {
+            AdvancedCreationEntry serverPortal = CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, stoneBrick, ItemList.concrete, CustomItems.serverPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
+            serverPortal.addRequirement(new CreationRequirement(1, ItemList.stoneBrick, 1000, true));
+            serverPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1000, true));
+
+            AdvancedCreationEntry hugeServerPortal = CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, ItemList.marbleBrick, ItemList.concrete, CustomItems.hugeServerPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
+            hugeServerPortal.addRequirement(new CreationRequirement(1, ItemList.marbleBrick, 1500, true));
+            hugeServerPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1500, true));
+
+            AdvancedCreationEntry steelServerPortal = CreationEntryCreator.createAdvancedEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.sheetSteel, ItemList.concrete, CustomItems.steelServerPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
+            steelServerPortal.addRequirement(new CreationRequirement(1, ItemList.sheetSteel, 100, true));
+            steelServerPortal.addRequirement(new CreationRequirement(2, ItemList.marbleBrick, 1000, true));
+            steelServerPortal.addRequirement(new CreationRequirement(3, ItemList.concrete, 1000, true));
+
+            AdvancedCreationEntry darkCrystalServerPortal = CreationEntryCreator.createAdvancedEntry(SkillList.SMITHING_GOLDSMITHING, ItemList.riftCrystal, ItemList.concrete, CustomItems.darkCrystalServerPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
+            darkCrystalServerPortal.addRequirement(new CreationRequirement(1, ItemList.riftCrystal, 100, true));
+            darkCrystalServerPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1000, true));
+
+            AdvancedCreationEntry crystalServerPortal = CreationEntryCreator.createAdvancedEntry(SkillList.SMITHING_GOLDSMITHING, ItemList.riftCrystal, ItemList.concrete, CustomItems.crystalServerPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
+            crystalServerPortal.addRequirement(new CreationRequirement(1, ItemList.riftCrystal, 100, true));
+            crystalServerPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1000, true));
+        }
 
         RequiemLogging.debug(String.format("Initialising custom item creation entries took %s millis.", (float) (System.nanoTime() - start) / 1000000f));
     }

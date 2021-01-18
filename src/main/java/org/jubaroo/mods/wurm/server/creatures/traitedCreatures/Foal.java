@@ -16,7 +16,7 @@ public class Foal extends Horse {
                 try {
                     return CreatureTemplateFactory.getInstance().getTemplate(templateId);
                 } catch (NoSuchCreatureTemplateException e) {
-                    throw new RuntimeException((Throwable) e);
+                    throw new RuntimeException(e);
                 }
             }
         };

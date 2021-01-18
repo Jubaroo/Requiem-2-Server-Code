@@ -23,11 +23,11 @@ public class CorpseBountyAction implements ModAction, BehaviourProvider, ActionP
         // Get the action id
         this.actionId = (short) ModActions.getNextActionId();
         // Create the action entry
-        this.actionEntry = new ActionEntryBuilder(this.actionId, "Redeem Bounty", "Redeeming", new int[] {
+        this.actionEntry = new ActionEntryBuilder(this.actionId, "Redeem Bounty", "Redeeming", new int[]{
                 ActionTypesProxy.ACTION_TYPE_NOMOVE,
                 ActionTypesProxy.ACTION_TYPE_ENEMY_ALWAYS,
                 ActionTypesProxy.ACTION_TYPE_ALWAYS_USE_ACTIVE_ITEM}
-                ).range(10).build();
+        ).range(10).build();
         // Register the action entry
         ModActions.registerAction(this.actionEntry);
     }

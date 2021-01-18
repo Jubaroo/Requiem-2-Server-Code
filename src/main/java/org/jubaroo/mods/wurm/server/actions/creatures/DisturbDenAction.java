@@ -18,7 +18,8 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -75,7 +76,6 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
         return action(action, performer, target, num, counter);
     }
 
-
     @Override
     public boolean action(Action action, Creature performer, Item target, short num, float counter) {
         try {
@@ -106,7 +106,7 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logWarning( "search action error" + e);
+            RequiemLogging.logWarning("search action error" + e);
             return true;
         }
     }
@@ -182,7 +182,7 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
     private void spawnDefenders(Creature performer, int creatureType, CreatureTemplate template, Communicator comm, Item lair) {
         boolean attack = template.isAggHuman() || template.isMonster();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < RandomUtils.getRandomIntegerInRange(3, 6); i++) {
             try {
                 byte sex = template.getSex();
                 if (sex == 0 && !template.keepSex && Server.rand.nextInt(2) == 0) {

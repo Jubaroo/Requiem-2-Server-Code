@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class LargeRat implements ModCreature {
     public static int templateId;
-    private static final int BLACK = 26;
+    private static final int BLACK = 24;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.RAT_LARGE_CID;

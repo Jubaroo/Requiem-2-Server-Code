@@ -176,7 +176,7 @@ public class Maze {
                 }
             }
         } catch (NoSuchZoneException | IOException e) {
-            RequiemLogging.logException( "Could not create maze", e);
+            RequiemLogging.logException("Could not create maze", e);
         }
     }
 

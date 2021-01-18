@@ -6,10 +6,10 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.PlayerInfoFactory;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
-import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
 import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -34,7 +34,7 @@ public class RequiemLogging {
     public static void debug(String msg) {
         if (Requiem.logger != null) {
             if (Constants.debug) {
-                Requiem.logger.info(msg);
+                logInfo(msg);
             }
         }
     }
@@ -390,7 +390,7 @@ public class RequiemLogging {
                 } else {
                     logInfo("Disease: None");
                 }
-                    if (creature.isReborn()) {
+                if (creature.isReborn()) {
                     logInfo("Creature has been reborn after death");
                 }
                 logInfo(String.format("Location: X= %s Y= %s", creature.getTileX(), creature.getTileY()));

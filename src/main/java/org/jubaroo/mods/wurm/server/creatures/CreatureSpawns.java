@@ -4,13 +4,11 @@ import com.wurmonline.mesh.Tiles;
 import com.wurmonline.server.FailedException;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Server;
-import com.wurmonline.server.bodys.Body;
 import com.wurmonline.server.bodys.BodyTemplate;
 import com.wurmonline.server.creatures.*;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.sounds.SoundPlayer;
-import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.zones.EncounterType;
 import com.wurmonline.shared.constants.CreatureTypes;
 import com.wurmonline.shared.constants.Enchants;
@@ -20,14 +18,10 @@ import org.gotti.wurmunlimited.modsupport.creatures.EncounterBuilder;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.ChatHandler;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
-import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Zebra;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
-import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
 import org.jubaroo.mods.wurm.server.server.Constants;
-import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.io.IOException;
 
@@ -50,6 +44,7 @@ public class CreatureSpawns {
         }
     }
 
+    //TODO put all spawns in each creature unless vanilla
     public static void spawnTable() {
         if (Constants.uniques) {
             CreatureSpawns.spawnOnMostTerrain(CustomCreatures.spiritStagId);
@@ -66,9 +61,9 @@ public class CreatureSpawns {
         }
         if (Constants.treasureGoblin) {
             CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinId);
+            CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinMenageristGoblinId);
             //CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinRainbowGoblinId);
             //CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinOdiousCollectorId);
-            CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinMenageristGoblinId);
             //CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinMalevolentTormentorId);
             //CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinGemHoarderId);
             //CreatureSpawns.spawnOnMostTerrain(CustomCreatures.treasureGoblinBloodThiefId);
@@ -193,183 +188,6 @@ public class CreatureSpawns {
         }
     }
 
-    public static void modifyNewCreature(Creature creature) {
-        try {
-            int id = creature.getTemplate().getTemplateId();
-            Body bodyPart = creature.getBody();
-            Village village = creature.getCurrentTile().getVillage();
-            String jingleSound = "sound.emote.bucketthree.jump";
-
-            if (Constants.creatureCreateLogging) {
-                RequiemLogging.CreatureSpawnLogging(creature);
-            }
-            // Titans
-            if (Titans.isTitan(creature)) {
-                String message = String.format("The titan %s has stepped into the mortal realm. Challenge %s if you dare", creature.getNameWithoutPrefixes(), creature.getHisHerItsString());
-                Titans.addTitan(creature);
-                DiscordHandler.sendToDiscord(CustomChannel.TITAN, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Rare Creatures
-            else if (MethodsBestiary.isRareCreature(creature)) {
-                String message = String.format("A rare %s has surfaced.", creature.getNameWithoutPrefixes());
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Zombie Leader
-            else if (id == CustomCreatures.zombieLeaderId) {
-                CreatureSpawns.spawnZombieHorde(creature);
-            }
-            // Wolf Packmaster
-            else if (id == CustomCreatures.wolfPackmasterId) {
-                CreatureSpawns.spawnWolves(creature);
-            }
-            // Insert Clubs into Creatures
-            else if (id == CustomCreatures.cyclopsId || id == CustomCreatures.fireGiantId || id == CustomCreatures.facebreykerId || id == CustomCreatures.giantId || id == CustomCreatures.depotTrollId) {
-                Item shodClub = ItemFactory.createItem(ItemList.clubHuge, (float) RequiemTools.generateRandomDoubleInRange(50, 99), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
-                bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shodClub, true);
-            }
-            // White Buffalo
-            else if (id == CustomCreatures.whiteBuffaloId) {
-                String message = String.format("The %s has appeared somewhere in the world. If killed, its spirit will seek vengeance upon those that destroyed its physical form.", creature.getNameWithoutPrefixes());
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Frosty
-            else if (id == CustomCreatures.frostyId) {
-                String message = String.format("%s the snowman has appeared somewhere in the world. If you can find him and give him a blessed snowball, he will give you something in return!", creature.getNameWithoutPrefixes());
-                SoundPlayer.playSound(jingleSound, creature, 0f);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Rudolph
-            else if (id == CustomCreatures.rudolphId) {
-                String message = String.format("%s has appeared somewhere in the world. Santa must not be far away!.", creature.getNameWithoutPrefixes());
-                SoundPlayer.playSound(jingleSound, creature, 0f);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Snowman
-            else if (id == CustomCreatures.snowmanId) {
-                SoundPlayer.playSound(jingleSound, creature, 0f);
-            }
-            // Dock Worker
-            else if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
-                Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RequiemTools.generateRandomDoubleInRange(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
-                bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(mallet, true);
-                Constants.soundEmissionNpcs.add(creature);
-            }
-            // Santa Claus
-            else if (id == CreatureTemplateIds.SANTA_CLAUS) {
-                String message = String.format("HO HO HO, Merry Christmas everyone! %s has landed and is now taking up residence in %s, be sure to visit him on christmas or look under your own christmas tree to get your present.", creature.getName(), village.getName());
-                SoundPlayer.playSound(jingleSound, creature, 0f);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Horseman Conquest
-            else if (id == CustomCreatures.horsemanConquestId) {
-                String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
-                SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
-                creature.setVehicle(horse.getWurmId(), true, (byte) 3);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Horseman War
-            else if (id == CustomCreatures.horsemanWarId) {
-                String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
-                horse.setModelName("model.creature.quadraped.horse.ebonyblack.");
-                SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
-                creature.setVehicle(horse.getWurmId(), true, (byte) 3);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Horseman Famine
-            else if (id == CustomCreatures.horsemanFamineId) {
-                String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
-                horse.setModelName("model.creature.quadraped.horse.white.");
-                SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
-                creature.setVehicle(horse.getWurmId(), true, (byte) 3);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Horseman Death
-            else if (id == CustomCreatures.horsemanDeathId) {
-                String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
-                horse.setModelName("model.creature.quadraped.horse.white.");
-                SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
-                creature.setVehicle(horse.getWurmId(), true, (byte) 3);
-                ChatHandler.systemMessage((Player) creature, CustomChannel.EVENTS, "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.", 255, 255, 255);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Treasure Goblin
-            else if (id == CustomCreatures.treasureGoblinId) {
-                String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Item shortSword = ItemFactory.createItem(ItemList.swordShort, 50f + (Server.rand.nextFloat() * 30f), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, null);
-                shortSword.setName("goblin shortsword");
-                bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shortSword, true);
-                Server.getInstance().broadCastAction(String.format("%s finds a short sword and holds it in its hand.", creature.getName()), creature, 8);
-                ChatHandler.systemMessage((Player) creature, CustomChannel.EVENTS, String.format("A %s has surfaced. Be quick to catch it before someone else does!", creature.getNameWithoutPrefixes()), 242, 242, 8);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Menagerist Goblin
-            else if (id == CustomCreatures.treasureGoblinMenageristGoblinId) {
-                String message = String.format("A %s has surfaced. Be quick to catch it before someone else does!", creature.getNameWithoutPrefixes());
-                Item shortSword = ItemFactory.createItem(ItemList.swordShort, 50f + (Server.rand.nextFloat() * 30f), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, null);
-                shortSword.setName("goblin shortsword");
-                bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shortSword, true);
-                Server.getInstance().broadCastAction(String.format("%s finds a short sword and holds it in its hand.", creature.getName()), creature, 8);
-                DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
-            }
-            // Injured Pirate
-            else if (creature.getNameWithoutPrefixes().equals("Injured Pirate")) {
-                Item shortSword = ItemFactory.createItem(ItemList.swordShort, 50f + (Server.rand.nextFloat() * 30f), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, null);
-                shortSword.setName("pirate shortsword");
-                bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shortSword, true);
-                Server.getInstance().broadCastAction(String.format("The %s pulls a short sword from its sheath and holds it in %s hand.", creature.getName().toLowerCase(), creature.getHisHerItsString()), creature, 6);
-                //ChatTabs.sendLocalChat(creature, "YARRRRR!!! Who goes there? How dare ye try to steal ma' booty you scallywagger", 1, 220, 1);
-                //ChatHandler.systemMessage();
-                //CreatureTools.getCreaturesAround(creature, 10);
-                //for ()
-            }
-            // Fog Goblin
-            else if (id == CustomCreatures.fogGoblinId) {
-                Item potion = Misc.createItem(ItemList.potion, 100.0F);
-                creature.getInventory().insertItem(potion);
-                int reward = Server.rand.nextInt(100);
-                if (reward >= 20) {
-                    Item secondPotion = Misc.createItem(ItemList.potion, 100.0F);
-                    creature.getInventory().insertItem(secondPotion);
-                }
-                if (reward >= 60) {
-                    Item thirdPotion = Misc.createItem(ItemList.potion, 100.0F);
-                    creature.getInventory().insertItem(thirdPotion);
-                }
-                if (reward >= 90) {
-                    Item yellowPotion = Misc.createItem(ItemList.potionIllusion, 100.0F);
-                    creature.getInventory().insertItem(yellowPotion);
-                }
-                if (reward >= 97) {
-                    int potionId = RandomUtils.randomPotionTemplates();
-                    Item specialPotion = Misc.createItem(potionId, 100.0F);
-                    creature.getInventory().insertItem(specialPotion);
-                }
-            }
-            // Black Knight
-            else if (id == CustomCreatures.blackKnightId || creature.getNameWithoutPrefixes().equals("The Black Knight")) {
-                BlackKnightSpawn(creature);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     private static void spawnGolemlings(Creature creature) {
         try {
             float x = creature.getPosX();
@@ -387,7 +205,7 @@ public class CreatureSpawns {
         }
     }
 
-    private static void spawnWolves(Creature creature) {
+    public static void spawnWolves(Creature creature) {
         try {
             float x = creature.getPosX();
             float y = creature.getPosY();
@@ -456,7 +274,7 @@ public class CreatureSpawns {
         }
     }
 
-    private static void spawnZombieHorde(Creature creature) {
+    public static void spawnZombieHorde(Creature creature) {
         try {
             float x = creature.getPosX();
             float y = creature.getPosY();
@@ -547,6 +365,7 @@ public class CreatureSpawns {
 
     /**
      * Spawn a creature when the original creature dies
+     *
      * @param creature The creature used to determine the creature(s) spawned when it dies
      */
     static void creatureSpawnOnDeath(Creature creature) {
@@ -596,9 +415,10 @@ public class CreatureSpawns {
 
     /**
      * Spawn items and make the Black Knight equip them
+     *
      * @param creature Black Knight
      */
-    public static void BlackKnightSpawn(Creature creature) {
+    public static void blackKnightSpawn(Creature creature) {
         try {
             Item twoHandSword = blackKnightItemSpawn(ItemList.swordTwoHander);
             Item greatHelm = blackKnightItemSpawn(ItemList.helmetGreat);

@@ -8,6 +8,7 @@ import com.wurmonline.shared.constants.ItemMaterials;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtils {
 
@@ -362,7 +363,7 @@ public class RandomUtils {
     }
 
     public static int randomGem(boolean star) {
-        switch (Server.rand.nextInt(5)) {
+        switch (Server.rand.nextInt(4)) {
             case 0:
                 if (star) return ItemList.diamondStar;
                 else return ItemList.diamond;
@@ -375,7 +376,6 @@ public class RandomUtils {
             case 3:
                 if (star) return ItemList.opalBlack;
                 else return ItemList.opal;
-            case 4:
             default:
                 if (star) return ItemList.sapphireStar;
                 else return ItemList.sapphire;
@@ -395,6 +395,36 @@ public class RandomUtils {
             }
         }
         return false;
+    }
+
+    public static int getRandArrayInt(int[] array) {
+        return array[Server.rand.nextInt(array.length)];
+    }
+
+    public static int getRandArrayByte(byte[] array) {
+        return array[Server.rand.nextInt(array.length)];
+    }
+
+    public static String getRandArrayString(String[] array) {
+        return array[Server.rand.nextInt(array.length)];
+    }
+
+    public static double generateRandomDoubleInRange(double min, double max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        return ThreadLocalRandom.current().nextDouble(min, max);
+    }
+
+    public static float getRandomFloatInRange(float min, float max) {
+        return Server.rand.nextFloat() * (max - min) + min;
+    }
+
+    public static int getRandomIntegerInRange(int min, int max) {
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        return Server.rand.nextInt(max - min) + min;
     }
 
 }

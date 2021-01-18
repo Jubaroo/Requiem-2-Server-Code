@@ -103,7 +103,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
                 item.dropItem(sub.getWurmId(), false);
                 newItem.insertItem(sub, true);
             } catch (NoSuchItemException e) {
-                RequiemLogging.logWarning( "No such item when moving subs" + e);
+                RequiemLogging.logWarning("No such item when moving subs" + e);
             }
         }
 
@@ -202,7 +202,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
             try {
                 ReflectionUtil.callPrivateMethod(target, Item.class.getDeclaredMethod("notifyWatchersTempChange"));
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-                RequiemLogging.logWarning( "Error heating item" + e);
+                RequiemLogging.logWarning("Error heating item" + e);
             }
         }
         return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

@@ -116,7 +116,7 @@ public class GrowTreesAction implements ModAction, BehaviourProvider, ActionPerf
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logWarning( e.getMessage() + e);
+            RequiemLogging.logWarning(e.getMessage() + e);
             return true;
         }
     }

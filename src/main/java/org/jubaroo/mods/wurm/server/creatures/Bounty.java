@@ -13,6 +13,7 @@ import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -139,11 +140,12 @@ public class Bounty {
             //    CtMethod ctDoNew = ctCreature.getMethod("doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;");
             //    ctDoNew.insertBefore(String.format("%s.logInfo(\"Creating new creature: \"+templateid+\" - \"+(aPosX/4)+\", \"+(aPosY/4)+\" [\"+com.wurmonline.server.creatures.CreatureTemplateFactory.getInstance().getTemplate(templateid).getName()+\"]\");", RequiemLogging.class.getName()));
             //}
-            // Modify new creatures
+
+            Util.setReason("Modify new creatures.");
             replace = String.format("$_ = $proceed($$);%s.modifyNewCreature($1);", CreatureSpawns.class.getName());
             Util.instrumentDescribed(thisClass, ctCreature, "doNew", desc, "sendToWorld", replace);
 
-            // -- Enable adjusting size for creatures -- //
+            Util.setReason("Enable adjusting size for creatures.");
             CtClass ctCreatureStatus = classPool.get("com.wurmonline.server.creatures.CreatureStatus");
             Util.setBodyDeclared(thisClass, ctCreatureStatus, "getSizeMod", String.format("{return %s.getAdjustedSizeMod(this);}", CreatureTools.class.getName()));
 

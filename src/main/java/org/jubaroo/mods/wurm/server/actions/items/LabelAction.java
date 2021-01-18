@@ -24,7 +24,7 @@ public class LabelAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public LabelAction() {
-        RequiemLogging.logWarning( "LabelAction()");
+        RequiemLogging.logWarning("LabelAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
@@ -103,7 +103,7 @@ public class LabelAction implements ModAction {
                             Server.getInstance().broadCastAction(performer.getName() + " extracts energy from " + performer.getHisHerItsString() + " " + orb + ".", performer, 5);
                         }
                     } else {
-                        RequiemLogging.logWarning( String.format("Somehow a non-player activated a %s...", orb));
+                        RequiemLogging.logWarning(String.format("Somehow a non-player activated a %s...", orb));
                     }
                     return true;
                 } catch (Exception e) {

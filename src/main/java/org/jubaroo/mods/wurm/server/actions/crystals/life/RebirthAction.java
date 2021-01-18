@@ -73,7 +73,7 @@ public class RebirthAction implements ModAction, ActionPerformer, BehaviourProvi
                             }
                             cret.getSkills().save();
                         } catch (Exception e) {
-                            RequiemLogging.logWarning( e.getMessage() + e);
+                            RequiemLogging.logWarning(e.getMessage() + e);
                             performer.getCommunicator().sendNormalServerMessage("You struggle to bring the corpse back to life, but you sense problems.", (byte) 3);
                         }
                     } catch (Exception ex) {
@@ -111,7 +111,7 @@ public class RebirthAction implements ModAction, ActionPerformer, BehaviourProvi
                                 }
                             }
                         } catch (Exception e2) {
-                            RequiemLogging.logWarning( e2.getMessage() + e2);
+                            RequiemLogging.logWarning(e2.getMessage() + e2);
                             performer.getCommunicator().sendNormalServerMessage("You struggle to bring the corpse back to life, but you sense problems.", (byte) 3);
                         }
                     }
@@ -239,7 +239,7 @@ public class RebirthAction implements ModAction, ActionPerformer, BehaviourProvi
             }
             return false;
         } catch (NoSuchActionException ex3) {
-            RequiemLogging.logWarning( "Error on death action: " + ex3.getMessage());
+            RequiemLogging.logWarning("Error on death action: " + ex3.getMessage());
         }
         return true;
     }

@@ -1,4 +1,4 @@
-package org.jubaroo.mods.wurm.server.creatures;
+package org.jubaroo.mods.wurm.server.tools;
 
 import com.wurmonline.server.creatures.*;
 import com.wurmonline.server.items.Item;
@@ -13,6 +13,9 @@ import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.CreatureTypes;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
+import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.utils.TweakApiPerms;
 
 import java.lang.reflect.InvocationTargetException;
@@ -118,6 +121,7 @@ public class CreatureTools {
             CreatureTemplateIds.GOBLIN_LEADER_CID,
             CreatureTemplateIds.CYCLOPS_CID
     };
+
     public static int[] randomCreatureType = {
             CreatureTypes.C_MOD_NONE,
             CreatureTypes.C_MOD_FIERCE,
@@ -182,7 +186,7 @@ public class CreatureTools {
 
     /**
      * @param performer creature to check around
-     * @param tileDist distance from performer to check around for players
+     * @param tileDist  distance from performer to check around for players
      * @return list of creatures near the player in a distance set by tileDist
      */
     public static Set<Creature> getCreaturesAround(final Creature performer, final int tileDist) {
@@ -200,7 +204,7 @@ public class CreatureTools {
         return result;
     }
 
-    public static void changeCreatureModtype(Creature creature, byte newType) throws NoSuchFieldException, IllegalAccessException {
+    public static void changeCreatureModType(Creature creature, byte newType) throws NoSuchFieldException, IllegalAccessException {
         ReflectionUtil.setPrivateField(creature.getStatus(), ReflectionUtil.getField(CreatureStatus.class, "modtype"), newType);
     }
 
@@ -214,18 +218,9 @@ public class CreatureTools {
         return tmap.get(name);
     }
 
-    static boolean setTemplateField(String creatureName, String fieldName, Object fieldValue) {
-        CreatureTemplate tmpl = getTemplate(creatureName);
-        if (tmpl == null) {
-            return false;
-        }
-        return TweakApiPerms.setClassField("com.wurmonline.server.creatures.CreatureTemplate", fieldName, tmpl, fieldValue);
-    }
-
-
     public static HashMap<String, Integer> getCreatureHisto(boolean killable) {
-        HashMap<String, Integer> histo = new HashMap<String, Integer>();
-        Integer v = 0;
+        HashMap<String, Integer> histo = new HashMap<>();
+        Integer v;
         for (Creature targ : Creatures.getInstance().getCreatures()) {
 
             if (killable && !isOkToDestroy(targ)) {
@@ -295,7 +290,7 @@ public class CreatureTools {
     }
 
     public static Creature[] getCreaturesByName(String name) {
-        HashSet<Creature> ret = new HashSet<Creature>();
+        HashSet<Creature> ret = new HashSet<>();
         for (Creature targ : Creatures.getInstance().getCreatures()) {
             if (targ.getTemplate().getName().equals(name)) {
                 ret.add(targ);
@@ -305,7 +300,7 @@ public class CreatureTools {
     }
 
     static boolean addTemplateTypes(String creatureName, int... types) {
-        Method meth = null;
+        Method meth;
 
         CreatureTemplate tmpl = getTemplate(creatureName);
         if (tmpl == null) {

@@ -59,9 +59,10 @@ public class CustomVehicleCreationEntries {
     };
 
     public static int[] customSailingBoatList = {
-            blackLegionCaravel.getTemplateId(), crusadersCaravel.getTemplateId(), ebonauraCaravel.getTemplateId(), empireMolRehanCaravel.getTemplateId(), eagleCaravel.getTemplateId(),
-            freedomCaravel.getTemplateId(), hotSCaravel.getTemplateId(), jennKellonCaravel.getTemplateId(), kingdomSolCaravel.getTemplateId(), macedoniaCaravel.getTemplateId(), molRehanCaravel.getTemplateId(),
-            pandemoniumCaravel.getTemplateId(), pirateCaravel.getTemplateId(), requiemCaravel.getTemplateId(), romanEmpireCaravel.getTemplateId(), vyseCaravel.getTemplateId(), callanishCaravel.getTemplateId()
+            blackLegionSailing.getTemplateId(), crusadersSailing.getTemplateId(), dreadnoughtSailing.getTemplateId(), ebonauraSailing.getTemplateId(), empireMolRehanSailing.getTemplateId(),
+            eagleSailing.getTemplateId(), freedomSailing.getTemplateId(), hotSSailing.getTemplateId(), kingdomSolSailing.getTemplateId(), macedoniaSailing.getTemplateId(), molRehanSailing.getTemplateId(),
+            pandemoniumSailing.getTemplateId(), pirateSailing.getTemplateId(), requiemSailing.getTemplateId(), romanEmpireSailing.getTemplateId(), valhallaSailing.getTemplateId(), jennKellonTwoSailing.getTemplateId(),
+            vyseSailing.getTemplateId(), callanishSailing.getTemplateId()
     };
 
     public static int[] customWagonList = {

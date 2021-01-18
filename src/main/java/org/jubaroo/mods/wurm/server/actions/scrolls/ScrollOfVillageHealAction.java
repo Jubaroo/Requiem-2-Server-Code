@@ -10,7 +10,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -47,7 +47,7 @@ public class ScrollOfVillageHealAction implements ModAction, ActionPerformer, Be
 
     @Override
     public List<ActionEntry> getBehavioursFor(final Creature performer, final Item source, final Item target) {
-        if (performer instanceof Player && target != null &&  source != null && (target.getTemplate().getTemplateId() == item && !target.isTraded()))
+        if (performer instanceof Player && target != null && source != null && (target.getTemplate().getTemplateId() == item && !target.isTraded()))
             return Collections.singletonList(actionEntry);
         else
             return null;
@@ -72,7 +72,7 @@ public class ScrollOfVillageHealAction implements ModAction, ActionPerformer, Be
                 action.setTimeLeft(timeLeft);
                 performer.sendActionControl(actStrVerb, true, timeLeft);
             } else if (counter * 10f > action.getTimeLeft()) {
-                float bonus = v.getFaithHealValue() + RequiemTools.getRandomIntegerInRange(10, 100);
+                float bonus = v.getFaithHealValue() + RandomUtils.getRandomIntegerInRange(10, 100);
                 v.setFaithHeal(bonus);
                 Items.destroyItem(source.getWurmId());
                 performer.getCommunicator().sendNormalServerMessage("The scroll crumbles to dust as you read the last word. You have added a faith bonus to your settlement: Healing faith bonus is now (" + nf.format(v.getFaithHealValue()) + "): " + nf.format(v.getFaithHealBonus()) + "%");

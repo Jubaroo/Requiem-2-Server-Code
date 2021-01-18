@@ -117,7 +117,7 @@ public class BurnCorpseAction implements ModAction, ActionPerformer, BehaviourPr
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logWarning( "search action error" + e);
+            RequiemLogging.logWarning("search action error" + e);
             return true;
         }
     }

@@ -98,7 +98,7 @@ public class ChampionOrbAction implements ModAction {
                             Server.getInstance().broadCastAction(String.format("%s extracts energy from %s %s.", performer.getName(), performer.getHisHerItsString(), orb), performer, 5);
                         }
                     } else {
-                        RequiemLogging.logWarning( String.format("Somehow a non-player activated a %s...", orb));
+                        RequiemLogging.logWarning(String.format("Somehow a non-player activated a %s...", orb));
                     }
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {

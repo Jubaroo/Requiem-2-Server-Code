@@ -84,7 +84,7 @@ public class PreserveFoodAction implements ModAction, ActionPerformer, Behaviour
             }
             return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            RequiemLogging.logWarning( e.getMessage() + e);
+            RequiemLogging.logWarning(e.getMessage() + e);
             return true;
         }
 

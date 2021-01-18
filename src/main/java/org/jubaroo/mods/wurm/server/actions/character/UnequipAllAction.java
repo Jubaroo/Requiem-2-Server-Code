@@ -21,7 +21,7 @@ public class UnequipAllAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public UnequipAllAction() {
-        RequiemLogging.logWarning( "UnequipAllAction()");
+        RequiemLogging.logWarning("UnequipAllAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

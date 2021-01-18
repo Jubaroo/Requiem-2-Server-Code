@@ -31,7 +31,7 @@ public class SmoothTerrainAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public SmoothTerrainAction() {
-        RequiemLogging.logWarning( "SmoothTerrainAction()");
+        RequiemLogging.logWarning("SmoothTerrainAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

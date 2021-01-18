@@ -10,7 +10,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -47,7 +47,7 @@ public class ScrollOfVillageCreateAction implements ModAction, ActionPerformer, 
 
     @Override
     public List<ActionEntry> getBehavioursFor(final Creature performer, final Item source, final Item target) {
-        if (performer instanceof Player && target != null &&  source != null && (target.getTemplate().getTemplateId() == item && !target.isTraded()))
+        if (performer instanceof Player && target != null && source != null && (target.getTemplate().getTemplateId() == item && !target.isTraded()))
             return Collections.singletonList(actionEntry);
         else
             return null;
@@ -72,10 +72,10 @@ public class ScrollOfVillageCreateAction implements ModAction, ActionPerformer, 
                 action.setTimeLeft(timeLeft);
                 performer.sendActionControl(actStrVerb, true, timeLeft);
             } else if (counter * 10f > action.getTimeLeft()) {
-                float bonus = v.getFaithCreateValue() + RequiemTools.getRandomIntegerInRange(1, 10);
+                float bonus = v.getFaithCreateValue() + RandomUtils.getRandomIntegerInRange(1, 10);
                 v.setFaithCreate(bonus);
                 Items.destroyItem(source.getWurmId());
-                performer.getCommunicator().sendNormalServerMessage("The scroll crumbles to dust as you read the last word. You have added a faith bonus to  your settlement: Enchanting faith bonus is now (" + nf.format(v.getFaithCreateValue()) + "): " + nf.format(v.getFaithCreateBonus()) + "%, Rarity window: " + (int)Math.min(10.0f, v.getFaithCreateValue()) + " bonus seconds.");
+                performer.getCommunicator().sendNormalServerMessage("The scroll crumbles to dust as you read the last word. You have added a faith bonus to  your settlement: Enchanting faith bonus is now (" + nf.format(v.getFaithCreateValue()) + "): " + nf.format(v.getFaithCreateBonus()) + "%, Rarity window: " + (int) Math.min(10.0f, v.getFaithCreateValue()) + " bonus seconds.");
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
             return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

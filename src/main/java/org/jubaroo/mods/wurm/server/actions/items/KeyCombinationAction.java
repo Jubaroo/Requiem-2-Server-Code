@@ -32,7 +32,7 @@ public class KeyCombinationAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public KeyCombinationAction() {
-        RequiemLogging.logWarning( "KeyCombinationAction()");
+        RequiemLogging.logWarning("KeyCombinationAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

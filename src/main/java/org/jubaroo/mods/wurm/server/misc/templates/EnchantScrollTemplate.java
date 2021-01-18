@@ -8,7 +8,7 @@ public class EnchantScrollTemplate {
     public int templateID;
     public int enchantID;
 
-    public EnchantScrollTemplate (String name, String description, String model, int enchantID) {
+    public EnchantScrollTemplate(String name, String description, String model, int enchantID) {
         this.model = model;
         this.name = name;
         this.description = description;

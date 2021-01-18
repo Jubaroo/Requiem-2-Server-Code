@@ -65,7 +65,7 @@ public class WagonKitPackAction implements ModAction, ActionPerformer, Behaviour
                 performer.getCommunicator().sendNormalServerMessage(String.format("You must have the %s in your inventory.", source.getName()));
                 return true;
             }
-            if (!target.isVehicle() && target.getOwnerId() != performer.getWurmId() && source.getTemplate().getTemplateId() != sourceItem ) {
+            if (!target.isVehicle() && target.getOwnerId() != performer.getWurmId() && source.getTemplate().getTemplateId() != sourceItem) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("You cannot do that without a %s activated and a wagon targeted.", source.getName()));
                 return true;
             }

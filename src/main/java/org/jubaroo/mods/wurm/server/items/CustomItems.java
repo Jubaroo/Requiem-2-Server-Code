@@ -6,7 +6,6 @@ import com.wurmonline.server.behaviours.BehaviourList;
 import com.wurmonline.server.bodys.BodyTemplate;
 import com.wurmonline.server.items.ItemSizes;
 import com.wurmonline.server.items.ItemTemplate;
-import com.wurmonline.server.items.ItemTypes;
 import com.wurmonline.server.items.Materials;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.BodyPartConstants;
@@ -15,7 +14,6 @@ import com.wurmonline.shared.constants.ItemMaterials;
 import com.wurmonline.shared.constants.ModelConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.misc.Caches;
 import org.jubaroo.mods.wurm.server.misc.templates.EnchantScrollTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.ScrollTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate;
@@ -25,6 +23,7 @@ import org.jubaroo.mods.wurm.server.server.Constants;
 import java.io.IOException;
 
 import static com.wurmonline.server.items.ItemTypes.*;
+import static org.jubaroo.mods.wurm.server.misc.Caches.CACHE_IDS;
 import static org.jubaroo.mods.wurm.server.server.Constants.*;
 
 public class CustomItems {
@@ -191,6 +190,8 @@ public class CustomItems {
 
     public static ItemTemplate demonHomePortal, demonPortal, nymphHomePortal, nymphPortal;
 
+    public static ItemTemplate serverPortal, hugeServerPortal, steelServerPortal, darkCrystalServerPortal, crystalServerPortal;
+
     public static void registerCustomItems() throws IOException {
         long start = System.nanoTime();
         RequiemLogging.debug("=================  Registering Custom Server Mod Item Templates =================");
@@ -233,6 +234,7 @@ public class CustomItems {
         registerTaxidermyGroomedBodies();
         registerCustomArmors();
         registerCaches();
+        registerServerPortals();
         registerLibilasAltar();
         registerBlessedAltar();
         registerSourceAltar();
@@ -1442,11 +1444,11 @@ public class CustomItems {
                 .modelName("model.resource.leather.dragon.")
                 .imageNumber((short) IconConstants.ICON_LEATHER_SKIN)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_HASDATA,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_BULK,
-                        ItemTypes.ITEM_TYPE_COMBINE,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_BULK,
+                        ITEM_TYPE_COMBINE,
+                        ITEM_TYPE_NOT_MISSION
                 })
                 .dimensions(10, 30, 30)
                 .decayTime(TimeConstants.DECAYTIME_VALUABLE)
@@ -1466,11 +1468,11 @@ public class CustomItems {
                 .modelName("model.resource.scales.dragon.")
                 .imageNumber((short) IconConstants.ICON_BODY_DRAGON_SCAILS)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_HASDATA,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_BULK,
-                        ItemTypes.ITEM_TYPE_COMBINE,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_BULK,
+                        ITEM_TYPE_COMBINE,
+                        ITEM_TYPE_NOT_MISSION
                 })
                 .dimensions(10, 30, 30)
                 .decayTime(TimeConstants.DECAYTIME_VALUABLE)
@@ -1495,11 +1497,11 @@ public class CustomItems {
                 .material(ItemMaterials.MATERIAL_STONE)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NOMOVE,
-                        ItemTypes.ITEM_TYPE_NOTAKE,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION,
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_NOMOVE,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_NOT_MISSION,
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_DECORATION,
                 })
                 .isTraded(true)
                 .build();
@@ -1522,11 +1524,11 @@ public class CustomItems {
                 .primarySkill(SkillList.CLOTHTAILORING)
                 .difficulty(60)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_ARMOUR,
-                        ItemTypes.ITEM_TYPE_CLOTH,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_IMPROVEITEM,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE
+                        ITEM_TYPE_ARMOUR,
+                        ITEM_TYPE_CLOTH,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_IMPROVEITEM,
+                        ITEM_TYPE_REPAIRABLE
                 })
                 .isTraded(true)
                 .build();
@@ -1547,10 +1549,10 @@ public class CustomItems {
                 .behaviourType(BehaviourList.itemBehaviour)
                 .bodySpaces(new byte[]{BodyTemplate.face})
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_ARMOUR,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_NO_IMPROVE
+                        ITEM_TYPE_ARMOUR,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_NO_IMPROVE
                 })
                 .isTraded(true)
                 .build();
@@ -1637,17 +1639,17 @@ public class CustomItems {
                 .imageNumber((short) IconConstants.ICON_CONTAINER_CHEST)
                 .modelName("model.container.chest.small.magical.")
                 .weightGrams(20000)
-                .dimensions(25,25,25)
+                .dimensions(25, 25, 25)
                 .decayTime(TimeConstants.DECAYTIME_MAGIC)
                 .value(1000)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_SERVERBOUND,
-                        ItemTypes.ITEM_TYPE_FLOATING,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_HASDATA,
-                        ItemTypes.ITEM_TYPE_FULLPRICE
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_SERVERBOUND,
+                        ITEM_TYPE_FLOATING,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_FULLPRICE
                 })
                 .difficulty(50f)
                 .material(ItemMaterials.MATERIAL_GOLD)
@@ -1664,13 +1666,13 @@ public class CustomItems {
                 .imageNumber((short) IconConstants.ICON_CONTAINER_CHEST)
                 .modelName("model.container.satchel.")
                 .weightGrams(500)
-                .dimensions(25,25,25)
+                .dimensions(25, 25, 25)
                 .decayTime(TimeConstants.DECAYTIME_CLOTHING)
                 .value(1000)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_CLOTH,
-                        ItemTypes.ITEM_TYPE_HOLLOW
+                        ITEM_TYPE_CLOTH,
+                        ITEM_TYPE_HOLLOW
                 })
                 .difficulty(50f)
                 .material(ItemMaterials.MATERIAL_COTTON)
@@ -1692,11 +1694,11 @@ public class CustomItems {
                 .value(10000)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_NOTAKE,
-                        ItemTypes.ITEM_TYPE_NOMOVE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_NOMOVE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_NOT_MISSION
                 })
                 .difficulty(200f)
                 .material(ItemMaterials.MATERIAL_COTTON)
@@ -1710,10 +1712,10 @@ public class CustomItems {
                 .name("arcane shard", "arcane shards", "A dull arcane crystal that seems to emit a small amount of energy. It can be transformed into other crystal by communing with the gods.")
                 .imageNumber((short) IconConstants.ICON_DECO_GEM_DIAMOND)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_DECORATION
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_DECORATION
                 })
                 .modelName("model.resource.crystal.")
                 .dimensions(1, 1, 1)
@@ -1734,9 +1736,9 @@ public class CustomItems {
                 .name("champion orb", "champion orbs", "An ancient orb that contains the essence of champions long past. You can absorb the power within to gain increased energy as a champion(adds champion points).")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_ORB_DOOM)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.artifact.orbdoom.")
                 .dimensions(1, 1, 1)
@@ -1757,9 +1759,9 @@ public class CustomItems {
                 .name("essence of wood", "essence's of wood", "An ancient orb that contains the essence of champions long past. You can absorb the power within to gain increased energy as a champion(adds champion points).")
                 .imageNumber((short) IconConstants.ICON_TWIG_FARWALKER)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.resource.shaft.crude.")
                 .dimensions(1, 1, 1)
@@ -1780,9 +1782,9 @@ public class CustomItems {
                 .name("taming stick", "taming sticks", "This stick has been enchanted by nymphs to make a creature follow the wielder.")
                 .imageNumber((short) IconConstants.ICON_TWIG_FARWALKER)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.resource.shaft.crude.")
                 .dimensions(1, 1, 1)
@@ -1803,9 +1805,9 @@ public class CustomItems {
                 .name("creature renaming certificate", "creature renaming certificates", "A certificate entitling the owner to rename a creature.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_VILLAGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.writ.deed.")
                 .dimensions(1, 1, 1)
@@ -1826,9 +1828,9 @@ public class CustomItems {
                 .name("heraldic certificate", "heraldic certificates", "A certificate entitling the owner to apply the colors of any kingdom to select items.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_VILLAGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.writ.deed.")
                 .dimensions(1, 1, 1)
@@ -1849,9 +1851,9 @@ public class CustomItems {
                 .name("heraldic certificate", "heraldic certificates", "A certificate entitling the owner to receive food from a bartender forever.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_VILLAGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.writ.deed.")
                 .dimensions(1, 1, 1)
@@ -1872,9 +1874,9 @@ public class CustomItems {
                 .name("label", "label", "A small piece of paper used to label items for better organization.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_BLANK)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.resource.sheet.")
                 .dimensions(1, 1, 1)
@@ -1895,9 +1897,9 @@ public class CustomItems {
                 .name("newsletter", "newsletters", "This is a copy of the Requiem Herald. A newspaper for the people, by the... developer.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_VILLAGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.resource.sheet.")
                 .dimensions(1, 1, 1)
@@ -1918,12 +1920,12 @@ public class CustomItems {
                 .name("prayer book", "prayer book", "A leather bound holy book of prayers.")
                 .imageNumber((short) IconConstants.ICON_TOME_MAGIC_RED)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_LEATHER,
-                        ItemTypes.ITEM_TYPE_MISSION,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_IMPROVEITEM
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_LEATHER,
+                        ITEM_TYPE_MISSION,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_IMPROVEITEM
                 })
                 .modelName("model.artifact.tomemagic.red.paper.")
                 .dimensions(1, 1, 1)
@@ -1945,8 +1947,8 @@ public class CustomItems {
                 .name("guard token", "guard tokens", "A token to be used on your settlement token. It will add more upkeep into your guards if it is bugged somehow so that you can hire more.")
                 .imageNumber((short) IconConstants.ICON_COIN_IRON)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.coin.")
                 .dimensions(1, 1, 1)
@@ -1967,9 +1969,9 @@ public class CustomItems {
                 .name("potion of cure disease", "potions of cure disease", "A dark brown liquid with a consistency slightly thicker than water. It will cure any disease on any creature whether it is a trait or not.")
                 .imageNumber((short) IconConstants.ICON_MISC_POTION)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.magic.potion.")
                 .dimensions(2, 2, 2)
@@ -1990,16 +1992,16 @@ public class CustomItems {
                 .name("Machina of Fortunes", "Machina of Fortunes", "A very strange machine that is of unknown origin. It gives fortune, but also misfortune.")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_TURNABLE,
-                        ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
-                        ItemTypes.ITEM_TYPE_PLANTABLE,
-                        ItemTypes.ITEM_TYPE_COLORABLE,
-                        ItemTypes.ITEM_TYPE_OWNER_DESTROYABLE,
-                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
-                        ItemTypes.ITEM_TYPE_FLOATING,
-                        ItemTypes.ITEM_TYPE_DECORATION
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_USE_GROUND_ONLY,
+                        ITEM_TYPE_PLANTABLE,
+                        ITEM_TYPE_COLORABLE,
+                        ITEM_TYPE_OWNER_DESTROYABLE,
+                        ITEM_TYPE_TRANSPORTABLE,
+                        ITEM_TYPE_FLOATING,
+                        ITEM_TYPE_DECORATION
                 })
                 .modelName("model.ausimus.GamblingMachine.")
                 .dimensions(150, 150, 300)
@@ -2021,16 +2023,16 @@ public class CustomItems {
                 .name("lathe", "lathes", "A tool for creating rounded wood objects from logs and shafts. Items created with this can be made faster than normal.")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_TOOL,
-                        ItemTypes.ITEM_TYPE_IMPROVEITEM,
-                        ItemTypes.ITEM_TYPE_TURNABLE,
-                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
-                        ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
-                        ItemTypes.ITEM_TYPE_PLANTABLE,
-                        ItemTypes.ITEM_TYPE_ONE_PER_TILE,
-                        ItemTypes.ITEM_TYPE_DECORATION
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_TOOL,
+                        ITEM_TYPE_IMPROVEITEM,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_TRANSPORTABLE,
+                        ITEM_TYPE_USE_GROUND_ONLY,
+                        ITEM_TYPE_PLANTABLE,
+                        ITEM_TYPE_ONE_PER_TILE,
+                        ITEM_TYPE_DECORATION
                 })
                 .modelName(ModelConstants.MODEL_TOOL_WOOD_LOOM)
                 .dimensions(50, 50, 200)
@@ -2052,16 +2054,16 @@ public class CustomItems {
                 .name("rock crusher", "rock crusher", "A tool for crushing rocks and sandstone into fine dust.")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_TOOL,
-                        ItemTypes.ITEM_TYPE_IMPROVEITEM,
-                        ItemTypes.ITEM_TYPE_TURNABLE,
-                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
-                        ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
-                        ItemTypes.ITEM_TYPE_PLANTABLE,
-                        ItemTypes.ITEM_TYPE_ONE_PER_TILE,
-                        ItemTypes.ITEM_TYPE_DECORATION
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_TOOL,
+                        ITEM_TYPE_IMPROVEITEM,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_TRANSPORTABLE,
+                        ITEM_TYPE_USE_GROUND_ONLY,
+                        ITEM_TYPE_PLANTABLE,
+                        ITEM_TYPE_ONE_PER_TILE,
+                        ITEM_TYPE_DECORATION
                 })
                 .modelName(ModelConstants.MODEL_TOOL_WOOD_LOOM)
                 .dimensions(50, 50, 200)
@@ -2083,11 +2085,11 @@ public class CustomItems {
                 .name("battle yoyo", "battle yoyo's", "A reinforced yoyo meant for combat. Designed to see whether walking the dog is an effective murder technique.")
                 .imageNumber((short) IconConstants.ICON_TOY_YOYO)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_CRUSH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_CRUSH
                 })
                 .modelName("model.toy.yoyo.")
                 .dimensions(15, 25, 25)
@@ -2110,11 +2112,11 @@ public class CustomItems {
                 .name("club", "club", "A huge wooden club. It would be great for bashing.")
                 .imageNumber((short) IconConstants.ICON_WEAPON_CLUB_HUGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_CRUSH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_CRUSH
                 })
                 .modelName("model.weapon.club.huge.")
                 .dimensions(5, 10, 80)
@@ -2137,11 +2139,11 @@ public class CustomItems {
                 .name("combat scythe", "combat scythe", "A one-handed scythe designed for combat.")
                 .imageNumber((short) IconConstants.ICON_WEAPON_SCYTHE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_SLASH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_SLASH
                 })
                 .modelName(ModelConstants.MODEL_WEAPON_SCYTHE)
                 .dimensions(5, 10, 80)
@@ -2164,11 +2166,11 @@ public class CustomItems {
                 .name("God Slayer", "God Slayer", "A massive battleaxe imbued with powerful magics. This weapon has the capacity to strike down any foe mortal or not.")
                 .imageNumber((short) IconConstants.ICON_WEAPON_AXE_DUAL)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_SLASH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_SLASH
                 })
                 .modelName(ModelConstants.MODEL_WEAPON_AXE_LARGE)
                 .dimensions(6, 15, 90)
@@ -2191,11 +2193,11 @@ public class CustomItems {
                 .name("knuckles", "knuckles", "A classic weapon used in hand-to-hand combat.")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_CRUSH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_CRUSH
                 })
                 .modelName("model.decoration.ring.rift.2.")
                 .dimensions(1, 5, 5)
@@ -2218,11 +2220,11 @@ public class CustomItems {
                 .name("warhammer", "warhammer", "A classic weapon used in hand-to-hand combat.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_HAMMER_MAGRANON)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_WEAPON,
-                        ItemTypes.ITEM_TYPE_WEAPON_CRUSH
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_WEAPON,
+                        ITEM_TYPE_WEAPON_CRUSH
                 })
                 .size(ItemSizes.ITEM_SIZE_LARGE)
                 .modelName("model.artifact.hammerhuge.")
@@ -2246,8 +2248,8 @@ public class CustomItems {
                 .name("warhammer head", "warhammer head", "A warhammer head.")
                 .imageNumber((short) IconConstants.ICON_WEAPON_HAMMER_LARGE_HEAD)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_METAL
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_METAL
                 })
                 .modelName("model.weapon.head.large.maul.")
                 .dimensions(5, 10, 10)
@@ -2269,11 +2271,11 @@ public class CustomItems {
                 .name("affinity catcher", "affinity catcher", "A valuable orb that can transfer knowledge from one person to another.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_EYE_VYNORA)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_HASDATA,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.artifact.orbdoom.")
                 .dimensions(1, 1, 1)
@@ -2294,11 +2296,11 @@ public class CustomItems {
                 .name("affinity orb", "affinity orb", "A valuable orb that infuses the user with hidden knowledge.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_EYE_VYNORA)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_HASDATA,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.artifact.orbdoom.")
                 .dimensions(1, 1, 1)
@@ -2319,10 +2321,10 @@ public class CustomItems {
                 .name("hunting arrow pack", "hunting arrow packs", "A pack of hunting arrows, able to be unpacked into a full quiver.")
                 .imageNumber((short) IconConstants.ICON_CONTAINER_QUIVER)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_WEAPON
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_WEAPON
                 })
                 .modelName("model.container.quiver.")
                 .dimensions(15, 15, 50)
@@ -2343,10 +2345,10 @@ public class CustomItems {
                 .name("war arrow pack", "war arrow packs", "A pack of war arrows, able to be unpacked into a full quiver.")
                 .imageNumber((short) IconConstants.ICON_CONTAINER_QUIVER)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_WEAPON
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_WEAPON
                 })
                 .modelName("model.container.quiver.")
                 .dimensions(15, 15, 50)
@@ -2367,13 +2369,13 @@ public class CustomItems {
                 .name("book of conversion", "books of conversion", "A book used to convert religion. This comes at a slight faith loss.")
                 .imageNumber((short) IconConstants.ICON_TOME_MAGIC_BLACK)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.artifact.tomemagic.black.paper.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_VALUABLE)
                 .material(ItemMaterials.MATERIAL_PAPER)
                 .value(50000)
@@ -2391,13 +2393,13 @@ public class CustomItems {
                 .name("chaos crystal", "chaos crystals", "This volatile crystal will either enhance an item, or destroy it outright.")
                 .imageNumber((short) IconConstants.ICON_FRAGMENT_STONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.valrei.magic.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_MAGIC)
                 .material(ItemMaterials.MATERIAL_CRYSTAL)
                 .value(5000)
@@ -2415,10 +2417,10 @@ public class CustomItems {
                 .name("depth drill", "depth drills", "A tool for determining dirt depth.")
                 .imageNumber((short) IconConstants.ICON_TOOL_DIOPTRA)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_TOOL,
-                        ItemTypes.ITEM_TYPE_WEAPON_PIERCE
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_TOOL,
+                        ITEM_TYPE_WEAPON_PIERCE
                 })
                 .modelName("model.valrei.magic.")
                 .dimensions(6, 6, 96)
@@ -2445,7 +2447,7 @@ public class CustomItems {
                         ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.tool.rodtrans.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_NEVER)
                 .material(ItemMaterials.MATERIAL_STEEL)
                 .value(20000)
@@ -2468,7 +2470,7 @@ public class CustomItems {
                         ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.tool.rodtrans.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_NEVER)
                 .material(ItemMaterials.MATERIAL_STEEL)
                 .value(20000)
@@ -2490,7 +2492,7 @@ public class CustomItems {
                         ITEM_TYPE_INDESTRUCTIBLE
                 })
                 .modelName("model.artifact.orbdoom.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_MAGIC)
                 .material(ItemMaterials.MATERIAL_CRYSTAL)
                 .value(50000)
@@ -2508,12 +2510,12 @@ public class CustomItems {
                 .name("eternal orb", "eternal orbs", "Legends say it consumes magic from an object, and moves it to another.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_ORB_DOOM)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.artifact.orbdoom.")
-                .dimensions(1,1,1)
+                .dimensions(1, 1, 1)
                 .decayTime(TimeConstants.DECAYTIME_MAGIC)
                 .material(ItemMaterials.MATERIAL_CRYSTAL)
                 .value(200000)
@@ -2531,15 +2533,15 @@ public class CustomItems {
                 .name("Tablet of Friyan", "Tablets of Friyan", "Once a great scholar and sorceress, Friyan's faith had reached the zenith. While in this world, she wrote her knowledge in tablets like these. Perhaps you may learn more of the gods from it...")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_STONE,
-                        ItemTypes.ITEM_TYPE_OUTSIDE_ONLY,
-                        ItemTypes.ITEM_TYPE_NOTAKE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_USE_GROUND_ONLY,
-                        ItemTypes.ITEM_TYPE_NOMOVE,
-                        ItemTypes.ITEM_TYPE_NEVER_SHOW_CREATION_WINDOW_OPTION,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION
+                        ITEM_TYPE_STONE,
+                        ITEM_TYPE_OUTSIDE_ONLY,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_USE_GROUND_ONLY,
+                        ITEM_TYPE_NOMOVE,
+                        ITEM_TYPE_NEVER_SHOW_CREATION_WINDOW_OPTION,
+                        ITEM_TYPE_NOT_MISSION
                 })
                 .modelName("model.structure.portal.10.")
                 .dimensions(500, 500, 1000)
@@ -2560,11 +2562,11 @@ public class CustomItems {
                 .name("key fragment [1/50]", "key fragments", "A fragment of the fabled Key of the Heavens.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_SERVERBOUND,
-                        ItemTypes.ITEM_TYPE_ARTIFACT
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_SERVERBOUND,
+                        ITEM_TYPE_ARTIFACT
                 })
                 .modelName("model.decoration.gem.resurrectionstone.")
                 .dimensions(1, 1, 1)
@@ -2585,10 +2587,10 @@ public class CustomItems {
                 .name("Requiem cache", "Requiem caches", "A cache of goods from a supply depot, waiting to be opened. What could be inside?")
                 .imageNumber((short) IconConstants.ICON_CONTAINER_GIFT)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.container.giftbox.")
                 .dimensions(1, 1, 1)
@@ -2609,16 +2611,16 @@ public class CustomItems {
                 .name("Requiem depot", "Requiem depots", "Contains a valuable cache of treasures.")
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_WOOD,
-                        ItemTypes.ITEM_TYPE_NOTAKE,
-                        ItemTypes.ITEM_TYPE_LOCKABLE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_ONE_PER_TILE,
-                        ItemTypes.ITEM_TYPE_OWNER_TURNABLE,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_MISSION,
-                        ItemTypes.ITEM_TYPE_PLANTABLE
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_WOOD,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_LOCKABLE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_ONE_PER_TILE,
+                        ITEM_TYPE_OWNER_TURNABLE,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_MISSION,
+                        ITEM_TYPE_PLANTABLE
                 })
                 .modelName(ModelConstants.MODEL_SUPPLYDEPOT2)
                 .dimensions(1000, 1000, 1000)
@@ -2639,10 +2641,10 @@ public class CustomItems {
                 .name("sealed map", "sealed maps", "A sealed treasure map, waiting to be opened.")
                 .imageNumber((short) IconConstants.ICON_CLOTH_BOLT)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_FULLPRICE, // Not actually full price, the hook for value works before this is applied. This ensures coins are used.
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_FULLPRICE, // Not actually full price, the hook for value works before this is applied. This ensures coins are used.
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.container.giftbox.")
                 .dimensions(1, 1, 1)
@@ -2663,14 +2665,14 @@ public class CustomItems {
                 .name("skeleton", "skeleton", "A skeleton.")
                 .imageNumber((short) IconConstants.ICON_CORPSE_HUMAN)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_OWNER_DESTROYABLE,
-                        ItemTypes.ITEM_TYPE_DESTROYABLE,
-                        ItemTypes.ITEM_TYPE_TURNABLE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_NOT_MISSION,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_COLORABLE
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_OWNER_DESTROYABLE,
+                        ITEM_TYPE_DESTROYABLE,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_NOT_MISSION,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_COLORABLE
                 })
                 .modelName("model.corpse.human.butchered.")
                 .dimensions(20, 50, 200)
@@ -2691,11 +2693,11 @@ public class CustomItems {
                 .name("sorcery fragment [1/10]", "sorcery fragments", "A scrap of a tome.")
                 .imageNumber((short) IconConstants.ICON_SCROLL_BINDING)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_SERVERBOUND,
-                        ItemTypes.ITEM_TYPE_ARTIFACT
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_SERVERBOUND,
+                        ITEM_TYPE_ARTIFACT
                 })
                 .modelName("model.artifact.scrollbind.paper.")
                 .dimensions(1, 1, 1)
@@ -2716,9 +2718,9 @@ public class CustomItems {
                 .name("lump, titanium", "sorcery fragments", "A lightweight lump of glistening titanium.")
                 .imageNumber((short) IconConstants.ICON_METAL_GLIMMERSTEEL_LUMP)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_BULK,
-                        ItemTypes.ITEM_TYPE_COMBINE
+                        ITEM_TYPE_METAL,
+                        ITEM_TYPE_BULK,
+                        ITEM_TYPE_COMBINE
                 })
                 .modelName("model.resource.lump.")
                 .dimensions(3, 3, 3)
@@ -2739,7 +2741,7 @@ public class CustomItems {
                 .name("titanium socket", "titanium sockets", "A socket for a gem, designed for insertion into an item.")
                 .imageNumber((short) IconConstants.ICON_DECO_ARMRING_RIFT1)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_METAL
+                        ITEM_TYPE_METAL
                 })
                 .modelName("model.resource.lump.")
                 .dimensions(3, 3, 3)
@@ -2760,10 +2762,10 @@ public class CustomItems {
                 .name("treasure box", "treasure box", "A box of treasure, waiting to be opened. What could be inside?")
                 .imageNumber((short) IconConstants.ICON_CONTAINER_GIFT)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ALWAYS_BANKABLE
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK,
+                        ITEM_TYPE_ALWAYS_BANKABLE
                 })
                 .modelName("model.container.giftbox.")
                 .dimensions(1, 1, 1)
@@ -2784,9 +2786,9 @@ public class CustomItems {
                 .name(String.format("scroll of %s", name), String.format("scrolls of %s", name), description)
                 .imageNumber((short) IconConstants.ICON_SCROLL_VILLAGE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .modelName("model.resource.sheet.")
                 .dimensions(1, 1, 1)
@@ -2816,18 +2818,18 @@ public class CustomItems {
                 .name(name, name, description)
                 .imageNumber((short) IconConstants.ICON_NONE)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_NOTAKE,
-                        ItemTypes.ITEM_TYPE_OWNER_DESTROYABLE,
-                        ItemTypes.ITEM_TYPE_STONE,
-                        ItemTypes.ITEM_TYPE_TURNABLE,
-                        ItemTypes.ITEM_TYPE_DECORATION,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_DESTROYABLE,
-                        ItemTypes.ITEM_TYPE_COLORABLE,
-                        ItemTypes.ITEM_TYPE_TRANSPORTABLE,
-                        ItemTypes.ITEM_TYPE_NEVER_SHOW_CREATION_WINDOW_OPTION,
-                        ItemTypes.ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_OWNER_DESTROYABLE,
+                        ITEM_TYPE_STONE,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_DESTROYABLE,
+                        ITEM_TYPE_COLORABLE,
+                        ITEM_TYPE_TRANSPORTABLE,
+                        ITEM_TYPE_NEVER_SHOW_CREATION_WINDOW_OPTION,
+                        ITEM_TYPE_HASDATA,
                 })
                 .modelName(String.format("model.decoration.statue.%s.", modelSuffix))
                 .dimensions(20, 30, 160)
@@ -2859,11 +2861,11 @@ public class CustomItems {
                 .value(100000)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_INDESTRUCTIBLE,
-                        ItemTypes.ITEM_TYPE_LIGHT,
-                        ItemTypes.ITEM_TYPE_ALWAYS_LIT,
-                        ItemTypes.ITEM_TYPE_INSULATED,
-                        ItemTypes.ITEM_TYPE_DECORATION
+                        ITEM_TYPE_INDESTRUCTIBLE,
+                        ITEM_TYPE_LIGHT,
+                        ITEM_TYPE_ALWAYS_LIT,
+                        ITEM_TYPE_INSULATED,
+                        ITEM_TYPE_DECORATION
                 })
                 .difficulty(200f)
                 .material(ItemMaterials.MATERIAL_CRYSTAL)
@@ -2897,9 +2899,9 @@ public class CustomItems {
                 .value(2500)
                 .behaviourType(BehaviourList.itemBehaviour)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_LEATHER,
-                        ItemTypes.ITEM_TYPE_HOLLOW
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_LEATHER,
+                        ITEM_TYPE_HOLLOW
                 })
                 .difficulty(200f)
                 .material(ItemMaterials.MATERIAL_LEATHER)
@@ -2930,10 +2932,10 @@ public class CustomItems {
 
     private static void registerGemFragments() throws IOException {
         diamondFragment = registerGemFragment("diamond", (short) IconConstants.ICON_DECO_GEM_DIAMOND);
-        emeraldFragment = registerGemFragment("emerald",(short) IconConstants.ICON_DECO_GEM_EMERALD);
-        opalFragment = registerGemFragment("opal",(short) IconConstants.ICON_DECO_GEM_OPAL);
-        rubyFragment = registerGemFragment("ruby",(short) IconConstants.ICON_DECO_GEM_RUBY);
-        sapphireFragment = registerGemFragment("sapphire",(short) IconConstants.ICON_DECO_GEM_SAPPHIRE);
+        emeraldFragment = registerGemFragment("emerald", (short) IconConstants.ICON_DECO_GEM_EMERALD);
+        opalFragment = registerGemFragment("opal", (short) IconConstants.ICON_DECO_GEM_OPAL);
+        rubyFragment = registerGemFragment("ruby", (short) IconConstants.ICON_DECO_GEM_RUBY);
+        sapphireFragment = registerGemFragment("sapphire", (short) IconConstants.ICON_DECO_GEM_SAPPHIRE);
     }
 
     private static ItemTemplate registerTabard(String id, String modelSuffix, String name) throws IOException {
@@ -4341,20 +4343,20 @@ public class CustomItems {
 
     private static void registerCustomArmors() throws IOException {
         short[] glimmerscaleTypes = new short[]{
-                ItemTypes.ITEM_TYPE_NAMED,
-                ItemTypes.ITEM_TYPE_REPAIRABLE,
-                ItemTypes.ITEM_TYPE_METAL,
-                ItemTypes.ITEM_TYPE_COLORABLE,
-                ItemTypes.ITEM_TYPE_ARMOUR,
-                ItemTypes.ITEM_TYPE_DRAGONARMOUR
+                ITEM_TYPE_NAMED,
+                ITEM_TYPE_REPAIRABLE,
+                ITEM_TYPE_METAL,
+                ITEM_TYPE_COLORABLE,
+                ITEM_TYPE_ARMOUR,
+                ITEM_TYPE_DRAGONARMOUR
         };
         short[] spectralTypes = new short[]{
-                ItemTypes.ITEM_TYPE_NAMED,
-                ItemTypes.ITEM_TYPE_REPAIRABLE,
-                ItemTypes.ITEM_TYPE_LEATHER,
-                ItemTypes.ITEM_TYPE_COLORABLE,
-                ItemTypes.ITEM_TYPE_ARMOUR,
-                ItemTypes.ITEM_TYPE_DRAGONARMOUR
+                ITEM_TYPE_NAMED,
+                ITEM_TYPE_REPAIRABLE,
+                ITEM_TYPE_LEATHER,
+                ITEM_TYPE_COLORABLE,
+                ITEM_TYPE_ARMOUR,
+                ITEM_TYPE_DRAGONARMOUR
         };
         glimmerscaleBoot = registerCustomArmor("glimmerscale.boot", "armour.foot.dragon.scale.leather", "glimmerscale boot", "A glimmerscale boot.", (short) IconConstants.ICON_ARMOR_FOOT_SCALE_DRAGON, glimmerscaleTypes, TimeConstants.DECAYTIME_NEVER, new byte[]{BodyPartConstants.LEFT_FOOT, BodyPartConstants.RIGHT_FOOT}, 2000, 1000000, Materials.MATERIAL_GLIMMERSTEEL, 72f);
         glimmerscaleGlove = registerCustomArmor("glimmerscale.glove", "armour.hand.dragon.scale.leather", "glimmerscale glove", "A glimmerscale glove.", (short) IconConstants.ICON_ARMOR_HAND_SCALE_DRAGON, glimmerscaleTypes, TimeConstants.DECAYTIME_NEVER, new byte[]{BodyPartConstants.LEFT_HAND, BodyPartConstants.RIGHT_HAND}, 1200, 1000000, Materials.MATERIAL_GLIMMERSTEEL, 70f);
@@ -4368,8 +4370,8 @@ public class CustomItems {
         spectralLeggings = registerCustomArmor("spectral.leggings", "armour.leg.dragon", "spectral leggings", "A set of spectral leggings.", (short) IconConstants.ICON_ARMOR_LEG_LEATHER_DRAKE, spectralTypes, TimeConstants.DECAYTIME_NEVER, new byte[]{BodyPartConstants.LEGS}, 700, 1000000, Materials.MATERIAL_LEATHER, 77f);
         spectralSleeve = registerCustomArmor("spectral.sleeve", "armour.sleeve.dragon", "spectral sleeve", "A spectral sleeve.", (short) IconConstants.ICON_ARMOR_ARM_LEATHER_DRAKE, spectralTypes, TimeConstants.DECAYTIME_NEVER, new byte[]{BodyPartConstants.LEFT_ARM, BodyPartConstants.RIGHT_ARM}, 400, 1000000, Materials.MATERIAL_LEATHER, 72f);
         spectralVest = registerCustomArmor("spectral.vest", "armour.torso.dragon", "spectral vest", "A spectral vest.", (short) IconConstants.ICON_ARMOR_TORSO_LEATHER_DRAKE, spectralTypes, TimeConstants.DECAYTIME_NEVER, new byte[]{BodyPartConstants.TORSO}, 800, 1000000, Materials.MATERIAL_LEATHER, 80f);
-        dragonSkullHelmet = registerCustomArmor("helm.skull.dragon", "resource.skull", "dragon skull helm", "A dragon skull helmet.", (short) IconConstants.ICON_BODY_SKULL, new short[]{ItemTypes.ITEM_TYPE_NAMED, ItemTypes.ITEM_TYPE_REPAIRABLE, ItemTypes.ITEM_TYPE_ARMOUR, ItemTypes.ITEM_TYPE_COLORABLE}, TimeConstants.DECAYTIME_STEEL, new byte[]{BodyPartConstants.HEAD, BodyPartConstants.SECOND_HEAD}, 800, 10000, Materials.MATERIAL_BONE, 30f);
-        horsemanHelm = registerCustomArmor("helm.horseman", "armour.head.horsmanHelm", "horseman helm", "A helmet from the headless horseman. It seems to make your head disappear when worn.", (short) IconConstants.ICON_ARMOR_HEAD_METAL_BASINET, new short[]{ItemTypes.ITEM_TYPE_NAMED, ItemTypes.ITEM_TYPE_METAL, ItemTypes.ITEM_TYPE_ARMOUR}, TimeConstants.DECAYTIME_STEEL, new byte[]{BodyPartConstants.HEAD, BodyPartConstants.SECOND_HEAD}, 3000, 10000, Materials.MATERIAL_STEEL, 99f);
+        dragonSkullHelmet = registerCustomArmor("helm.skull.dragon", "resource.skull", "dragon skull helm", "A dragon skull helmet.", (short) IconConstants.ICON_BODY_SKULL, new short[]{ITEM_TYPE_NAMED, ITEM_TYPE_REPAIRABLE, ITEM_TYPE_ARMOUR, ITEM_TYPE_COLORABLE}, TimeConstants.DECAYTIME_STEEL, new byte[]{BodyPartConstants.HEAD, BodyPartConstants.SECOND_HEAD}, 800, 10000, Materials.MATERIAL_BONE, 30f);
+        horsemanHelm = registerCustomArmor("helm.horseman", "armour.head.horsmanHelm", "horseman helm", "A helmet from the headless horseman. It seems to make your head disappear when worn.", (short) IconConstants.ICON_ARMOR_HEAD_METAL_BASINET, new short[]{ITEM_TYPE_NAMED, ITEM_TYPE_METAL, ITEM_TYPE_ARMOUR}, TimeConstants.DECAYTIME_STEEL, new byte[]{BodyPartConstants.HEAD, BodyPartConstants.SECOND_HEAD}, 3000, 10000, Materials.MATERIAL_STEEL, 99f);
     }
 
     private static ItemTemplate registerCache(String id, String name, String description) throws IOException {
@@ -4378,9 +4380,9 @@ public class CustomItems {
                 .modelName("model.container.giftbox.")
                 .imageNumber((short) IconConstants.ICON_CONTAINER_GIFT)
                 .itemTypes(new short[]{
-                        ItemTypes.ITEM_TYPE_MAGIC,
-                        ItemTypes.ITEM_TYPE_FULLPRICE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK
+                        ITEM_TYPE_MAGIC,
+                        ITEM_TYPE_FULLPRICE,
+                        ITEM_TYPE_NOSELLBACK
                 })
                 .decayTime(TimeConstants.DECAYTIME_VALUABLE)
                 .dimensions(5, 5, 5)
@@ -4407,19 +4409,56 @@ public class CustomItems {
         toolCache = registerCache("tool", "tool cache", "A cache containing a few tools. These tools could have special properties.");
         treasureMapCache = registerCache("map.treasure", "treasure map cache", "A cache containing a new treasure map.");
         weaponCache = registerCache("weapon", "weapon cache", "A cache containing a few weapons. These weapons could have special properties.");
-        Caches.CACHE_IDS.add(CustomItems.animalCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.armourCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.artifactCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.crystalCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.dragonCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.gemCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.moonCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.potionCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.riftCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.titanCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.toolCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.treasureMapCache.getTemplateId());
-        Caches.CACHE_IDS.add(CustomItems.weaponCache.getTemplateId());
+        CACHE_IDS.add(animalCache.getTemplateId());
+        CACHE_IDS.add(armourCache.getTemplateId());
+        CACHE_IDS.add(artifactCache.getTemplateId());
+        CACHE_IDS.add(crystalCache.getTemplateId());
+        CACHE_IDS.add(dragonCache.getTemplateId());
+        CACHE_IDS.add(gemCache.getTemplateId());
+        CACHE_IDS.add(moonCache.getTemplateId());
+        CACHE_IDS.add(potionCache.getTemplateId());
+        CACHE_IDS.add(riftCache.getTemplateId());
+        CACHE_IDS.add(titanCache.getTemplateId());
+        CACHE_IDS.add(toolCache.getTemplateId());
+        CACHE_IDS.add(treasureMapCache.getTemplateId());
+        CACHE_IDS.add(weaponCache.getTemplateId());
+    }
+    
+    private static ItemTemplate registerServerPortal(String id, String name, String description, String modelName, byte material) throws IOException {
+        return new ItemTemplateBuilder(String.format("jubaroo.item.portal.%s.", id))
+                .name(String.format("%s server portal", name), String.format("%s server portals", name), description)
+                .imageNumber((short) IconConstants.ICON_NONE)
+                .itemTypes(new short[]{
+                        ITEM_TYPE_NAMED,
+                        ITEM_TYPE_OUTSIDE_ONLY,
+                        ITEM_TYPE_NOTAKE,
+                        ITEM_TYPE_DECORATION,
+                        ITEM_TYPE_REPAIRABLE,
+                        ITEM_TYPE_HASDATA,
+                        ITEM_TYPE_USE_GROUND_ONLY,
+                        ITEM_TYPE_TURNABLE,
+                        ITEM_TYPE_DESTROYABLE,
+                        ITEM_TYPE_NEVER_SHOW_CREATION_WINDOW_OPTION,
+                        ITEM_TYPE_COLORABLE
+                })
+                .modelName(modelName)
+                .dimensions(100, 100, 250)
+                .decayTime(TimeConstants.DECAYTIME_STONE)
+                .material(material)
+                .value(10000)
+                .weightGrams(160000)
+                .behaviourType(BehaviourList.itemBehaviour)
+                .difficulty(90f)
+                .isTraded(false)
+                .build();
+    }
+
+    private static void registerServerPortals() throws IOException {
+        serverPortal = registerServerPortal("server", "stone", "This rudimentary structure is rumoured to lead to far away places.", "model.structure.portal.8.", Materials.MATERIAL_STONE);
+        hugeServerPortal = registerServerPortal("huge", "Huge", "This impressive structure leads to far away places.", "model.structure.portal.7.", Materials.MATERIAL_STONE);
+        steelServerPortal = registerServerPortal("steel", "Huge", "This impressive steel structure leads to far away places.", "model.structure.portal.9.", Materials.MATERIAL_STEEL);
+        darkCrystalServerPortal = registerServerPortal("dark crystal", "Huge", "This ominous dark crystal is rumoured to lead to far away places.", "model.structure.portal.3.", Materials.MATERIAL_CRYSTAL);
+        crystalServerPortal = registerServerPortal("crystal", "Huge", "This glowing crystal is rumoured to lead to far away places.", "model.structure.portal.4.", Materials.MATERIAL_CRYSTAL);
     }
 
 }

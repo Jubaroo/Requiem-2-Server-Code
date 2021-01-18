@@ -24,7 +24,7 @@ public class RequiemCacheOpenAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public RequiemCacheOpenAction() {
-        RequiemLogging.logWarning( "RequiemCacheOpenAction()");
+        RequiemLogging.logWarning("RequiemCacheOpenAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

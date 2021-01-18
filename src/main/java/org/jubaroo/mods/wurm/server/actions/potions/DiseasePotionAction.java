@@ -13,8 +13,8 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.CreatureTypes;
 import org.gotti.wurmunlimited.modsupport.actions.*;
-import org.jubaroo.mods.wurm.server.creatures.CreatureTools;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.util.Collections;
@@ -79,7 +79,7 @@ public class DiseasePotionAction implements ModAction, ActionPerformer, Behaviou
                     creature.setDisease((byte) 0);
                 }
                 if (creature.getStatus().getModType() == CreatureTypes.C_MOD_DISEASED) {
-                    CreatureTools.changeCreatureModtype(creature, CreatureTypes.C_MOD_NONE);
+                    CreatureTools.changeCreatureModType(creature, CreatureTypes.C_MOD_NONE);
                 }
                 if (tile != null) {
                     tile.makeInvisible(creature);

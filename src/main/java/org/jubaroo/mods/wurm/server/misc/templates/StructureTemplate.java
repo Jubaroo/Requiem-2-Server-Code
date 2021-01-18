@@ -13,7 +13,7 @@ public class StructureTemplate {
     public long timeout;
     public int templateID;
 
-    public StructureTemplate( String name, String sound, String model, int templateProduce, int templateConsume, int templateSecondaryConsume, int maxNum, int maxitems, long timeout) {
+    public StructureTemplate(String name, String sound, String model, int templateProduce, int templateConsume, int templateSecondaryConsume, int maxNum, int maxitems, long timeout) {
         this.sound = sound;
         this.model = model;
         this.name = name;

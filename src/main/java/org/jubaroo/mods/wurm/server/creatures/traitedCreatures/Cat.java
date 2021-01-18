@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Cat implements ModCreature {
     public static int templateId;
-    private static final int MAINE_COON = 26;
+    private static final int MAINE_COON = 24;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.CAT_WILD_CID;

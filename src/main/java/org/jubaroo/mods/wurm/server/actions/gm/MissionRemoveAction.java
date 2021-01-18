@@ -26,7 +26,7 @@ public class MissionRemoveAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public MissionRemoveAction() {
-        RequiemLogging.logWarning( "UnequipAllAction()");
+        RequiemLogging.logWarning("UnequipAllAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

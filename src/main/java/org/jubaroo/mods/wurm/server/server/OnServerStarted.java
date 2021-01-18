@@ -7,16 +7,16 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.AddActions;
 import org.jubaroo.mods.wurm.server.communication.KeyEvent;
 import org.jubaroo.mods.wurm.server.communication.commands.*;
-import org.jubaroo.mods.wurm.server.creatures.CreatureHelper;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
+import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 import org.jubaroo.mods.wurm.server.misc.AchievementChanges;
-import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.misc.SkillChanges;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
 import org.jubaroo.mods.wurm.server.tools.CmdTools;
+import org.jubaroo.mods.wurm.server.tools.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 import org.jubaroo.mods.wurm.server.utils.Compat3D;
 
@@ -30,6 +30,10 @@ public class OnServerStarted {
             RequiemLogging.debug("Attempting to load 3D Stuff mod...");
             Compat3D.installDisplayHook();
             addCommands();
+            PortalMod.onServerStarted();
+            RequiemLogging.debug("Registering Creature Loot Drops...");
+            //LootTable.creatureDied();
+            RequiemLogging.debug("Registering Holiday Gifts...");
             RequiemLogging.debug("Registering Holiday Gifts...");
             RequiemChristmasGift.onServerStarted();
             RequiemAnniversaryGift.onServerStarted();
@@ -58,17 +62,12 @@ public class OnServerStarted {
             RequiemLogging.debug("Editing existing item templates...");
             ItemMod.modifyItemsOnServerStarted();
             RequiemLogging.debug("Setting creatures to have custom names when bred...");
-            CreatureHelper.makeLikeHorse("Unicorn");
-            RequiemLogging.debug("Setting creatures to have no aggro...");
-            for (String name : Constants.makeNonAggro.split(",")) {
-                CreatureHelper.makeAlignZero(name);
-                CreatureHelper.makeNoAggHuman(name);
-            }
             RequiemLogging.debug("Setting spells to have no cooldown...");
             for (String name : Constants.noCooldownSpells.split(",")) {
                 SpellTools.noSpellCooldown(name);
             }
             DatabaseHelper.setUniques();
+
             if (!Constants.initialGoblinCensus) {
                 for (Creature c : Creatures.getInstance().getCreatures()) {
                     if (c.getTemplate().getTemplateId() == CustomCreatures.fogGoblinId && !Constants.fogGoblins.contains(c)) {
@@ -80,6 +79,7 @@ public class OnServerStarted {
             }
             KeyEvent.preInit();
             CustomTitles.register();
+            //LoginServerEffect.onServerStarted();
             RequiemLogging.RequiemLoggingMessages();
         } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
             RequiemLogging.logException("Error in modifyItemsOnServerStarted()", e);

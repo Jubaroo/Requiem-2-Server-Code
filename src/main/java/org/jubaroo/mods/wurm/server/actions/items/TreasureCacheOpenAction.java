@@ -13,8 +13,8 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
 import org.jubaroo.mods.wurm.server.misc.Caches;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +24,7 @@ public class TreasureCacheOpenAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public TreasureCacheOpenAction() {
-        RequiemLogging.logWarning( "TreasureCacheOpenAction()");
+        RequiemLogging.logWarning("TreasureCacheOpenAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

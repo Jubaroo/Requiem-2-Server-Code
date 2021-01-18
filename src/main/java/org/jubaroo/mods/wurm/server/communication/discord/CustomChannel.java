@@ -25,21 +25,21 @@ public enum CustomChannel {
     }
 
     public static CustomChannel findByIngameName(String name) {
-        for (CustomChannel ch: values())
+        for (CustomChannel ch : values())
             if (name.equals(ch.ingameName))
                 return ch;
         return null;
     }
 
     public static CustomChannel findByDiscordName(String name) {
-        for (CustomChannel ch: values())
+        for (CustomChannel ch : values())
             if (ch.discordName != null && name.toLowerCase().equals(ch.discordName.toLowerCase()))
                 return ch;
         return null;
     }
 
     public static CustomChannel findByKingdom(byte kingdom) {
-        for (CustomChannel ch: values())
+        for (CustomChannel ch : values())
             if (kingdom == ch.kingdom)
                 return ch;
         return null;

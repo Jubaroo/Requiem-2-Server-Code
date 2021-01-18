@@ -24,14 +24,14 @@ public class TreasureBoxAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public TreasureBoxAction() {
-        RequiemLogging.logWarning( "TreasureBoxAction()");
+        RequiemLogging.logWarning("TreasureBoxAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
                 "Open treasure",
                 "opening",
-                new int[]{ ActionTypesProxy.ACTION_TYPE_NOMOVE
+                new int[]{ActionTypesProxy.ACTION_TYPE_NOMOVE
                 }
         );
         ModActions.registerAction(actionEntry);

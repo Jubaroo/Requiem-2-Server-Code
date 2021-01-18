@@ -20,7 +20,7 @@ public class FriyanTabletAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public FriyanTabletAction() {
-        RequiemLogging.logWarning( "FriyanTabletAction()");
+        RequiemLogging.logWarning("FriyanTabletAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

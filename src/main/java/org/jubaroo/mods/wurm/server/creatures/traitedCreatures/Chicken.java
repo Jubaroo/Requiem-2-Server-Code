@@ -12,9 +12,9 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Chicken implements ModCreature {
     public static int templateId;
-    private static final int AUSTRALORP = 26;
-    private static final int RHODE_ISLAND_RED = 30;
-    private static final int SILVER_CAMPINE = 31;
+    private static final int AUSTRALORP = 24;
+    private static final int RHODE_ISLAND_RED = 25;
+    private static final int SILVER_CAMPINE = 26;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.CHICKEN_CID;

@@ -62,7 +62,7 @@ public class DatabaseHelper {
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            throw new RuntimeException((Throwable) e);
+            throw new RuntimeException(e);
         }
         if (!foundLeaderboardOpt) {
             RequiemLogging.debug(String.format("No leaderboard entry for %s. Creating one.", p.getName()));
@@ -73,7 +73,7 @@ public class DatabaseHelper {
                 ps.executeUpdate();
                 ps.close();
             } catch (SQLException e) {
-                throw new RuntimeException((Throwable) e);
+                throw new RuntimeException(e);
             }
         }
         boolean foundPlayerStats = false;
@@ -88,7 +88,7 @@ public class DatabaseHelper {
             rs.close();
             ps.close();
         } catch (SQLException e) {
-            throw new RuntimeException((Throwable) e);
+            throw new RuntimeException(e);
         }
         if (!foundPlayerStats) {
             RequiemLogging.debug(String.format("No player stats entry for %s. Creating one.", p.getName()));
@@ -98,7 +98,7 @@ public class DatabaseHelper {
                 ps.executeUpdate();
                 ps.close();
             } catch (SQLException e) {
-                throw new RuntimeException((Throwable) e);
+                throw new RuntimeException(e);
             }
         }
     }

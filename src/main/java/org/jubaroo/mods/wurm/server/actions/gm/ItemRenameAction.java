@@ -19,7 +19,7 @@ public class ItemRenameAction implements ModAction, ActionPerformer, BehaviourPr
     public ItemRenameAction() {
         this.actionId = (short) ModActions.getNextActionId();
         // Create the action entry
-        this.actionEntry = new ActionEntryBuilder(this.actionId, "Change model", "changing", new int[] {}).build();
+        this.actionEntry = new ActionEntryBuilder(this.actionId, "Change model", "changing", new int[]{}).build();
         // Register the action entry
         ModActions.registerAction(this.actionEntry);
     }
@@ -42,7 +42,7 @@ public class ItemRenameAction implements ModAction, ActionPerformer, BehaviourPr
     private boolean canUse(Creature performer, Item source, Item target) {
         try {
             if (performer.isPlayer() && performer.getPower() == MiscConstants.POWER_IMPLEMENTOR && source != null && target != null) {
-                    return true;
+                return true;
             }
         } catch (NullPointerException e) {
             RequiemLogging.logException("Item model rename error", e);

@@ -58,7 +58,7 @@ public class CreateSnowballAction implements ModAction, BehaviourProvider, Actio
             final Skill digging = skills.getSkillOrLearn(SkillList.DIGGING);
             float snowQuality = (float) Server.rand.nextInt((int) (performer.getSkills().getSkill(SkillList.DIGGING).getKnowledge(0.0) * 100f)) / 100f;
             final Item snowball = ItemFactory.createItem(ItemList.snowball, snowQuality, performer.getName());
-            if (!performer.isWithinDistanceTo(tilex, tiley, (int) 8f)) {
+            if (!performer.isWithinDistanceTo(tilex, tiley, (int) 6f)) {
                 performer.getCommunicator().sendNormalServerMessage("You must be closer to the snow.");
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
@@ -72,7 +72,7 @@ public class CreateSnowballAction implements ModAction, BehaviourProvider, Actio
                     final int sound = Server.rand.nextInt(2);
                     if (sound == 0) {
                         sstring = SoundNames.DIGGING2_SND;
-                    } else if (sound == 1) {
+                    } else {
                         sstring = SoundNames.DIGGING3_SND;
                     }
                     SoundPlayer.playSound(sstring, performer, 0f);

@@ -18,8 +18,8 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
 import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

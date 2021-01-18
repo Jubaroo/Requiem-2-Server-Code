@@ -6,7 +6,7 @@ import com.wurmonline.shared.constants.EffectConstants;
 import net.bdew.wurm.server.threedee.api.IDisplayHook;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.lang.reflect.InvocationTargetException;
 

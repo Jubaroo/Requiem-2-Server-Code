@@ -23,7 +23,7 @@ import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviour;
 import org.gotti.wurmunlimited.modsupport.vehicles.VehicleFacade;
 
 public class Zebra implements ModCreature, CreatureTypes, ItemMaterials, MiscConstants {
-    private static final int VARIANT_1 = 26;
+    private static final int VARIANT_1 = 24;
     public static int templateId;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {

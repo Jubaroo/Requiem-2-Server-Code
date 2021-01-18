@@ -22,11 +22,10 @@ import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
 import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.tools.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
 import java.util.Collections;
@@ -99,7 +98,7 @@ public class TreasureHuntChestAction implements ModAction {
             public boolean action(Action act, Creature performer, Item target, short action, float counter) {
                 try {
                     Communicator comm = performer.getCommunicator();
-                    int sk = RequiemTools.getRandArrayInt(SkillList.skillArray);
+                    int sk = RandomUtils.getRandArrayInt(SkillList.skillArray);
                     String skillString = SkillSystem.getNameFor(sk);
                     final String playerEffect = String.format("%s%s", performer.getName(), TreasureHuntChestAction.class.getName());
                     long cooldown = TimeConstants.YEAR_MILLIS;
@@ -112,7 +111,7 @@ public class TreasureHuntChestAction implements ModAction {
                         comm.sendNormalServerMessage("That is not a treasure chest.");
                         return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                     }
-                    if (!RequiemTools.isPrivateTestServer()) {
+                    if (!Servers.isThisATestServer()) {
                         if (performer.getPower() != 5) {
                             if (!allMissionsCompleted(performer)) {
                                 performer.getCommunicator().sendNormalServerMessage("The chest will not open no matter what you try. Maybe you should check out Marnbourne for clues. (You must complete all parts of the treasure hunt before you can open the chest)");
@@ -137,7 +136,7 @@ public class TreasureHuntChestAction implements ModAction {
                         itemsInsert(performer);
                         performer.getSkills().getSkillOrLearn(sk).skillCheck(1.0, 0.0, false, 2f);
                         performer.addTitle(Titles.Title.getTitle(CustomTitles.TREASURE_HUNT));
-                        if (performer.getPower() < 3 || !RequiemTools.isPrivateTestServer()) {
+                        if (performer.getPower() < 3 || !Servers.isThisATestServer()) {
                             Cooldowns.setUsed(playerEffect);
                         }
                         performer.getCommunicator().sendNormalServerMessage(String.format("You pry open the chest and look inside. You find that the chest contained 2 star gems, 3 rift stones, 3 rift crystals, 3 rift wood, 4 silver coins, 1 affinity orb, an old skull mask, 3 potions, 2 sleep powder, and some skill in %s", skillString));
@@ -178,12 +177,12 @@ public class TreasureHuntChestAction implements ModAction {
 
     private static void itemsInsert(Creature performer) throws NoSuchTemplateException, FailedException {
         for (int i = 0; i < 2; i++) {
-            performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomGem(true), (float) RandomUtils.generateRandomDoubleInRange(50, 99), null), true);
         }
         for (int i = 0; i < 3; i++) {
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftStone, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftWood, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
-            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftCrystal, (float) RequiemTools.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftStone, (float) RandomUtils.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftWood, (float) RandomUtils.generateRandomDoubleInRange(50, 99), null), true);
+            performer.getInventory().insertItem(ItemFactory.createItem(ItemList.riftCrystal, (float) RandomUtils.generateRandomDoubleInRange(50, 99), null), true);
         }
         for (int i = 0; i < 3; i++) {
             performer.getInventory().insertItem(ItemFactory.createItem(RandomUtils.randomPotionTemplates(), 99f, null), true);

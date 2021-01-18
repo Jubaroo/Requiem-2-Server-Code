@@ -40,7 +40,7 @@ public class GoTo {
             return false;
 
         } catch (Throwable e) {
-            RequiemLogging.logException( "sendToVillage: " ,e);
+            RequiemLogging.logException("sendToVillage: ", e);
             return false;
         }
 
@@ -73,7 +73,7 @@ public class GoTo {
             return false;
 
         } catch (Throwable e) {
-            RequiemLogging.logException( "sendToPlayer: ", e);
+            RequiemLogging.logException("sendToPlayer: ", e);
             return false;
         }
     }
@@ -108,7 +108,7 @@ public class GoTo {
             comm.sendNormalServerMessage(String.format("Player %s not found", playerName));
             return false;
         } catch (Throwable e) {
-            RequiemLogging.logException( "sendToHome: ", e);
+            RequiemLogging.logException("sendToHome: ", e);
             return false;
         }
         return false;
@@ -136,7 +136,7 @@ public class GoTo {
             comm.sendNormalServerMessage(String.format("Player %s not found", playerName));
             return false;
         } catch (Throwable e) {
-            RequiemLogging.logException( "sendToHome: ", e);
+            RequiemLogging.logException("sendToHome: ", e);
             return false;
         }
         return false;

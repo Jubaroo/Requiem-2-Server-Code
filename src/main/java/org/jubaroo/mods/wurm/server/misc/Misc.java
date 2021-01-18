@@ -698,17 +698,16 @@ public class Misc {
                                 }
                                 Item barding = creature.getArmour((byte) 2);
                                 if (barding != null) {
-                                    switch (barding.getMaterial()) {
-                                        case Materials.MATERIAL_LEATHER:
-                                            speed -= 0.1F;
-                                            //Requiem.debug("decrease because leather: 0.1");
-                                            break;
-                                        default:
-                                            speed -= 0.2F;
-                                            //Requiem.debug("decrease because barding: 0.2");
+                                    if (barding.getMaterial() == Materials.MATERIAL_LEATHER) {
+                                        speed -= 0.1F;
+                                        //Requiem.debug("decrease because leather: 0.1");
+                                    } else {
+                                        speed -= 0.2F;
+                                        //Requiem.debug("decrease because barding: 0.2");
                                     }
                                 }
                             } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
                         }
                         //Requiem.debug("new speed: " + speed);

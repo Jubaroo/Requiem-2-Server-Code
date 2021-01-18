@@ -25,7 +25,7 @@ public class HealingFountainAction implements ModAction, ActionPerformer, Behavi
         // Get the action id
         actionId = (short) ModActions.getNextActionId();
         // Create the action entry
-        this.actionEntry = new ActionEntryBuilder(actionId, "Heal your wounds", "healing", new int[] {ActionTypesProxy.ACTION_TYPE_NOMOVE}).range(4).build();
+        this.actionEntry = new ActionEntryBuilder(actionId, "Heal your wounds", "healing", new int[]{ActionTypesProxy.ACTION_TYPE_NOMOVE}).range(4).build();
         // Register the action entry
         ModActions.registerAction(this.actionEntry);
     }

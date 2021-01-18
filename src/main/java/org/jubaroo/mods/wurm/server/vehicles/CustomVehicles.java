@@ -19,6 +19,7 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.vehicles.special.MagicCarpet;
 import org.jubaroo.mods.wurm.server.vehicles.util.SeatsFacadeImpl;
 import org.jubaroo.mods.wurm.server.vehicles.util.VehicleFacadeImpl;
@@ -32,7 +33,7 @@ import java.util.List;
 
 import static org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries.*;
 
-public class CustomVehicles {
+public class CustomVehicles extends CustomItems {
 
     public static ItemTemplate jennKellonWagon, molRehanWagon, hotsWagon, dragonKingdomWagon, empireMolRehanWagon,
             blackLegionWagon, ebonauraWagon, kingdomSolWagon, romanRepublicWagon, valhallaWagon, valhallaDescendantsWagon,
@@ -48,7 +49,7 @@ public class CustomVehicles {
             ukFlagWagon, netherlandsFlagWagon, polandFlagWagon, russiaFlagWagon, ussrFlagWagon, brazilFlagWagon, southAfricaFlagWagon,
             greeceFlagWagon, denmarkFlagWagon, australiaFlagWagon, estoniaFlagWagon, yellowPlaidWagon, orangePlaidWagon,
             blueGreenPlaidWagon, greenPlaidWagon, blackWhitePlaidWagon, callanishPatreonWagon, vysePatreonWagon, toplessWagon,
-            screenWagon,loggingWagon, altarWagon;
+            screenWagon, loggingWagon, altarWagon;
 
     public static ItemTemplate blackLegionCaravel, crusadersCaravel, ebonauraCaravel, empireMolRehanCaravel, eagleCaravel,
             freedomCaravel, hotSCaravel, jennKellonCaravel, kingdomSolCaravel, macedoniaCaravel, molRehanCaravel,
@@ -66,7 +67,7 @@ public class CustomVehicles {
             freedomKnarr, hotSKnarr, jennKellonKnarr, kingdomSolKnarr, macedoniaKnarr, molRehanKnarr,
             pandemoniumKnarr, pirateKnarr, requiemKnarr, romanEmpireKnarr, vyseKnarr, callanishKnarr;
 
-    public static ItemTemplate blackLegionSailing, crusadersSailing, dreadnoughtSailing, ebonauraSailing, empireMolRehanSailing, 
+    public static ItemTemplate blackLegionSailing, crusadersSailing, dreadnoughtSailing, ebonauraSailing, empireMolRehanSailing,
             eagleSailing, freedomSailing, hotSSailing, kingdomSolSailing, macedoniaSailing, molRehanSailing, pandemoniumSailing,
             pirateSailing, requiemSailing, romanEmpireSailing, valhallaSailing, jennKellonTwoSailing, vyseSailing, callanishSailing;
 
@@ -82,17 +83,17 @@ public class CustomVehicles {
         registerKnarrs();
         registerSailboats();
         registerCustomBoatManageHooks();
-        registerWagonHook();
-        registerSailingBoatHook();
-        registerCorbitaHook();
-        registerKnarrHook();
-        registerCogHook();
-        caravelVehicleSettings();
+        registerWagonVehicleSettings();
+        registerSailingBoatVehicleSettings();
+        registerCorbitaVehicleSettings();
+        registerKnarrVehicleSettings();
+        registerCogVehicleSettings();
+        registerCaravelVehicleSettings();
         MagicCarpet.registerVehicle();
         RequiemLogging.debug(String.format("Registering all of Requiem's custom vehicle templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
     }
 
-        private static ItemTemplate registerWagon(String id, String modelSuffix, String name) throws IOException {
+    private static ItemTemplate registerWagon(String id, String modelSuffix, String name) throws IOException {
         return new ItemTemplateBuilder(String.format("jubaroo.wagon.%s", id))
                 .name(String.format("%s wagon", name), String.format("%s wagons", name), "A fairly large wagon designed to be dragged by four animals.")
                 .modelName(String.format("model.transports.medium.wagon.%s.", modelSuffix))
@@ -273,7 +274,7 @@ public class CustomVehicles {
 
     private static ItemTemplate registerCaravel(String id, String modelSuffix, String name) throws IOException {
         return new ItemTemplateBuilder(String.format("jubaroo.boat.caravel.%s", id))
-                .name(String.format("%s caravel", String.format("%s caravels", name)), name, "An impressive merchant ship.")
+                .name(String.format("%s caravel", name), String.format("%s caravels", name), "An impressive merchant ship.")
                 .modelName(String.format("model.%s.", modelSuffix))
                 .descriptions("almost full", "somewhat occupied", "half-full", "emptyish")
                 .imageNumber((short) IconConstants.ICON_NONE)
@@ -449,7 +450,7 @@ public class CustomVehicles {
 
     private static ItemTemplate registerKnarr(String id, String modelSuffix, String name) throws IOException {
         return new ItemTemplateBuilder(String.format("jubaroo.boat.knarr.%s", id))
-                .name(String.format("%s cog", name), String.format("%s cog", name), "A ship with a clinker-built hull assembled with iron rivets, and one mast with a square yard sail. In insufficient wind it is rowed with oars. The side rudder is on the starboard side.")
+                .name(String.format("%s knarr", name), String.format("%s knarr", name), "A ship with a clinker-built hull assembled with iron rivets, and one mast with a square yard sail. In insufficient wind it is rowed with oars. The side rudder is on the starboard side.")
                 .modelName(String.format("model.%s.", modelSuffix))
                 .descriptions("almost full", "somewhat occupied", "half-full", "emptyish")
                 .imageNumber((short) IconConstants.ICON_NONE)
@@ -504,8 +505,8 @@ public class CustomVehicles {
         vyseKnarr = registerKnarr("patreon.vyse", "boat.knarr.patreon.vyse", "Vyse's");
         callanishKnarr = registerKnarr("patreon.callanish", "boat.knarr.patreon.callanish", "Callanish's");
     }
-    
-        private static ItemTemplate registerSailboat(String id, String modelSuffix, String name) throws IOException {
+
+    private static ItemTemplate registerSailboat(String id, String modelSuffix, String name) throws IOException {
         return new ItemTemplateBuilder(String.format("jubaroo.boat.sailing.%s", id))
                 .name(String.format("%s sailing boat", name), String.format("%s sailing boats", name), "A small sailing boat that will accommodate five people.")
                 .modelName(String.format("model.%s.", modelSuffix))
@@ -544,7 +545,7 @@ public class CustomVehicles {
                 .isTraded(true)
                 .build();
     }
-    
+
     private static void registerSailboats() throws IOException {
         blackLegionSailing = registerSailboat("blackLegion", "structure.small.boat.sailing.blac", "Black Legion");
         crusadersSailing = registerSailboat("crusaders", "structure.small.boat.sailing.crus", "Crusaders");
@@ -698,7 +699,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void caravelVehicleSettings() {
+    public static void registerCaravelVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),
@@ -750,7 +751,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void registerCogHook() {
+    public static void registerCogVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),
@@ -797,7 +798,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void registerCorbitaHook() {
+    public static void registerCorbitaVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),
@@ -842,7 +843,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void registerKnarrHook() {
+    public static void registerKnarrVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),
@@ -893,7 +894,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void registerSailingBoatHook() {
+    public static void registerSailingBoatVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),
@@ -936,7 +937,7 @@ public class CustomVehicles {
         }
     }
 
-    public static void registerWagonHook() {
+    public static void registerWagonVehicleSettings() {
         try {
             CtClass[] input = {
                     HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"),

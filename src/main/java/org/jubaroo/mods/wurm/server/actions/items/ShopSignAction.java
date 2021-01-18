@@ -22,7 +22,7 @@ public class ShopSignAction implements ModAction, ActionPerformer, BehaviourProv
     public ShopSignAction() {
         this.actionId = (short) ModActions.getNextActionId();
         // Create the action entry
-        this.actionEntry = new ActionEntryBuilder(this.actionId, "Additional sign designs", "changing", new int[] {
+        this.actionEntry = new ActionEntryBuilder(this.actionId, "Additional sign designs", "changing", new int[]{
                 ActionTypesProxy.ACTION_TYPE_ENEMY_ALWAYS,
                 ActionTypesProxy.ACTION_TYPE_ALWAYS_USE_ACTIVE_ITEM})
                 .range(4).build();

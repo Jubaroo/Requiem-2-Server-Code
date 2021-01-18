@@ -25,7 +25,7 @@ public class EnchantersCrystalInfuseAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public EnchantersCrystalInfuseAction() {
-        RequiemLogging.logWarning( "EnchantersCrystalInfuseAction()");
+        RequiemLogging.logWarning("EnchantersCrystalInfuseAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

@@ -13,7 +13,7 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.ChatHandler;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.Collections;
 import java.util.List;

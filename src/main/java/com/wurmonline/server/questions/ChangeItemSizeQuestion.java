@@ -7,7 +7,7 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestion;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestions;
-import org.jubaroo.mods.wurm.server.items.ItemMod;
+import org.jubaroo.mods.wurm.server.tools.Hooks;
 
 import java.util.Properties;
 
@@ -40,8 +40,8 @@ public class ChangeItemSizeQuestion implements ModQuestion {
 
         if (!containsIllegalCharacters(newSize, performer)) {
             try {
-                ItemMod.resizeItemId = resizeTarget.getTemplate().getTemplateId();
-                ItemMod.resizeItemSize = Float.parseFloat(answer.getProperty("size"));
+                Hooks.resizeItemId = resizeTarget.getTemplate().getTemplateId();
+                Hooks.resizeItemSize = Float.parseFloat(answer.getProperty("size"));
                 VolaTile tile = Zones.getTileOrNull(resizeTarget.getTilePos(), resizeTarget.isOnSurface());
                 if (tile != null) {
                     tile.makeInvisible(resizeTarget);

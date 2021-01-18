@@ -1,4 +1,4 @@
-package org.jubaroo.mods.wurm.server.actions.creatures;
+package org.jubaroo.mods.wurm.server.actions.gm;
 
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.behaviours.Action;

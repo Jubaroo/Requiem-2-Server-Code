@@ -9,7 +9,7 @@ import com.wurmonline.server.items.*;
 import com.wurmonline.shared.constants.Enchants;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.ItemTools;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.ArrayList;
 
@@ -101,7 +101,6 @@ public class Caches {
                     ItemList.drakeHide,
                     ItemList.dragonScale,
                     ItemList.dragonScale
-                    //SpectralHide.getId()
             };
         } else if (templateId == CustomItems.gemCache.getTemplateId()) {
             return new int[]{
@@ -430,7 +429,7 @@ public class Caches {
         } else {
             int[] basicTemplates = getBasicTemplates(templateId);
             if (basicTemplates == null) {
-                RequiemLogging.logWarning("Error: Basic Templates are null for cache with template id " + templateId);
+                RequiemLogging.logWarning(String.format("Error: Basic Templates are null for cache with template id %d", templateId));
                 return;
             }
             int basicNums = getBasicNums(templateId);

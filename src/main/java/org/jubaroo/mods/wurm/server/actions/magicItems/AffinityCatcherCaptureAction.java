@@ -21,7 +21,7 @@ public class AffinityCatcherCaptureAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public AffinityCatcherCaptureAction() {
-        RequiemLogging.logWarning( "AffinityCatcherCaptureAction()");
+        RequiemLogging.logWarning("AffinityCatcherCaptureAction()");
 
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(

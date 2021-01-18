@@ -12,8 +12,8 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Dog implements ModCreature {
     public static int templateId;
-    private static final int DALMATIAN = 26;
-    private static final int SIBERIAN_HUSKY = 30;
+    private static final int DALMATIAN = 24;
+    private static final int SIBERIAN_HUSKY = 25;
     private static final int COLOR_TRAITS =
             1 << DALMATIAN |
                     1 << SIBERIAN_HUSKY;
@@ -70,7 +70,6 @@ public class Dog implements ModCreature {
             traitsSetter.setTraitBit(DALMATIAN, true);
         } else if (rand < 40) {
             traitsSetter.setTraitBit(SIBERIAN_HUSKY, true);
-        } else if (rand < 50) {
         }
     }
 

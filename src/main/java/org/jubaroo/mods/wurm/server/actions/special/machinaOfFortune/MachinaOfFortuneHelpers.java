@@ -19,6 +19,7 @@ import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.SoundNames;
 import com.wurmonline.shared.util.MulticolorLineSegment;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 
@@ -26,13 +27,15 @@ import java.util.ArrayList;
 
 class MachinaOfFortuneHelpers {
 
+    //TODO redo the roll system because its stupid!
+
     public static void sendColoredNoFortune(final Communicator comm) {
         final ArrayList<MulticolorLineSegment> segments = new ArrayList<>();
         segments.add(new MulticolorLineSegment("Your fortune is... ", MessageColors.COLOR_WHITE_ID));
         segments.add(new MulticolorLineSegment("nothing", MessageColors.COLOR_RED_ID));
         segments.add(new MulticolorLineSegment(". Better luck next time!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredNegativeFortune(final String msg, final Communicator comm) {
@@ -41,7 +44,7 @@ class MachinaOfFortuneHelpers {
         segments.add(new MulticolorLineSegment(msg, MessageColors.COLOR_RED_ID));
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredGenericFortune(final String msg, final Communicator comm) {
@@ -50,20 +53,20 @@ class MachinaOfFortuneHelpers {
         segments.add(new MulticolorLineSegment(msg, MessageColors.COLOR_GREEN_ID));
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredSingleItemFortune(Item item, Communicator comm) {
         final ArrayList<MulticolorLineSegment> segments = new ArrayList<>();
         segments.add(new MulticolorLineSegment(String.format("Your fortune is... %s ", RequiemTools.a_an(item.getName())), MessageColors.COLOR_WHITE_ID));
         if (item.getTemplateId() == CustomItems.essenceOfWoodId || item.getTemplateId() == ItemList.handMirror || item.isCoin()) {
-            segments.add(new MulticolorLineSegment(item.getName() + " (" + Materials.convertMaterialByteIntoString(item.getMaterial()) + ")", MessageColors.COLOR_GREEN_ID));
+            segments.add(new MulticolorLineSegment(String.format("%s (%s)", item.getName(), Materials.convertMaterialByteIntoString(item.getMaterial())), MessageColors.COLOR_GREEN_ID));
         } else {
             segments.add(new MulticolorLineSegment(item.getName(), MessageColors.COLOR_GREEN_ID));
         }
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredMultipleItemFortune(Item item, Communicator comm) {
@@ -72,7 +75,7 @@ class MachinaOfFortuneHelpers {
         segments.add(new MulticolorLineSegment(String.format("%s's", item.getName()), MessageColors.COLOR_GREEN_ID));
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredMultipleCoinFortune(int coinAmount, Communicator comm) {
@@ -82,7 +85,7 @@ class MachinaOfFortuneHelpers {
         segments.add(new MulticolorLineSegment(String.format("%s", newch.getChangeString()), MessageColors.COLOR_GREEN_ID));
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     public static void sendColoredMultipleSkillFortune(String skillString, Communicator comm) {
@@ -92,7 +95,7 @@ class MachinaOfFortuneHelpers {
         segments.add(new MulticolorLineSegment("skill points", MessageColors.COLOR_GREEN_ID));
         segments.add(new MulticolorLineSegment("!", MessageColors.COLOR_WHITE_ID));
         comm.sendNormalServerMessage("The machine makes a strange noise and then stops. You notice a fortune appear.");
-        comm.sendColoredMessageEvent(segments, (byte)3);
+        comm.sendColoredMessageEvent(segments, (byte) 3);
     }
 
     // ==============================================================================================================================
@@ -116,7 +119,7 @@ class MachinaOfFortuneHelpers {
 
     // ==============================================================================================================================
     public static void singleItemOneRollInsert(int itemId, float minQ, float maxQ, byte material, byte rarity, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), material, rarity, "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), material, rarity, null);
         item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
         performer.getInventory().insertItem(item, true);
         sendColoredSingleItemFortune(item, comm);
@@ -125,7 +128,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void singleItemOneRollInsert(int itemId, float minQ, float maxQ, byte rarity, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), rarity, "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), rarity, null);
         item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
         performer.getInventory().insertItem(item, true);
         sendColoredSingleItemFortune(item, comm);
@@ -134,7 +137,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void singleItemOneRollInsert(int itemId, float minQ, float maxQ, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
         item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
         performer.getInventory().insertItem(item, true);
         sendColoredSingleItemFortune(item, comm);
@@ -143,7 +146,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void singleItemOneRollInsert(int itemId, float minQ, float maxQ, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
         performer.getInventory().insertItem(item, true);
         sendColoredSingleItemFortune(item, comm);
         Items.destroyItem(source.getWurmId());
@@ -151,7 +154,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void singleItemOneRollInsert(int itemId, float quality, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, quality, "");
+        Item item = ItemFactory.createItem(itemId, quality, null);
         performer.getInventory().insertItem(item, true);
         sendColoredSingleItemFortune(item, comm);
         Items.destroyItem(source.getWurmId());
@@ -161,7 +164,7 @@ class MachinaOfFortuneHelpers {
     // ==============================================================================================================================
 
     public static void multipleItemOneRollInsert(int maxItemCount, int itemId, float minQ, float maxQ, byte material, byte rarity, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), material, rarity, "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), material, rarity, null);
         for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
             item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
             performer.getInventory().insertItem(item, true);
@@ -172,7 +175,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void multipleItemOneRollInsert(int maxItemCount, int itemId, float minQ, float maxQ, byte rarity, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), rarity, "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), rarity, null);
         for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
             item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
             performer.getInventory().insertItem(item, true);
@@ -183,7 +186,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void multipleItemOneRollInsert(int maxItemCount, int itemId, float minQ, float maxQ, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
         for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
             item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
             performer.getInventory().insertItem(item, true);
@@ -194,7 +197,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void multipleItemOneRollInsert(int maxItemCount, int itemId, float minQ, float maxQ, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+        Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
         for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
             performer.getInventory().insertItem(item, true);
         }
@@ -204,7 +207,7 @@ class MachinaOfFortuneHelpers {
     }
 
     public static void multipleItemOneRollInsert(int maxItemCount, int itemId, float quality, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
-        Item item = ItemFactory.createItem(itemId, quality, "");
+        Item item = ItemFactory.createItem(itemId, quality, null);
         for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
             performer.getInventory().insertItem(item, true);
         }
@@ -217,7 +220,7 @@ class MachinaOfFortuneHelpers {
 
     public static void multipleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int maxItemCount, int itemId, float minQ, float maxQ, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+            Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
             for (int i = 0; i < Server.rand.nextInt(maxItemCount) + 1; i++) {
                 performer.getInventory().insertItem(item, true);
             }
@@ -234,8 +237,8 @@ class MachinaOfFortuneHelpers {
     public static void singleItemTwoRollContainerInsert(int maxSecondRoll, float rollMultiplier, int containerId, int resourceId, float minQContainer, float maxQContainer, float minQResource, float maxQResource, int resourceWeightInGrams, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         try {
             if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-                Item container = ItemFactory.createItem(containerId, (float) RequiemTools.generateRandomDoubleInRange(minQContainer, maxQContainer), "");
-                Item filler = ItemFactory.createItem(resourceId, (float) RequiemTools.generateRandomDoubleInRange(minQResource, maxQResource), "");
+                Item container = ItemFactory.createItem(containerId, (float) RandomUtils.generateRandomDoubleInRange(minQContainer, maxQContainer), null);
+                Item filler = ItemFactory.createItem(resourceId, (float) RandomUtils.generateRandomDoubleInRange(minQResource, maxQResource), null);
                 filler.setWeight(resourceWeightInGrams, true);
                 container.insertItem(filler, true);
                 if (container.getWeightGrams() > 20000) {
@@ -257,9 +260,9 @@ class MachinaOfFortuneHelpers {
     public static void multipleItemTwoRollContainerInsert(int maxSecondRoll, float rollMultiplier, int itemCount, int containerId, int resourceId, float minQContainer, float maxQContainer, float minQResource, float maxQResource, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         try {
             if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-                Item container = ItemFactory.createItem(containerId, (float) RequiemTools.generateRandomDoubleInRange(minQContainer, maxQContainer), "");
+                Item container = ItemFactory.createItem(containerId, (float) RandomUtils.generateRandomDoubleInRange(minQContainer, maxQContainer), null);
                 for (int i = 0; i < itemCount; i++) {
-                    container.insertItem(ItemFactory.createItem(resourceId, (float) RequiemTools.generateRandomDoubleInRange(minQResource, maxQResource), ""), true);
+                    container.insertItem(ItemFactory.createItem(resourceId, (float) RandomUtils.generateRandomDoubleInRange(minQResource, maxQResource), null), true);
                 }
                 if (container.getWeightGrams() > 20000) {
                     container.putItemInfrontof(performer, 0f);
@@ -295,10 +298,9 @@ class MachinaOfFortuneHelpers {
     }
 
     // ==============================================================================================================================
-
     public static void singleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int itemId, float minQ, float maxQ, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+            Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
             performer.getInventory().insertItem(item, true);
             sendColoredSingleItemFortune(item, comm);
             Items.destroyItem(source.getWurmId());
@@ -310,7 +312,7 @@ class MachinaOfFortuneHelpers {
 
     public static void singleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int itemId, float minQ, float maxQ, byte rarity, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), rarity, "");
+            Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), rarity, null);
             item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
             performer.getInventory().insertItem(item, true);
             sendColoredSingleItemFortune(item, comm);
@@ -323,7 +325,7 @@ class MachinaOfFortuneHelpers {
 
     public static void singleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int itemId, float minQ, float maxQ, float weightMultiplier, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), "");
+            Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), null);
             item.setWeight((int) (item.getWeightGrams() * weightMultiplier), true);
             performer.getInventory().insertItem(item, true);
             sendColoredSingleItemFortune(item, comm);
@@ -336,7 +338,7 @@ class MachinaOfFortuneHelpers {
 
     public static void singleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int itemId, float quality, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, quality, "");
+            Item item = ItemFactory.createItem(itemId, quality, null);
             performer.getInventory().insertItem(item, true);
             sendColoredSingleItemFortune(item, comm);
             Items.destroyItem(source.getWurmId());
@@ -348,7 +350,7 @@ class MachinaOfFortuneHelpers {
 
     public static void singleItemTwoRollInsert(int maxSecondRoll, float rollMultiplier, int itemId, float minQ, float maxQ, byte material, byte rarity, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            Item item = ItemFactory.createItem(itemId, (float) RequiemTools.generateRandomDoubleInRange(minQ, maxQ), material, rarity, "");
+            Item item = ItemFactory.createItem(itemId, (float) RandomUtils.generateRandomDoubleInRange(minQ, maxQ), material, rarity, null);
             performer.getInventory().insertItem(item, true);
             sendColoredSingleItemFortune(item, comm);
             Items.destroyItem(source.getWurmId());
@@ -362,7 +364,7 @@ class MachinaOfFortuneHelpers {
 
     public static void singleItemTwoRollDataChangeInsert(int maxSecondRoll, float rollMultiplier, int itemId, float quality, int data1, int data2, byte auxData, Item source, Creature performer, Communicator comm) throws NoSuchTemplateException, FailedException {
         if (rollMultiplier * Server.rand.nextInt(maxSecondRoll - 1) == 0) {
-            final Item item = ItemFactory.createItem(itemId, quality, "");
+            final Item item = ItemFactory.createItem(itemId, quality, null);
             if (data1 != -1) {
                 item.setData1(data1);
             }

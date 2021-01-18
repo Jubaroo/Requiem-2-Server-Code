@@ -131,7 +131,7 @@ public class SmashAction implements ModAction, ActionTypesProxy {
                         final Skill s = target.getSkills().getSkillOrLearn(SkillList.BODY_STRENGTH);
                         s.skillCheck(1.0, 0.0, false, 1f);
                     } catch (Exception e) {
-                        RequiemLogging.logException( "failed to smash", e);
+                        RequiemLogging.logException("failed to smash", e);
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

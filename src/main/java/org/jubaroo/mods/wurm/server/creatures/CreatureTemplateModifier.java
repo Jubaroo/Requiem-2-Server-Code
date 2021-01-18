@@ -6,6 +6,7 @@ import com.wurmonline.server.skills.Skills;
 import com.wurmonline.server.skills.SkillsFactory;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 
+@SuppressWarnings("unused")
 public class CreatureTemplateModifier {
 
     public static void setCorpseModel(int templateId, String corpseModel) {
@@ -350,10 +351,10 @@ public class CreatureTemplateModifier {
         }
     }
 
-    public static void setSkill(int templateId, int skillId, float value){
-        try{
+    public static void setSkill(int templateId, int skillId, float value) {
+        try {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
-            if(template != null){
+            if (template != null) {
                 Skills skills = ReflectionUtil.getPrivateField(template, ReflectionUtil.getField(template.getClass(), "skills"));
                 skills.learnTemp(skillId, value);
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "skills"), skills);
@@ -921,11 +922,15 @@ public class CreatureTemplateModifier {
     }
 
     public static void setNonSentinel(int templateId) throws NoSuchFieldException, NoSuchCreatureTemplateException, IllegalAccessException {
-        ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
+        if (templateId > 0) {
+            ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
+        }
     }
 
     public static void setNonSentinel(Creature creature) throws Exception {
-        ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(creature.getNameWithoutPrefixes()), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
+        if (creature != null) {
+            ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(creature.getNameWithoutPrefixes()), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
+        }
     }
 
 }

@@ -57,8 +57,8 @@ public class Bloodlust {
         }
     }
 
-    public static void preInit(){
-        try{
+    public static void preInit() {
+        try {
             ClassPool classPool = HookManager.getInstance().getClassPool();
             final Class<Bloodlust> thisClass = Bloodlust.class;
             String replace;
@@ -96,7 +96,7 @@ public class Bloodlust {
                     "  $5 = $5 * lustMult;" +
                     "}";
             Util.insertBeforeDescribed(thisClass, ctCombatEngine, "addWound", desc1, replace);*/
-        } catch (  IllegalArgumentException | ClassCastException e) {
+        } catch (IllegalArgumentException | ClassCastException e) {
             throw new HookException(e);
         }
     }

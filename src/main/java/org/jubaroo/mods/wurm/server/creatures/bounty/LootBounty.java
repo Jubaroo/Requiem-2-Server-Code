@@ -190,10 +190,10 @@ public class LootBounty {
                 }
                 i--;
             }
+            String message = String.format("%d Tablets of Friyan were created somewhere in the world!", i);
+            Server.getInstance().broadCastAlert(message);
+            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
         }
-        String message = String.format("%d Tablets of Friyan were created somewhere in the world!", i);
-        Server.getInstance().broadCastAlert(message);
-        DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
     }
 
     public static void handleDragonLoot(Creature mob) {

@@ -26,27 +26,24 @@ public class AddSubGroupAction implements ModAction {
                 actionId,
                 "Add Subgroup",
                 "adding group",
-                new int[] { 0 }
+                new int[]{0}
         );
         ModActions.registerAction(actionEntry);
     }
 
     @Override
-    public BehaviourProvider getBehaviourProvider()
-    {
+    public BehaviourProvider getBehaviourProvider() {
         return new BehaviourProvider() {
             // Menu with activated object
             @Override
-            public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item object)
-            {
+            public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item object) {
                 return this.getBehavioursFor(performer, object);
             }
 
             // Menu without activated object
             @Override
-            public List<ActionEntry> getBehavioursFor(Creature performer, Item object)
-            {
-                if(performer instanceof Player && object != null && object.getTemplateId() == ItemList.inventoryGroup) {
+            public List<ActionEntry> getBehavioursFor(Creature performer, Item object) {
+                if (performer instanceof Player && object != null && object.getTemplateId() == ItemList.inventoryGroup) {
                     return Collections.singletonList(actionEntry);
                 }
 
@@ -83,15 +80,13 @@ public class AddSubGroupAction implements ModAction {
             newGroup.setName("Group");
             group.insertItem(newGroup, true);
             renameGroup(newGroup, performer);
-        }
-        catch (NoSuchTemplateException | FailedException nst) {
+        } catch (NoSuchTemplateException | FailedException nst) {
             RequiemLogging.logException(nst.getMessage(), nst);
         }
     }
 
     @Override
-    public ActionPerformer getActionPerformer()
-    {
+    public ActionPerformer getActionPerformer() {
         return new ActionPerformer() {
 
             @Override
@@ -101,26 +96,24 @@ public class AddSubGroupAction implements ModAction {
 
             // Without activated object
             @Override
-            public boolean action(Action act, Creature performer, Item target, short action, float counter)
-            {
-                try{
-                    if(performer instanceof Player){
-                        if(target.getTemplateId() != ItemList.inventoryGroup){
+            public boolean action(Action act, Creature performer, Item target, short action, float counter) {
+                try {
+                    if (performer instanceof Player) {
+                        if (target.getTemplateId() != ItemList.inventoryGroup) {
                             performer.getCommunicator().sendNormalServerMessage("You can only use this on an inventory group.");
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                         addGroup(target, performer);
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }
 
             @Override
-            public boolean action(Action act, Creature performer, Item source, Item target, short action, float counter)
-            {
+            public boolean action(Action act, Creature performer, Item source, Item target, short action, float counter) {
                 return this.action(act, performer, target, action, counter);
             }
         }; // ActionPerformer

@@ -35,6 +35,7 @@ public class ReceiveMailAction implements ModAction {
             public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item object) {
                 return this.getBehavioursFor(performer, object);
             }
+
             // Menu without activated object
             @Override
             public List<ActionEntry> getBehavioursFor(Creature performer, Item object) {

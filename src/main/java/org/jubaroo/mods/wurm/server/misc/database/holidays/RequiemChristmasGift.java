@@ -66,7 +66,7 @@ public class RequiemChristmasGift {
                 ps.close();
             }
         } catch (SQLException e) {
-            RequiemLogging.logException( "Error in onServerStarted()", e);
+            RequiemLogging.logException("Error in onServerStarted()", e);
             throw new RuntimeException(e);
         }
     }
@@ -94,9 +94,9 @@ public class RequiemChristmasGift {
             lantern.setAuxData((byte) 127);
             satchel.insertItem(lantern);
             player.getInventory().insertItem(satchel, true);
-            player.getCommunicator().sendServerMessage("A shadowy figure appears behind you and you start to feel your pockets getting heavier. You quickly turn around to see what is going on only to find that nobody is there. As you wonder what could have happened just now, you pick up the smell of fresh baked cookies and hear the merry laughter of a christmas goblin as you notice something fading into the distance.", 255,192,203);
+            player.getCommunicator().sendServerMessage("A shadowy figure appears behind you and you start to feel your pockets getting heavier. You quickly turn around to see what is going on only to find that nobody is there. As you wonder what could have happened just now, you pick up the smell of fresh baked cookies and hear the merry laughter of a christmas goblin as you notice something fading into the distance.", 255, 192, 203);
         } catch (FailedException | NoSuchTemplateException e) {
-            RequiemLogging.logException( "Error in giveItems()", e);
+            RequiemLogging.logException("Error in giveItems()", e);
             throw new RuntimeException(e);
         }
     }

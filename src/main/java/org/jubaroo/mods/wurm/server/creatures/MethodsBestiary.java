@@ -1,18 +1,8 @@
 package org.jubaroo.mods.wurm.server.creatures;
 
-import com.wurmonline.mesh.Tiles;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Server;
-import com.wurmonline.server.combat.Archery;
-import com.wurmonline.server.combat.Weapon;
 import com.wurmonline.server.creatures.*;
-import com.wurmonline.server.items.Item;
-import com.wurmonline.server.items.ItemList;
-import com.wurmonline.server.items.NoSpaceException;
-import com.wurmonline.server.skills.NoSuchSkillException;
-import com.wurmonline.server.skills.SkillList;
-import com.wurmonline.shared.constants.BodyPartConstants;
-import com.wurmonline.shared.constants.Enchants;
 import javassist.*;
 import javassist.bytecode.Descriptor;
 import javassist.expr.ExprEditor;
@@ -24,7 +14,8 @@ import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Zebra;
 import org.jubaroo.mods.wurm.server.server.Constants;
-import org.jubaroo.mods.wurm.server.tools.EffectsTools;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
+import org.jubaroo.mods.wurm.server.tools.Hooks;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -50,14 +41,14 @@ public class MethodsBestiary {
                     CtClass.floatType
             };
             String desc1 = Descriptor.ofMethod(CtClass.booleanType, params1);
-            replace = String.format("if(%s.isSacrificeImmune($2)){  performer.getCommunicator().sendNormalServerMessage(\"This creature cannot be sacrificed.\");  return true;}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.isSacrificeImmune($2)){  performer.getCommunicator().sendNormalServerMessage(\"This creature cannot be sacrificed.\");  return true;}", Hooks.class.getName());
             Util.insertBeforeDescribed(thisClass, ctMethodsReligion, "sacrifice", desc1, replace);
 
             Util.setReason("Disable afk training.");
             CtClass ctCombatHandler = classPool.get("com.wurmonline.server.creatures.CombatHandler");
             //"if($1.isPlayer() && $1.getTarget() != $0){" +
             //"  RequiemLogging.logInfo(\"Non-targeted mob detected - \" + $1.getName());" +
-            replace = String.format("if(%s.blockSkillFrom($1, $0)){  $_ = true;}else{  $_ = $proceed($$);}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.blockSkillFrom($1, $0)){  $_ = true;}else{  $_ = $proceed($$);}", Hooks.class.getName());
             Util.instrumentDeclared(thisClass, ctCombatHandler, "setDamage", "isNoSkillFor", replace);
             Util.instrumentDeclared(thisClass, ctCombatHandler, "checkDefenderParry", "isNoSkillFor", replace);
             Util.instrumentDeclared(thisClass, ctCombatHandler, "checkShield", "isNoSkillFor", replace);
@@ -69,7 +60,7 @@ public class MethodsBestiary {
                         if (m.getMethodName().equals("isNoSkillFor")) {
                             //"if($1.isPlayer() && $1.getTarget() != $0){" +
                             //"  RequiemLogging.logInfo(\"Non-targeted mob detected - \" + $1.getName());" +
-                            m.replace(String.format("if(%s.blockSkillFrom($1, $0)){  $_ = true;}else{  $_ = $proceed($$);}", MethodsBestiary.class.getName()));
+                            m.replace(String.format("if(%s.blockSkillFrom($1, $0)){  $_ = true;}else{  $_ = $proceed($$);}", Hooks.class.getName()));
                         }
                     }
                 });
@@ -86,7 +77,7 @@ public class MethodsBestiary {
 
             Util.setReason("Deny chargers walking through walls.");
             CtClass ctPathFinder = classPool.get("com.wurmonline.server.creatures.ai.PathFinder");
-            replace = String.format("if(%s.denyPathingOverride($0)){  $_ = false;}else{  $_ = $proceed($$);}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.denyPathingOverride($0)){  $_ = false;}else{  $_ = $proceed($$);}", Hooks.class.getName());
             Util.instrumentDeclared(thisClass, ctPathFinder, "canPass", "isGhost", replace);
             Util.instrumentDeclared(thisClass, ctCreature, "setPathing", "isGhost", replace);
             Util.instrumentDeclared(thisClass, ctCreature, "startPathingToTile", "isGhost", replace);
@@ -111,7 +102,7 @@ public class MethodsBestiary {
                     CtClass.intType
             };
             String desc2 = Descriptor.ofMethod(ctCreature, params2);
-            replace = String.format("$10 = %s.newCreatureType($1, $10);", MethodsBestiary.class.getName());
+            replace = String.format("$10 = %s.newCreatureType($1, $10);", Hooks.class.getName());
             Util.insertBeforeDescribed(thisClass, ctCreature, "doNew", desc2, replace);
 
             Util.setReason("Enable archery against ghost targets.");
@@ -137,23 +128,23 @@ public class MethodsBestiary {
                     ctAction
             };
             String desc3 = Descriptor.ofMethod(CtClass.booleanType, params3);
-            replace = String.format("if(%s.isArcheryImmune($1, $2)){  return true;}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.isArcheryImmune($1, $2)){  return true;}", Hooks.class.getName());
             Util.insertBeforeDescribed(thisClass, ctArchery, "attack", desc3, replace);
 
             Util.setReason("Auto-Genesis a creature born on enchanted grass");
-            replace = String.format("%s.checkEnchantedBreed(newCreature);$_ = $proceed($$);", MethodsBestiary.class.getName());
+            replace = String.format("%s.checkEnchantedBreed(newCreature);$_ = $proceed($$);", Hooks.class.getName());
             Util.instrumentDeclared(thisClass, ctCreature, "checkPregnancy", "saveCreatureName", replace);
 
             Util.setReason("Set custom corpse sizes.");
-            replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", CreatureTools.class.getName(), CreatureTools.class.getName());
+            replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", Hooks.class.getName(), CreatureTools.class.getName());
             Util.instrumentDescribed(thisClass, ctCreature, "die", desc5, "addItem", replace);
 
             Util.setReason("Add spell resistance to custom creatures.");
-            replace = String.format("float cResist = %s.getCustomSpellResistance(this);if(cResist >= 0f){  return cResist;}", MethodsBestiary.class.getName());
+            replace = String.format("float cResist = %s.getCustomSpellResistance(this);if(cResist >= 0f){  return cResist;}", Hooks.class.getName());
             Util.insertBeforeDeclared(thisClass, ctCreature, "addSpellResistance", replace);
 
             Util.setReason("Allow custom creatures to have breeding names.");
-            replace = String.format("$_ =%s.shouldBreedName(this);", MethodsBestiary.class.getName());
+            replace = String.format("$_ =%s.shouldBreedName(this);", Hooks.class.getName());
             Util.instrumentDeclared(thisClass, ctCreature, "checkPregnancy", "isHorse", replace);
 
             Util.setReason("Allow ghost creatures to breed (Chargers).");
@@ -162,7 +153,7 @@ public class MethodsBestiary {
             Util.instrumentDeclared(thisClass, ctMethodsCreatures, "breed", "isGhost", replace);
 
             Util.setReason("Allow ghost creatures to drop corpses.");
-            replace = String.format("if(%s.isGhostCorpse(this)){  $_ = false;}else{  $_ = $proceed($$);}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.isGhostCorpse(this)){  $_ = false;}else{  $_ = $proceed($$);}", Hooks.class.getName());
             Util.instrumentDescribed(thisClass, ctCreature, "die", desc5, "isGhost", replace);
 
             Util.setReason("Attach special effects to creatures.");
@@ -176,13 +167,12 @@ public class MethodsBestiary {
                     CtClass.floatType
             };
             String desc4 = Descriptor.ofMethod(CtClass.booleanType, params4);
-            replace = "$_ = $proceed($$);" +
-                    EffectsTools.class.getName() + ".addCreatureSpecialEffect(copyId != -10 ? copyId : creatureId, $0, creature);";
+            replace = String.format("$_ = $proceed($$);%s.addCreatureSpecialEffect(copyId != -10 ? copyId : creatureId, $0, creature);", Hooks.class.getName());
             Util.instrumentDescribed(thisClass, ctVirtualZone, "addCreature", desc4, "sendNewCreature", replace);
 
             Util.setReason("Ensure unique creatures cannot be hitched to vehicles.");
             CtClass ctVehicle = classPool.get("com.wurmonline.server.behaviours.Vehicle");
-            replace = String.format("if(%s.isNotHitchable($1)){  return false;}", MethodsBestiary.class.getName());
+            replace = String.format("if(%s.isNotHitchable($1)){  return false;}", Hooks.class.getName());
             Util.insertBeforeDeclared(thisClass, ctVehicle, "addDragger", replace);
 
         } catch (CannotCompileException | NotFoundException | IllegalArgumentException | ClassCastException e) {
@@ -208,7 +198,7 @@ public class MethodsBestiary {
         } else return templateId == CustomCreatures.spiritStagId;
     }
 
-    private static boolean isConditionExempt(int templateId) {
+    public static boolean isConditionExempt(int templateId) {
         if (templateId == CustomCreatures.golemlingId) {
             return true;
         } else if (templateId == CustomCreatures.bloblingId) {
@@ -224,7 +214,7 @@ public class MethodsBestiary {
         } else return isRequiemNPC(templateId);
     }
 
-    static boolean isUsuallyHitched(int templateId) {
+    public static boolean isUsuallyHitched(int templateId) {
         if (templateId == CustomCreatures.chargerId) {
             return true;
         } else if (templateId == CreatureTemplateIds.HORSE_CID || templateId == CreatureTemplateIds.HELL_HORSE_CID) {
@@ -337,217 +327,20 @@ public class MethodsBestiary {
     public static boolean isRareCreature(Creature creature) {
         return isRareCreature(creature.getTemplate().getTemplateId());
     }
-    // Allow ghost creatures to drop corpses
-
-    public static boolean isGhostCorpse(Creature creature) {
-        int templateId = creature.getTemplate().getTemplateId();
-        if (templateId == CustomCreatures.avengerId) {
-            return true;
-        } else if (templateId == CustomCreatures.spiritTrollId) {
-            return true;
-        } else return templateId == CustomCreatures.chargerId;
-    }
-    // Ensure unique creatures cannot be hitched to vehicles
-
-    public static boolean isNotHitchable(Creature creature) {
-        if (creature.isUnique()) {
-            return true;
-        }
-        int cid = creature.getTemplate().getTemplateId();
-        if (cid == CustomCreatures.avengerId) {
-            return true;
-        } else if (cid == CustomCreatures.giantId) {
-            return true;
-        } else if (cid == CustomCreatures.spiritTrollId) {
-            return true;
-        } else if (cid == CreatureTemplateIds.TROLL_CID) {
-            return true;
-        } else return cid == CreatureTemplateIds.GOBLIN_CID;
-    }
-    // Disable sacrificing strong creatures
-
-    public static boolean isSacrificeImmune(Creature creature) {
-        if (Titans.isTitan(creature) || Titans.isTitanMinion(creature)) {
-            return true;
-        } else if (isRareCreature(creature)) {
-            return true;
-        } else return creature.isUnique();
-    }
-    // Disable archery altogether against certain creatures
-
-    public static boolean isArcheryImmune(Creature performer, Creature defender) {
-        if (Titans.isTitan(defender) || Titans.isTitanMinion(defender)) {
-            performer.getCommunicator().sendCombatNormalMessage(String.format("You cannot archer %s, as it is protected by a Titan.", defender.getName()));
-            return true;
-        }
-        String message = String.format("The %s would be unaffected by your arrows.", defender.getName());
-        boolean immune = false;
-        Item arrow = Archery.getArrow(performer);
-        if (arrow == null) { // Copied directly from the attack() method in Archery.
-            performer.getCommunicator().sendCombatNormalMessage("You have no arrows left to shoot!");
-            return true;
-        }
-
-        //int defenderTemplateId = defender.getTemplate().getTemplateId();
-        if (defender.isRegenerating() && arrow.getTemplateId() == ItemList.arrowShaft) {
-            message = String.format("The %s would be unaffected by the %s.", defender.getName(), arrow.getName());
-            immune = true;
-        }/*else if(defender.getTemplate().isNotRebirthable()){
-			immune = true;
-		}*/ else if (defender.isUnique()) {
-            immune = true;
-        }
-        if (immune) {
-            performer.getCommunicator().sendCombatNormalMessage(message);
-        }
-        return immune;
-    }
-    // Auto-Genesis a creature born on enchanted grass
-
-    public static void checkEnchantedBreed(Creature creature) {
-        int tile = Server.surfaceMesh.getTile(creature.getTileX(), creature.getTileY());
-        byte type = Tiles.decodeType(tile);
-        if (type == Tiles.Tile.TILE_ENCHANTED_GRASS.id) {
-            RequiemLogging.logInfo(String.format("Creature %s was born on enchanted grass, and has a negative trait removed!", creature.getName()));
-            Server.getInstance().broadCastAction(String.format("%s was born on enchanted grass, and feels more healthy!", creature.getName()), creature, 10);
-            creature.removeRandomNegativeTrait();
-        }
-    }
-    // Used to give random names to newborn, bred creatures
-
-    public static boolean shouldBreedName(Creature creature) {
-        int cid = creature.getTemplate().getTemplateId();
-        if (cid == CustomCreatures.chargerId) {
-            return true;
-        } else if (cid == CustomCreatures.greenWyvernId) {
-            return true;
-        } else if (cid == CustomCreatures.redWyvernId) {
-            return true;
-        } else if (cid == CustomCreatures.whiteWyvernId) {
-            return true;
-        } else if (cid == CustomCreatures.blackWyvernId) {
-            return true;
-        } else if (cid == CustomCreatures.blueWyvernId) {
-            return true;
-        }
-        return creature.isHorse();
-    }
-    // Add spell resistance to custom creatures
-
-    public static float getCustomSpellResistance(Creature creature) {
-        int templateId = creature.getTemplate().getTemplateId();
-        if (templateId == CustomCreatures.avengerId) {
-            return 0.5f;
-        } else if (templateId == CustomCreatures.chargerId) {
-            return 1.4f;
-        } else if (templateId == CustomCreatures.giantId) {
-            return 0.3f;
-        } else if (templateId == CustomCreatures.largeBoarId) {
-            return 0.8f;
-        } else if (templateId == CustomCreatures.reaperId) {
-            return 0.1f;
-        } else if (templateId == CustomCreatures.spectralDragonHatchlingId) {
-            return 0.1f;
-        } else if (templateId == CustomCreatures.spiritTrollId) {
-            return 0.2f;
-        } else if (templateId == CustomCreatures.blackWyvernId) {
-            return 0.4f;
-        } else if (templateId == CustomCreatures.greenWyvernId) {
-            return 0.6f;
-        } else if (templateId == CustomCreatures.whiteWyvernId) {
-            return 0.5f;
-        } else if (templateId == CustomCreatures.redWyvernId) {
-            return 0.25f;
-        } else if (templateId == CustomCreatures.blueWyvernId) {
-            return 0.15f;
-        }
-        return -1f;
-    }
-    // Disable afk training
-
-    public static boolean blockSkillFrom(Creature defender, Creature attacker) {
-        if (defender == null || attacker == null) {
-            return false;
-        }
-        if (defender.isPlayer() && defender.getTarget() != attacker) {
-            return true;
-        }
-        if (defender.isPlayer()) {
-            Item weap = defender.getPrimWeapon();
-            if (weap != null && weap.isWeapon()) {
-                try {
-                    double dam = Weapon.getModifiedDamageForWeapon(weap, defender.getSkills().getSkill(SkillList.BODY_STRENGTH), true) * 1000.0;
-                    dam += Server.getBuffedQualityEffect(weap.getCurrentQualityLevel() / 100f) * (double) Weapon.getBaseDamageForWeapon(weap) * 2400.0;
-                    if (attacker.getArmourMod() < 0.1f) {
-                        return false;
-                    }
-                    if (dam * attacker.getArmourMod() < 3000) {
-                        return true;
-                    }
-                } catch (NoSuchSkillException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                if (defender.getBonusForSpellEffect(Enchants.CRET_BEARPAW) < 50f) {
-                    return true;
-                }
-            }
-        }
-        try {
-            if (defender.isPlayer() && attacker.getArmour(BodyPartConstants.TORSO) != null) {
-                return true;
-            }
-        } catch (NoArmourException | NoSpaceException ignored) {
-        }
-        return false;
-    }
-    // Deny ghost creatures walking through walls
-
-    public static boolean denyPathingOverride(Creature creature) {
-        if (creature.getTemplate().getTemplateId() == CustomCreatures.chargerId) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CustomCreatures.ghostHellHorseId) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CustomCreatures.ghostHorseId) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CreatureTemplateIds.DRAKESPIRIT_CID) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CustomCreatures.spiritTrollId) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CreatureTemplateIds.EAGLESPIRIT_CID) {
-            return true;
-        } else if (creature.getTemplate().getTemplateId() == CustomCreatures.chargerId) {
-            return true;
-        } else return creature.getTemplate().getTemplateId() == CustomCreatures.avengerId;
-    }
-    // Apply random types to creatures in the wilderness
-
-    public static byte newCreatureType(int templateid, byte ctype) throws Exception {
-        CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateid);
-        if (ctype == 0 && (template.isAggHuman() || template.getBaseCombatRating() > 10) && !template.isUnique() && !Titans.isTitan(templateid) && !isConditionExempt(templateid)) {
-            if (Server.rand.nextInt(5) == 0) {
-                ctype = (byte) (Server.rand.nextInt(11) + 1);
-                if (Server.rand.nextInt(50) == 0) {
-                    ctype = 99;
-                }
-            }
-        }
-        return ctype;
-    }
 
     public static void setTemplateVariables() throws NoSuchCreatureTemplateException, IllegalAccessException, NoSuchFieldException {
         // Set fog spider corpse models
-        String fog_spider = "fogspider.";
+        String dustPile = "fogspider.";
         String zombie = "zombie.butchered.free.";
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.avengerId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritTrollId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spectralDragonHatchlingId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.chargerId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritStagId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloSpiritId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.frostyId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.snowmanId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.blackWidowId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.avengerId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritTrollId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spectralDragonHatchlingId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.chargerId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.spiritStagId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.whiteBuffaloSpiritId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.frostyId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.snowmanId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.blackWidowId, dustPile);
         // Set custom creature corpse models
         CreatureTemplateModifier.setCorpseModel(CustomCreatures.injuredPirateId, "islestowerguard.free.");
         CreatureTemplateModifier.setCorpseModel(CustomCreatures.cobraId, "anaconda.");
@@ -582,8 +375,8 @@ public class MethodsBestiary {
         CreatureTemplateModifier.setCorpseModel(CustomCreatures.bloblingId, "blob.");
         CreatureTemplateModifier.setCorpseModel(CustomCreatures.mimicId, "blob.");
         // Set titan corpse models
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.lilithId, fog_spider);
-        CreatureTemplateModifier.setCorpseModel(CustomCreatures.ifritId, fog_spider);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.lilithId, dustPile);
+        CreatureTemplateModifier.setCorpseModel(CustomCreatures.ifritId, dustPile);
         // Set No Corpse
         CreatureTemplateModifier.setNoCorpse(CustomCreatures.iceCatId);
         CreatureTemplateModifier.setNoCorpse(CustomCreatures.ifritFiendId);
@@ -720,7 +513,7 @@ public class MethodsBestiary {
             ClassPool classPool = HookManager.getInstance().getClassPool();
 
             classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z")
-                    .insertAfter(String.format("%s.addCreatureHook(this, $1);", EffectsTools.class.getName()));
+                    .insertAfter(String.format("%s.addCreatureHook(this, $1);", Hooks.class.getName()));
 
             HookManager.getInstance().registerHook("com.wurmonline.server.creatures.Creature", "doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;", new InvocationHandlerFactory() {
                 @Override

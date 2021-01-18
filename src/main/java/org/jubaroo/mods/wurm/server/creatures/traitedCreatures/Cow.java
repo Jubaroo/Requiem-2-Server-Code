@@ -12,10 +12,10 @@ import org.gotti.wurmunlimited.modsupport.creatures.TraitsSetter;
 
 public class Cow implements ModCreature {
     public static int templateId;
-    private static final int BLACK_ANGUS = 26;
-    private static final int BELTED_GALLOWAY = 30;
-    private static final int SPOTTED_BLACK = 31;
-    private static final int BROWN = 32;
+    private static final int BLACK_ANGUS = 24;
+    private static final int BELTED_GALLOWAY = 25;
+    private static final int SPOTTED_BLACK = 26;
+    private static final int BROWN = 27;
 
     public CreatureTemplateBuilder createCreateTemplateBuilder() {
         templateId = CreatureTemplateIds.COW_BROWN_CID;
@@ -24,7 +24,7 @@ public class Cow implements ModCreature {
                 try {
                     return CreatureTemplateFactory.getInstance().getTemplate(templateId);
                 } catch (NoSuchCreatureTemplateException e) {
-                    throw new RuntimeException((Throwable) e);
+                    throw new RuntimeException(e);
                 }
             }
         };

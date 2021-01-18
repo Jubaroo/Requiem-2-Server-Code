@@ -179,7 +179,7 @@ public class CustomCreatures {
     static void createBlackWidowTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.heart, ItemList.fur, ItemList.eye, ItemList.eye, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blackWidow")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blackWidow")
                 .name("Black Widow")
                 .description("A large venomous spider. It's venom is known to kill a person within an hour.")
                 .modelName("model.creature.multiped.spider.fog")
@@ -221,7 +221,7 @@ public class CustomCreatures {
     static void createCobraTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] butcheredItems = new int[]{ItemList.tooth, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.cobra")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cobra")
                 .name("Cobra")
                 .description("A deadly serpent.")
                 .modelName("model.creature.snake.anaconda")
@@ -264,7 +264,7 @@ public class CustomCreatures {
     static void createFireCrabTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.deadPerch};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.fireCrab")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.fireCrab")
                 .name("Fire crab")
                 .description("A crab that is somehow on fire but still alive.")
                 .modelName("model.creature.quadraped.crab")
@@ -298,6 +298,7 @@ public class CustomCreatures {
                 .armourType(ArmourTemplate.ARMOUR_TYPE_PLATE)
                 .baseCombatRating(7f)
                 .combatDamageType(Wound.TYPE_BURN)
+                .fireResistance(100f)
                 .alignment(0f)
                 .maxPercentOfCreatures(0.0003f)
                 .denMaterial(Materials.MATERIAL_STONE)
@@ -311,7 +312,7 @@ public class CustomCreatures {
     static void createGorillaTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[]{ItemList.fur, ItemList.heart, ItemList.gland, ItemList.eye, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.gorilla")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.gorilla")
                 .name("Gorilla")
                 .description("This normally calm mountain gorilla may suddenly become a very fierce and dangerous foe if annoyed.")
                 .modelName("model.creature.humanoid.gorilla.mountain")
@@ -357,7 +358,7 @@ public class CustomCreatures {
     static void createHyenaTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[]{ItemList.fur, ItemList.gland, ItemList.eye, ItemList.tail};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.hyena")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.hyena")
                 .name("Hyena")
                 .description("A large and strong hyena.")
                 .modelName("model.creature.quadraped.hyena.wild")
@@ -404,7 +405,7 @@ public class CustomCreatures {
     static void createIceCatTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.iceCat")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.iceCat")
                 .name("Iced wild cat")
                 .description("A bone-chilling feline.")
                 .modelName("model.creature.quadraped.cat.wild")
@@ -453,7 +454,7 @@ public class CustomCreatures {
     static void createLargeBoarTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.gland, ItemList.bladder, ItemList.eye, ItemList.tail, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.largeBoar")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.largeBoar")
                 .name("Large boar")
                 .description("A large and strong boar.")
                 .modelName("model.creature.quadraped.boar.wild")
@@ -500,7 +501,7 @@ public class CustomCreatures {
     static void createOcelotTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_CARNIVORE};
         final int[] itemsButchered = new int[]{ItemList.meat, ItemList.paw, ItemList.pelt, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ocelot")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ocelot")
                 .name("Ocelot")
                 .description("Looking like a huge cat, with a dappled coat.")
                 .modelName("model.creature.quadraped.lion.ocelot")
@@ -547,7 +548,7 @@ public class CustomCreatures {
     static void createPandaBearTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[]{ItemList.fur, ItemList.gland, ItemList.eye, ItemList.tooth, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.panda")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.panda")
                 .name("Panda bear")
                 .description("The panda bear has large, distinctive black patches around its eyes, over the ears, and across its round body.")
                 .modelName("model.creature.quadraped.bear.panda")
@@ -597,7 +598,7 @@ public class CustomCreatures {
     static void createPantherTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.paw, ItemList.pelt, ItemList.eye, ItemList.tooth, ItemList.tail, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.panther")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.panther")
                 .name("Panther")
                 .description("A black panther is the melanistic color variant of any Panthera species. These creatures are very hard to see at night.")
                 .modelName("model.creature.quadraped.lion.panther")
@@ -617,7 +618,7 @@ public class CustomCreatures {
                 .dimension((short) 60, (short) 30, (short) 90)
                 .deathSounds(SoundNames.DEATH_LION_SND, SoundNames.DEATH_LION_SND)
                 .hitSounds(SoundNames.HIT_LION_SND, SoundNames.HIT_LION_SND)
-                .naturalArmour(0.09f)
+                .naturalArmour(0.69f)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
                 .damages(9f, 0f, 5f, 0f, 0f)
                 .speed(1.75f)
@@ -644,7 +645,7 @@ public class CustomCreatures {
     static void createPolarBearTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_SWIMMING};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.fur, ItemList.eye, ItemList.bladder, ItemList.tooth, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.polarBear")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.polarBear")
                 .name("Polar bear")
                 .description("A boar (adult male) weighs around 350–700 kg (772–1,543 lb), while a sow (adult female) is about half that size. Although it is the sister species of the brown bear, it has evolved to occupy a narrower ecological niche, with many body characteristics adapted for cold temperatures, for moving across snow, ice and open water, and for hunting seals, which make up most of its diet.")
                 .modelName("model.creature.quadraped.bear.polar")
@@ -695,7 +696,7 @@ public class CustomCreatures {
     static void createViperTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.viper")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.viper")
                 .name("Viper")
                 .description("A deadly serpent.")
                 .modelName("model.creature.snake.kingcobra")
@@ -738,7 +739,7 @@ public class CustomCreatures {
     static void createWarHoundTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[]{ItemList.tallow, ItemList.paw, ItemList.pelt, ItemList.tooth, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.warHound")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.warHound")
                 .name("War Hound")
                 .description("This wolf-like creature is unnaturally big and strong. Cousin to the dog, these creatures are battle hardened over centuries of war.")
                 .modelName("model.creature.quadraped.beast.rift")
@@ -785,7 +786,7 @@ public class CustomCreatures {
     static void createWolfPackmasterTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_BLACK_OR_WHITE};
         final int[] itemsButchered = new int[]{ItemList.paw, ItemList.pelt, ItemList.tooth, ItemList.eye, ItemList.tail};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wolfPackmaster")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wolfPackmaster")
                 .name("Wolf Packmaster")
                 .description("An alpha wolf that is in charge of the pack. Weak alone, but fierce in a pack.")
                 .modelName("model.creature.quadraped.wolf.black")
@@ -832,7 +833,7 @@ public class CustomCreatures {
     static void createFrostyTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.frosty")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.frosty")
                 .name("Frosty")
                 .description("Frosty the snowman is here for Christmas. Be sure to say hello to him.")
                 .modelName("model.decoration.statue.snowman.water")
@@ -875,7 +876,7 @@ public class CustomCreatures {
     static void createGrinchTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_OMNIVORE};
         final int[] itemsButchered = new int[]{ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.grinch")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.grinch")
                 .name("Grinch")
                 .description("A massive green joy killer. Be careful that he does not hit you with stolen presents.")
                 .modelName("model.creature.humanoid.grinch")
@@ -926,7 +927,7 @@ public class CustomCreatures {
     static void createReindeerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.reindeer")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.reindeer")
                 .name("Reindeer")
                 .description("The reindeer, also known as the caribou, is a species of deer with circumpolar distribution, native to Arctic, sub-Arctic, tundra, boreal and mountainous regions.")
                 .modelName("model.creature.quadraped.bison.wagoner")
@@ -970,7 +971,7 @@ public class CustomCreatures {
     static void createRudolphTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_INVULNERABLE};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.rudolph")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.rudolph")
                 .name("Rudolph")
                 .description("Rudolph, also known as Santa's ninth reindeer, is a fabled reindeer from unknown origins.")
                 .modelName("model.creature.quadraped.deer.rudolph")
@@ -1013,7 +1014,7 @@ public class CustomCreatures {
     static void createSinisterSantaTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.charcoal};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.sinisterSanta")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.sinisterSanta")
                 .name("Sinister Santa")
                 .description("This is the legendary Santa... or is it?")
                 .modelName("model.creature.humanoid.human.evilsanta")
@@ -1057,7 +1058,7 @@ public class CustomCreatures {
     static void createSnowmanTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.snowball, ItemList.snowball, ItemList.snowball, ItemList.snowball, ItemList.snowball};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.snowman")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.snowman")
                 .name("Snowman")
                 .description("An enchanted snowman that only arrives during the winter holidays.")
                 .modelName("model.decoration.statue.snowman.water")
@@ -1100,7 +1101,7 @@ public class CustomCreatures {
     static void createRainbowUnicornFoalPurpleTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart, ItemList.horn};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.unicorn.rainbow.purple.foal")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.unicorn.rainbow.purple.foal")
                 .name("Purple Rainbow Unicorn")
                 .description("Rainbow unicorns are rumored to have come through a portal from a magical land.")
                 .modelName("model.creature.quadraped.unicorn.rainbow.purple")
@@ -1144,7 +1145,7 @@ public class CustomCreatures {
     static void createRainbowUnicornPurpleTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart, ItemList.horn};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.unicorn.rainbow.purple")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.unicorn.rainbow.purple")
                 .name("Purple Rainbow Unicorn Foal")
                 .description("Rainbow unicorns are rumored to have come through a portal from a magical land.")
                 .modelName("model.creature.quadraped.unicorn.rainbow.purple")
@@ -1189,7 +1190,7 @@ public class CustomCreatures {
     static void createRainbowUnicornWhiteTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart, ItemList.horn};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.unicorn.rainbow.white")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.unicorn.rainbow.white")
                 .name("White Rainbow Unicorn")
                 .description("Rainbow unicorns are rumored to have come through a portal from a magical land.")
                 .modelName("model.creature.quadraped.unicorn.rainbow.purple")
@@ -1234,7 +1235,7 @@ public class CustomCreatures {
     static void createChargerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_HORSE, CreatureTypes.C_TYPE_ANIMAL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.charger")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.charger")
                 .name("Charger")
                 .description("A blazing-fast stallion.")
                 .modelName("model.creature.quadraped.horse.hell")
@@ -1282,7 +1283,7 @@ public class CustomCreatures {
     static void createHornedPonyTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_HORSE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMESTIC};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.horn, ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.pony.horned")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.pony.horned")
                 .name("Horned Pony")
                 .description("Not a unicorn, unicorns are fictional.")
                 .modelName("model.creature.quadraped.unicorn")
@@ -1328,7 +1329,7 @@ public class CustomCreatures {
     static void createPrismaticHellHorseTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_BURNING, CreatureTypes.C_TYPE_SWIMMING};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart, ItemList.horn};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.horse.hell.prismatic")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.horse.hell.prismatic")
                 .name("Prismatic Hell Horse")
                 .description("A mystical beast with unknown origins.")
                 .modelName("model.creature.quadraped.horse.hell.prismatic")
@@ -1375,7 +1376,7 @@ public class CustomCreatures {
     static void createRainbowZebraTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.zebra.rainbow")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zebra.rainbow")
                 .name("Rainbow Zebra")
                 .description("Nobody knows how these zebras got the crazy colored stripes.")
                 .modelName("model.creature.quadraped.zebra.rainbow")
@@ -1420,7 +1421,7 @@ public class CustomCreatures {
     static void createRidingRoosterTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_GRAZER};
         final int[] itemsButchered = new int[]{ItemList.tallow, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.rooster.riding")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.rooster.riding")
                 .name("Riding Rooster")
                 .description("A huge rooster said to have ancestors related to the fabled Chocobo.")
                 .modelName("model.creature.humanoid.rooster")
@@ -1467,7 +1468,7 @@ public class CustomCreatures {
     static void createTerrorTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_REGENERATING};
         final int[] itemsButchered = new int[]{ItemList.tallow, ItemList.drakeHide, ItemList.dragonScale, ItemList.bladder, ItemList.eye, ItemList.horn, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.dragon.terror")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.dragon.terror")
                 .name("Terror")
                 .description("A red dragon bigger than you have ever seen. You had better start running...")
                 .modelName("model.creature.dragon.red")
@@ -1515,7 +1516,7 @@ public class CustomCreatures {
     static void createBlackWyvernTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL/*, C_TYPE_VEHICLE*/, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.animalHide, ItemList.tail, ItemList.eye, ItemList.gland, ItemList.tooth, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wyvern.black")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wyvern.black")
                 .name("Black wyvern")
                 .description("A battle-hardened wyvern with scales as black as night.")
                 .modelName("model.creature.drake.black")
@@ -1561,7 +1562,7 @@ public class CustomCreatures {
     static void createBlueWyvernTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL/*, C_TYPE_VEHICLE*/, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.animalHide, ItemList.tail, ItemList.eye, ItemList.gland, ItemList.tooth, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wyvern.blue")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wyvern.blue")
                 .name("Blue wyvern")
                 .description("A battle-hardened wyvern with scales reflecting the colors of the sea.")
                 .modelName("model.creature.drake.blue")
@@ -1607,7 +1608,7 @@ public class CustomCreatures {
     static void createGreenWyvernTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL/*, C_TYPE_VEHICLE*/, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_GRAZER};
         final int[] itemsButchered = new int[]{ItemList.animalHide, ItemList.tail, ItemList.eye, ItemList.gland, ItemList.tooth, ItemList.tallow};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wyvern.green")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wyvern.green")
                 .name("Green wyvern")
                 .description("A battle-hardened wyvern with scales as green as the leaves.")
                 .modelName("model.creature.drake.green")
@@ -1653,7 +1654,7 @@ public class CustomCreatures {
     static void createRedWyvernTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = {ItemList.animalHide, ItemList.tail, ItemList.eye, ItemList.gland, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wyvern.red")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wyvern.red")
                 .name("Red wyvern")
                 .description("A battle-hardened wyvern with scales as red as fire.")
                 .modelName("model.creature.drake.red")
@@ -1699,7 +1700,7 @@ public class CustomCreatures {
     static void createWhiteWyvernTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = {ItemList.animalHide, ItemList.tail, ItemList.eye, ItemList.gland, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wyvern.white")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wyvern.white")
                 .name("White wyvern")
                 .description("A battle-hardened wyvern with scales as pale as the moon.")
                 .modelName("model.creature.drake.white")
@@ -1745,7 +1746,7 @@ public class CustomCreatures {
     static void createOminousTreeTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.halloween.tree")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.halloween.tree")
                 .name("Ominous Tree")
                 .description("An enchanted tree that has gone berserk from magic and turned hostile.")
                 .modelName("model.creature.tree")
@@ -1790,7 +1791,7 @@ public class CustomCreatures {
     static void createScaryPumpkinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.halloween.pumpkin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.halloween.pumpkin")
                 .name("Scary Pumpkin")
                 .description("A pumpkin that has been transformed by a witch to hitch to a carriage, but it turned on them and ate them all.")
                 .modelName("model.creature.pumpkin")
@@ -1835,7 +1836,7 @@ public class CustomCreatures {
     static void createBanditTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_CAVEDWELLER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.bandit")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.bandit")
                 .name("Bandit")
                 .description("The bandits are thieving brigands living in the wilds. They hide and wait for unsuspecting people to rob.")
                 .modelName("model.creature.humanoid.human.wagoner")
@@ -1893,7 +1894,7 @@ public class CustomCreatures {
     static void createSnakeCultistTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.cultist.snake")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cultist.snake")
                 .name("Snake Cultist")
                 .description("An acolyte of the snake gods.")
                 .modelName("model.creature.humanoid.human.salesman")
@@ -1949,7 +1950,7 @@ public class CustomCreatures {
     static void createTombRaiderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.tombRaider")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.tombRaider")
                 .name("Tomb Raider")
                 .description("Tomb raiders travel the world looking for treasures. They are formidable opponents to fight as they can stun with their whip.")
                 .modelName("model.creature.humanoid.human.wagoner")
@@ -2007,7 +2008,7 @@ public class CustomCreatures {
     static void createAvengerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.avenger")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.avenger")
                 .name("Avenger")
                 .description("Sent from the heavens to purge the unworthy.")
                 .modelName("model.creature.humanoid.avenger.light")
@@ -2053,7 +2054,7 @@ public class CustomCreatures {
     static void createBlobTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_UNDEAD};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blob")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blob")
                 .name("Blob")
                 .description("A gelatinous mass that was discovered inside of a deep cave long lost. It has multiplied many times since its discovery. It is resistant to magic.")
                 .modelName("model.blob")
@@ -2105,7 +2106,7 @@ public class CustomCreatures {
     static void createBloblingTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_UNDEAD};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blobling")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blobling")
                 .name("Blobling")
                 .description("A smaller version of the blob that seemed to have separated from a larger creature.")
                 .modelName("model.blob")
@@ -2157,7 +2158,7 @@ public class CustomCreatures {
     static void createCyclopsTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.cyclops")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cyclops")
                 .name("Cyclops")
                 .description("This large drooling one-eyed giant is obviously too stupid to feel any mercy. Maybe it is related to the fabled Kyklops!")
                 .modelName("model.creature.humanoid.kyklops")
@@ -2213,7 +2214,7 @@ public class CustomCreatures {
     static void createDepotTrollTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.troll.depot")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.troll.depot")
                 .name("Depot Troll")
                 .description("A troll that will fight to the death to claim a depot.")
                 .modelName("model.creature.humanoid.troll.standard")
@@ -2266,7 +2267,7 @@ public class CustomCreatures {
     static void createFireGiantTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.heart, ItemList.eye, ItemList.gland, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.giant.fire")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.giant.fire")
                 .name("Fire giant")
                 .description("A lumbering, burning hulk.")
                 .modelName("model.creature.humanoid.giant.forest")
@@ -2303,6 +2304,7 @@ public class CustomCreatures {
                 .baseCombatRating(37f)
                 .combatDamageType(Wound.TYPE_BURN)
                 .alignment(0f)
+                .fireResistance(100f)
                 .maxPopulationOfCreatures(40)
                 .keepSex(true)
                 .hasHands(true)
@@ -2316,7 +2318,7 @@ public class CustomCreatures {
     static void createFireSpiderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER};
         final int[] itemsButchered = new int[]{ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.spider.fire")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.spider.fire")
                 .name("Fire Spider")
                 .description("A spider that appears to be on fire.")
                 .modelName("model.creature.multiped.spider.lava")
@@ -2350,6 +2352,7 @@ public class CustomCreatures {
                 .armourType(ArmourTemplate.ARMOUR_TYPE_SPLINT)
                 .baseCombatRating(13f)
                 .combatDamageType(Wound.TYPE_BURN)
+                .fireResistance(100f)
                 .alignment(0f)
                 .maxPercentOfCreatures(0.0009f)
                 .keepSex(true)
@@ -2363,7 +2366,7 @@ public class CustomCreatures {
     static void createFogGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_MOD_GREENISH, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_PREY, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.goblin.fog")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.goblin.fog")
                 .name("Fog-goblin potioneer")
                 .description("The fog-goblins rely on potioneers to keep them well-stocked with magical brews.")
                 .modelName("model.creature.humanoid.goblin.leader")
@@ -2409,7 +2412,7 @@ public class CustomCreatures {
     static void createForestSpiderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_STEALTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.fur, ItemList.moss};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.spider.forest")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.spider.forest")
                 .name("Forest spider")
                 .description("Found amongst trees, these spiders are dangerous and poisonous.")
                 .modelName("model.creature.multiped.spider.huge")
@@ -2457,7 +2460,7 @@ public class CustomCreatures {
     static void createGiantTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.heart, ItemList.eye, ItemList.gland, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.giant")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.giant")
                 .name("Giant")
                 .description("A lumbering hulk.")
                 .modelName("model.creature.humanoid.giant.forest")
@@ -2507,7 +2510,7 @@ public class CustomCreatures {
     static void createGiantSerpentTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.serpent.giant")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.serpent.giant")
                 .name("Giant Serpent")
                 .description("A gigantic snake.")
                 .modelName("model.creature.snake.serpent.sea")
@@ -2562,7 +2565,7 @@ public class CustomCreatures {
     static void createGoblinWarlordTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.goblin.warlord")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.goblin.warlord")
                 .name("Goblin Warlord")
                 .description("A particularly intimidating goblin that seems to be a leader of sorts.")
                 .modelName("model.creature.humanoid.goblin.leader")
@@ -2618,7 +2621,7 @@ public class CustomCreatures {
     static void createGolemTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NOT_MISSION};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.golem")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.golem")
                 .name("Golem")
                 .description("A large creature made from rock that splits into two upon taking too much damage.")
                 .modelName("model.creature.humanoid.lavacreature")
@@ -2668,7 +2671,7 @@ public class CustomCreatures {
     static void createGolemlingTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NOT_MISSION};
         final int[] itemsButchered = new int[]{ItemList.rock};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.golemling")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.golemling")
                 .name("Golemling")
                 .description("A piece of a larger creature that is somehow still alive and able to fight on its own, amazing!")
                 .modelName("model.creature.humanoid.lavacreature")
@@ -2715,7 +2718,7 @@ public class CustomCreatures {
     static void createMimicTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NOT_MISSION};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.mimic")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.mimic")
                 .name("Mimic")
                 .description("This crafty blob has adapted very well to hunting food. It lures its prey by making itself look like something that it desires. When the prey moves in to investigate, it attacks!")
                 .modelName("model.blob")
@@ -2758,12 +2761,12 @@ public class CustomCreatures {
     }
 
     static void createMimicTreasureChestTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_ONLYATTACKPLAYERS};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_ONLYATTACKPLAYERS, CreatureTypes.C_TYPE_SENTINEL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.mimic.chest")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.mimic.chest")
                 .name("treasure chest")
                 .description("A chest inscribed with various runes. Only the gods would know why it appeared here. Something is not quite right though.")
-                .modelName("model.blob")
+                .modelName("model.container.chest.large.treasure.")
                 .types(types)
                 .bodyType(BodyTemplate.TYPE_BEAR)
                 .defaultSkills()
@@ -2782,7 +2785,7 @@ public class CustomCreatures {
                 .naturalArmour(2.5f)
                 .damages(5f, 5f, 5f, 8f, 0f)
                 .speed(1f)
-                .moveRate(50)
+                .moveRate(0)
                 .itemsButchered(itemsButchered)
                 .maxHuntDist(10)
                 .aggressive(100)
@@ -2804,7 +2807,7 @@ public class CustomCreatures {
     static void createPrismaticBlobTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blob.prismatic")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blob.prismatic")
                 .name("Prismatic Blob")
                 .description("A prismatic gelatinous mass. It is said to have gotten its strange colors from many centuries of having been around very strong magic sources. It is said to be resistant to fire.")
                 .modelName("model.blob.prismatic")
@@ -2856,7 +2859,7 @@ public class CustomCreatures {
     static void createPrismaticBloblingTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blobling.prismatic")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blobling.prismatic")
                 .name("Prismatic Blobling")
                 .description("A smaller version of the prismatic blob that seemed to have separated from a larger creature. It is said to be resistant to cold.")
                 .modelName("model.blob.prismatic")
@@ -2906,7 +2909,7 @@ public class CustomCreatures {
     static void createSnakeVineTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.mixedGrass};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.snakeVine")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.snakeVine")
                 .name("Snake Vine")
                 .description("An odd-looking vine with dusky, variegated leaves hunkered around a stem that winds a stranglehold around nearby trees, eventually killing them. It will bite at nearby creatures, leaving deadly toothlike thorns that burrow into their skin and eventually kill them.")
                 .modelName("model.bush.thorn")
@@ -2962,7 +2965,7 @@ public class CustomCreatures {
     static void createTempleGuardianTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.snakeVine")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.snakeVine")
                 .name("Temple Guardian")
                 .description("A warrior pledged to defend this place.")
                 .modelName("model.creature.humanoid.jackal.rift")
@@ -3016,7 +3019,7 @@ public class CustomCreatures {
     static void createTemplePatriarchTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.temple.patriarch")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.temple.patriarch")
                 .name("Temple Patriarch")
                 .description("A ruler of this place.")
                 .modelName("model.creature.humanoid.warmaster.rift")
@@ -3070,7 +3073,7 @@ public class CustomCreatures {
     static void createTemplePriestTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[]{ItemList.tooth};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.temple.priest")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.temple.priest")
                 .name("Temple Priest")
                 .description("A priest of this place.")
                 .modelName("model.creature.humanoid.jackal.rift.summoner")
@@ -3124,7 +3127,7 @@ public class CustomCreatures {
     static void createNpcCyclopsTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.cyclops")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.cyclops")
                 .name("NPC Cyclops")
                 .description("A non-hostile cyclops?! Better not make it angry.")
                 .modelName("model.creature.humanoid.kyklops")
@@ -3181,7 +3184,7 @@ public class CustomCreatures {
     static void createNpcDarkInnkeeperTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.innkeeper.dark")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.innkeeper.dark")
                 .name("NPC Dark Innkeeper")
                 .description("A dark innkeeper eagerly awaits new souls to arrive.")
                 .modelName("model.creature.humanoid.jackal.rift")
@@ -3238,7 +3241,7 @@ public class CustomCreatures {
     static void createNpcInnkeeperTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_BARTENDER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.innkeeper")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.innkeeper")
                 .name("NPC Innkeeper")
                 .description("An innkeeper eagerly awaits new patrons to arrive.")
                 .modelName("model.creature.humanoid.human.salesman")
@@ -3294,7 +3297,7 @@ public class CustomCreatures {
     static void createNpcGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_BARTENDER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.goblin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.goblin")
                 .name("NPC Goblin")
                 .description("A non-hostile goblin?! Better not make it angry.")
                 .modelName("model.creature.humanoid.goblin.leader")
@@ -3350,7 +3353,7 @@ public class CustomCreatures {
     static void createNpcStarTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.star")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.star")
                 .name("NPC Star")
                 .description("How is this object able to communicate?")
                 .modelName("model.light.token")
@@ -3406,7 +3409,7 @@ public class CustomCreatures {
     static void createNpcTraderGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_TRADER, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.trader.goblin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.goblin")
                 .name("NPC Trader Goblin")
                 .description("A goblin that has a nac for making money and is willing to sell certain items to humans.")
                 .modelName("model.creature.humanoid.goblin.leader")
@@ -3462,7 +3465,7 @@ public class CustomCreatures {
     static void createNpcTravelingTraderWagonerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_MOVE_GLOBAL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.trader.traveling")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.traveling")
                 .name("Traveling Trader")
                 .description("A traveling trader that may buy things from you, if able. Traders are weary of others so they may keep their distance.")
                 .modelName("model.creature.humanoid.human.wagoner")
@@ -3518,7 +3521,7 @@ public class CustomCreatures {
     static void createNpcTrollTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.troll")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.troll")
                 .name("NPC Troll")
                 .description("A non-hostile troll? And it is selling items!!! Better not make it angry.")
                 .modelName("model.creature.humanoid.troll.king")
@@ -3574,7 +3577,7 @@ public class CustomCreatures {
     static void createNpcTrollTraderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_MOVE_GLOBAL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.trader.troll")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.troll")
                 .name("NPC Troll Trader")
                 .description("A non-hostile troll?! Better not make it angry. It seems to want to trade.")
                 .modelName("model.creature.humanoid.troll.king")
@@ -3630,7 +3633,7 @@ public class CustomCreatures {
     static void createNpcWagonerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.wagoner")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.wagoner")
                 .name("NPC Wagoner")
                 .description("Related to Indiana Jones maybe?")
                 .modelName("model.creature.humanoid.human.wagoner")
@@ -3686,7 +3689,7 @@ public class CustomCreatures {
     static void createNpcWraithTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.wraith")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.wraith")
                 .name("NPC Wraith")
                 .description("A non-hostile wraith?! Better not make it angry.")
                 .modelName("model.creature.humanoid.human.spirit.wraith")
@@ -3742,7 +3745,7 @@ public class CustomCreatures {
     static void createNpcZombieTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.zombie")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.zombie")
                 .name("NPC Zombie")
                 .description("A non-hostile zombie?! Better not make it angry.")
                 .modelName("model.creature.humanoid.troll.king")
@@ -3798,7 +3801,7 @@ public class CustomCreatures {
     static void createNpcZombieTraderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_TRADER, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.trader.zombie")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.zombie")
                 .name("NPC Zombie Trader")
                 .description("This zombie doesn't seem to want brains. It wants to trade. Okay... maybe it wants a little brains.")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -3854,7 +3857,7 @@ public class CustomCreatures {
     static void createReaperTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.reaper")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.reaper")
                 .name("Reaper")
                 .description("A Reaper harvests the living, like a farmer harvests crops.")
                 .modelName("model.creature.humanoid.human.spirit.wraith")
@@ -3874,7 +3877,7 @@ public class CustomCreatures {
                 .dimension((short) 100, (short) 100, (short) 100)
                 .deathSounds(SoundNames.DEATH_SPIRIT_MALE_SND, SoundNames.DEATH_SPIRIT_FEMALE_SND)
                 .hitSounds(SoundNames.HIT_SPIRIT_MALE_SND, SoundNames.HIT_SPIRIT_FEMALE_SND)
-                .naturalArmour(0.15f)
+                .naturalArmour(0.45f)
                 .damages(20f, 0f, 19f, 0f, 0f)
                 .speed(1.8f)
                 .moveRate(2000)
@@ -3901,7 +3904,7 @@ public class CustomCreatures {
     static void createSpectralDragonHatchlingTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.dragon.hatchling.spectral")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.dragon.hatchling.spectral")
                 .name("Spectral Dragon Hatchling")
                 .description("The spectral incarnation of a defeated dragon.")
                 .modelName("model.creature.drake.spirit")
@@ -3946,11 +3949,11 @@ public class CustomCreatures {
     }
 
     static void createNpcMerchantShipTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_MOVE_GLOBAL};
+        final int[] types = {CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_SUBMERGED};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.npc.ship.merchant")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.ship.merchant")
                 .name("Merchant Ship")
-                .description("A merchant ship sailing the seas looking for customers.")
+                .description("A merchant ship sailing the seas looking for customers and new riches to sell.")
                 .modelName("model.structure.boat.caravel.merchant")
                 .types(types)
                 .bodyType(BodyTemplate.TYPE_HUMAN)
@@ -3965,28 +3968,28 @@ public class CustomCreatures {
                 .skill(SkillList.WEAPONLESS_FIGHTING, 99f)
                 .skill(SkillList.GROUP_FIGHTING, 99f)
                 .vision((short) 10)
-                .dimension((short) 180, (short) 20, (short) 35)
+                .dimension((short) 380, (short) 180, (short) 380)
                 .deathSounds(SoundNames.SPOT_LBOAT_MOVING_LEFT1, SoundNames.SPOT_LBOAT_MOVING_LEFT1)
                 .hitSounds(SoundNames.SPOT_LBOAT_MOVING_RIGHT1, SoundNames.SPOT_LBOAT_MOVING_RIGHT1)
                 .naturalArmour(0.0001f)
                 .damages(150f, 150f, 150f, 150f, 150f)
-                .speed(1f)
-                .moveRate(500)
+                .speed(0.8f)
+                .moveRate(10000)
                 .itemsButchered(itemsButchered)
-                //.meatMaterial(ItemMaterials.MATERIAL_MEAT_HUMANOID)
                 .maxHuntDist(10)
                 .aggressive(0)
                 .handDamString("cannon blast")
                 .kickDamString("cannon blast")
                 .headbuttDamString("broadside")
-                .maxAge(100)
+                .maxAge(10000)
+                //.offZ(-1.5f)
                 .armourType(ArmourTemplate.ARMOUR_TYPE_SCALE_DRAGON)
                 .baseCombatRating(99f)
-                .combatDamageType(Wound.TYPE_INTERNAL)
+                .combatDamageType(Wound.TYPE_CRUSH)
                 .alignment(0f)
                 .maxPopulationOfCreatures(1)
                 .keepSex(true)
-                .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
+                .boundsValues(-1f, -1f, 3f, 3f)
                 .build();
 
         npcMerchantShipId = temp.getTemplateId();
@@ -3995,7 +3998,7 @@ public class CustomCreatures {
     static void createGhostHellHorseTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_BURNING};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ghost.horse.hell")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ghost.horse.hell")
                 .name("Ghost Hell Horse")
                 .description("A ghostly version of a hell horse. These are very fast mounts.")
                 .modelName("model.creature.quadraped.horse.hell")
@@ -4017,7 +4020,7 @@ public class CustomCreatures {
                 .hitSounds(SoundNames.HIT_HORSE_SND, SoundNames.HIT_HORSE_SND)
                 .naturalArmour(0.12f)
                 .damages(1f, 2.5f, 1.5f, 2f, 0f)
-                .speed(1f)
+                .speed(2.5f)
                 .moveRate(500)
                 .itemsButchered(itemsButchered)
                 .meatMaterial(ItemMaterials.MATERIAL_MEAT_HORSE)
@@ -4031,10 +4034,11 @@ public class CustomCreatures {
                 .baseCombatRating(25f)
                 .combatDamageType(Wound.TYPE_BURN)
                 .setCombatMoves(new int[]{CombatMove.HELLHORSEFIRE})
+                .fireResistance(100f)
                 .onFire(false, (byte) 0)
                 .glowing(true)
                 .isHorse(true)
-                .alignment(-40f)
+                .alignment(0f)
                 .maxPopulationOfCreatures(1)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -4046,7 +4050,7 @@ public class CustomCreatures {
     static void createGhostHorseTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HORSE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ghost.horse")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ghost.horse")
                 .name("Ghost Horse")
                 .description("A ghostly version of a horse. These are very fast mounts.")
                 .modelName("model.creature.quadraped.horse")
@@ -4094,7 +4098,7 @@ public class CustomCreatures {
     static void createWillOWispTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MOVE_GLOBAL};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.willowisp")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.willowisp")
                 .name("Will-o'-the-wisp")
                 .description("In folklore, a will-o'-the-wisp, will-o'-wisp or ignis fatuus is an atmospheric ghost light seen by travelers at night, especially over bogs, swamps or marshes.")
                 .modelName("model.light.token")
@@ -4142,7 +4146,7 @@ public class CustomCreatures {
     static void createIfritTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ifrit")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ifrit")
                 .name("Ifrit")
                 .description("A valiant warrior of the flame. You feel the presence of Magranon.")
                 .modelName("model.creature.humanoid.lavacreature")
@@ -4195,7 +4199,7 @@ public class CustomCreatures {
     static void createLilithTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.lilith")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.lilith")
                 .name("Lilith")
                 .description("A bold warrior corrupted by darkness. You feel the presence of Libila.")
                 .modelName("model.creature.humanoid.giant.incarnation")
@@ -4245,7 +4249,7 @@ public class CustomCreatures {
     static void createFiendOfIfritTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ifrit.fiend")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ifrit.fiend")
                 .name("Fiend of Ifrit")
                 .description("A champion of Ifrit.")
                 .modelName("model.creature.humanoid.lavacreature")
@@ -4294,7 +4298,7 @@ public class CustomCreatures {
     static void createServantOfIfritTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.ifrit.spider")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ifrit.spider")
                 .name("Servant of Ifrit")
                 .description("A champion of Ifrit.")
                 .modelName("model.creature.humanoid.lavacreature")
@@ -4343,7 +4347,7 @@ public class CustomCreatures {
     static void createWraithOfLilithTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.lilith.wraith")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.lilith.wraith")
                 .name("Wraith of Lilith")
                 .description("A champion of Lilith.")
                 .modelName("model.creature.humanoid.human.spirit.wraith")
@@ -4392,7 +4396,7 @@ public class CustomCreatures {
     static void createServantOfLilithTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.lilith.zombie")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.lilith.zombie")
                 .name("Servant of Lilith")
                 .description("A mindless minion of Lilith.")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -4441,7 +4445,7 @@ public class CustomCreatures {
     static void createBloodThiefTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.bloodThief")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.bloodThief")
                 .name("Blood Thief")
                 .description("These quick goblins are dark red in color, and they carry Blood Shards.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4491,7 +4495,7 @@ public class CustomCreatures {
     static void createGemHoarderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.gemHoarder")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.gemHoarder")
                 .name("Gem Hoarder")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4540,7 +4544,7 @@ public class CustomCreatures {
     static void createMalevolentTormentorTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.malevolentTormentor")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.malevolentTormentor")
                 .name("Malevolent Tormentor")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4590,7 +4594,7 @@ public class CustomCreatures {
     static void createMenageristGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.menageristGoblin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.menageristGoblin")
                 .name("Menagerist Goblin")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4640,7 +4644,7 @@ public class CustomCreatures {
     static void createOdiousCollectorTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.odiousCollector")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.odiousCollector")
                 .name("Odious Collector")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4689,7 +4693,7 @@ public class CustomCreatures {
     static void createRainbowGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.rainbowGoblin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.rainbowGoblin")
                 .name("Rainbow Goblin")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4738,7 +4742,7 @@ public class CustomCreatures {
     static void createTreasureGoblinTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.treasureGoblin.treasureGoblin")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.treasureGoblin")
                 .name("Treasure Goblin")
                 .description("A small and very fast creature that steals all of the riches it can find.")
                 .modelName("model.creature.humanoid.goblin.treasure")
@@ -4787,7 +4791,7 @@ public class CustomCreatures {
     static void createBonewalkerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.bonewalker")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.bonewalker")
                 .name("Bonewalker")
                 .description("A collection of bones of forgotten soldiers returned into life.")
                 .modelName("model.creature.humanoid.human.skeleton")
@@ -4844,7 +4848,7 @@ public class CustomCreatures {
     static void createFleshwalkerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.fleshwalker")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.fleshwalker")
                 .name("Fleshwalker")
                 .description("A collection of flesh and bones of forgotten soldiers returned into life.")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -4900,7 +4904,7 @@ public class CustomCreatures {
     static void createWraithTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.wraith")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wraith")
                 .name("Wraith")
                 .description("A spirit that is haunting this place.")
                 .modelName("model.creature.humanoid.human.spirit.shadow")
@@ -4956,7 +4960,7 @@ public class CustomCreatures {
     static void createNecromancerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.necromancer")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.necromancer")
                 .name("Necromancer")
                 .description("A wizard who enjoys the company of the dead.")
                 .modelName("model.creature.gmdark")
@@ -5012,7 +5016,7 @@ public class CustomCreatures {
     static void createReanimatedSkeletonTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.skeleton")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.skeleton")
                 .name("Reanimated Skeleton")
                 .description("This abomination has been animated by powerful magic.")
                 .modelName("model.creature.humanoid.human.skeleton")
@@ -5058,7 +5062,7 @@ public class CustomCreatures {
     static void createSpiritTrollTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.troll.spirit")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.troll.spirit")
                 .name("Spirit troll")
                 .description("The lost spirit of a troll. It is forever searching for a way to end this eternal suffering.")
                 .modelName("model.creature.humanoid.troll.king")
@@ -5107,7 +5111,7 @@ public class CustomCreatures {
     static void createZombieHulkTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.zombie.hulk")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.hulk")
                 .name("Zombie Hulk")
                 .description("A very bleak human-like creature stands here, looking absent-minded. These ones are slow and strong by themselves.")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -5158,7 +5162,7 @@ public class CustomCreatures {
     static void createZombieHordeLeaderTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.zombie.leader")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.leader")
                 .name("Zombie Horde Leader")
                 .description("A very bleak human-like creature stands here, looking not so absent-minded. This one seems to be a leader to other zombies. It is very strong and should not be trifled with!")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -5209,7 +5213,7 @@ public class CustomCreatures {
     static void createZombieWalkerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_DOMINATABLE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.zombie.walker")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.walker")
                 .name("Zombie Walker")
                 .description("A very bleak human-like creature stands here, looking absent-minded. These ones are slow and weak by themselves")
                 .modelName("model.creature.humanoid.human.player.zombie")
@@ -5258,7 +5262,7 @@ public class CustomCreatures {
     static void createClucksterTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS};
         final int[] itemsButchered = new int[]{ItemList.bladder, ItemList.heart, ItemList.eye, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.cluckster")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cluckster")
                 .name("Cluckster")
                 .description("It used to be a good little rooster until its owner treated it poorly. It now wants to DESTROY ALL HUMANS!")
                 .modelName("model.creature.humanoid.rooster")
@@ -5307,7 +5311,7 @@ public class CustomCreatures {
     static void createAngyHenTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS};
         final int[] itemsButchered = new int[]{ItemList.bladder, ItemList.heart, ItemList.eye, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.hen.angry")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.hen.angry")
                 .name("Angy Hen")
                 .description("A very angry hen!")
                 .modelName("model.creature.humanoid.hen")
@@ -5358,7 +5362,7 @@ public class CustomCreatures {
     static void createFacebreykerTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_UNIQUE, CreatureTypes.C_TYPE_REGENERATING, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.heart, ItemList.eye};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.facebreyker")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.facebreyker")
                 .name("Facebreyker")
                 .description("A bold warrior corrupted by darkness. You feel the presence of Libila.")
                 .modelName("model.creature.humanoid.ogre.rift")
@@ -5412,7 +5416,7 @@ public class CustomCreatures {
     static void createKongTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_UNIQUE};
         final int[] itemsButchered = new int[]{ItemList.animalHide, ItemList.tallow, ItemList.eye, ItemList.tooth, ItemList.tooth, ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.kong")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.kong")
                 .name("Kong")
                 .description("A massive gorilla that has escaped from Skull Island only to land here.")
                 .modelName("model.creature.humanoid.gorilla.mountain")
@@ -5462,7 +5466,7 @@ public class CustomCreatures {
     static void createSpiritStagTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_UNIQUE, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_FLEEING};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.stag.spirit")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.stag.spirit")
                 .name("Spirit Stag")
                 .description("A majestic stag of legends long ago.")
                 .modelName("model.creature.quadraped.deer")
@@ -5514,7 +5518,7 @@ public class CustomCreatures {
     static void createWhiteBuffaloTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.horn, ItemList.horn, ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.whiteBuffalo")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.whiteBuffalo")
                 .name("Great White Buffalo")
                 .description("A white buffalo or white bison is a bison possessing white fur, and is considered sacred or spiritually significant in several Native American religions; therefore, such buffalo are often visited for prayer and other religious rituals.")
                 .modelName("model.creature.quadraped.bison.white")
@@ -5560,7 +5564,7 @@ public class CustomCreatures {
     static void createWhiteBuffaloSpiritTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_GHOST};
         final int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.necromancer")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.necromancer")
                 .name("Spirit of the Great White Buffalo")
                 .description("The angry spirit of the Great White Buffalo. Defeat it to put its soul to rest.")
                 .modelName("model.creature.quadraped.bison.white")
@@ -5614,7 +5618,7 @@ public class CustomCreatures {
     static void createBlackKnightTemplate() {
         int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_UNDEAD};
         int[] itemsButchered = new int[0];
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.blackKnight")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blackKnight")
                 .name("The Black Knight")
                 .description("A fearsome warrior that never seems to stay dead for very long.")
                 .modelName("model.creature.humanoid.human.player")
@@ -5669,7 +5673,7 @@ public class CustomCreatures {
     static void createTreasureHuntPirateTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NOT_MISSION};
         final int[] itemsButchered = new int[]{ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.pirate.injured")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.pirate.injured")
                 .name("Injured Pirate")
                 .description("A desperate pirate at the end of his rope. He will do anything to survive.")
                 .modelName("model.creature.humanoid.human.guard.requiem.free")
@@ -5719,7 +5723,7 @@ public class CustomCreatures {
     static void createHorsemanConquestTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.horseman.conquest")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.horseman.conquest")
                 .name("Conquest")
                 .description("Conquest, the rider of the White Horse (sometimes referred to as the White Rider) He carries a bow, and wears a victor's crown.")
                 .modelName("model.creature.human.player")
@@ -5763,7 +5767,7 @@ public class CustomCreatures {
     static void createHorsemanWarTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.horseman.war")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.horseman.war")
                 .name("War")
                 .description("The rider of the second horse is often taken to represent War (he is often pictured holding a sword upwards as though ready for battle) or mass slaughter. His horse's color is red; and in some translations, the color is specifically a \"fiery\" red. The color red, as well as the rider's possession of a great sword, suggests blood that is to be spilled.")
                 .modelName("model.creature.human.player")
@@ -5807,7 +5811,7 @@ public class CustomCreatures {
     static void createHorsemanFamineTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.horseman.famine")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.horseman.famine")
                 .name("Famine")
                 .description("The third Horseman rides a black horse and is popularly understood to be Famine as the Horseman carries a pair of balances or weighing scales, indicating the way that bread would have been weighed during a famine.")
                 .modelName("model.creature.human.player")
@@ -5851,7 +5855,7 @@ public class CustomCreatures {
     static void createHorsemanDeathTemplate() {
         final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.heart};
-        final CreatureTemplate temp = new CreatureTemplateBuilder("requiem.creature.horseman.death")
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.horseman.death")
                 .name("Death")
                 .description("The fourth and final Horseman is named Death. Known as \"Θάνατος/Thanatos\", of all the riders, he is the only one to whom the text itself explicitly gives a name. Unlike the other three, he is not described carrying a weapon or other object, instead he is followed by Hades (the resting place of the dead). However, illustrations commonly depict him carrying a scythe (like the Grim Reaper), sword, or other implement.")
                 .modelName("model.creature.human.player")

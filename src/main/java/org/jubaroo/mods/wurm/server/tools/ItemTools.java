@@ -1,4 +1,4 @@
-package org.jubaroo.mods.wurm.server.items;
+package org.jubaroo.mods.wurm.server.tools;
 
 import com.wurmonline.server.FailedException;
 import com.wurmonline.server.Server;
@@ -6,13 +6,18 @@ import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.spells.SpellEffect;
 import com.wurmonline.shared.constants.Enchants;
+import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.jubaroo.mods.wurm.server.Requiem;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.server.Constants;
-import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 public class ItemTools {
@@ -50,6 +55,35 @@ public class ItemTools {
         }
         return rarity;
     }
+
+    private static void removeRecipes(int result) throws NoSuchFieldException, IllegalAccessException {
+        Map<Integer, List<CreationEntry>> matrix = ReflectionUtil.getPrivateField(null, ReflectionUtil.getField(CreationMatrix.class, "matrix"));
+        Map<Integer, List<CreationEntry>> advancedEntries = ReflectionUtil.getPrivateField(null, ReflectionUtil.getField(CreationMatrix.class, "advancedEntries"));
+        Map<Integer, List<CreationEntry>> simpleEntries = ReflectionUtil.getPrivateField(null, ReflectionUtil.getField(CreationMatrix.class, "simpleEntries"));
+
+        Set<CreationEntry> toRemove = new HashSet<>();
+        if (advancedEntries.containsKey(result)) {
+            toRemove.addAll(advancedEntries.get(result));
+            advancedEntries.remove(result);
+        }
+
+        if (simpleEntries.containsKey(result)) {
+            toRemove.addAll(simpleEntries.get(result));
+            simpleEntries.remove(result);
+        }
+
+        toRemove.forEach(entry -> {
+            int target = entry.getObjectTarget();
+            if (matrix.containsKey(target)) {
+                List<CreationEntry> list = matrix.get(target);
+                list.removeIf(e -> e.equals(entry));
+                if (list.isEmpty())
+                    matrix.remove(target);
+                RequiemLogging.logInfo(String.format("Removed recipe from game for item: %s", result));
+            }
+        });
+    }
+
     public static void applyEnchant(Item item, byte enchant, float power) {
         ItemSpellEffects effs = item.getSpellEffects();
         if (effs == null) {
@@ -102,7 +136,7 @@ public class ItemTools {
             if (effs == null) {
                 effs = new ItemSpellEffects(enchantOrb.getWurmId());
             }
-            byte enchant = (byte) RequiemTools.getRandArrayByte(enchantOrbEnchants); // changed
+            byte enchant = (byte) RandomUtils.getRandArrayByte(enchantOrbEnchants); // changed
             SpellEffect eff = new SpellEffect(enchantOrb.getWurmId(), enchant, power, 20000000);
             effs.addSpellEffect(eff);
             enchantOrb.setDescription(String.format("%s %d", eff.getName(), Math.round(power)));
@@ -183,7 +217,7 @@ public class ItemTools {
                     ItemList.stoneChisel,
                     ItemList.anvilSmall
             };
-            int template = RequiemTools.getRandArrayInt(templates);
+            int template = RandomUtils.getRandArrayInt(templates);
             float quality = 100;
             for (int i = 0; i < 2; i++) {
                 quality = Math.min(quality, Math.max((float) 10, 70 * Server.rand.nextFloat()));
@@ -203,7 +237,7 @@ public class ItemTools {
                     Materials.MATERIAL_GLIMMERSTEEL,
                     Materials.MATERIAL_SERYLL
             };
-            byte material = (byte) RequiemTools.getRandArrayByte(materials); // changed
+            byte material = (byte) RandomUtils.getRandArrayByte(materials); // changed
             byte rarity = 0;
             if (Server.rand.nextInt(80) <= 2) {
                 rarity = 1;
