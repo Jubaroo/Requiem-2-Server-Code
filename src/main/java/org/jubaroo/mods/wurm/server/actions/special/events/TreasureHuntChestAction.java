@@ -23,8 +23,7 @@ import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
-import org.jubaroo.mods.wurm.server.server.Constants;
-import org.jubaroo.mods.wurm.server.tools.CustomTitles;
+import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
@@ -32,6 +31,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.gotti.wurmunlimited.modsupport.actions.ActionPropagation.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.disableDiscordReliance;
 
 public class TreasureHuntChestAction implements ModAction {
     private final short actionId;
@@ -143,7 +143,7 @@ public class TreasureHuntChestAction implements ModAction {
                         Server.getInstance().broadCastAction(String.format("Opens the %s and claims the treasure!", target.getName()), performer, 10);
                         if (Holidays.isRequiemTreasureHunt()) {
                             Server.getInstance().broadCastNormal(String.format("%s has finished the Treasure Hunt and claimed the treasure! Congratulations to you!", performer.getNameWithoutPrefixes()), true);
-                            if (!Constants.disableDiscordReliance)
+                            if (!disableDiscordReliance)
                                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s has finished the Treasure Hunt and claimed the treasure! :treasure_chest: Congratulations to you! :fireworks:", performer.getNameWithoutPrefixes()));
                         }
                         comm.sendAddEffect(target.getWurmId(), target.getWurmId(), EffectConstants.EFFECT_GENERIC, target.getPosX(), target.getPosY(), target.getPosZ(), (byte) 0, "FGDeathSparkle", 5, 0f);

@@ -82,14 +82,14 @@ public class NewSpawnQuestion extends Question {
                         return;
                     }
                     if (!targetServer.isAvailable(player.getPower(), true)) {
-                        player.getCommunicator().sendNormalServerMessage(targetServer.name + " is not currently available.");
+                        player.getCommunicator().sendNormalServerMessage(String.format("%s is not currently available.", targetServer.name));
                     } else {
                         int tilex = 1010;
                         int tiley = 1010;
                         player.sendTransfer(Server.getInstance(), targetServer.EXTERNALIP, Integer.parseInt(targetServer.EXTERNALPORT), targetServer.INTRASERVERPASSWORD, targetServer.getId(), tilex, tiley, true, false, player.getKingdomId());
                     }
                 } catch (NoSuchPlayerException e) {
-                    RequiemLogging.debug("Could not find player for WurmId " + this.getResponder().getWurmId() + " [" + this.getResponder().getName() + "]");
+                    RequiemLogging.debug(String.format("Could not find player for WurmId %d [%s]", this.getResponder().getWurmId(), this.getResponder().getName()));
                     e.printStackTrace();
                 }
             } else {
@@ -129,7 +129,7 @@ public class NewSpawnQuestion extends Question {
             Village v = this.getResponder().citizenVillage;
             short tpx = (short) v.getTokenX();
             short tpy = (short) v.getTokenY();
-            Spawnpoint home = new Spawnpoint(spawnNums, "Token of " + v.getName(), tpx, tpy, v.isOnSurface());
+            Spawnpoint home = new Spawnpoint(spawnNums, String.format("Token of %s", v.getName()), tpx, tpy, v.isOnSurface());
             spawns.put((int) spawnNums, home);
             builder += home.description + ",";
             spawnNums++;

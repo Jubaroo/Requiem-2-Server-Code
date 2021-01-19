@@ -17,7 +17,6 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,6 +24,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
 
 public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, ModAction, BehaviourProvider, ActionPerformer {
     public static short actionId;
@@ -51,7 +53,7 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
         if (!(performer instanceof Player)) {
             return null;
         }
-        if (Constants.skullLocateUnique && source.getTemplateId() == ItemList.skull && target.getTemplateId() == ItemList.skull) {
+        if (skullLocateUnique && source.getTemplateId() == ItemList.skull && target.getTemplateId() == ItemList.skull) {
             return Collections.singletonList(SkullAction.actionEntry);
         }
         return null;
@@ -61,8 +63,8 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
         if (!(performer instanceof Player)) {
             return false;
         }
-        if (Constants.skullLocateUnique && source.getTemplateId() == ItemList.skull && target.getTemplateId() == ItemList.skull) {
-            if (Constants.reloadSkull) {
+        if (skullLocateUnique && source.getTemplateId() == ItemList.skull && target.getTemplateId() == ItemList.skull) {
+            if (reloadSkull) {
                 DatabaseHelper.setUniques();
             }
             Connection dbcon2;
@@ -81,9 +83,9 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
                     final int yDistance = (int) Math.abs(performer.getTileY() - rs2.getFloat("Y"));
                     final int distance = (int) Math.sqrt(xDistance * xDistance + yDistance * yDistance);
                     if (distance < smallestdistance) {
-                        Constants.uniquex = rs2.getFloat("X");
-                        Constants.uniquey = rs2.getFloat("Y");
-                        Constants.uniquename = rs2.getString("name");
+                        uniqueX = rs2.getFloat("X");
+                        uniqueY = rs2.getFloat("Y");
+                        uniqueName = rs2.getString("name");
                         smallestdistance = distance;
                     }
                 }
@@ -91,14 +93,14 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
                 ps2.close();
                 dbcon2.close();
                 if (smallestdistance != 100000000) {
-                    final float newdamage = source.getDamage() + Constants.damageToTake;
-                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s took %d damage.", source.getName(), Constants.damageToTake));
+                    final float newdamage = source.getDamage() + damageToTake;
+                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s took %d damage.", source.getName(), damageToTake));
                     source.setDamage(newdamage);
-                    final int xDistance2 = (int) Math.abs(performer.getTileX() - Constants.uniquex);
-                    final int yDistance2 = (int) Math.abs(performer.getTileY() - Constants.uniquey);
+                    final int xDistance2 = (int) Math.abs(performer.getTileX() - uniqueX);
+                    final int yDistance2 = (int) Math.abs(performer.getTileY() - uniqueY);
                     final int distance2 = (int) Math.sqrt(xDistance2 * xDistance2 + yDistance2 * yDistance2);
-                    final int direction = MethodsCreatures.getDir(performer, (int) Constants.uniquex, (int) Constants.uniquey);
-                    performer.getCommunicator().sendNormalServerMessage(EndGameItems.getDistanceString(distance2, String.format("%s ", Constants.uniquename), MethodsCreatures.getLocationStringFor(performer.getStatus().getRotation(), direction, "you"), true));
+                    final int direction = MethodsCreatures.getDir(performer, (int) uniqueX, (int) uniqueY);
+                    performer.getCommunicator().sendNormalServerMessage(EndGameItems.getDistanceString(distance2, String.format("%s ", uniqueName), MethodsCreatures.getLocationStringFor(performer.getStatus().getRotation(), direction, "you"), true));
                 } else {
                     performer.getCommunicator().sendNormalServerMessage("no uniques on map");
                 }

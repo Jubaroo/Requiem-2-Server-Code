@@ -10,7 +10,7 @@ import com.wurmonline.server.players.Player;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.tools.CustomTitles;
+import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class PlayerBounty {
     public static void rewardPowerfulLoot(Player player, Creature mob) {
         try {
             // Affinity Orb:
-            player.getInventory().insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 99f + (1f * random.nextFloat()), ""));
+            player.getInventory().insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 99f + (random.nextFloat()), ""));
             // Enchant Orb:
             float power;
             if (mob.getStatus().isChampion() || Titans.isTitan(mob)) {

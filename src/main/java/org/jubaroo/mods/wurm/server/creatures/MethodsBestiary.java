@@ -13,7 +13,8 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Zebra;
-import org.jubaroo.mods.wurm.server.server.Constants;
+
+import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
 
@@ -435,7 +436,7 @@ public class MethodsBestiary {
         //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.ROOSTER_CID);
         //CreatureTemplateModifier.setGrazer(CreatureTemplateIds.PIG_CID);
         // Domesticate whales and enable milking
-        if (Constants.milkWhales) {
+        if (ToggleConstants.milkWhales) {
             CreatureTemplateModifier.setMilkable(CreatureTemplateIds.BLUE_WHALE_CID);// Set Milkable
             CreatureTemplateModifier.setDomestic(CreatureTemplateIds.BLUE_WHALE_CID);// Set Domestic
         }

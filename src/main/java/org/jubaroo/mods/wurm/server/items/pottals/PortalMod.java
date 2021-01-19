@@ -34,7 +34,6 @@ public class PortalMod {
         return performer.getPower() >= MiscConstants.POWER_HIGH_GOD;
     }
 
-    @SuppressWarnings("SpellCheckingInspection")
     public static void onServerStarted() {
         try {
             Connection con = ModSupportDb.getModSupportDb();

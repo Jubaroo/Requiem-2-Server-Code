@@ -30,7 +30,7 @@ public class CustomCreatures {
             giantId, giantSerpentId, goblinWarlordId, golemId, golemlingId, mimicId, mimicChestId, prismaticBlobId,
             prismaticBloblingId, snakeVineId, templeGuardianId, templePatriarchId, templePriestId, npcCyclopsId, npcDarkInnkeeperId,
             npcInnkeeperId, npcGoblinId, npcStarId, npcGoblinTraderId, npcTravelingTraderId, npcTrollId, npcTrollTraderId,
-            npcWagonerId, npcWraithId, npcZombieId, npcZombieTraderId, reaperId, spectralDragonHatchlingId, npcMerchantShipId,
+            npcWagonerId, npcWraithId, npcZombieId, npcZombieTraderId, npcDockWorkerId, reaperId, spectralDragonHatchlingId, npcMerchantShipId,
             ghostHellHorseId, ghostHorseId, willOWispId, ifritId, lilithId, ifritFiendId, ifritSpiderId, lilithWraithId,
             lilithZombieId, treasureGoblinBloodThiefId, treasureGoblinGemHoarderId, treasureGoblinMalevolentTormentorId,
             treasureGoblinMenageristGoblinId, treasureGoblinOdiousCollectorId, treasureGoblinRainbowGoblinId,
@@ -58,121 +58,122 @@ public class CustomCreatures {
         ModCreatures.addCreature(new Sheep());
         ModCreatures.addCreature(new LargeRat());
         ModCreatures.addCreature(new Anaconda());
-        CustomCreatures.createBlackWidowTemplate();
-        CustomCreatures.createCobraTemplate();
-        CustomCreatures.createFireCrabTemplate();
-        CustomCreatures.createGorillaTemplate();
-        CustomCreatures.createHyenaTemplate();
-        CustomCreatures.createIceCatTemplate();
-        CustomCreatures.createLargeBoarTemplate();
-        CustomCreatures.createOcelotTemplate();
-        CustomCreatures.createPandaBearTemplate();
-        CustomCreatures.createPantherTemplate();
-        CustomCreatures.createPolarBearTemplate();
-        CustomCreatures.createViperTemplate();
-        CustomCreatures.createWarHoundTemplate();
-        CustomCreatures.createWolfPackmasterTemplate();
-        CustomCreatures.createFrostyTemplate();
-        CustomCreatures.createGrinchTemplate();
-        CustomCreatures.createReindeerTemplate();
-        CustomCreatures.createRudolphTemplate();
-        CustomCreatures.createSinisterSantaTemplate();
-        CustomCreatures.createSnowmanTemplate();
-        CustomCreatures.createRainbowUnicornFoalPurpleTemplate();
-        CustomCreatures.createRainbowUnicornPurpleTemplate();
-        CustomCreatures.createRainbowUnicornWhiteTemplate();
-        CustomCreatures.createChargerTemplate();
-        CustomCreatures.createHornedPonyTemplate();
-        CustomCreatures.createPrismaticHellHorseTemplate();
-        CustomCreatures.createRainbowZebraTemplate();
-        CustomCreatures.createRidingRoosterTemplate();
-        CustomCreatures.createTerrorTemplate();
-        CustomCreatures.createBlackWyvernTemplate();
-        CustomCreatures.createBlueWyvernTemplate();
-        CustomCreatures.createGreenWyvernTemplate();
-        CustomCreatures.createRedWyvernTemplate();
-        CustomCreatures.createWhiteWyvernTemplate();
-        CustomCreatures.createOminousTreeTemplate();
-        CustomCreatures.createScaryPumpkinTemplate();
-        CustomCreatures.createBanditTemplate();
-        CustomCreatures.createSnakeCultistTemplate();
-        CustomCreatures.createTombRaiderTemplate();
-        CustomCreatures.createAvengerTemplate();
-        CustomCreatures.createBlobTemplate();
-        CustomCreatures.createBloblingTemplate();
-        CustomCreatures.createCyclopsTemplate();
-        CustomCreatures.createDepotTrollTemplate();
-        CustomCreatures.createFireGiantTemplate();
-        CustomCreatures.createFireSpiderTemplate();
-        CustomCreatures.createFogGoblinTemplate();
-        CustomCreatures.createForestSpiderTemplate();
-        CustomCreatures.createGiantTemplate();
-        CustomCreatures.createGiantSerpentTemplate();
-        CustomCreatures.createGoblinWarlordTemplate();
-        CustomCreatures.createGolemTemplate();
-        CustomCreatures.createGolemlingTemplate();
-        CustomCreatures.createMimicTemplate();
-        CustomCreatures.createMimicTreasureChestTemplate();
-        CustomCreatures.createPrismaticBlobTemplate();
-        CustomCreatures.createPrismaticBloblingTemplate();
-        CustomCreatures.createSnakeVineTemplate();
-        CustomCreatures.createTempleGuardianTemplate();
-        CustomCreatures.createTemplePatriarchTemplate();
-        CustomCreatures.createTemplePriestTemplate();
-        CustomCreatures.createNpcCyclopsTemplate();
-        CustomCreatures.createNpcDarkInnkeeperTemplate();
-        CustomCreatures.createNpcGoblinTemplate();
-        CustomCreatures.createNpcInnkeeperTemplate();
-        CustomCreatures.createNpcStarTemplate();
-        CustomCreatures.createNpcTraderGoblinTemplate();
-        CustomCreatures.createNpcTravelingTraderWagonerTemplate();
-        CustomCreatures.createNpcTrollTemplate();
-        CustomCreatures.createNpcTrollTraderTemplate();
-        CustomCreatures.createNpcWagonerTemplate();
-        CustomCreatures.createNpcWraithTemplate();
-        CustomCreatures.createNpcZombieTemplate();
-        CustomCreatures.createNpcZombieTraderTemplate();
-        CustomCreatures.createReaperTemplate();
-        CustomCreatures.createSpectralDragonHatchlingTemplate();
-        CustomCreatures.createNpcMerchantShipTemplate();
-        CustomCreatures.createWillOWispTemplate();
-        CustomCreatures.createGhostHellHorseTemplate();
-        CustomCreatures.createGhostHorseTemplate();
-        CustomCreatures.createIfritTemplate();
-        CustomCreatures.createLilithTemplate();
-        CustomCreatures.createFiendOfIfritTemplate();
-        CustomCreatures.createServantOfIfritTemplate();
-        CustomCreatures.createWraithOfLilithTemplate();
-        CustomCreatures.createServantOfLilithTemplate();
-        CustomCreatures.createBloodThiefTemplate();
-        CustomCreatures.createGemHoarderTemplate();
-        CustomCreatures.createMalevolentTormentorTemplate();
-        CustomCreatures.createMenageristGoblinTemplate();
-        CustomCreatures.createOdiousCollectorTemplate();
-        CustomCreatures.createRainbowGoblinTemplate();
-        CustomCreatures.createTreasureGoblinTemplate();
-        CustomCreatures.createBonewalkerTemplate();
-        CustomCreatures.createFleshwalkerTemplate();
-        CustomCreatures.createWraithTemplate();
-        CustomCreatures.createNecromancerTemplate();
-        CustomCreatures.createReanimatedSkeletonTemplate();
-        CustomCreatures.createSpiritTrollTemplate();
-        CustomCreatures.createZombieHulkTemplate();
-        CustomCreatures.createZombieHordeLeaderTemplate();
-        CustomCreatures.createZombieWalkerTemplate();
-        CustomCreatures.createClucksterTemplate();
-        CustomCreatures.createAngyHenTemplate();
-        CustomCreatures.createFacebreykerTemplate();
-        CustomCreatures.createKongTemplate();
-        CustomCreatures.createSpiritStagTemplate();
-        CustomCreatures.createWhiteBuffaloTemplate();
-        CustomCreatures.createWhiteBuffaloSpiritTemplate();
-        CustomCreatures.createBlackKnightTemplate();
-        CustomCreatures.createTreasureHuntPirateTemplate();
-        CustomCreatures.createHorsemanConquestTemplate();
-        CustomCreatures.createHorsemanWarTemplate();
-        CustomCreatures.createHorsemanFamineTemplate();
-        CustomCreatures.createHorsemanDeathTemplate();
+        createBlackWidowTemplate();
+        createCobraTemplate();
+        createFireCrabTemplate();
+        createGorillaTemplate();
+        createHyenaTemplate();
+        createIceCatTemplate();
+        createLargeBoarTemplate();
+        createOcelotTemplate();
+        createPandaBearTemplate();
+        createPantherTemplate();
+        createPolarBearTemplate();
+        createViperTemplate();
+        createWarHoundTemplate();
+        createWolfPackmasterTemplate();
+        createFrostyTemplate();
+        createGrinchTemplate();
+        createReindeerTemplate();
+        createRudolphTemplate();
+        createSinisterSantaTemplate();
+        createSnowmanTemplate();
+        createRainbowUnicornFoalPurpleTemplate();
+        createRainbowUnicornPurpleTemplate();
+        createRainbowUnicornWhiteTemplate();
+        createChargerTemplate();
+        createHornedPonyTemplate();
+        createPrismaticHellHorseTemplate();
+        createRainbowZebraTemplate();
+        createRidingRoosterTemplate();
+        createTerrorTemplate();
+        createBlackWyvernTemplate();
+        createBlueWyvernTemplate();
+        createGreenWyvernTemplate();
+        createRedWyvernTemplate();
+        createWhiteWyvernTemplate();
+        createOminousTreeTemplate();
+        createScaryPumpkinTemplate();
+        createBanditTemplate();
+        createSnakeCultistTemplate();
+        createTombRaiderTemplate();
+        createAvengerTemplate();
+        createBlobTemplate();
+        createBloblingTemplate();
+        createCyclopsTemplate();
+        createDepotTrollTemplate();
+        createFireGiantTemplate();
+        createFireSpiderTemplate();
+        createFogGoblinTemplate();
+        createForestSpiderTemplate();
+        createGiantTemplate();
+        createGiantSerpentTemplate();
+        createGoblinWarlordTemplate();
+        createGolemTemplate();
+        createGolemlingTemplate();
+        createMimicTemplate();
+        createMimicTreasureChestTemplate();
+        createPrismaticBlobTemplate();
+        createPrismaticBloblingTemplate();
+        createSnakeVineTemplate();
+        createTempleGuardianTemplate();
+        createTemplePatriarchTemplate();
+        createTemplePriestTemplate();
+        createNpcCyclopsTemplate();
+        createNpcDarkInnkeeperTemplate();
+        createNpcGoblinTemplate();
+        createNpcInnkeeperTemplate();
+        createNpcStarTemplate();
+        createNpcTraderGoblinTemplate();
+        createNpcTravelingTraderWagonerTemplate();
+        createNpcTrollTemplate();
+        createNpcTrollTraderTemplate();
+        createNpcWagonerTemplate();
+        createNpcWraithTemplate();
+        createNpcZombieTemplate();
+        createNpcZombieTraderTemplate();
+        createNpcDockWorkerTemplate();
+        createReaperTemplate();
+        createSpectralDragonHatchlingTemplate();
+        createNpcMerchantShipTemplate();
+        createWillOWispTemplate();
+        createGhostHellHorseTemplate();
+        createGhostHorseTemplate();
+        createIfritTemplate();
+        createLilithTemplate();
+        createFiendOfIfritTemplate();
+        createServantOfIfritTemplate();
+        createWraithOfLilithTemplate();
+        createServantOfLilithTemplate();
+        createBloodThiefTemplate();
+        createGemHoarderTemplate();
+        createMalevolentTormentorTemplate();
+        createMenageristGoblinTemplate();
+        createOdiousCollectorTemplate();
+        createRainbowGoblinTemplate();
+        createTreasureGoblinTemplate();
+        createBonewalkerTemplate();
+        createFleshwalkerTemplate();
+        createWraithTemplate();
+        createNecromancerTemplate();
+        createReanimatedSkeletonTemplate();
+        createSpiritTrollTemplate();
+        createZombieHulkTemplate();
+        createZombieHordeLeaderTemplate();
+        createZombieWalkerTemplate();
+        createClucksterTemplate();
+        createAngyHenTemplate();
+        createFacebreykerTemplate();
+        createKongTemplate();
+        createSpiritStagTemplate();
+        createWhiteBuffaloTemplate();
+        createWhiteBuffaloSpiritTemplate();
+        createBlackKnightTemplate();
+        createTreasureHuntPirateTemplate();
+        createHorsemanConquestTemplate();
+        createHorsemanWarTemplate();
+        createHorsemanFamineTemplate();
+        createHorsemanDeathTemplate();
         RequiemLogging.debug(String.format("Registering all of Requiem's custom creature templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
     }
 
@@ -3171,7 +3172,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3228,7 +3228,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3285,7 +3284,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3341,7 +3339,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3397,7 +3394,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3453,7 +3449,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3509,7 +3504,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3565,7 +3559,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3621,7 +3614,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3677,7 +3669,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3733,7 +3724,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INTERNAL)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3789,7 +3779,6 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INFECTION)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
@@ -3845,13 +3834,66 @@ public class CustomCreatures {
                 .baseCombatRating(99f)
                 .combatDamageType(Wound.TYPE_INFECTION)
                 .alignment(0f)
-                .maxPercentOfCreatures(0.00001f)
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
                 .build();
 
         npcZombieTraderId = temp.getTemplateId();
+    }
+
+    static void createNpcDockWorkerTemplate() {
+        final int[] types = {CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_INVULNERABLE};
+        final int[] itemsButchered = new int[0];
+        final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.zombie")
+                .name("NPC Zombie Trader")
+                .description("This person works day and night to make sure the job gets done.")
+                .modelName("model.creature.humanoid.human.player")
+                .types(types)
+                .bodyType(BodyTemplate.TYPE_HUMAN)
+                .defaultSkills()
+                .skill(SkillList.BODY_STRENGTH, 99f)
+                .skill(SkillList.BODY_CONTROL, 99f)
+                .skill(SkillList.BODY_STAMINA, 99f)
+                .skill(SkillList.MIND_LOGICAL, 99f)
+                .skill(SkillList.MIND_SPEED, 99f)
+                .skill(SkillList.SOUL_STRENGTH, 99f)
+                .skill(SkillList.SOUL_DEPTH, 99f)
+                .skill(SkillList.WEAPONLESS_FIGHTING, 99f)
+                .skill(SkillList.SWORD_LONG, 99f)
+                .skill(SkillList.SWORD_TWOHANDED, 99f)
+                .skill(SkillList.AXE_HUGE, 99f)
+                .skill(SkillList.AXE_SMALL, 99f)
+                .skill(SkillList.AXE_LARGE, 99f)
+                .skill(SkillList.SHIELD_LARGE_METAL, 99f)
+                .skill(SkillList.SHIELD_LARGE_WOOD, 99f)
+                .skill(SkillList.SHIELD_MEDIUM_WOOD, 99f)
+                .skill(SkillList.SHIELD_MEDIUM_METAL, 99f)
+                .vision((short) 10)
+                .dimension((short) 250, (short) 100, (short) 300)
+                .deathSounds(SoundNames.DEATH_MALE_SND, SoundNames.DEATH_FEMALE_SND)
+                .hitSounds(SoundNames.HIT_MALE_SND, SoundNames.HIT_FEMALE_SND)
+                .naturalArmour(0.001f)
+                .damages(150f, 150f, 150f, 150f, 150f)
+                .speed(1f)
+                .moveRate(0)
+                .itemsButchered(itemsButchered)
+                .meatMaterial(ItemMaterials.MATERIAL_MEAT_HUMAN)
+                .maxHuntDist(10)
+                .aggressive(0)
+                .handDamString("hammer")
+                .kickDamString("kick")
+                .headbuttDamString("hammer")
+                .maxAge(10000)
+                .armourType(ArmourTemplate.ARMOUR_TYPE_SCALE_DRAGON)
+                .baseCombatRating(99f)
+                .combatDamageType(Wound.TYPE_PIERCE)
+                .alignment(0f)
+                .hasHands(true)
+                .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
+                .build();
+
+        npcDockWorkerId = temp.getTemplateId();
     }
 
     static void createReaperTemplate() {
@@ -4126,9 +4168,9 @@ public class CustomCreatures {
                 //.meatMaterial(ItemMaterials.MATERIAL_MEAT_HORSE)
                 .maxHuntDist(10)
                 .aggressive(0)
-                .handDamString("ghost touch")
-                .kickDamString("ghost touch")
-                .headbuttDamString("ghost touch")
+                .handDamString("wisp touch")
+                .kickDamString("wisp touch")
+                .headbuttDamString("wisp touch")
                 .maxAge(300)
                 .armourType(ArmourTemplate.ARMOUR_TYPE_STUDDED)
                 .baseCombatRating(25f)
@@ -4136,6 +4178,7 @@ public class CustomCreatures {
                 .alignment(0f)
                 .maxPopulationOfCreatures(60)
                 .keepSex(true)
+                .offZ(-1f)
                 .sizeModifier(200, 200, 200)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
                 .build();
@@ -5431,13 +5474,13 @@ public class CustomCreatures {
                 .skill(SkillList.SOUL_STRENGTH, 20f)
                 .skill(SkillList.SOUL_DEPTH, 10f)
                 .skill(SkillList.WEAPONLESS_FIGHTING, 75f)
-                .skill(SkillList.GROUP_FIGHTING, 50f)
+                .skill(SkillList.GROUP_FIGHTING, 80f)
                 .vision((short) 10)
                 .dimension((short) 500, (short) 500, (short) 500)
                 .deathSounds(SoundNames.DEATH_GORILLA_SND, SoundNames.DEATH_GORILLA_SND)
                 .hitSounds(SoundNames.HIT_GORILLA_SND, SoundNames.HIT_GORILLA_SND)
-                .naturalArmour(0.6f)
-                .damages(14f, 8f, 10f, 9f, 0f)
+                .naturalArmour(0.5f)
+                .damages(18f, 10f, 10f, 9f, 0f)
                 .speed(1f)
                 .moveRate(500)
                 .itemsButchered(itemsButchered)
@@ -5457,7 +5500,7 @@ public class CustomCreatures {
                 .hasHands(true)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
-                .sizeModifier(300, 300, 300)
+                .sizeModifier(999, 999, 999)
                 .build();
 
         kongId = temp.getTemplateId();

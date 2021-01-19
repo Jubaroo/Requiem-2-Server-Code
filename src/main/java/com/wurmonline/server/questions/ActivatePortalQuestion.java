@@ -68,7 +68,7 @@ public class ActivatePortalQuestion extends Question {
                 ResultSet rs3;
                 try {
                     dbcon3 = ModSupportDb.getModSupportDb();
-                    ps3 = dbcon3.prepareStatement("SELECT * FROM ColdieGMPortals ORDER BY name");
+                    ps3 = dbcon3.prepareStatement("SELECT * FROM RequiemGMPortals ORDER BY name");
                     rs3 = ps3.executeQuery();
 
                     while (rs3.next()) {
@@ -93,7 +93,7 @@ public class ActivatePortalQuestion extends Question {
                 ResultSet rs2;
                 try {
                     dbcon2 = ModSupportDb.getModSupportDb();
-                    ps2 = dbcon2.prepareStatement("SELECT * FROM ColdiePortals ORDER BY name");
+                    ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemPortals ORDER BY name");
                     rs2 = ps2.executeQuery();
 
                     while (rs2.next()) {
@@ -115,7 +115,7 @@ public class ActivatePortalQuestion extends Question {
 
                 try {
                     dbcon = ModSupportDb.getModSupportDb();
-                    ps = dbcon.prepareStatement("INSERT INTO ColdiePortals (name,posx,posy,itemid,bank) VALUES(?,?,?,?,?)");
+                    ps = dbcon.prepareStatement("INSERT INTO RequiemPortals (name,posx,posy,itemid,bank) VALUES(?,?,?,?,?)");
                     ps.setString(1, v.getName() + duplicatevillage);
                     ps.setFloat(2, getResponder().getPosX() / 4);
                     ps.setFloat(3, getResponder().getPosY() / 4);

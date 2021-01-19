@@ -15,10 +15,10 @@ import org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PollPortals;
-import org.jubaroo.mods.wurm.server.items.pottals.PortalItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.misc.QualityOfLife;
 import org.jubaroo.mods.wurm.server.server.*;
+import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
@@ -26,8 +26,10 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.*;
+
 public class Requiem implements WurmServerMod, ServerStartedListener, ServerShutdownListener, PlayerLoginListener, ItemTemplatesCreatedListener, Configurable, PreInitable, ServerPollListener, Initable, PlayerMessageListener, ChannelMessageListener {
-    public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), Constants.VERSION));
+    public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), LoggingConstants.VERSION));
 
     @Override
     public void onItemTemplatesCreated() {
@@ -37,20 +39,22 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             CustomVehicles.registerCustomVehicles();
             RequiemLogging.logInfo("======= Adding Creatures & Mount Settings for Creatures=======");
             CustomCreatures.registerCustomCreatures();
-            CreatureSpawns.spawnTable();
             CustomMountSettings.registerCustomMountSettings();
             RequiemLogging.logInfo("======= Creating Item Mod items =======");
             RequiemLogging.logInfo("======= Creating Cache items =======");
-            if (!Constants.disableItemMods) {
-                CustomItemCreationEntries.registerCustomItemCreationEntries();
+            if (!disableItemMods) {
+                if (!Servers.isThisLoginServer()) {
+                    CustomItemCreationEntries.registerCustomItemCreationEntries();
+                }
             }
-            if (!Constants.disableEntireMod) {
+            if (!disableEntireMod) {
                 RequiemLogging.debug("======= Editing existing item templates =======");
                 ItemMod.modifyItemsOnCreated();
             }
-            new PortalItems();
-            CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
-            new OnItemTemplateCreated();
+            if (disableVehicleMods)
+                if (!Servers.isThisLoginServer()) {
+                    CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
+                }
         } catch (IllegalArgumentException | ClassCastException | IOException e) {
             e.printStackTrace();
             RequiemLogging.logException("Error in onItemTemplatesCreated()", e);
@@ -62,8 +66,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void configure(final Properties properties) {
         Config.doConfig(properties);
         // Discord
-        Constants.botToken = properties.getProperty("botToken");
-        Constants.serverName = properties.getProperty("serverName");
+        DiscordHandler.botToken = properties.getProperty("botToken");
+        DiscordHandler.serverName = properties.getProperty("serverName");
         CustomChannel.GLOBAL.discordName = properties.getProperty("globalName");
         CustomChannel.HELP.discordName = properties.getProperty("helpName");
         CustomChannel.TICKETS.discordName = properties.getProperty("ticketName");
@@ -79,7 +83,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void preInit() {
         RequiemLogging.logInfo("preInit called");
         try {
-            if (!Constants.disableEntireMod) {
+            if (!disableEntireMod) {
                 PreInit.preInit();
             }
         } catch (IllegalArgumentException | ClassCastException e) {
@@ -92,7 +96,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void init() {
         RequiemLogging.logInfo("init called");
         try {
-            if (!Constants.disableEntireMod) {
+            if (!disableEntireMod) {
                 RequiemLogging.logInfo("Started Init.init()");
                 try {
                     ItemMod.init();
@@ -116,9 +120,14 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onServerStarted() {
         RequiemLogging.logInfo("onServerStarted called");
         try {
-            if (!Constants.disableEntireMod) {
+            if (!disableEntireMod) {
                 OnServerStarted.onServerStarted();
-                if (!Servers.isThisATestServer()) ChatHandler.serverStarted();
+                if (!Servers.isThisLoginServer()) {
+                    CreatureSpawns.spawnTable();
+                }
+                if (!Servers.isThisATestServer()) {
+                    ChatHandler.serverStarted();
+                }
             }
         } catch (IllegalArgumentException | ClassCastException e) {
             RequiemLogging.logException("Error in modifyItemsOnServerStarted()", e);
@@ -177,8 +186,10 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public void onPlayerLogin(Player player) {
         try {
-            if (!Constants.disableEntireMod) {
-                OnPlayerLogin.onPlayerLogin(player);
+            if (!disableEntireMod) {
+                if (!Servers.isThisLoginServer()) {
+                    OnPlayerLogin.onPlayerLogin(player);
+                }
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -189,8 +200,10 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public void onPlayerLogout(Player player) {
         try {
-            if (!Constants.disableEntireMod) {
-                OnPlayerLogout.onPlayerLogout(player);
+            if (!disableEntireMod) {
+                if (!Servers.isThisLoginServer()) {
+                    OnPlayerLogout.onPlayerLogout(player);
+                }
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -200,11 +213,13 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public void onServerPoll() {
-        if (!Constants.disableEntireMod) {
-            OnServerPoll.onServerPoll();
-            Misc.noobTips();
-            PollPortals.pollportal();
-            //Titans.locateTitans();
+        if (!disableEntireMod) {
+            if (!Servers.isThisLoginServer()) {
+                OnServerPoll.onServerPoll();
+                Misc.noobTips();
+                PollPortals.pollPortal();
+                Titans.locateTitans();
+            }
         }
         if (Servers.localServer.LOGINSERVER)
             DiscordHandler.poll();
@@ -212,7 +227,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public String getVersion() {
-        return Constants.VERSION;
+        return LoggingConstants.VERSION;
     }
 
     //TODO
@@ -229,7 +244,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     // Labyrinthia deed that has a maze that changes once a week. the maze has a chest in the middle with random loot each time
     // change the descriptions of the animals that relate to real life
     // Need to make a healing fountain action and item for the arena. new model also!!!
-    // Make an action/question to reset ALL skills to 1 and apply a certain permanent "buff" that will increase each time you reset all skills. Example req. would be to have x amount of skills at 99 or above
+    // Make an action/question to reset ALL skills to 1 and apply a certain permanent "paragon buff" that will increase each time you reset all skills. Example req. would be to have x amount of skills at 99 or above
     // Hook into Player.spawn? and add monthly buffs
     // Add treasure goblins and such to the leaderboard mod? -> check if done already haha <-
     // Make factions with reputation that can be gained?

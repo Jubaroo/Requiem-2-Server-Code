@@ -4,8 +4,8 @@ import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
+import static org.jubaroo.mods.wurm.server.server.constants.VehicleConstants.*;
 import static org.jubaroo.mods.wurm.server.vehicles.CustomVehicles.*;
 
 public class CustomVehicleCreationEntries {
@@ -84,10 +84,10 @@ public class CustomVehicleCreationEntries {
     };
 
     public static void registerCustomVehicleCreationEntries() {
-        if (Constants.vehicleCreationEntries) {
+        if (vehicleCreationEntries) {
             long start = System.nanoTime();
 
-            if (Constants.wagons) {
+            if (wagons) {
                 //wagons
                 for (final int wagon : customWagonList) {
                     AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.CARPENTRY_FINE, ItemList.plank, ItemList.wheelAxleSmall, wagon, false, false, 0f, true, true, 0, 40.0D, CreationCategories.CARTS);
@@ -111,7 +111,7 @@ public class CustomVehicleCreationEntries {
                 }
             }
 
-            if (Constants.caravels) {
+            if (caravels) {
                 // caravels
                 for (final int caravel : customCaravelList) {
                     final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.SHIPBUILDING, ItemList.keelPart, ItemList.keelPart, caravel, false, false, 0f, true, true, CreationCategories.SHIPS);
@@ -141,7 +141,7 @@ public class CustomVehicleCreationEntries {
                 }
             }
 
-            if (Constants.cogs) {
+            if (cogs) {
                 // cogs
                 for (final int cog : customCogList) {
                     final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.SHIPBUILDING, ItemList.keelPart, ItemList.keelPart, cog, false, false, 0f, true, true, CreationCategories.SHIPS);
@@ -168,7 +168,7 @@ public class CustomVehicleCreationEntries {
                 }
             }
 
-            if (Constants.corbitas) {
+            if (corbitas) {
                 //corbitas
                 for (final int corbita : customCorbitaList) {
                     final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.SHIPBUILDING, ItemList.keelPart, ItemList.keelPart, corbita, false, false, 0f, true, true, CreationCategories.SHIPS);
@@ -196,7 +196,7 @@ public class CustomVehicleCreationEntries {
                 }
             }
 
-            if (Constants.knarrs) {
+            if (knarrs) {
                 //knarrs
                 for (final int knarr : customKnarrList) {
                     final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.SHIPBUILDING, ItemList.keelPart, ItemList.keelPart, knarr, false, false, 0f, true, true, CreationCategories.SHIPS);
@@ -224,7 +224,7 @@ public class CustomVehicleCreationEntries {
                 }
             }
 
-            if (Constants.sailingBoats) {
+            if (sailingBoats) {
                 //sailingBoats
                 for (final int sailingBoat : customSailingBoatList) {
                     final AdvancedCreationEntry entry = CreationEntryCreator.createAdvancedEntry(SkillList.SHIPBUILDING, ItemList.keelPart, ItemList.keelPart, sailingBoat, false, false, 0f, true, true, CreationCategories.SHIPS);

@@ -18,13 +18,12 @@ import org.jubaroo.mods.wurm.server.misc.templates.EnchantScrollTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.ScrollTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.ItemConstants;
 
 import java.io.IOException;
 
 import static com.wurmonline.server.items.ItemTypes.*;
 import static org.jubaroo.mods.wurm.server.misc.Caches.CACHE_IDS;
-import static org.jubaroo.mods.wurm.server.server.Constants.*;
 
 public class CustomItems {
 
@@ -326,7 +325,7 @@ public class CustomItems {
         registerTitaniumLump();
         registerTitaniumSocket();
         registerTreasureBox();
-        if (Constants.itemHolyBook) {
+        if (ItemConstants.itemHolyBook) {
             registerPrayerBook();
         }
         RequiemLogging.debug(String.format("========== Registering all of Requiem's custom item templates took %d milliseconds ==========", (System.nanoTime() - start) / 1000000L));
@@ -1273,7 +1272,7 @@ public class CustomItems {
     }
 
     private static void registerStructureTemplates() throws IOException {
-        for (StructureTemplate template : structureTemplates) {
+        for (StructureTemplate template : ItemConstants.structureTemplates) {
             ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.structure." + template.name);
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), String.format("A %s.", template.name));
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
@@ -1310,7 +1309,7 @@ public class CustomItems {
     }
 
     private static void registerSpawnerTemplates() throws IOException {
-        for (SpawnerTemplate template : spawnerTemplates) {
+        for (SpawnerTemplate template : ItemConstants.spawnerTemplates) {
             ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.spawner." + template.name);
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), String.format("A %s.", template.name));
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
@@ -1347,7 +1346,7 @@ public class CustomItems {
     }
 
     private static void registerScrollTemplates() throws IOException {
-        for (ScrollTemplate template : scrollTemplates) {
+        for (ScrollTemplate template : ItemConstants.scrollTemplates) {
             ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.scroll." + template.name);
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), template.description);
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
@@ -1378,7 +1377,7 @@ public class CustomItems {
     }
 
     private static void registerEnchantScrollTemplates() throws IOException {
-        for (EnchantScrollTemplate template : enchantScrollTemplates) {
+        for (EnchantScrollTemplate template : ItemConstants.enchantScrollTemplates) {
             ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.scroll.enchant." + template.name);
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), template.description);
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");

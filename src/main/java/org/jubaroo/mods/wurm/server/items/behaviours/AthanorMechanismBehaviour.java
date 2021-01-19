@@ -16,7 +16,8 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.misc.templates.Location;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.ItemConstants;
+
 
 import java.util.ArrayList;
 
@@ -80,7 +81,7 @@ public class AthanorMechanismBehaviour {
                 }
             }
         }
-        Location targetLocation = Constants.mechanismLocations[Server.rand.nextInt(Constants.mechanismLocations.length)];
+        Location targetLocation = ItemConstants.mechanismLocations[Server.rand.nextInt(ItemConstants.mechanismLocations.length)];
         try {
             removeAthanorMechanism(athanorMechanism);
             if (targetLocation != null) {

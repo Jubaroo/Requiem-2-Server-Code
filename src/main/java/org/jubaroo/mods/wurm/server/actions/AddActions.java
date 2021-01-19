@@ -35,9 +35,9 @@ import org.jubaroo.mods.wurm.server.actions.vehicles.AltarWagonPrayAction;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.*;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
-import static org.jubaroo.mods.wurm.server.server.Constants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
 
 public class AddActions {
 
@@ -143,23 +143,23 @@ public class AddActions {
         ModActions.registerAction(new GrowGrassAction());
         ModActions.registerAction(new GrowTreesAction());
         ModActions.registerAction(new EnchantGroundAction());
-        if (Constants.cashPerCorpse > 0) ModActions.registerAction(new CorpseBountyAction());
-        if (Constants.searchDens) {
+        if (cashPerCorpse > 0) ModActions.registerAction(new CorpseBountyAction());
+        if (searchDens) {
             ModActions.registerAction(new DisturbDenAction());
         }
         RequiemLogging.debug("Registering GM actions...");
-        if (Constants.addGmProtect) {
+        if (addGmProtect) {
             ModActions.registerAction(new GmProtectAction());
         }
-        if (Constants.addGmUnprotect) {
+        if (addGmUnprotect) {
             ModActions.registerAction(new GMUnprotectAction());
         }
-        if (Constants.addSpawnGuard) {
+        if (addSpawnGuard) {
             ModActions.registerAction(new SpawnTowerGuardAction());
         }
         //ModActions.registerAction(new RequiemReloadAction());
         ModActions.registerAction(new KillCreatureAction());
-        if (Constants.addLabyrinth) {
+        if (addLabyrinth) {
             //ModActions.registerBehaviourProvider(new LabyrinthMenuProvider());
             ModActions.registerAction(new LabyrinthAction());
             ModActions.registerAction(new LabyrinthRemoveAction());

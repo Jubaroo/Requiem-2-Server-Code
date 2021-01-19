@@ -1,6 +1,5 @@
 package org.jubaroo.mods.wurm.server.misc;
 
-import com.sun.istack.Nullable;
 import com.wurmonline.server.*;
 import com.wurmonline.server.behaviours.Actions;
 import com.wurmonline.server.creatures.Creature;
@@ -30,14 +29,17 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
-@SuppressWarnings("CommentedOutCode")
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.createItemDescs;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.hidePlayerGodInscriptions;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
+
 public class MiscChanges {
     private static final int rarityChance = 3600;
     private static final HashMap<Long, Integer> pseudoMap = new HashMap<>();
@@ -598,7 +600,7 @@ public class MiscChanges {
                     });
 
             // Enable Mycelium to spread.
-            if (Constants.enableMyceliumSpread) {
+            if (enableMyceliumSpread) {
                 CtClass ctTilePoller = classPool.get("com.wurmonline.server.zones.TilePoller");
                 replace = "$_ = true;";
                 Util.setReason("Fix mycelium spread on Freedom servers.");
@@ -632,7 +634,7 @@ public class MiscChanges {
 
             HookManager hooks = HookManager.getInstance();
             ClassPool pool = hooks.getClassPool();
-            if (Constants.stfuNpcs) {
+            if (stfuNpcs) {
                 hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
                         "answerLocalChat",
                         "(Lcom/wurmonline/server/Message;Ljava/lang/String;)V",
@@ -647,7 +649,7 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.hidePlayerGodInscriptions) {
+            if (hidePlayerGodInscriptions) {
                 hooks.registerHook("com.wurmonline.server.deities.Deities",
                         "getRandomNonHateDeity",
                         "()Lcom/wurmonline/server/deities/Deity;",
@@ -656,7 +658,7 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.gmFullFavor) {
+            if (gmFullFavor) {
                 hooks.registerHook("com.wurmonline.server.players.Player",
                         "depleteFavor",
                         "(FZ)V",
@@ -678,7 +680,7 @@ public class MiscChanges {
                         return method.invoke(proxy, args);
                     });
 
-            if (Constants.loadFullContainers) {
+            if (loadFullContainers) {
                 hooks.registerHook("com.wurmonline.server.behaviours.CargoTransportationMethods",
                         "targetIsNotEmptyContainerCheck",
                         "(Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;Z)Z",
@@ -687,7 +689,7 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.noMineDrift) {
+            if (noMineDrift) {
                 hooks.registerHook("com.wurmonline.server.behaviours.TileRockBehaviour",
                         "getFloorAndCeiling",
                         "(IIIIZZLcom/wurmonline/server/creatures/Creature;)[I",
@@ -705,7 +707,7 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.allowTentsOnDeed) {
+            if (allowTentsOnDeed) {
                 hooks.registerHook("com.wurmonline.server.behaviours.MethodsItems",
                         "mayDropTentOnTile",
                         "(Lcom/wurmonline/server/creatures/Creature;)Z",
@@ -714,12 +716,12 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.allSurfaceMine) {
+            if (allSurfaceMine) {
                 MiscHooks.hookSurfaceMine(pool);
             }
 
             /* Hook Item Creation */
-            for (String desc : Constants.createItemDescs) {
+            for (String desc : createItemDescs) {
                 RequiemLogging.logInfo("createItem: " + desc);
                 hooks.registerHook("com.wurmonline.server.items.ItemFactory", "createItem", desc,
                         () -> (proxy, method, args) -> {
@@ -732,7 +734,7 @@ public class MiscChanges {
                         });
             }
 
-            if (Constants.lampsAutoLight) {
+            if (lampsAutoLight) {
                 hooks.registerHook("com.wurmonline.server.items.Item", "refuelLampFromClosestVillage", "()V",
                         () -> (proxy, method, args) -> {
                             Item lamp = (Item) proxy;
@@ -796,14 +798,14 @@ public class MiscChanges {
                 return new InvocationHandler() {
                     @Override
                     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
-                        if (Constants.logExecutionCost) {
-                            Constants.tmpExecutionStartTime = System.nanoTime();
+                        if (logExecutionCost) {
+                            tmpExecutionStartTime = System.nanoTime();
                         }
                         if (((Creature)proxy).isNpc() && startNpcMoveHook((Creature)proxy)) {
                             return true;
                         }
-                        if (Constants.logExecutionCost) {
-                            RequiemLogging.logInfo("setUpNpcMovementPrevention[hook] done, spent " + Constants.executionLogDf.format((System.nanoTime() - Constants.tmpExecutionStartTime) / 1.0E9) + "s");
+                        if (logExecutionCost) {
+                            RequiemLogging.logInfo("setUpNpcMovementPrevention[hook] done, spent " + executionLogDf.format((System.nanoTime() - tmpExecutionStartTime) / 1.0E9) + "s");
                         }
                         final Object result = method.invoke(proxy, args);
                         RequiemLogging.logInfo("setUpNpcMovement return = " + result);

@@ -10,10 +10,11 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.economy.Economy;
 import com.wurmonline.server.items.Item;
 import org.gotti.wurmunlimited.modsupport.actions.*;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
 import java.util.Collections;
 import java.util.List;
+
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.cashPerCorpse;
 
 public class CorpseBountyAction implements ModAction, BehaviourProvider, ActionPerformer {
     private final short actionId;
@@ -44,7 +45,7 @@ public class CorpseBountyAction implements ModAction, BehaviourProvider, ActionP
             return null;
         }
 
-        if (Constants.cashPerCorpse == 0) {
+        if (cashPerCorpse == 0) {
             return null;
         }
 
@@ -83,12 +84,12 @@ public class CorpseBountyAction implements ModAction, BehaviourProvider, ActionP
         }
         Items.destroyItem(target.getWurmId());
 
-        Item[] coins = Economy.getEconomy().getCoinsFor(Constants.cashPerCorpse);
+        Item[] coins = Economy.getEconomy().getCoinsFor(cashPerCorpse);
         for (Item coin : coins) {
             performer.getInventory().insertItem(coin, true);
         }
-        //performer.addMoney(Constants.cashPerCorpse);
-        comm.sendNormalServerMessage(String.format("Bounty Awarded: %d iron", Constants.cashPerCorpse));
+        //performer.addMoney(cashPerCorpse);
+        comm.sendNormalServerMessage(String.format("Bounty Awarded: %d iron", cashPerCorpse));
         return true;
     }
 }

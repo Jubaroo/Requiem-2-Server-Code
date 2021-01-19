@@ -35,19 +35,20 @@ import java.util.List;
 public class JoustAction implements ModAction {
     private final short actionId;
     private final ActionEntry actionEntry;
-    private final int LanceID;
-    private final int LanceDamage;
-    private final int BaseHitChance;
-    private final int SpearSkillRange;
-    private final int BonusLanceDamage;
-    private String debugStr;
-    private final int broadcastRange = 60;
-    private final int LoseHelmetChance;
-    private final float PerKMDamageBoost;
-    private final boolean AllowSkillGain;
-    private final float LanceRange;
+    public final int LanceID;
+    public static int LanceDamage;
+    public static int BaseHitChance;
+    public static int SpearSkillRange;
+    public static int BonusLanceDamage;
+    public String debugStr;
+    public final int broadcastRange = 60;
+    public static int LoseHelmetChance;
+    public static float PerKMDamageBoost;
+    public static boolean AllowSkillGain;
+    public static float LanceRange;
     //private float OldDistance;
     private float Speed;
+    public static boolean AllowCraftingLance;
 
     public JoustAction(int id, int damage, int basehitchance, int spearskillrange, int bonuslancedamage, int losehemletchance, float perkmdamageboost, boolean allowskillgain, float lancerange) {
         actionId = (short) ModActions.getNextActionId();

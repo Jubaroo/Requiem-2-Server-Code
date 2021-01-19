@@ -65,7 +65,7 @@ public class ActivatePortalAction implements WurmServerMod, ItemTypes, MiscConst
                 boolean found = false;
                 try {
                     dbcon = ModSupportDb.getModSupportDb();
-                    ps = dbcon.prepareStatement("SELECT * FROM ColdiePortals");
+                    ps = dbcon.prepareStatement("SELECT * FROM RequiemPortals");
                     rs = ps.executeQuery();
                     while (rs.next()) {
                         if (target.getWurmId() == rs.getLong("itemid")) {
@@ -84,7 +84,7 @@ public class ActivatePortalAction implements WurmServerMod, ItemTypes, MiscConst
                 ResultSet rs2;
                 try {
                     dbcon2 = ModSupportDb.getModSupportDb();
-                    ps2 = dbcon2.prepareStatement("SELECT * FROM ColdieGMPortals");
+                    ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemGMPortals");
                     rs2 = ps2.executeQuery();
                     while (rs2.next()) {
                         if (target.getWurmId() == rs2.getLong("itemid")) {

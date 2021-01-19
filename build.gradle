@@ -21,7 +21,7 @@ configurations {
 dependencies {
     shadowed 'net.dv8tion:JDA:4.2.0_225'
     shadowed 'org.slf4j:slf4j-jdk14:1.7.25'
-    compile 'org.gotti.wurmunlimited:server-modlauncher:0.43'
+    compile 'org.gotti.wurmunlimited:server-modlauncher:0.44.1'
     compile 'com.github.bdew-wurm:bdew_server_mod_tools:45784be'
     compile 'com.github.bdew-wurm:threedee:v0.20'
     compile 'com.github.Sindusk:sindusklibrary:v2.5'
@@ -41,5 +41,5 @@ task dist(type: Zip) {
         })
         from fileTree(dir: 'mods', include: '*')
     })
-    archiveFileName = "${project.name}-${project.version}.zip"
+    archiveFileName = "${project.name}.jar"
 }

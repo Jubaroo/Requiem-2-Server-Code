@@ -10,7 +10,8 @@ import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.ItemConstants;
+
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -92,9 +93,9 @@ public class ItemTools {
         SpellEffect eff = new SpellEffect(item.getWurmId(), enchant, power, 20000000);
         effs.addSpellEffect(eff);
         if (item.getDescription().length() > 0) {
-            item.setDescription(item.getDescription() + " ");
+            item.setDescription(String.format("%s ", item.getDescription()));
         }
-        item.setDescription(item.getDescription() + eff.getName().substring(0, 1) + Math.round(power));
+        item.setDescription(String.format("%s%s%d", item.getDescription(), eff.getName().charAt(0), Math.round(power)));
     }
 
     public static Item createRandomSorcery(byte charges) {
@@ -196,7 +197,7 @@ public class ItemTools {
 
     public static Item createRandomStarGem(float minQL, float maxQL, String creator) {
         try {
-            return ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1, 99), creator);
+            return ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1f, 99f), creator);
         } catch (FailedException | NoSuchTemplateException e) {
             e.printStackTrace();
         }
@@ -305,9 +306,9 @@ public class ItemTools {
     }
 
     public static boolean isScroll(final Item item) {
-        String[] scrollids;
-        for (int length = (scrollids = Constants.scrollids).length, i = 0; i < length; ++i) {
-            final String boss = scrollids[i];
+        String[] scrollIds;
+        for (int length = (scrollIds = ItemConstants.scrollids).length, i = 0; i < length; ++i) {
+            final String boss = scrollIds[i];
             if (item.getTemplateId() == Integer.parseInt(boss)) {
                 return true;
             }

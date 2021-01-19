@@ -37,7 +37,7 @@ public class PortalAddLocationQuestion extends Question {
 
             try {
                 dbcon = ModSupportDb.getModSupportDb();
-                ps = dbcon.prepareStatement("INSERT INTO ColdieGMPortals (name,posx,posy,itemid,bank) VALUES(?,?,?,?,?)");
+                ps = dbcon.prepareStatement("INSERT INTO RequiemGMPortals (name,posx,posy,itemid,bank) VALUES(?,?,?,?,?)");
                 ps.setString(1, answer.getProperty("name"));
                 ps.setString(2, answer.getProperty("xcoords"));
                 ps.setString(3, answer.getProperty("ycoords"));

@@ -47,7 +47,7 @@ public class PortalQuestion extends Question {
             ResultSet rs2;
             try {
                 dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement("SELECT * FROM ColdieGMPortals");
+                ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemGMPortals");
                 rs2 = ps2.executeQuery();
 
                 while (rs2.next()) {
@@ -69,7 +69,7 @@ public class PortalQuestion extends Question {
             ResultSet rs;
             try {
                 dbcon = ModSupportDb.getModSupportDb();
-                ps = dbcon.prepareStatement("SELECT * FROM ColdiePortals");
+                ps = dbcon.prepareStatement("SELECT * FROM RequiemPortals");
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     if (rs.getString("name").equals(PortalMod.myMap.get(mynumber))) {
@@ -132,7 +132,7 @@ public class PortalQuestion extends Question {
             int i = 1;
             try {
                 dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement("SELECT * FROM ColdieGMPortals ORDER BY name");
+                ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemGMPortals ORDER BY name");
                 rs2 = ps2.executeQuery();
                 f.addRaw("--Choose Destination--,");
 
@@ -155,7 +155,7 @@ public class PortalQuestion extends Question {
             ResultSet rs;
             try {
                 dbcon = ModSupportDb.getModSupportDb();
-                ps = dbcon.prepareStatement("SELECT * FROM ColdiePortals WHERE bank >= ? ORDER BY name");
+                ps = dbcon.prepareStatement("SELECT * FROM RequiemPortals WHERE bank >= ? ORDER BY name");
                 ps.setInt(1, PortalMod.costPerMin * 60);//updates every hour
                 rs = ps.executeQuery();
                 while (rs.next()) {

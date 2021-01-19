@@ -32,8 +32,8 @@ import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
-import org.jubaroo.mods.wurm.server.server.Constants;
 import org.jubaroo.mods.wurm.server.server.OnPlayerLogin;
+import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +41,10 @@ import java.nio.ByteBuffer;
 import java.util.Set;
 
 import static org.jubaroo.mods.wurm.server.items.CustomItems.largeWheelId;
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.soundEmissionNpcs;
+import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.itemRemoveLogging;
+import static org.jubaroo.mods.wurm.server.server.constants.MessageConstants.displayOnScreen;
 
-@SuppressWarnings("unused")
 public class Hooks {
     public static int resizeItemId;
     public static float resizeItemSize;
@@ -56,26 +58,6 @@ public class Hooks {
     }
 
     /**
-     * - Good Effects -
-     * rift01 [large], rift02 [small]
-     * treasureP [light bubbles]
-     * spawneffect2 [sparkle fireworks]
-     * reindeer [light sparkles]
-     * iceBall_1_1 [clean ice effect]
-     * acidBall_1_1 [clean green ball effect]
-     * byte 1 [fire]
-     * - Bad Effects -
-     * spawneffect [sparkle eye cancer]
-     * snow1emitter [disappears instantly}, snow2emitter [disappears instantly]
-     * spawneffectshort [disappears instantly]
-     * iceWispSpark [tiny and unnoticeable]
-     * iceBolt1 [very flickery]
-     * iceTail1 [small and points downwards]
-     * acidWispSpark [basically invisible]
-     * acidTail1 [inconsistent trail]
-     * acidBolt1 [very flickery]
-     * lightningTail1 [weird effect]
-     *
      * @param creatureId the Id of the creature that you want to add effects to
      * @param comm       the communicator of the player that is looking at the creature
      * @param creature   creature template of the creature you want to add effects to
@@ -102,7 +84,7 @@ public class Hooks {
             String particle = "portal1";
             EffectsTools.sendParticleEffect(comm, creatureId, creature, particle, Float.MAX_VALUE);
         } else if (templateId == CustomCreatures.fireCrabId || templateId == CustomCreatures.fireGiantId) {
-            EffectsTools.sendAddEffect(comm, creatureId, (byte) 1);
+            EffectsTools.sendAddCreatureEffect(comm, creatureId, (byte) 1);
         }
     }
 
@@ -168,7 +150,7 @@ public class Hooks {
 	 */
 
     /**
-     * Here we attach special effect to items when they are created
+     * Here we attach special effects to items when they are created
      *
      * @param comm the player
      * @param item the item being destroyed
@@ -246,7 +228,9 @@ public class Hooks {
             return true;
         } else if (cid == CustomCreatures.giantId) {
             return true;
-        } else if (cid == CustomCreatures.spiritTrollId) {
+        } else if (cid == CustomCreatures.fireGiantId) {
+            return true;
+        }else if (cid == CustomCreatures.spiritTrollId) {
             return true;
         } else if (cid == CreatureTemplateIds.TROLL_CID) {
             return true;
@@ -430,7 +414,7 @@ public class Hooks {
             Village village = creature.getCurrentTile().getVillage();
             String jingleSound = "sound.emote.bucketthree.jump";
 
-            if (Constants.creatureCreateLogging) {
+            if (LoggingConstants.creatureCreateLogging) {
                 RequiemLogging.CreatureSpawnLogging(creature);
             }
             // Titans
@@ -438,13 +422,13 @@ public class Hooks {
                 String message = String.format("The titan %s has stepped into the mortal realm. Challenge %s if you dare", creature.getNameWithoutPrefixes(), creature.getHisHerItsString());
                 Titans.addTitan(creature);
                 DiscordHandler.sendToDiscord(CustomChannel.TITAN, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Rare Creatures
             else if (MethodsBestiary.isRareCreature(creature)) {
                 String message = String.format("A rare %s has surfaced.", creature.getNameWithoutPrefixes());
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Zombie Leader
             else if (id == CustomCreatures.zombieLeaderId) {
@@ -463,38 +447,38 @@ public class Hooks {
             else if (id == CustomCreatures.whiteBuffaloId) {
                 String message = String.format("The %s has appeared somewhere in the world. If killed, its spirit will seek vengeance upon those that destroyed its physical form.", creature.getNameWithoutPrefixes());
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Frosty
             else if (id == CustomCreatures.frostyId) {
                 String message = String.format("%s the snowman has appeared somewhere in the world. If you can find him and give him a blessed snowball, he will give you something in return!", creature.getNameWithoutPrefixes());
                 SoundPlayer.playSound(jingleSound, creature, 0f);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Rudolph
             else if (id == CustomCreatures.rudolphId) {
                 String message = String.format("%s has appeared somewhere in the world. Santa must not be far away!.", creature.getNameWithoutPrefixes());
                 SoundPlayer.playSound(jingleSound, creature, 0f);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Snowman
             else if (id == CustomCreatures.snowmanId) {
                 SoundPlayer.playSound(jingleSound, creature, 0f);
             }
             // Dock Worker
-            else if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
+            else if (id == CustomCreatures.npcDockWorkerId) {
                 Item mallet = ItemFactory.createItem(ItemList.hammerWood, (float) RandomUtils.generateRandomDoubleInRange(60, 90), ItemMaterials.MATERIAL_WOOD_BIRCH, MiscConstants.COMMON, null);
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(mallet, true);
-                Constants.soundEmissionNpcs.add(creature);
+                soundEmissionNpcs.add(creature);
             }
             // Santa Claus
             else if (id == CreatureTemplateIds.SANTA_CLAUS) {
                 String message = String.format("HO HO HO, Merry Christmas everyone! %s has landed and is now taking up residence in %s, be sure to visit him on christmas or look under your own christmas tree to get your present.", creature.getName(), village.getName());
                 SoundPlayer.playSound(jingleSound, creature, 0f);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Horseman Conquest
             else if (id == CustomCreatures.horsemanConquestId) {
@@ -503,7 +487,7 @@ public class Hooks {
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Horseman War
             else if (id == CustomCreatures.horsemanWarId) {
@@ -513,7 +497,7 @@ public class Hooks {
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Horseman Famine
             else if (id == CustomCreatures.horsemanFamineId) {
@@ -523,7 +507,7 @@ public class Hooks {
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Horseman Death
             else if (id == CustomCreatures.horsemanDeathId) {
@@ -534,7 +518,7 @@ public class Hooks {
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
                 ChatHandler.systemMessage((Player) creature, CustomChannel.EVENTS, "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.", 255, 255, 255);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Treasure Goblin
             else if (id == CustomCreatures.treasureGoblinId) {
@@ -545,7 +529,7 @@ public class Hooks {
                 Server.getInstance().broadCastAction(String.format("%s finds a short sword and holds it in its hand.", creature.getName()), creature, 8);
                 ChatHandler.systemMessage((Player) creature, CustomChannel.EVENTS, String.format("A %s has surfaced. Be quick to catch it before someone else does!", creature.getNameWithoutPrefixes()), 242, 242, 8);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Menagerist Goblin
             else if (id == CustomCreatures.treasureGoblinMenageristGoblinId) {
@@ -555,7 +539,7 @@ public class Hooks {
                 bodyPart.getBodyPart(BodyTemplate.rightHand).insertItem(shortSword, true);
                 Server.getInstance().broadCastAction(String.format("%s finds a short sword and holds it in its hand.", creature.getName()), creature, 8);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
-                Server.getInstance().broadCastAlert(message, true, Constants.displayOnScreen);
+                Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Injured Pirate
             else if (creature.getNameWithoutPrefixes().equals("Injured Pirate")) {
@@ -636,7 +620,7 @@ public class Hooks {
     public static void removeItemHook(Communicator comm, Item item) {
         int templateId;
         templateId = item.getTemplateId();
-        if (Constants.itemRemoveLogging) {
+        if (itemRemoveLogging) {
             RequiemLogging.ItemRemovalLogging(item);
         }
         if (templateId == CustomItems.fireCrystal.getTemplateId()) {
@@ -670,7 +654,7 @@ public class Hooks {
      * @param ret  item that was removed
      */
     public static void removeFromItemHook(Item item, Item ret) {
-        if (Constants.itemRemoveLogging) {
+        if (itemRemoveLogging) {
             RequiemLogging.ItemRemovalLogging(item);
         }
         if (item.getTemplateId() == CustomItems.steelToolsBackpack.getTemplateId() && item.isEmpty(false)) {

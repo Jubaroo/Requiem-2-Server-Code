@@ -8,6 +8,8 @@ import com.wurmonline.server.creatures.CreatureTemplateFactory;
 import com.wurmonline.server.creatures.CreatureTemplateIds;
 import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.players.Titles;
+import com.wurmonline.server.sounds.SoundPlayer;
+import com.wurmonline.shared.constants.SoundNames;
 import net.bdew.wurm.tools.server.loot.LootDrop;
 import net.bdew.wurm.tools.server.loot.LootManager;
 import net.bdew.wurm.tools.server.loot.LootRule;
@@ -18,13 +20,17 @@ import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.bounty.LootBounty;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
+import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
+import org.jubaroo.mods.wurm.server.server.constants.CreatureConstants;
+import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
+import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
-import org.jubaroo.mods.wurm.server.tools.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
+import static org.jubaroo.mods.wurm.server.creatures.CustomCreatures.*;
 import static org.jubaroo.mods.wurm.server.tools.ItemTools.makeRarity;
 
 public class LootTable {
@@ -60,10 +66,10 @@ public class LootTable {
     public static void creatureDied() {
         // Uniques
         LootManager.add(LootRule.create()
-                .requireUnique()
-                .addTrigger((c, k) -> DatabaseHelper.addPlayerStat(k.getName(), "UNIQUES"))
-                // Spawn Undead Creature
-                .addSubRule(LootRule.create()
+                        .requireUnique()
+                        .addTrigger((c, k) -> DatabaseHelper.addPlayerStat(k.getName(), "UNIQUES"))
+                        // Spawn Undead Creature
+                        .addSubRule(LootRule.create()
                                 .chance(c -> c.getStatus().isChampion() ? 0.25f : 0.1f)
                                 .addTriggerOnce((c, k) -> {
                                     try {
@@ -73,39 +79,36 @@ public class LootTable {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    Server.getInstance().broadCastAlert("An undead creature is released from the underworld, seeking the soul of a powerful creature!");
+                                    Server.getInstance().broadCastAlert("An undead creature is released from the underworld to claim the soul of a powerful creature that was just slain!");
                                     LootBounty.spawnFriyanTablets(5, 10);
                                 })
-                                .commTrigger((c, comm) -> comm.sendNormalServerMessage("An undead creature is released from the underworld, seeking the soul of a powerful creature!"))
-
-                                // Tomes
-                                .addSubRule(LootRule.create()
-                                        .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
-                                        .addDrop(LootDrop.create((c, k) -> ItemList.bloodAngels + Server.rand.nextInt(16))
-                                                .rarity(MiscConstants.RARE)
-                                                .aux((byte) 2)
-                                        )
+                                .commTrigger((c, comm) -> comm.sendNormalServerMessage("An undead creature is released from the underworld to claim the soul of a powerful creature that was just slain!"))
+                        )
+                        // Tomes
+                        .addSubRule(LootRule.create()
+                                .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
+                                .addDrop(LootDrop.create((c, k) -> ItemList.bloodAngels + Server.rand.nextInt(16))
+                                        .rarity(MiscConstants.RARE)
+                                        .aux((byte) 2)
                                 )
-
-                                // Pet eggs
-                                .addSubRule(LootRule.create()
-                                        .chance(0.1f)
-                                        .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
-                                                .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
-                                        )
+                        )
+                        // Pet eggs
+                        .addSubRule(LootRule.create()
+                                .chance(0.1f)
+                                .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
+                                        .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
                                 )
-
-                                // dragon slayer trophy
-                                .addSubRule(LootRule.create()
-                                        .requireUnique()
-                                        .requireCreature(Creature::isDragon)
-                                        .addDrop(LootDrop.create(ItemList.goldChallengeStatue)
-                                                .rarity(MiscConstants.RARE)
-                                                .weight(1000)
-                                                .name((c, k) -> String.format("%s slayer trophy", c.getTemplate().getName().toLowerCase()))
-                                        ))
-                        //.addTrigger((c, k) -> k.achievement(MyAchievementIds.FRESH_DRAGON_SLAYER))
-                )
+                        )
+                        // dragon slayer trophy
+                        .addSubRule(LootRule.create()
+                                .requireUnique()
+                                .requireCreature(Creature::isDragon)
+                                .addDrop(LootDrop.create(ItemList.goldChallengeStatue)
+                                        .rarity(MiscConstants.RARE)
+                                        .weight(1000)
+                                        .name((c, k) -> String.format("%s slayer trophy", c.getTemplate().getName().toLowerCase()))
+                                ))
+                //.addTrigger((c, k) -> k.achievement(MyAchievementIds.FRESH_DRAGON_SLAYER))
         );
 
         // fire crystal fragments
@@ -119,26 +122,6 @@ public class LootTable {
                         .weight(CustomItems.lesserFireCrystal.getWeightGrams() / CustomItems.lesserFireCrystal.getFragmentAmount())
                 )
                 .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
-        );
-
-        // Rare Creatures
-        LootManager.add(
-                LootRule.create()
-                        .requireTemplateIds(CustomCreatures.spectralDragonHatchlingId, CustomCreatures.reaperId)
-                        .chance(0.5f)
-                        .addDrop(LootDrop.create(RandomUtils.randomMaterialConstructionTemplates())
-                                .ql(Server.rand.nextFloat() * 100)
-                                .repeat(3)
-                        )
-                        .chance(0.5f)
-                        .addDrop(LootDrop.create(RandomUtils.randomLumpTemplates())
-                                .repeat(5)
-                                .ql((c, k) -> (Server.rand.nextFloat() * 100))
-                        )
-                        .chance(0.5f)
-                        .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId())
-                        )
-                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
         );
 
         // Titans
@@ -179,11 +162,6 @@ public class LootTable {
                                 .addDrop(LootDrop.create(Server.rand.nextBoolean() ? ItemList.adamantineBar : ItemList.glimmerSteelBar)
                                         .ql((c, k) -> Server.rand.nextFloat() * 100)
                                 )
-                        )
-                        .addSubRule(LootRule.create()
-                                .chance(0.20f)
-                                .addTrigger((c, k) -> RandomUtils.randomMaskTemplates())
-                                .addDrop((LootDrop) RandomUtils.maskTemplates)
                         )
                         .addSubRule(LootRule.create()
                                 .chance(0.05f)
@@ -304,6 +282,12 @@ public class LootTable {
                             k.addTitle(Titles.Title.getTitle(CustomTitles.TITAN_SLAYER));
                             DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("The Titan %s has been defeated!", c.getNameWithoutPrefixes()));
                         })
+                        .addSubRule(LootRule.create()
+                                .requireCreature(Creature::isOnFire)
+                                .chance((c -> 0.01f))
+                                .addDrop(LootDrop.create(CustomItems.lesserFireCrystal.getTemplateId()))
+                                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of crystal from the corpse of %s.", c.getName())))
+                        )
         );
 
         // Ice Cat
@@ -312,598 +296,471 @@ public class LootTable {
                 .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("The frozen body of %s shatters into pieces with the final blow.", c.getName())))
         );
 
-        //TODO move 'All creatures' to the bottom when done
-        // All creatures
+        // Dock Worker
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.npcDockWorkerId)
+                .addTrigger((c, k) -> CreatureConstants.soundEmissionNpcs.remove(c))
+        );
+
+        // Skeleton
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.reanimatedSkeletonId)
+                .chance((c -> 0.01f))
+                .addDrop(LootDrop.create(ItemList.boneCollar)
+                        .rarity((c, k) -> makeRarity(50, true))
+                )
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of bone from the corpse of %s.", c.getName())))
+        );
+
+        // Zombie Leader
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.zombieLeaderId)
+                .chance((c -> 0.2f))
+                .addDrop(LootDrop.create(ItemList.boneCollar)
+                        .rarity((c, k) -> makeRarity(50, true))
+                )
+                .addDrop(LootDrop.create(ItemList.blood))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of bone from the corpse of %s.", c.getName())))
+        );
+
+        // ================================================================================
+        // =================================== Uniques ==================================
+        // ================================================================================
+
+        // White Buffalo Spirit
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.whiteBuffaloSpiritId)
+                .addDrop(LootDrop.create(ItemList.rodTransmutation))
+                .addDrop(LootDrop.create(ItemList.boneCollar)
+                        .rarity((c, k) -> makeRarity(80, true))
+                )
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addDrop(LootDrop.create(RandomUtils.randomGem(true)))
+                .addTrigger((c, k) -> {
+                    k.addTitle(Titles.Title.getTitle(CustomTitles.WHITE_BUFFALO));
+                    DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("The %s has been calmed. Rest in peace at last.", c.getNameWithoutPrefixes()));
+                })
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // Facebreyker
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.whiteBuffaloSpiritId)
+                .addDrop(LootDrop.create(CustomItems.moonCache.getTemplateId()))
+                .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId()))
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addTrigger((c, k) -> k.addTitle(Titles.Title.getTitle(CustomTitles.FACEBREYKER)))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // Kong
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.whiteBuffaloSpiritId)
+                .addDrop(LootDrop.create(CustomItems.moonCache.getTemplateId()))
+                .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId()))
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addTrigger((c, k) -> k.addTitle(Titles.Title.getTitle(CustomTitles.KING_KONG)))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // Spirit Stag
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.spiritStagId)
+                .addDrop(LootDrop.create(ItemList.rodTransmutation))
+                .addDrop(LootDrop.create(ItemList.boneCollar)
+                        .rarity((c, k) -> makeRarity(80, true))
+                )
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addDrop(LootDrop.create(RandomUtils.randomGem(true)))
+                .addTrigger((c, k) -> DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("The %s has been calmed. Rest in peace at last.", c.getNameWithoutPrefixes())))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // White Buffalo Spirit
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.tombRaiderId)
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addDrop(LootDrop.create(RandomUtils.randomGem(false)))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // ================================================================================
+        // ====================================== Rares ===================================
+        // ================================================================================
+
+        // Rare Creatures
         LootManager.add(
                 LootRule.create()
+                        .requireTemplateIds(CustomCreatures.spectralDragonHatchlingId, CustomCreatures.reaperId)
+                        .addTrigger((c, k) -> {
+                            if (c.getTemplateId() == CustomCreatures.spectralDragonHatchlingId)
+                                k.addTitle(Titles.Title.getTitle(CustomTitles.SPECTRAL));
+                        })
+                        .chance(0.5f)
+                        .addDrop(LootDrop.create(RandomUtils.randomMaterialConstructionTemplates())
+                                .ql(Server.rand.nextFloat() * 100)
+                                .repeat(3)
+                        )
+                        .chance(0.5f)
+                        .addDrop(LootDrop.create(RandomUtils.randomLumpTemplates())
+                                .repeat(5)
+                                .ql((c, k) -> (Server.rand.nextFloat() * 100))
+                        )
+                        .chance(0.5f)
+                        .addDrop(LootDrop.create(CustomItems.riftCache.getTemplateId())
+                        )
+                        .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of fragment from the corpse of %s.", c.getName())))
+        );
+
+        // ================================================================================
+        // =================================== Taxidermy ==================================
+        // ================================================================================
+
+        // Black Bear
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.BEAR_BLACK_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.blackBearTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+                .chance((c -> 0.01f))
+                .addDrop(LootDrop.create(CustomItems.blackBearTaxidermyBody.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged body from the corpse of %s.", c.getName())))
+        );
+
+        // Brown Bear
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.BEAR_BLACK_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.brownBearTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Bison
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.BISON_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.bisonTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Deer
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.DEER_CID)
+                .requireCreature(Creature::isNotFemale)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.stagTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Wild Cat
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.CAT_WILD_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.wildcatTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Hell Hound
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.HELL_HOUND_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.hellHoundTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Mountain Lion
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.LION_MOUNTAIN_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.lionTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Hyena
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.hyenaId)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.hyenaTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Large Boar
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.largeBoarId)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.boarTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Large Boar
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.largeBoarId)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.boarTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Black Wolf
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.WOLF_BLACK_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.wolfTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // Worg
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CreatureTemplateIds.WORG_CID)
+                .chance((c -> 0.075f))
+                .addDrop(LootDrop.create(CustomItems.worgTaxidermyHead.getTemplateId()))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You manage to salvage an undamaged head from the corpse of %s.", c.getName())))
+        );
+
+        // ================================================================================
+        // =================================== Halloween ==================================
+        // ================================================================================
+
+        // All Monsters and Undead During Halloween
+        if (Holidays.isRequiemHalloween() && !ToggleConstants.disableHolidayCreatures) {
+            LootManager.add(LootRule.create()
+                    .requireCreature((c -> c.isUndead() || c.isMonster()))
+                    .chance((c -> 0.15f))
+                    .addDrop(LootDrop.create(ItemList.sweet)
+                            .ql(RandomUtils.getRandomQl(1f, 99f)))
+                    .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find a sweet on the corpse of %s.", c.getName())))
+            );
+        }
+
+        // =======================================================================================
+        // ===================================== Christmas =======================================
+        // =======================================================================================
+
+        // All Christmas Creatures During Christmas
+        if (Holidays.isRequiemChristmas() && !ToggleConstants.disableHolidayCreatures) {
+            LootManager.add(LootRule.create()
+                    .requireCreature((MethodsBestiary::isChristmasMob))
+                    .chance((c -> 0.15f))
+                    .addDrop(LootDrop.create(ItemList.sweet)
+                            .ql(RandomUtils.getRandomQl(1f, 99f)))
+                    .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find a sweet on the corpse of %s.", c.getName())))
+                    .chance((c -> 0.01f))
+                    .addDrop(LootDrop.create(ItemList.saddleBagsXmas)
+                            .ql(RandomUtils.getRandomQl(1f, 99f))
+                            .rarity(RandomUtils.randomRarity(25, false)))
+                    .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find a sweet on the corpse of %s.", c.getName())))
+            );
+        }
+
+        // Grinch
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.grinchId)
+                .addDrop(LootDrop.create(ItemList.snowLantern))
+                .addDrop(LootDrop.create(ItemList.boneCollar)
+                        .rarity((c, k) -> makeRarity(75, true))
+                )
+                .addDrop(LootDrop.create(CustomItems.treasureMapCache.getTemplateId()))
+                .addDrop(LootDrop.create(ItemList.snowLantern))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find some useful things on the corpse of %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // Snowman
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.snowmanId)
+                .chance((c -> 0.3f))
+                .addDrop(LootDrop.create(ItemList.carrot)
+                        .ql(RandomUtils.getRandomQl(1f, 99f))
+                )
+                .chance((c -> 0.6f))
+                .addDrop(LootDrop.create(ItemList.branch)
+                        .ql(RandomUtils.getRandomQl(1f, 99f))
+                )
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find a carrot and branch in the puddle that is left from the %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // =======================================================================================
+        // ================================== Rare Creatures =====================================
+        // =======================================================================================
+
+        // Reaper
+        LootManager.add(LootRule.create()
+                .requireCreature(MethodsBestiary::isRareCreature)
+                .addTrigger((c, k) -> Server.getInstance().broadCastAlert(String.format("The rare %s has been slain. A new rare creature may enter the realm soon.", c.getNameWithoutPrefixes())))
+        );
+
+        // =======================================================================================
+        // ====================================== Titans =========================================
+        // =======================================================================================
+
+        LootManager.add(LootRule.create()
+                .requireUnique()
+                // Tomes
+                .addSubRule(LootRule.create()
+                        .chance(c -> c.getStatus().isChampion() ? 0.33f : 0.1f)
+                        .addDrop(LootDrop.create((c, k) -> ItemList.bloodAngels + Server.rand.nextInt(16))
+                                .rarity(MiscConstants.RARE)
+                                .aux((byte) 2)
+                        )
+                )
+                // Pet eggs
+                .addSubRule(LootRule.create()
+                        .chance(0.1f)
+                        .addDrop(LootDrop.create(IdFactory.getIdFor("bdew.pets.egg", IdType.ITEMTEMPLATE))
+                                .rarity((c, k) -> Server.rand.nextInt(3) == 0 ? MiscConstants.FANTASTIC : MiscConstants.RARE)
+                        )
+                )
+        );
+
+        // =======================================================================================
+        // ====================================== Events =========================================
+        // =======================================================================================
+
+        // Injured Pirate
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(CustomCreatures.injuredPirateId)
+                .addDrop(LootDrop.create(CustomItems.treasureHuntChestId))
+                .addTrigger((c, k) -> SoundPlayer.playSound(SoundNames.EMOTE_INSULT_SND, c, 0f))
+                .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You find a a treasure chest hidden near the corpse of the %s.", c.getNameWithoutPrefixes())))
+        );
+
+        // =======================================================================================
+        // =================================== Spawn on Death ====================================
+        // =======================================================================================
+
+        // Golem
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(golemId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnGolemlings(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Blob
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(blobId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnBloblings(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Prismatic Blob
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(prismaticBlobId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnPrismaticBloblings(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Great White Buffalo
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(whiteBuffaloId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnBuffaloSpirit(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Mimic
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(mimicChestId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnMimic(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Horseman Conquest
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(horsemanConquestId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnHorsemanWar(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Horseman War
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(horsemanWarId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnHorsemanFamine(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // Horseman Famine
+        LootManager.add(LootRule.create()
+                .requireTemplateIds(horsemanFamineId)
+                .addSubRule(LootRule.create()
+                        .addTriggerOnce((c, k) -> {
+                            try {
+                                CreatureSpawns.spawnHorsemanDeath(c);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                )
+        );
+
+        // =======================================================================================
+        // ====================================== All Creatures ==================================
+        // =======================================================================================
+
+        LootManager.add(
+                LootRule.create()
+                        .addTrigger((c, k) -> {
+                            if (LoggingConstants.creatureDeathLogging)
+                                RequiemLogging.CreatureDeathLogging(c);
+                        })
                         .chance(0.01f)
                         .addSubRule(LootRule.create()
                                 .addDrop(LootDrop.create(CustomItems.scrollOfVillageCreation.getTemplateId())))
                         .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
-                        .chance(3f)
+                        .chance(0.01f)
                         .addSubRule(LootRule.create()
                                 .addDrop(LootDrop.create(CustomItems.scrollOfVillageWar.getTemplateId())))
                         .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
-                        .chance(3f)
+                        .chance(0.01f)
                         .addSubRule(LootRule.create()
                                 .addDrop(LootDrop.create(CustomItems.scrollOfVillageHeal.getTemplateId())))
                         .commTrigger((c, comm) -> comm.sendNormalServerMessage(String.format("You grab some kind of scroll from the corpse of %s.", c.getName())))
-                        .addTrigger((c, k) -> {
-                            if (Constants.creatureDeathLogging)
-                                RequiemLogging.CreatureDeathLogging(c);
-                        })
         );
-
     }
 
-
-
-    /*
-    public static void creatureDied(Creature creature, Map<Long, Long> attackers) {
-        long now = System.currentTimeMillis();
-        Set<Player> killers = attackers.entrySet().stream()
-                .filter(e -> now - e.getValue() < (TimeConstants.MINUTE_MILLIS * 10) && WurmId.getType(e.getKey()) == 0)
-                .flatMap(e -> streamOfNullable(Players.getInstance().getPlayerOrNull(e.getKey())))
-                .collect(Collectors.toSet());
-
-        if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
-            Constants.soundEmissionNpcs.remove(creature);
-        }
-
-        if (!Constants.disableCreatureLoot) {
-            try {
-
-
-                if (templateId == CustomCreatures.reanimatedSkeletonId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(150) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                            if (killer.hasLink()) {
-                                killer.getCommunicator().sendNormalServerMessage(String.format("You grab a strange bone from the corpse of the %s.", creature.getNameWithoutPrefixes()));
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.blackKnightId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.lesserFireCrystal.getTemplateId(), 99f, ItemMaterials.MATERIAL_CRYSTAL, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (creature.isOnFire()) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            if (Server.rand.nextInt(50) == 11) {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.lesserFireCrystal.getTemplateId(), 99f, ItemMaterials.MATERIAL_CRYSTAL, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                                killer.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                            }
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.whiteBuffaloSpiritId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(ItemList.rodTransmutation, 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 99f, Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.blood, 99f, null), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                            killer.addTitle(Titles.Title.getTitle(CustomTitles.WHITE_BUFFALO));
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some sort of crystal from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.facebreykerId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureMapCache.getTemplateId(), 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.moonCache.getTemplateId(), 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.riftCache.getTemplateId(), 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some shiny caches from the corpse of %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.kongId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                            killer.addTitle(Titles.Title.getTitle(CustomTitles.KING_KONG));
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You find an affinity orb the corpse of %s!", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.zombieLeaderId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 99f, Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.blood, 99f, null), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some loot from the corpse of the %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.spiritStagId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 99f, Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(ItemList.blood, 99f, null), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some loot from the corpse of the %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.tombRaiderId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        try {
-                            inv.insertItem(ItemFactory.createItem(CustomItems.gemCache.getTemplateId(), 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), creature.getNameWithoutPrefixes()), true);
-                            inv.insertItem(ItemFactory.createItem(CustomItems.treasureMapCache.getTemplateId(), 99f, MiscConstants.COMMON, creature.getNameWithoutPrefixes()), true);
-                        } catch (FailedException | NoSuchTemplateException e) {
-                            RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                        }
-                        if (killer.hasLink()) {
-                            killer.getCommunicator().sendNormalServerMessage(String.format("You grab some loot from the corpse of the %s.", creature.getNameWithoutPrefixes()));
-                        }
-                    });
-                }
-
-                //if (templateId == CustomCreatures.spectralDragonHatchlingId) {
-                //    killers.forEach(killer -> {
-                //        killer.addTitle(Titles.Title.SPECTRAL);
-                //    });
-                //}
-                // ================================================================================
-                // =================================== Taxidermy ==================================
-                // ================================================================================
-                if (templateId == CreatureTemplateIds.BEAR_BLACK_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        switch (Server.rand.nextInt(taxidermyChance)) {
-                            case 0:
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(CustomItems.blackBearTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                                }
-                                break;
-                            case 1:
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(CustomItems.blackBearTaxidermyBody.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                                }
-                                break;
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.BEAR_BROWN_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.brownBearTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.BISON_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.bisonTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.DEER_CID) {
-                    killers.forEach(killer -> {
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            if (creature.isNotFemale()) {
-                                Item inv = killer.getInventory();
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(CustomItems.stagTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                                }
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.CAT_WILD_CID) {
-                    killers.forEach(killer -> {
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                Item inv = killer.getInventory();
-                                inv.insertItem(ItemFactory.createItem(CustomItems.wildcatTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.HELL_HOUND_CID) {
-                    killers.forEach(killer -> {
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                Item inv = killer.getInventory();
-                                inv.insertItem(ItemFactory.createItem(CustomItems.hellHoundTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.LION_MOUNTAIN_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.lionTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.hyenaId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.hyenaTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CustomCreatures.largeBoarId) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.boarTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.WOLF_BLACK_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.wolfTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                if (templateId == CreatureTemplateIds.WORG_CID) {
-                    killers.forEach(killer -> {
-                        Item inv = killer.getInventory();
-                        if (Server.rand.nextInt(taxidermyChance) == 0) {
-                            try {
-                                inv.insertItem(ItemFactory.createItem(CustomItems.worgTaxidermyHead.getTemplateId(), 1f + ((98f) * Server.rand.nextFloat()), Materials.MATERIAL_ANIMAL, (byte) 0, null), true);
-                            } catch (FailedException | NoSuchTemplateException e) {
-                                RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                            }
-                        }
-                    });
-                }
-
-                // =======================================================================================
-                // =================================== Halloween Stuff ===================================
-                // =======================================================================================
-                int partsChance = 10;
-                if (Holidays.isRequiemHalloween()) {
-                    if (creature.isUndead() || creature.isMonster()) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            if (Server.rand.nextInt(candyChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException(String.format("Error in %s loot", creature.getNameWithoutPrefixes()), e);
-                                }
-                            }
-                        });
-                    }
-
-                    if (templateId == CustomCreatures.scaryPumpkinId) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            switch (Server.rand.nextInt(partsChance)) {
-                                case 0:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.pumpkin, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in scary pumpkin loot, pumpkin", e);
-                                    }
-                                    break;
-                                case 1:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.pumpkinSeed, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in scary pumpkin loot, seed", e);
-                                    }
-                                    break;
-                                case 2:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.pumpkinHalloween, 20f + ((79.9f) * Server.rand.nextFloat()), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in pumpkin loot, carved", e);
-                                    }
-                                    break;
-                            }
-                            if (Server.rand.nextInt(boneChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, bone collar, pumpkin", e);
-                                }
-                            }
-                            if (Server.rand.nextInt(shoulderChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.shoulderPumpkinHalloween, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, shoulder", e);
-                                }
-                            }
-                            if (Server.rand.nextInt(maskChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.maskTrollHalloween, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, mask", e);
-                                }
-                            }
-                        });
-                    }
-
-                    if (templateId == CustomCreatures.ominousTreeId) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            switch (Server.rand.nextInt(partsChance)) {
-                                case 0:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.branch, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_WOOD_BIRCH, (byte) 0, null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in halloween loot, tree branch", e);
-                                    }
-                                    break;
-                                case 1:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.log, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_WOOD_BIRCH, (byte) 0, null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in halloween loot, log", e);
-                                    }
-                                    break;
-                                case 2:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.acorn, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_WOOD_BIRCH, (byte) 0, null), true);
-                                        inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in halloween loot, acorn", e);
-                                    }
-                                    break;
-                            }
-                            if (Server.rand.nextInt(boneChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, bone collar, tree", e);
-                                }
-                            }
-                            if (Server.rand.nextInt(shoulderChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.shoulderPumpkinHalloween, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, shoulder", e);
-                                }
-                            }
-                            if (Server.rand.nextInt(maskChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.maskTrollHalloween, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in halloween loot, mask", e);
-                                }
-                            }
-                        });
-                    }
-                }
-
-                // =======================================================================================
-                // =================================== Christmas Stuff ===================================
-                // =======================================================================================
-                if (Holidays.isRequiemChristmas()) {
-                    if (MethodsBestiary.isChristmasMob(creature)) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            if (Server.rand.nextInt(xmasChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.saddleBagsXmas, 99f, Materials.MATERIAL_LEATHER, (byte) (Server.rand.nextInt(3)), null), true);
-                                    inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in christmas loot, saddlebags", e);
-                                }
-                            }
-                        });
-                    }
-
-                    if (templateId == CustomCreatures.sinisterSantaId) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            if (Server.rand.nextInt(xmasHat) == 0) {
-                                try {
-                                    Item santaHat = ItemFactory.createItem(ItemList.santaHat, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_COTTON, MiscConstants.COMMON, null);
-                                    santaHat.setColor(WurmColor.createColor(255, 0, 0));
-                                    santaHat.setColor2(WurmColor.createColor(0, 0, 0));
-                                    inv.insertItem(santaHat, true);
-                                    inv.insertItem(ItemFactory.createItem(ItemList.sweet, 10f + (Server.rand.nextFloat() * 89.9f), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in christmas loot, evil santa", e);
-                                }
-                            }
-                        });
-                    }
-
-                    if (templateId == CustomCreatures.grinchId) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            switch (Server.rand.nextInt(partsChance)) {
-                                case 0:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.snowLantern, 99f, Materials.MATERIAL_WOOD_BIRCH, (byte) 0, null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in christmas loot, grinch, lantern", e);
-                                    }
-                                    break;
-                                case 1:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(ItemList.boneCollar, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_BONE, (byte) 1, creature.getNameWithoutPrefixes()), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in christmas loot, grinch, log", e);
-                                    }
-                                    break;
-                                case 2:
-                                    try {
-                                        inv.insertItem(ItemFactory.createItem(CustomItems.treasureBoxId, 50f + (Server.rand.nextFloat() * 49.9f), Materials.MATERIAL_GOLD, (byte) (Server.rand.nextInt(3)), null), true);
-                                    } catch (FailedException | NoSuchTemplateException e) {
-                                        RequiemLogging.logException("Error in christmas loot, grinch, acorn", e);
-                                    }
-                                    break;
-                            }
-                        });
-                    }
-
-                    if (templateId == CustomCreatures.snowmanId) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            if (Server.rand.nextInt(partsChance) == 0) {
-                                try {
-                                    inv.insertItem(ItemFactory.createItem(ItemList.carrot, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_VEGETARIAN, (byte) 0, null), true);
-                                    inv.insertItem(ItemFactory.createItem(ItemList.branch, 1f + ((99.9f) * Server.rand.nextFloat()), Materials.MATERIAL_WOOD_BIRCH, (byte) 0, null), true);
-                                } catch (FailedException | NoSuchTemplateException e) {
-                                    RequiemLogging.logException("Error in christmas loot, snowman", e);
-                                }
-                            }
-                        });
-                    }
-                }
-                if (templateId == CustomCreatures.reaperId || templateId == CustomCreatures.spectralDragonHatchlingId) {
-                    Server.getInstance().broadCastAlert(String.format("The %s has been slain. A new creature shall enter the realm shortly.", creature.getNameWithoutPrefixes()));
-                    sendLootHelp = true;
-                } else if (Titans.isTitan(creature)) {
-                    DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("The Titan %s has been defeated!", creature.getNameWithoutPrefixes()));
-                    Item armour = ItemTools.createRandomPlateChain(50f, 80f, Materials.MATERIAL_SERYLL, creature.getNameWithoutPrefixes());
-                    if (armour != null) {
-                        killers.forEach(killer -> {
-                            Item inv = killer.getInventory();
-                            if (Server.rand.nextInt(partsChance) == 0) {
-                                ItemTools.applyEnchant(armour, (byte) 110, 80f + (Server.rand.nextInt(40))); // Harden
-                                inv.insertItem(armour, true);
-                                Titans.removeTitan(creature);
-                            }
-                        });
-                        sendLootHelp = true;
-                    }
-                }
-
-                if (templateId == CustomCreatures.reaperId || templateId == CustomCreatures.spectralDragonHatchlingId) {
-                    Server.getInstance().broadCastAlert(String.format("The %s has been slain. A new creature shall enter the realm shortly.", creature.getNameWithoutPrefixes()));
-                    sendLootHelp = true;
-                }
-
-                if (templateId == CustomCreatures.injuredPirateId) {
-                    try {
-                        ItemFactory.createItem(CustomItems.treasureHuntChestId, 99f, (float) 1478 * 4, (float) 928 * 4, Server.rand.nextFloat() * 360f, false, (byte) 3, -10, "Tarbeard the Terrible");
-                        //ChatTabs.sendLocalChat(creature, "Curse ye to Hell and back again for taking my treasure!", 1, 220, 1);
-                        SoundPlayer.playSound(SoundNames.EMOTE_INSULT_SND, creature, 0f);
-                    } catch (NoSuchTemplateException | FailedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                CreatureSpawns.creatureSpawnOnDeath(creature);
-
-                if (Constants.creatureDeathLogging) {
-                    RequiemLogging.CreatureDeathLogging(creature);
-                }
-            } catch (Exception e) {
-                RequiemLogging.logException(String.format("Error in %s", LootTable.class.getName()), e);
-            }
-        }
-    }
-*/
 }

@@ -7,12 +7,19 @@ import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.PlayerInfoFactory;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.io.IOException;
 import java.util.logging.Level;
+
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.*;
 
 public class RequiemLogging {
 
@@ -33,7 +40,7 @@ public class RequiemLogging {
 
     public static void debug(String msg) {
         if (Requiem.logger != null) {
-            if (Constants.debug) {
+            if (LoggingConstants.debug) {
                 logInfo(msg);
             }
         }
@@ -42,337 +49,337 @@ public class RequiemLogging {
     public static void RequiemLoggingMessages() {
         // ========================= Logger Messages ==============================
         // ============================ Actions ================================
-        if (Constants.addGmProtect) {
-            debug("Add GM Protect Action: Enabled");
+        if (addGmProtect) {
+            RequiemLogging.logInfo("Add GM Protect Action: Enabled");
         } else {
-            debug("Add GM Protect Action: Disabled");
+            RequiemLogging.logInfo("Add GM Protect Action: Disabled");
         }
-        if (Constants.addGmUnprotect) {
-            debug("Add GM Unprotect Action: Enabled");
+        if (addGmUnprotect) {
+            RequiemLogging.logInfo("Add GM Unprotect Action: Enabled");
         } else {
-            debug("Add GM Unprotect Action: Disabled");
+            RequiemLogging.logInfo("Add GM Unprotect Action: Disabled");
         }
-        if (Constants.addSpawnGuard) {
-            debug("Add Spawn Guard Action: Enabled");
+        if (addSpawnGuard) {
+            RequiemLogging.logInfo("Add Spawn Guard Action: Enabled");
         } else {
-            debug("Add Spawn Guard Action: Disabled");
+            RequiemLogging.logInfo("Add Spawn Guard Action: Disabled");
         }
-        if (Constants.searchDens) {
-            debug("Searching Dens/Lairs Action: Enabled");
+        if (searchDens) {
+            RequiemLogging.logInfo("Searching Dens/Lairs Action: Enabled");
         } else {
-            debug("Searching Dens/Lairs Action: Disabled");
+            RequiemLogging.logInfo("Searching Dens/Lairs Action: Disabled");
         }
-        if (Constants.addLabyrinth) {
-            debug("Add Labyrinth Action: Enabled");
+        if (addLabyrinth) {
+            RequiemLogging.logInfo("Add Labyrinth Action: Enabled");
         } else {
-            debug("Add Labyrinth Action: Disabled");
+            RequiemLogging.logInfo("Add Labyrinth Action: Disabled");
         }
-        if (Constants.terrainSmoothing) {
-            debug("Automatic Terrain Smoothing Action: Enabled");
+        if (terrainSmoothing) {
+            RequiemLogging.logInfo("Automatic Terrain Smoothing Action: Enabled");
         } else {
-            debug("Automatic Terrain Smoothing Action: Disabled");
+            RequiemLogging.logInfo("Automatic Terrain Smoothing Action: Disabled");
         }
         // ========================== GM Changes ===========================
-        if (Constants.gmFullFavor) {
-            debug("GM Full Favor: Enabled");
+        if (gmFullFavor) {
+            RequiemLogging.logInfo("GM Full Favor: Enabled");
         } else {
-            debug("GM Full Favor: Disabled");
+            RequiemLogging.logInfo("GM Full Favor: Disabled");
         }
-        if (Constants.gmFullStamina) {
-            debug("GM Full Stamina: Enabled");
+        if (gmFullStamina) {
+            RequiemLogging.logInfo("GM Full Stamina: Enabled");
         } else {
-            debug("GM Full Stamina: Disabled");
+            RequiemLogging.logInfo("GM Full Stamina: Disabled");
         }
-        if (Constants.addCommands) {
-            debug("Add Commands: Enabled");
+        if (addCommands) {
+            RequiemLogging.logInfo("Add Commands: Enabled");
         } else {
-            debug("Add Commands: Disabled");
+            RequiemLogging.logInfo("Add Commands: Disabled");
         }
         // ========================== Items ===========================
-        if (Constants.itemHolyBook) {
-            debug("Holy Book: Enabled");
-            debug(String.format("Holy Book ID: %d", CustomItems.prayerBookId));
+        if (itemHolyBook) {
+            RequiemLogging.logInfo("Holy Book: Enabled");
+            RequiemLogging.logInfo(String.format("Holy Book ID: %d", CustomItems.prayerBookId));
         } else {
-            debug("Holy Book: Disabled");
+            RequiemLogging.logInfo("Holy Book: Disabled");
         }
-        if (Constants.itemNymphPortal) {
-            debug("NymphPortal: Enabled");
-            debug(String.format("Nymph Portal ID: %d", CustomItems.nymphPortal.getTemplateId()));
-            debug(String.format("Nymph Portal Home ID: %d", CustomItems.nymphHomePortal.getTemplateId()));
+        if (itemNymphPortal) {
+            RequiemLogging.logInfo("NymphPortal: Enabled");
+            RequiemLogging.logInfo(String.format("Nymph Portal ID: %d", CustomItems.nymphPortal.getTemplateId()));
+            RequiemLogging.logInfo(String.format("Nymph Portal Home ID: %d", CustomItems.nymphHomePortal.getTemplateId()));
         } else {
-            debug("NymphPortal: Disabled");
+            RequiemLogging.logInfo("NymphPortal: Disabled");
         }
-        if (Constants.itemDemonPortal) {
-            debug("DemonPortal: Enabled");
-            debug(String.format("Demon Portal ID: %d", CustomItems.demonPortal.getTemplateId()));
-            debug(String.format("Demon Portal Home ID: %d", CustomItems.demonHomePortal.getTemplateId()));
+        if (itemDemonPortal) {
+            RequiemLogging.logInfo("DemonPortal: Enabled");
+            RequiemLogging.logInfo(String.format("Demon Portal ID: %d", CustomItems.demonPortal.getTemplateId()));
+            RequiemLogging.logInfo(String.format("Demon Portal Home ID: %d", CustomItems.demonHomePortal.getTemplateId()));
         } else {
-            debug("DemonPortal: Disabled");
+            RequiemLogging.logInfo("DemonPortal: Disabled");
         }
-        if (Constants.enableDepots) {
-            debug("Depots: Enabled");
+        if (enableDepots) {
+            RequiemLogging.logInfo("Depots: Enabled");
         } else {
-            debug("Depots: Disabled");
+            RequiemLogging.logInfo("Depots: Disabled");
         }
-        debug(String.format("Elemental Crystal Creation Damage: %d", Constants.itemCrystalCreationDamage));
+        RequiemLogging.logInfo(String.format("Elemental Crystal Creation Damage: %d", itemCrystalCreationDamage));
         // ========================== Creatures ===========================
-        if (Constants.setUnicornIsHorse) {
-            debug("set Unicorn Is Horse: Enabled");
+        if (setUnicornIsHorse) {
+            RequiemLogging.logInfo("set Unicorn Is Horse: Enabled");
         } else {
-            debug("set Unicorn Is Horse: Disabled");
+            RequiemLogging.logInfo("set Unicorn Is Horse: Disabled");
         }
-        if (Constants.animals) {
-            debug("Animals: Enabled");
+        if (animals) {
+            RequiemLogging.logInfo("Animals: Enabled");
         } else {
-            debug("Animals: Disabled");
+            RequiemLogging.logInfo("Animals: Disabled");
         }
-        if (Constants.customMounts) {
-            debug("Custom Mounts: Enabled");
+        if (customMounts) {
+            RequiemLogging.logInfo("Custom Mounts: Enabled");
         } else {
-            debug("Custom Mounts: Disabled");
+            RequiemLogging.logInfo("Custom Mounts: Disabled");
         }
-        if (Constants.farmAnimals) {
-            debug("Farm Animals: Enabled");
+        if (farmAnimals) {
+            RequiemLogging.logInfo("Farm Animals: Enabled");
         } else {
-            debug("Farm Animals: Disabled");
+            RequiemLogging.logInfo("Farm Animals: Disabled");
         }
         //if (Misc.isRequiemChristmas() | Misc.isRequiemChristmasEnd()()) {
-        //    Requiem.debug("Christmas Mobs And Loot: Enabled");
+        //    Requiem.RequiemLogging.logInfo("Christmas Mobs And Loot: Enabled");
         //} else {
-        //    Requiem.debug("Christmas Mobs And Loot: Disabled");
+        //    Requiem.RequiemLogging.logInfo("Christmas Mobs And Loot: Disabled");
         //}
         //if (Misc.isRequiemHalloween()) {
-        //    Requiem.debug("Halloween Mobs And Loot: Enabled");
+        //    Requiem.RequiemLogging.logInfo("Halloween Mobs And Loot: Enabled");
         //} else {
-        //    Requiem.debug("Halloween Mobs And Loot: Disabled");
+        //    Requiem.RequiemLogging.logInfo("Halloween Mobs And Loot: Disabled");
         //}
-        if (Constants.milkWhales) {
-            debug("Domesticate Whales For Milking: Enabled");
+        if (milkWhales) {
+            RequiemLogging.logInfo("Domesticate Whales For Milking: Enabled");
         } else {
-            debug("Domesticate Whales For Milking: Disabled");
+            RequiemLogging.logInfo("Domesticate Whales For Milking: Disabled");
         }
-        if (Constants.monsters) {
-            debug("Monsters: Enabled");
+        if (monsters) {
+            RequiemLogging.logInfo("Monsters: Enabled");
         } else {
-            debug("Monsters: Disabled");
+            RequiemLogging.logInfo("Monsters: Disabled");
         }
-        if (Constants.npc) {
-            debug("NPCs: Enabled");
+        if (npc) {
+            RequiemLogging.logInfo("NPCs: Enabled");
         } else {
-            debug("NPCs: Disabled");
+            RequiemLogging.logInfo("NPCs: Disabled");
         }
-        if (Constants.titans) {
-            debug("Titans: Enabled");
+        if (titans) {
+            RequiemLogging.logInfo("Titans: Enabled");
         } else {
-            debug("Titans: Disabled");
+            RequiemLogging.logInfo("Titans: Disabled");
         }
-        if (Constants.humans) {
-            debug("Humans: Enabled");
+        if (humans) {
+            RequiemLogging.logInfo("Humans: Enabled");
         } else {
-            debug("Humans: Disabled");
+            RequiemLogging.logInfo("Humans: Disabled");
         }
-        if (Constants.uniques) {
-            debug("Uniques: Enabled");
+        if (uniques) {
+            RequiemLogging.logInfo("Uniques: Enabled");
         } else {
-            debug("Uniques: Disabled");
+            RequiemLogging.logInfo("Uniques: Disabled");
         }
-        if (Constants.undead) {
-            debug("Undead: Enabled");
+        if (undead) {
+            RequiemLogging.logInfo("Undead: Enabled");
         } else {
-            debug("Undead: Disabled");
+            RequiemLogging.logInfo("Undead: Disabled");
         }
-        if (Constants.wyverns) {
-            debug("Wyverns: Enabled");
+        if (wyverns) {
+            RequiemLogging.logInfo("Wyverns: Enabled");
         } else {
-            debug("Wyverns: Disabled");
+            RequiemLogging.logInfo("Wyverns: Disabled");
         }
         // ========================== Halloween ===========================
-        //if (Constants.halloweenMobs) {
-        //    Requiem.debug("Halloween Mobs: Enabled");
-        //} else {
-        //    Requiem.debug("Halloween Mobs: Disabled");
-        //}
-        // ========================== Christmas ===========================
-        if (Constants.christmasMobs) {
-            debug("Christmas Mobs: Enabled");
+        if (halloweenMobs) {
+            RequiemLogging.logInfo("Halloween Mobs: Enabled");
         } else {
-            debug("Christmas Mobs: Disabled");
+            RequiemLogging.logInfo("Halloween Mobs: Disabled");
+        }
+        // ========================== Christmas ===========================
+        if (christmasMobs) {
+            RequiemLogging.logInfo("Christmas Mobs: Enabled");
+        } else {
+            RequiemLogging.logInfo("Christmas Mobs: Disabled");
         }
         // ========================== Spells ===========================
-        debug(String.format("No Cooldown On These Spells: %s", Constants.noCooldownSpells));
+        RequiemLogging.logInfo(String.format("No Cooldown On These Spells: %s", noCooldownSpells));
         // ========================== Other ===========================
-        if (Constants.stfuNpcs) {
-            debug("Stfu Npcs: Enabled");
+        if (stfuNpcs) {
+            RequiemLogging.logInfo("Stfu Npcs: Enabled");
         } else {
-            debug("Stfu Npcs: Disabled");
+            RequiemLogging.logInfo("Stfu Npcs: Disabled");
         }
-        if (Constants.loadFullContainers) {
-            debug("Load Full Containers: Enabled");
+        if (loadFullContainers) {
+            RequiemLogging.logInfo("Load Full Containers: Enabled");
         } else {
-            debug("Load Full Containers: Disabled");
+            RequiemLogging.logInfo("Load Full Containers: Disabled");
         }
-        if (Constants.noMineDrift) {
-            debug("No Mine Drift: Enabled");
+        if (noMineDrift) {
+            RequiemLogging.logInfo("No Mine Drift: Enabled");
         } else {
-            debug("No Mine Drift: Disabled");
+            RequiemLogging.logInfo("No Mine Drift: Disabled");
         }
-        if (Constants.lampsAutoLight) {
-            debug("Lamps Auto Light: Enabled");
+        if (lampsAutoLight) {
+            RequiemLogging.logInfo("Lamps Auto Light: Enabled");
         } else {
-            debug("Lamps Auto Light: Disabled");
+            RequiemLogging.logInfo("Lamps Auto Light: Disabled");
         }
-        if (Constants.allowTentsOnDeed) {
-            debug("Allow Tents On Deed: Enabled");
+        if (allowTentsOnDeed) {
+            RequiemLogging.logInfo("Allow Tents On Deed: Enabled");
         } else {
-            debug("Allow Tents On Deed: Disabled");
+            RequiemLogging.logInfo("Allow Tents On Deed: Disabled");
         }
-        if (Constants.allSurfaceMine) {
-            debug("All Surface Mine: Enabled");
+        if (allSurfaceMine) {
+            RequiemLogging.logInfo("All Surface Mine: Enabled");
         } else {
-            debug("All Surface Mine: Disabled");
+            RequiemLogging.logInfo("All Surface Mine: Disabled");
         }
-        if (Constants.hidePlayerGodInscriptions) {
-            debug("Hide Player God Inscriptions: Enabled");
+        if (hidePlayerGodInscriptions) {
+            RequiemLogging.logInfo("Hide Player God Inscriptions: Enabled");
         } else {
-            debug("Hide Player God Inscriptions: Disabled");
+            RequiemLogging.logInfo("Hide Player God Inscriptions: Disabled");
         }
         // ========================== Mission Items ===========================
-        if (Constants.addMissionItems) {
-            debug("Add Mission Items: Enabled");
+        if (addMissionItems) {
+            RequiemLogging.logInfo("Add Mission Items: Enabled");
         } else {
-            debug("Add Mission Items: Disabled");
+            RequiemLogging.logInfo("Add Mission Items: Disabled");
         }
-        if (Constants.coins) {
-            debug("Coins: Enabled");
+        if (coins) {
+            RequiemLogging.logInfo("Coins: Enabled");
         } else {
-            debug("Coins: Disabled");
+            RequiemLogging.logInfo("Coins: Disabled");
         }
-        if (Constants.riftItems) {
-            debug("Rift Items: Enabled");
+        if (riftItems) {
+            RequiemLogging.logInfo("Rift Items: Enabled");
         } else {
-            debug("Rift Items: Disabled");
+            RequiemLogging.logInfo("Rift Items: Disabled");
         }
-        if (Constants.miscItems) {
-            debug("Misc Items: Enabled");
+        if (miscItems) {
+            RequiemLogging.logInfo("Misc Items: Enabled");
         } else {
-            debug("Misc Items: Disabled");
+            RequiemLogging.logInfo("Misc Items: Disabled");
         }
-        if (Constants.metalLumps) {
-            debug("Metal Lumps: Enabled");
+        if (metalLumps) {
+            RequiemLogging.logInfo("Metal Lumps: Enabled");
         } else {
-            debug("Metal Lumps: Disabled");
+            RequiemLogging.logInfo("Metal Lumps: Disabled");
         }
-        if (Constants.metalOres) {
-            debug("Metal Ores: Enabled");
+        if (metalOres) {
+            RequiemLogging.logInfo("Metal Ores: Enabled");
         } else {
-            debug("Metal Ores: Disabled");
+            RequiemLogging.logInfo("Metal Ores: Disabled");
         }
-        if (Constants.gems) {
-            debug("Gems: Enabled");
+        if (gems) {
+            RequiemLogging.logInfo("Gems: Enabled");
         } else {
-            debug("Gems: Disabled");
+            RequiemLogging.logInfo("Gems: Disabled");
         }
-        if (Constants.potionsSalvesOils) {
-            debug("Potions, Salves, And Oils: Enabled");
+        if (potionsSalvesOils) {
+            RequiemLogging.logInfo("Potions, Salves, And Oils: Enabled");
         } else {
-            debug("Potions, Salves, And Oils: Disabled");
+            RequiemLogging.logInfo("Potions, Salves, And Oils: Disabled");
         }
-        if (Constants.mineDoors) {
-            debug("Mine Doors: Enabled");
+        if (mineDoors) {
+            RequiemLogging.logInfo("Mine Doors: Enabled");
         } else {
-            debug("Mine Doors: Disabled");
+            RequiemLogging.logInfo("Mine Doors: Disabled");
         }
-        if (Constants.mirrors) {
-            debug("Mirrors: Enabled");
+        if (mirrors) {
+            RequiemLogging.logInfo("Mirrors: Enabled");
         } else {
-            debug("Mirrors: Disabled");
+            RequiemLogging.logInfo("Mirrors: Disabled");
         }
-        if (Constants.masks) {
-            debug("Masks: Enabled");
+        if (masks) {
+            RequiemLogging.logInfo("Masks: Enabled");
         } else {
-            debug("Masks: Disabled");
+            RequiemLogging.logInfo("Masks: Disabled");
         }
-        if (Constants.magicItems) {
-            debug("Magic Items: Enabled");
+        if (magicItems) {
+            RequiemLogging.logInfo("Magic Items: Enabled");
         } else {
-            debug("Magic Items: Disabled");
+            RequiemLogging.logInfo("Magic Items: Disabled");
         }
-        if (Constants.wands) {
-            debug("Wands: Enabled");
+        if (wands) {
+            RequiemLogging.logInfo("Wands: Enabled");
         } else {
-            debug("Wands: Disabled");
+            RequiemLogging.logInfo("Wands: Disabled");
         }
         // ====================== Athanor Mechanism =======================
-        debug(String.format("delayFogGoblins: %d", Constants.delayFogGoblins));
-        debug(String.format("delayTradeTents: %d", Constants.delayTradeTents));
-        debug(String.format("delayResourcePoints: %d", Constants.delayResourcePoints));
-        debug(String.format("delayLootCarpets: %d", Constants.delayLootCarpets));
-        debug(String.format("delayMobSpawners: %d", Constants.delayMobSpawners));
-        debug(String.format("delayAthanorMechanism: %d", Constants.delayAthanorMechanism));
+        RequiemLogging.logInfo(String.format("delayFogGoblins: %d", delayFogGoblins));
+        RequiemLogging.logInfo(String.format("delayTradeTents: %d", delayTradeTents));
+        RequiemLogging.logInfo(String.format("delayResourcePoints: %d", delayResourcePoints));
+        RequiemLogging.logInfo(String.format("delayLootCarpets: %d", delayLootCarpets));
+        RequiemLogging.logInfo(String.format("delayMobSpawners: %d", delayMobSpawners));
+        RequiemLogging.logInfo(String.format("delayAthanorMechanism: %d", delayAthanorMechanism));
         // ========================== debugging ===========================
-        if (Constants.executionCostLogging) {
-            debug("Execution Cost Logging: Enabled");
+        if (executionCostLogging) {
+            RequiemLogging.logInfo("Execution Cost Logging: Enabled");
         } else {
-            debug("Execution Cost Logging: Disabled");
+            RequiemLogging.logInfo("Execution Cost Logging: Disabled");
         }
-        if (Constants.debug) {
-            debug("Debug: Enabled");
+        if (debug) {
+            RequiemLogging.logInfo("Debug: Enabled");
         } else {
-            debug("Debug: Disabled");
+            RequiemLogging.logInfo("Debug: Disabled");
         }
-        if (Constants.creatureCreateLogging) {
-            debug("New Creature Logging: Enabled");
+        if (creatureCreateLogging) {
+            RequiemLogging.logInfo("New Creature Logging: Enabled");
         } else {
-            debug("New Creature Logging: Disabled");
+            RequiemLogging.logInfo("New Creature Logging: Disabled");
         }
-        if (Constants.creatureDeathLogging) {
-            debug("Creature Death Logging: Enabled");
+        if (creatureDeathLogging) {
+            RequiemLogging.logInfo("Creature Death Logging: Enabled");
         } else {
-            debug("Creature Death Logging: Disabled");
+            RequiemLogging.logInfo("Creature Death Logging: Disabled");
         }
-        if (Constants.itemCreateLogging) {
-            debug("Item Creation Logging: Enabled");
+        if (itemCreateLogging) {
+            RequiemLogging.logInfo("Item Creation Logging: Enabled");
         } else {
-            debug("Item Creation Logging: Disabled");
+            RequiemLogging.logInfo("Item Creation Logging: Disabled");
         }
         // ========================== disable modules ===========================
-        if (Constants.disableEntireMod) {
-            debug("Requiem Module: Disabled");
+        if (disableEntireMod) {
+            RequiemLogging.logInfo("Requiem Module: Disabled");
         } else {
-            debug("Requiem Module: Enabled");
+            RequiemLogging.logInfo("Requiem Module: Enabled");
         }
-        if (Constants.disableCreatureLoot) {
-            debug("Creature Loot Module: Disabled");
+        if (disableCreatureLoot) {
+            RequiemLogging.logInfo("Creature Loot Module: Disabled");
         } else {
-            debug("Creature Loot Module: Enabled");
+            RequiemLogging.logInfo("Creature Loot Module: Enabled");
         }
-        if (Constants.disableCreatureMods) {
-            debug("Creature Module: Disabled");
+        if (disableCreatureMods) {
+            RequiemLogging.logInfo("Creature Module: Disabled");
         } else {
-            debug("Creature Module: Enabled");
+            RequiemLogging.logInfo("Creature Module: Enabled");
         }
-        if (Constants.disableItemMods) {
-            debug("Item Module: Disabled");
+        if (disableItemMods) {
+            RequiemLogging.logInfo("Item Module: Disabled");
         } else {
-            debug("Item Module: Enabled");
+            RequiemLogging.logInfo("Item Module: Enabled");
         }
-        if (Constants.disableVehicleMods) {
-            debug("Vehicle Module: Disabled");
+        if (disableVehicleMods) {
+            RequiemLogging.logInfo("Vehicle Module: Disabled");
         } else {
-            debug("Vehicle Module: Enabled");
+            RequiemLogging.logInfo("Vehicle Module: Enabled");
         }
-        if (Constants.disableBytecodeMods) {
-            debug("Bytecode Module: Disabled");
+        if (disableBytecodeMods) {
+            RequiemLogging.logInfo("Bytecode Module: Disabled");
         } else {
-            debug("Bytecode Module: Enabled");
+            RequiemLogging.logInfo("Bytecode Module: Enabled");
         }
-        if (Constants.disableMiscMods) {
-            debug("Misc Module: Disabled");
+        if (disableMiscMods) {
+            RequiemLogging.logInfo("Misc Module: Disabled");
         } else {
-            debug("Misc Module: Enabled");
+            RequiemLogging.logInfo("Misc Module: Enabled");
         }
 
-        logInfo(String.format("Newly created mailboxes will%s get %f power Courier enchants.", (!Constants.mailboxEnableEnchant ? " not" : ""), Constants.mailboxEnchantPower));
+        logInfo(String.format("Newly created mailboxes will%s get %f power Courier enchants.", (!mailboxEnableEnchant ? " not" : ""), mailboxEnchantPower));
 
     }
 
@@ -405,7 +412,7 @@ public class RequiemLogging {
                 logInfo(String.format("Age: %d", creature.getStatus().age));
                 logInfo(String.format("Age string: %s", creature.getStatus().getAgeString()));
                 if (creature.numattackers != 0) {
-                    debug(String.format("Number of attackers: %d", creature.numattackers));
+                    RequiemLogging.logInfo(String.format("Number of attackers: %d", creature.numattackers));
                 }
                 logInfo(String.format("Hunger: %d", creature.getStatus().getHunger()));
                 logInfo(String.format("Thirst: %d", creature.getStatus().getThirst()));
@@ -432,7 +439,7 @@ public class RequiemLogging {
                 }
                 logInfo(String.format("Zone Id: %d", creature.getStatus().getZoneId()));
                 logInfo(String.format("Surface?: %s", creature.isOnSurface()));
-                //Requiem.debug("Creature was killed by: " + attackers);
+                //Requiem.RequiemLogging.logInfo("Creature was killed by: " + attackers);
                 logInfo(String.format("Age: %d", creature.getStatus().age));
                 logInfo(String.format("Age string: %s", creature.getStatus().getAgeString()));
                 logInfo(String.format("Number of attackers: %d", creature.numattackers));

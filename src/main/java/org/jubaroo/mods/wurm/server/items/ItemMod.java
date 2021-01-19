@@ -11,6 +11,7 @@ import com.wurmonline.server.economy.Economy;
 import com.wurmonline.server.economy.MonetaryConstants;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.zones.FocusZone;
+import com.wurmonline.shared.constants.ItemMaterials;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -23,8 +24,6 @@ import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.magicItems.PortalTeleportAction;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
-import org.jubaroo.mods.wurm.server.server.Constants;
-import org.jubaroo.mods.wurm.server.server.OnItemTemplateCreated;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
@@ -32,20 +31,21 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.itemCreateLogging;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
 
 public class ItemMod {
 
     public static void modifyOnCreate(Item item) {
         int templateId = item.getTemplate().getTemplateId();
 
-        if (Constants.itemCreateLogging) {
-            RequiemLogging.ItemCreationLogging(item);
-        }
         if (item.getTemplateId() == ItemList.papyrusSheet && item.getName().contains("pirate") || item.getName().contains("Pirate")) {
             final String str = "\";maxlines=\"0\"}text{text=\"As I write this note we are being attacked by rival pirates, and it looks like we’re heavily outnumbered. I’m going to try to stand my ground as long as I can, but that may prove futile. If you find this note and I am deceased, please travel to the town of Tartarus to seek the help of our Goddess, Libila. Go where all souls are laid to rest, that’s where she will be able to get in contact with me so I can tell you more! I have to stop writing now, they’re knocking down the door!\n\n \n";
             item.setInscription(str, "Pirate Scout");
         }
-        if (Constants.lampsAutoLight) {
+        if (lampsAutoLight) {
             if (item.isStreetLamp() || templateId == ItemList.candelabra) {
                 item.setAuxData((byte) 127);
                 item.setIsAutoLit(true);
@@ -63,12 +63,15 @@ public class ItemMod {
             item.setColor(WurmColor.createColor(1, 1, 1));
         }
         // GM only spawn for online purchases
-        //if (templateId == steelToolsBackpack.getTemplateId()) {
-        //    backpackOfToolsInsert(item, "Steel Tool Package", ItemMaterials.MATERIAL_STEEL);
-        //}
-        //if (templateId == addyToolsBackpack.getTemplateId()) {
-        //    backpackOfToolsInsert(item, "Adamantine Tool Package", ItemMaterials.MATERIAL_ADAMANTINE);
-        //}
+        if (templateId == steelToolsBackpack.getTemplateId()) {
+            backpackOfToolsInsert(item, "Steel Tool Package", ItemMaterials.MATERIAL_STEEL);
+        }
+        if (templateId == addyToolsBackpack.getTemplateId()) {
+            backpackOfToolsInsert(item, "Adamantine Tool Package", ItemMaterials.MATERIAL_ADAMANTINE);
+        }
+        if (itemCreateLogging) {
+            RequiemLogging.ItemCreationLogging(item);
+        }
 
     }
 
@@ -401,9 +404,9 @@ public class ItemMod {
         //ItemHelper.weightItem(RequiemItemIds.WAGON_ALTAR_ID, 300000);
         // ======================================= Set items noDrop ===================================
         ItemHelper.noDropItem(ItemList.affinityToken, false);
-        if (Constants.addMissionItems) {
+        if (addMissionItems) {
             // ============== Coin ================
-            if (Constants.coins) {
+            if (coins) {
                 try {
                     ItemHelper.missionsItem(ItemList.coinIron);
                     ItemHelper.missionsItem(ItemList.coinIronFive);
@@ -423,7 +426,7 @@ public class ItemMod {
                 }
             }
             // ============= Rift Items ==============
-            if (Constants.riftItems) {
+            if (riftItems) {
                 try {
                     ItemHelper.missionsItem(ItemList.riftCrystal);
                     ItemHelper.missionsItem(ItemList.riftStone);
@@ -437,7 +440,7 @@ public class ItemMod {
                 }
             }
             // ============= Magic Items ==============
-            if (Constants.magicItems) {
+            if (magicItems) {
                 try {
                     ItemHelper.missionsItem(ItemList.shakerOrb);
                     ItemHelper.missionsItem(ItemList.rodBeguiling);
@@ -457,7 +460,7 @@ public class ItemMod {
                 }
             }
             // ============= Wands ==============
-            if (Constants.wands) {
+            if (wands) {
                 try {
                     ItemHelper.missionsItem(ItemList.wandOfTheSeas);
                     ItemHelper.missionsItem(ItemList.wandNature);
@@ -471,7 +474,7 @@ public class ItemMod {
                 }
             }
             // ============= Misc Items ==============
-            if (Constants.miscItems) {
+            if (miscItems) {
                 try {
                     ItemHelper.missionsItem(ItemList.merchantContract);
                     ItemHelper.missionsItem(ItemList.traderContract);
@@ -486,7 +489,7 @@ public class ItemMod {
                 }
             }
             // ============ Metal Lumps =============
-            if (Constants.metalLumps) {
+            if (metalLumps) {
                 try {
                     ItemHelper.missionsItem(ItemList.goldBar);
                     ItemHelper.missionsItem(ItemList.silverBar);
@@ -520,7 +523,7 @@ public class ItemMod {
                 }
             }
             // ============= Metal Ores ==============
-            if (Constants.metalOres) {
+            if (metalOres) {
                 try {
                     ItemHelper.missionsItem(ItemList.ironOre);
                     ItemHelper.missionsItem(ItemList.copperOre);
@@ -546,7 +549,7 @@ public class ItemMod {
                 }
             }
             // ============== Gems ================
-            if (Constants.gems) {
+            if (gems) {
                 try {
                     ItemHelper.missionsItem(ItemList.emerald);
                     ItemHelper.missionsItem(ItemList.ruby);
@@ -564,7 +567,7 @@ public class ItemMod {
                 }
             }
             // ======== Potions, Salves, Oils =========
-            if (Constants.potionsSalvesOils) {
+            if (potionsSalvesOils) {
                 try {
                     ItemHelper.missionsItem(ItemList.potionAcidDamage);
                     ItemHelper.missionsItem(ItemList.potionAffinity);
@@ -593,7 +596,7 @@ public class ItemMod {
                 }
             }
             // ============== Mine Doors =============
-            if (Constants.mineDoors) {
+            if (mineDoors) {
                 try {
                     ItemHelper.missionsItem(ItemList.mineDoorGold);
                     ItemHelper.missionsItem(ItemList.mineDoorPlanks);
@@ -611,7 +614,7 @@ public class ItemMod {
                 }
             }
             // ============= Hand Mirrors ==============
-            if (Constants.mirrors) {
+            if (mirrors) {
                 try {
                     ItemHelper.missionsItem(ItemList.goldenMirror);
                     ItemHelper.missionsItem(ItemList.handMirror);
@@ -621,7 +624,7 @@ public class ItemMod {
                 }
             }
             // ================ Masks =================
-            if (Constants.masks) {
+            if (masks) {
                 try {
                     ItemHelper.missionsItem(ItemList.maskChallenge);
                     ItemHelper.missionsItem(ItemList.maskEnlightended);
@@ -642,16 +645,17 @@ public class ItemMod {
     }
 
     public static void addActPortal() {
-        if (!Constants.actPortalDone) {
+        if (!actPortalDone) {
             //logger.log(Level.INFO,"Adding PortalTeleport Action");
             ModActions.registerAction(new PortalTeleportAction());
-            Constants.actPortalDone = true;
+            actPortalDone = true;
         }
     }
 
     public static boolean isNotPortalItem(Item item) {
+        int[] portalItems = {CustomItems.nymphPortal.getTemplateId(), CustomItems.demonPortal.getTemplateId(), CustomItems.nymphHomePortal.getTemplateId(), CustomItems.demonHomePortal.getTemplateId()};
         int id = item.getTemplateId();
-        for (int pid : OnItemTemplateCreated.portalItems) {
+        for (int pid : portalItems) {
             if (id == pid) {
                 return false;
             }
@@ -660,8 +664,9 @@ public class ItemMod {
     }
 
     public static boolean isHomePortalItem(Item item) {
+        int[] homePortalItems = {CustomItems.nymphHomePortal.getTemplateId(), CustomItems.demonHomePortal.getTemplateId()};
         int id = item.getTemplateId();
-        for (int pid : OnItemTemplateCreated.homePortalItems) {
+        for (int pid : homePortalItems) {
             if (id == pid) {
                 return true;
             }
@@ -672,13 +677,6 @@ public class ItemMod {
     public static boolean isSettlementToken(Item item) {
         return item.getTemplateId() == ItemList.villageToken;
     }
-
-    /**
-     * @param source    item to be checked to move
-     * @param target    what item the source cannot be put into
-     * @param performer the player
-     * @return whether or not that an item will be blocked from moving into the target
-     */
 
     public void preInit() {
         try {
@@ -734,7 +732,7 @@ public class ItemMod {
                         @Override
                         public Object invoke(Object object, Method method, Object[] args) throws Throwable {
                             Item item = (Item) object;
-                            for (StructureTemplate template : Constants.structureTemplates) {
+                            for (StructureTemplate template : structureTemplates) {
                                 if (item.getTemplateId() == template.templateID) {
                                     return item.getItemCount() < 500;
                                 }
@@ -757,15 +755,15 @@ public class ItemMod {
                         public Object invoke(Object object, Method method, Object[] args) throws Throwable {
                             Creature performer = (Creature) args[0];
                             Item item = (Item) args[1];
-                            long coin = Constants.tradeTentCoinReward;
+                            long coin = tradeTentCoinReward;
                             if (performer.getCurrentAction().currentSecond() == 3) {
                                 for (FocusZone fz : FocusZone.getZonesAt(performer.currentTile.tilex, performer.currentTile.tiley)) {
-                                    if (fz.getName().equals(Constants.tradeTentsNorthZoneName) && item.getData() == 801L) {
+                                    if (fz.getName().equals(tradeTentsNorthZoneName) && item.getData() == 801L) {
                                         Items.destroyItem(item.getWurmId());
                                         performer.addMoney(coin);
                                         final Change newch = Economy.getEconomy().getChangeFor(coin);
                                         performer.getCommunicator().sendNormalServerMessage(String.format("You receive a payment of %s for delivering the trade goods.", newch));
-                                    } else if (fz.getName().equals(Constants.tradeTentsSouthZoneName) && item.getData() == 802L) {
+                                    } else if (fz.getName().equals(tradeTentsSouthZoneName) && item.getData() == 802L) {
                                         Items.destroyItem(item.getWurmId());
                                         performer.addMoney(coin);
                                         final Change newch = Economy.getEconomy().getChangeFor(coin);

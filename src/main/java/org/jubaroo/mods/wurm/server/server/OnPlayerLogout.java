@@ -4,6 +4,8 @@ import com.wurmonline.server.players.Player;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
+import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
+
 
 public class OnPlayerLogout {
 
@@ -18,7 +20,7 @@ public class OnPlayerLogout {
 
     private static void logoutAnnouncement(Player player) {
         if (player.getPower() < 5)
-            if (!Constants.disableDiscordReliance) {
+            if (!ToggleConstants.disableDiscordReliance) {
                 DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("%s has logged out.", player.getNameWithoutPrefixes()));
             }
     }

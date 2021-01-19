@@ -37,7 +37,7 @@ import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.CreatureConstants;
 import org.jubaroo.mods.wurm.server.tools.EffectsTools;
 
 import java.io.BufferedWriter;
@@ -46,6 +46,11 @@ import java.io.PrintWriter;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Calendar;
+
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.soundEmissionNpcs;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.disableDiscordReliance;
 
 public class Misc {
     public final static String noobMessage = "Check out the Server Info tab to the left for all the information you could need about this custom server! To view the links, right click on them to open it in your default internet browser.";
@@ -80,7 +85,7 @@ public class Misc {
 
     public static boolean isBoss(final Creature creature) {
         String[] bossids;
-        for (int length = (bossids = Constants.bossids).length, i = 0; i < length; ++i) {
+        for (int length = (bossids = CreatureConstants.bossIds).length, i = 0; i < length; ++i) {
             final String boss = bossids[i];
             if (creature.getTemplate().getTemplateId() == Integer.parseInt(boss)) {
                 return true;
@@ -90,7 +95,7 @@ public class Misc {
     }
 
     public static void sendHotaMessage(String message) {
-        if (!Constants.disableDiscordReliance)
+        if (!disableDiscordReliance)
             DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
     }
 
@@ -222,7 +227,7 @@ public class Misc {
 
     public static void pollFogGoblins() {
         if (Server.getWeather().getFog() > 0.5F) {
-            if (Constants.fogGoblins.size() < Constants.maxFogGoblins) {
+            if (fogGoblins.size() < maxFogGoblins) {
                 int spawnAttempts = 15;
                 for (int i = 0; i < spawnAttempts; i++) {
                     float worldSizeX = Zones.worldTileSizeX;
@@ -234,36 +239,36 @@ public class Misc {
                     int tile = Server.surfaceMesh.getTile(tilex, tiley);
                     if (Tiles.decodeHeight(tile) > 0) {
                         Creature fg = spawnCreature(CustomCreatures.fogGoblinId, tilex * 4, tiley * 4, true, (byte) 0);
-                        Constants.fogGoblins.add(fg);
+                        fogGoblins.add(fg);
                     }
                 }
-                RequiemLogging.debug(String.format("Added some fog goblins, there are now: %d", Constants.fogGoblins.size()));
+                RequiemLogging.debug(String.format("Added some fog goblins, there are now: %d", fogGoblins.size()));
             }
         } else {
-            if (Constants.fogGoblins.size() > 0) {
-                Creature fg = Constants.fogGoblins.iterator().next();
-                Constants.fogGoblins.remove(fg);
+            if (fogGoblins.size() > 0) {
+                Creature fg = fogGoblins.iterator().next();
+                fogGoblins.remove(fg);
                 fg.destroy();
-                RequiemLogging.debug(String.format("Removed a fog goblin from the world, there are now: %d", Constants.fogGoblins.size()));
+                RequiemLogging.debug(String.format("Removed a fog goblin from the world, there are now: %d", fogGoblins.size()));
             }
         }
     }
 
     public static void pollRepairingNPCs() {
         // If no repairing NPC's found, search for them
-        if (Constants.soundEmissionNpcs.size() == 0) {
+        if (soundEmissionNpcs.size() == 0) {
             for (Creature creature : Creatures.getInstance().getCreatures()) {
-                if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
-                    Constants.soundEmissionNpcs.add(creature);
+                if (creature.getTemplate().getTemplateId() == CustomCreatures.npcDockWorkerId) {
+                    soundEmissionNpcs.add(creature);
                     RequiemLogging.debug(String.format("Repairing NPC located and remembered, with wurmid: %d", creature.getWurmId()));
                 }
             }
         }
         // Loop through known repairing NPC's and play sound & animation
-        for (Creature creature : Constants.soundEmissionNpcs) {
-            if (creature.getName().equals("Dock Worker") || creature.getName().equals("Dock worker")) {
+        for (Creature creature : soundEmissionNpcs) {
+            if (creature.getTemplate().getTemplateId() == CustomCreatures.npcDockWorkerId) {
                 creature.playAnimation("buildwoodenwall", false);
-                SoundPlayer.playSound(EffectsTools.randomRepairSoundWood(Server.rand.nextInt(1)), creature, 0f);
+                SoundPlayer.playSound(EffectsTools.randomRepairSoundWood(), creature, 0f);
             }
         }
 
@@ -271,11 +276,11 @@ public class Misc {
 
     public static void pollMobSpawners() {
         // If no mob spawners found, search for them
-        if (Constants.mobSpawners.size() == 0) {
+        if (mobSpawners.size() == 0) {
             for (Item item : Items.getAllItems()) {
-                for (SpawnerTemplate template : Constants.spawnerTemplates) {
+                for (SpawnerTemplate template : spawnerTemplates) {
                     if (item.getTemplateId() == template.templateID) {
-                        Constants.mobSpawners.add(item);
+                        mobSpawners.add(item);
                         RequiemLogging.debug(String.format("Mob Spawner located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
@@ -283,8 +288,8 @@ public class Misc {
         }
 
         // Loop through known Mob Spawners and spawn dungeon mobs
-        for (Item mobSpawner : Constants.mobSpawners) {
-            for (SpawnerTemplate template : Constants.spawnerTemplates) {
+        for (Item mobSpawner : mobSpawners) {
+            for (SpawnerTemplate template : spawnerTemplates) {
                 if (mobSpawner.getTemplateId() == template.templateID) {
 
                     int tileX = mobSpawner.getTileX();
@@ -313,11 +318,11 @@ public class Misc {
 
     public static void pollLootCarpets() {
         // If no loot carpets found, search for them
-        if (Constants.lootCarpets.size() == 0) {
+        if (lootCarpets.size() == 0) {
             for (Item item : Items.getAllItems()) {
-                if (item.getTemplateId() == Constants.lootFlagID || item.getTemplateId() == Constants.smallLootFlagID) {
+                if (item.getTemplateId() == lootFlagID || item.getTemplateId() == smallLootFlagID) {
                     if (item.getTemplateId() != 0 && !item.getName().equals("inventory")) {
-                        Constants.lootCarpets.add(item);
+                        lootCarpets.add(item);
                         RequiemLogging.debug(String.format("Loot Carpet located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
@@ -325,11 +330,11 @@ public class Misc {
         }
 
         // Loop through known loot carpets and spawn loot boxes
-        for (Item lootCarpet : Constants.lootCarpets) {
+        for (Item lootCarpet : lootCarpets) {
 
             int tileX = lootCarpet.getTileX();
             int tileY = lootCarpet.getTileY();
-            int boxID = (lootCarpet.getTemplateId() == Constants.smallLootFlagID) ? Constants.smallLootBoxID : Constants.lootBoxID;
+            int boxID = (lootCarpet.getTemplateId() == smallLootFlagID) ? smallLootBoxID : lootBoxID;
 
             int boxCount = 0;
 
@@ -354,12 +359,12 @@ public class Misc {
 
     public static void pollResourcePoints() {
         // If no resource points found, search for them
-        if (Constants.resourcePoints.size() == 0) {
+        if (resourcePoints.size() == 0) {
             for (Item item : Items.getAllItems()) {
-                for (StructureTemplate template : Constants.structureTemplates) {
+                for (StructureTemplate template : structureTemplates) {
                     if (item.getTemplateId() == template.templateID) {
                         if (item.getTemplateId() != 0 && !item.getName().equals("inventory")) {
-                            Constants.resourcePoints.add(item);
+                            resourcePoints.add(item);
                             RequiemLogging.debug(String.format("Resource Point located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                         }
                     }
@@ -367,8 +372,8 @@ public class Misc {
             }
         }
         // Loop through known resource points and spawn items
-        for (Item resourcePoint : Constants.resourcePoints) {
-            for (StructureTemplate template : Constants.structureTemplates) {
+        for (Item resourcePoint : resourcePoints) {
+            for (StructureTemplate template : structureTemplates) {
                 if (resourcePoint.getTemplateId() == template.templateID) {
                     spawnItemSpawn(resourcePoint, template.templateProduce, template.templateConsume, template.templateSecondaryConsume, template.maxNum, template.maxitems);
                     SoundPlayer.playSound(template.sound, resourcePoint, 0);
@@ -381,11 +386,11 @@ public class Misc {
     public static void pollTradeTents() {
 
         // If no Trade Tents found, search for them
-        if (Constants.tradeTents.size() == 0) {
+        if (tradeTents.size() == 0) {
             for (Item item : Items.getAllItems()) {
-                if (item.getTemplateId() == Constants.tradeTentID) {
+                if (item.getTemplateId() == tradeTentID) {
                     if (item.getTemplateId() != 0) {
-                        Constants.tradeTents.add(item);
+                        tradeTents.add(item);
                         RequiemLogging.debug(String.format("Trade Tents located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
@@ -394,7 +399,7 @@ public class Misc {
 
         // Loop through known Trade Tents and spawn crates
 
-        for (Item tradeTent : Constants.tradeTents) {
+        for (Item tradeTent : tradeTents) {
 
             int tileX = tradeTent.getTileX();
             int tileY = tradeTent.getTileY();
@@ -406,7 +411,7 @@ public class Misc {
 
                     if ((tile != null)) {
                         for (Item possibleCrate : tile.getItems()) {
-                            if (possibleCrate.getTemplateId() == Constants.tradeGoodsID) {
+                            if (possibleCrate.getTemplateId() == tradeGoodsID) {
                                 crateCount++;
                             }
                         }
@@ -416,9 +421,9 @@ public class Misc {
 
             if (crateCount < 20) {
                 for (FocusZone fz : FocusZone.getZonesAt(tileX, tileY)) {
-                    if (fz.getName().equals(Constants.tradeTentsSouthZoneName)) {
+                    if (fz.getName().equals(tradeTentsSouthZoneName)) {
                         spawnTradeCrate(tradeTent, 801L);
-                    } else if (fz.getName().equals(Constants.tradeTentsNorthZoneName)) {
+                    } else if (fz.getName().equals(tradeTentsNorthZoneName)) {
                         spawnTradeCrate(tradeTent, 802L);
                     }
                 }
@@ -550,7 +555,7 @@ public class Misc {
 
     private static void spawnTradeCrate(Item item, long id) {
         try {
-            Item crate = ItemFactory.createItem(Constants.tradeGoodsID, 50.0F + Server.rand.nextFloat() * 50.0F,
+            Item crate = ItemFactory.createItem(tradeGoodsID, 50.0F + Server.rand.nextFloat() * 50.0F,
                     item.getPosX() - 5.0F + (Server.rand.nextFloat() * 10.0F), item.getPosY() - 5.0F + (Server.rand.nextFloat() * 10.0F), 65.0F,
                     item.isOnSurface(), (byte) 0, MiscConstants.NOID, "");
             crate.setData(id);
@@ -840,7 +845,7 @@ public class Misc {
                                 "{ if (templateId >= 510 && templateId <= 513) {" +
                                         "com.wurmonline.server.items.ItemSpellEffects effs;" +
                                         "if ((effs = toReturn.getSpellEffects()) == null) effs = new com.wurmonline.server.items.ItemSpellEffects(toReturn.getWurmId());" +
-                                        "toReturn.getSpellEffects().addSpellEffect(new com.wurmonline.server.spells.SpellEffect(toReturn.getWurmId(), (byte)20, " + Constants.mailboxEnchantPower + "f, 20000000));" +
+                                        "toReturn.getSpellEffects().addSpellEffect(new com.wurmonline.server.spells.SpellEffect(toReturn.getWurmId(), (byte)20, " + mailboxEnchantPower + "f, 20000000));" +
                                         "toReturn.permissions.setPermissionBit(com.wurmonline.server.players.Permissions.Allow.HAS_COURIER.getBit(), true);" +
                                         "} }");
                     }

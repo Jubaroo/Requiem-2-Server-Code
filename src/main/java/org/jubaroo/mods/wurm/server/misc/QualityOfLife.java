@@ -23,7 +23,10 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
-import org.jubaroo.mods.wurm.server.server.Constants;
+
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.createItemDescs;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.hidePlayerGodInscriptions;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
 
 public class QualityOfLife {
 
@@ -176,7 +179,7 @@ public class QualityOfLife {
 
             HookManager hooks = HookManager.getInstance();
             ClassPool pool = hooks.getClassPool();
-            if (Constants.stfuNpcs) {
+            if (stfuNpcs) {
                 hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
                         "answerLocalChat",
                         "(Lcom/wurmonline/server/Message;Ljava/lang/String;)V",
@@ -191,7 +194,7 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.hidePlayerGodInscriptions) {
+            if (hidePlayerGodInscriptions) {
                 hooks.registerHook("com.wurmonline.server.deities.Deities",
                         "getRandomNonHateDeity",
                         "()Lcom/wurmonline/server/deities/Deity;",
@@ -200,7 +203,7 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.gmFullFavor) {
+            if (gmFullFavor) {
                 hooks.registerHook("com.wurmonline.server.players.Player",
                         "depleteFavor",
                         "(FZ)V",
@@ -222,7 +225,7 @@ public class QualityOfLife {
                         return method.invoke(proxy, args);
                     });
 
-            if (Constants.loadFullContainers) {
+            if (loadFullContainers) {
                 hooks.registerHook("com.wurmonline.server.behaviours.CargoTransportationMethods",
                         "targetIsNotEmptyContainerCheck",
                         "(Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;Z)Z",
@@ -231,7 +234,7 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.noMineDrift) {
+            if (noMineDrift) {
                 hooks.registerHook("com.wurmonline.server.behaviours.TileRockBehaviour",
                         "getFloorAndCeiling",
                         "(IIIIZZLcom/wurmonline/server/creatures/Creature;)[I",
@@ -249,7 +252,7 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.allowTentsOnDeed) {
+            if (allowTentsOnDeed) {
                 hooks.registerHook("com.wurmonline.server.behaviours.MethodsItems",
                         "mayDropTentOnTile",
                         "(Lcom/wurmonline/server/creatures/Creature;)Z",
@@ -258,12 +261,12 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.allSurfaceMine) {
+            if (allSurfaceMine) {
                 MiscHooks.hookSurfaceMine(pool);
             }
 
             /* Hook Item Creation */
-            for (String desc : Constants.createItemDescs) {
+            for (String desc : createItemDescs) {
                 RequiemLogging.logInfo("createItem: " + desc);
                 hooks.registerHook("com.wurmonline.server.items.ItemFactory", "createItem", desc,
                         () -> (proxy, method, args) -> {
@@ -276,7 +279,7 @@ public class QualityOfLife {
                         });
             }
 
-            if (Constants.lampsAutoLight) {
+            if (lampsAutoLight) {
                 hooks.registerHook("com.wurmonline.server.items.Item", "refuelLampFromClosestVillage", "()V",
                         () -> (proxy, method, args) -> {
                             Item lamp = (Item) proxy;

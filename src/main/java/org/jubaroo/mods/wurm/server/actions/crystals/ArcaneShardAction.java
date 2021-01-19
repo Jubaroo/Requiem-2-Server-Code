@@ -15,13 +15,13 @@ import com.wurmonline.server.items.NoSuchTemplateException;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 
 import static org.gotti.wurmunlimited.modsupport.actions.ActionPropagation.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.itemCrystalCreationDamage;
 
 public class ArcaneShardAction implements ModAction, ActionPerformer, BehaviourProvider {
     private final short actionId;
@@ -100,7 +100,7 @@ public class ArcaneShardAction implements ModAction, ActionPerformer, BehaviourP
             parent.insertItem(crystal, true, false);
             Items.destroyItem(source.getWurmId());
             comm.sendCombatAlertMessage(String.format("Your life force is drained, as it is used to power the creation of the %s!", crystal.getName()));
-            performer.addWoundOfType(null, (byte) 9, 1, false, 1.0f, false, Constants.itemCrystalCreationDamage, 0f, 0f, true, false);
+            performer.addWoundOfType(null, (byte) 9, 1, false, 1.0f, false, itemCrystalCreationDamage, 0f, 0f, true, false);
             comm.sendNormalServerMessage(String.format("You touch the %s with the %s and it transforms into a %s!", target.getName(), source.getName(), crystal.getName()));
         } catch (FailedException | NoSuchTemplateException | NoSuchItemException e) {
             Requiem.logger.log(Level.SEVERE, (String.format("Error on arcane shard action: %s", e)));

@@ -18,7 +18,8 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.Constants;
+
+import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.sql.Connection;
@@ -78,7 +79,7 @@ public class SupplyDepotBehaviour {
     }
 
     public static void sendDepotEffect(Player player, Item depot) {
-        //player.getCommunicator().sendAddEffect(depot.getWurmId(), EffectConstants.RIFT_SPAWN, depot.getPosX(), depot.getPosY(), depot.getPosZ(), (byte) 0);
+        //player.getCommunicator().sendAddEffect(depot.getWurmId(), EffectsConstants.RIFT_SPAWN, depot.getPosX(), depot.getPosY(), depot.getPosZ(), (byte) 0);
         player.getCommunicator().sendAddEffect(depot.getWurmId(), EffectConstants.EFFECT_ERUPTION, depot.getPosX(), depot.getPosY(), depot.getPosZ(), (byte) 0);
     }
 
@@ -126,7 +127,7 @@ public class SupplyDepotBehaviour {
                 sendDepotEffectsToPlayers(item);
             }
         }
-        if (!Constants.enableDepots) {
+        if (!ToggleConstants.enableDepots) {
             return;
         }
         if (!initalizedSupplyDepot) {

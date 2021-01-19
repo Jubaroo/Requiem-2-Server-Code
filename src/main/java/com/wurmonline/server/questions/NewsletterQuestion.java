@@ -6,9 +6,10 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import net.coldie.tools.BmlForm;
 import org.jubaroo.mods.wurm.server.actions.items.NewsletterAction;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
 import java.util.Properties;
+
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.newsletterImage;
 
 public class NewsletterQuestion extends Question {
     private boolean properlySent;
@@ -45,8 +46,8 @@ public class NewsletterQuestion extends Question {
         if (ok) {
             this.properlySent = true;
             final BmlForm f = new BmlForm("");
-            f.addHidden("id", new StringBuilder().append(this.id).toString());
-            f.addImage(String.format("%s?s=%s&i=%s", Constants.newsletterImage, Servers.localServer.getName(), Servers.localServer.EXTERNALIP), 345, 420);
+            f.addHidden("id", String.valueOf(this.id));
+            f.addImage(String.format("%s?s=%s&i=%s", newsletterImage, Servers.localServer.getName(), Servers.localServer.EXTERNALIP), 345, 420);
             f.beginHorizontalFlow();
             f.addButton("Okay", "accept");
             f.endHorizontalFlow();

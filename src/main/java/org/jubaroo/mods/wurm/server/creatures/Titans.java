@@ -1,6 +1,7 @@
 package org.jubaroo.mods.wurm.server.creatures;
 
 import com.wurmonline.mesh.Tiles;
+import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Players;
 import com.wurmonline.server.Server;
 import com.wurmonline.server.TimeConstants;
@@ -26,7 +27,7 @@ import org.gotti.wurmunlimited.modsupport.ModSupportDb;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.CreatureConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -587,8 +588,8 @@ public class Titans {
             if (Titans.lastSpawnedTitan + Titans.titanRespawnTime < System.currentTimeMillis()) {
                 RequiemLogging.logInfo("No Titan was found, and the timer has expired. Spawning a new one.");
                 boolean found = false;
-                int spawnX = 2048;
-                int spawnY = 2048;
+                int spawnX = Zones.worldTileSizeX;
+                int spawnY = Zones.worldTileSizeY;
                 while (!found) {
                     int x = Server.rand.nextInt(Server.surfaceMesh.getSize());
                     int y = Server.rand.nextInt(Server.surfaceMesh.getSize());
@@ -615,7 +616,8 @@ public class Titans {
                 }
                 int[] titanTemplates = {CustomCreatures.lilithId, CustomCreatures.ifritId};
                 try {
-                    Creature.doNew(titanTemplates[Server.rand.nextInt(titanTemplates.length)], spawnX, spawnY, 360f * Server.rand.nextFloat(), 0, "", (byte) 0);
+                    Creature titan = Creature.doNew(titanTemplates[Server.rand.nextInt(titanTemplates.length)], spawnX, spawnY, 360f * Server.rand.nextFloat(), 0, "", MiscConstants.SEX_MALE);
+                    RequiemLogging.logInfo(String.format("Titan %s has been spawned at %dX, %dY", titan.getNameWithoutPrefixes(), spawnX, spawnY));
                     Titans.lastSpawnedTitan = System.currentTimeMillis();
                     Titans.updateLastSpawnedTitan();
                 } catch (Exception e) {
@@ -640,52 +642,52 @@ public class Titans {
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
         }
-        if (currentDamage > Constants.EIGHTY_EIGHT_PERCENT_DAMAGE && prevDamage < Constants.EIGHTY_EIGHT_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.EIGHTY_EIGHT_PERCENT_DAMAGE && prevDamage < CreatureConstants.EIGHTY_EIGHT_PERCENT_DAMAGE) {
             String msg = String.format("<%s [88%%]> You actually think you can defeat me?", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
         }
-        if (currentDamage > Constants.SEVENTY_FIVE_PERCENT_DAMAGE && prevDamage < Constants.SEVENTY_FIVE_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.SEVENTY_FIVE_PERCENT_DAMAGE && prevDamage < CreatureConstants.SEVENTY_FIVE_PERCENT_DAMAGE) {
             String msg = String.format("<%s [75%%]> I am not alone.", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             summonMinions(titan, Server.rand.nextInt(2) + 2);
         }
-        if (currentDamage > Constants.SIXTY_PERCENT_DAMAGE && prevDamage < Constants.SIXTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.SIXTY_PERCENT_DAMAGE && prevDamage < CreatureConstants.SIXTY_PERCENT_DAMAGE) {
             String msg = String.format("<%s [60%%]> You will feel my wrath!", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             performBasicAbility(titan);
         }
-        if (currentDamage > Constants.FIFTY_PERCENT_DAMAGE && prevDamage < Constants.FIFTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.FIFTY_PERCENT_DAMAGE && prevDamage < CreatureConstants.FIFTY_PERCENT_DAMAGE) {
             String msg = String.format("<%s [50%%]> I've had enough of you. Minions, assemble!", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             summonMinions(titan, Server.rand.nextInt(4) + 4);
             performBasicAbility(titan);
         }
-        if (currentDamage > Constants.FORTY_PERCENT_DAMAGE && prevDamage < Constants.FORTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.FORTY_PERCENT_DAMAGE && prevDamage < CreatureConstants.FORTY_PERCENT_DAMAGE) {
             String msg = String.format("<%s [40%%]> Let's try something new, shall we?", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             performAdvancedAbility(titan, 7, 2);
             performAdvancedAbility(titan, 7, 2);
         }
-        if (currentDamage > Constants.THIRTY_PERCENT_DAMAGE && prevDamage < Constants.THIRTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.THIRTY_PERCENT_DAMAGE && prevDamage < CreatureConstants.THIRTY_PERCENT_DAMAGE) {
             String msg = String.format("<%s [30%%]> Perhaps minions aren't enough. Now, try my champions!", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             summonChampions(titan, Server.rand.nextInt(2) + 2);
             performBasicAbility(titan);
         }
-        if (currentDamage > Constants.TWENTY_PERCENT_DAMAGE && prevDamage < Constants.TWENTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.TWENTY_PERCENT_DAMAGE && prevDamage < CreatureConstants.TWENTY_PERCENT_DAMAGE) {
             String msg = String.format("<%s [20%%]> Enough! I will end you!", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
             performBasicAbility(titan);
             performAdvancedAbility(titan, 5, 3);
         }
-        if (currentDamage > Constants.TEN_PERCENT_DAMAGE && prevDamage < Constants.TEN_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.TEN_PERCENT_DAMAGE && prevDamage < CreatureConstants.TEN_PERCENT_DAMAGE) {
             String msg = String.format("<%s [10%%]> Minions... Champions... Only one way to win a battle: An army!", titan.getName());
             DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg);
             Zones.flash(titan.getTileX(), titan.getTileY(), false);
@@ -694,21 +696,21 @@ public class Titans {
             performBasicAbility(titan);
             performAdvancedAbility(titan, 4, 3);
         }
-        if (currentDamage > Constants.SEVENTY_FIVE_PERCENT_DAMAGE && Server.rand.nextInt(10) == 0) {
-            if (currentDamage > Constants.THIRTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.SEVENTY_FIVE_PERCENT_DAMAGE && Server.rand.nextInt(10) == 0) {
+            if (currentDamage > CreatureConstants.THIRTY_PERCENT_DAMAGE) {
                 summonMinions(titan, Server.rand.nextInt(2) + 2);
-            } else if (currentDamage > Constants.FIFTY_PERCENT_DAMAGE) {
+            } else if (currentDamage > CreatureConstants.FIFTY_PERCENT_DAMAGE) {
                 summonMinions(titan, Server.rand.nextInt(3) + 1);
             } else {
                 summonMinions(titan, Server.rand.nextInt(2) + 1);
             }
         }
-        if (currentDamage > Constants.SEVENTY_FIVE_PERCENT_DAMAGE && Server.rand.nextInt(15) == 0) {
-            if (currentDamage > Constants.THIRTY_PERCENT_DAMAGE) {
+        if (currentDamage > CreatureConstants.SEVENTY_FIVE_PERCENT_DAMAGE && Server.rand.nextInt(15) == 0) {
+            if (currentDamage > CreatureConstants.THIRTY_PERCENT_DAMAGE) {
                 if (Server.rand.nextInt(10) == 0) {
                     performBasicAbility(titan);
                 }
-            } else if (currentDamage > Constants.FIFTY_PERCENT_DAMAGE) {
+            } else if (currentDamage > CreatureConstants.FIFTY_PERCENT_DAMAGE) {
                 if (Server.rand.nextInt(12) == 0) {
                     performBasicAbility(titan);
                 }
@@ -718,7 +720,7 @@ public class Titans {
                 }
             }
         }
-        if (currentDamage > Constants.TEN_PERCENT_DAMAGE && Server.rand.nextInt(30) == 0) {
+        if (currentDamage > CreatureConstants.TEN_PERCENT_DAMAGE && Server.rand.nextInt(30) == 0) {
             summonChampions(titan, 1);
         }
         titanDamage.put(titan, currentDamage);
@@ -777,16 +779,22 @@ public class Titans {
     }
 
     public static void locateTitans() {
-        Creature[] creatures = Creatures.getInstance().getCreatures();
-        for (Creature creature : creatures) {
-            if (Titans.isTitan(creature)) {
-                String msg1 = String.format("A Titan has been detected by the mystical Wizards of Altura. The Titan has been identified as %s. The wizards are focusing their powers on it and pinpointing its location......", creature.getName());
-                String msg2 = String.format("%s has been located! Its position in the world is X=%s, Y=%s", creature.getName(), (int) creature.getPosX() / 4, (int) creature.getPosY() / 4);
-                if (Server.getSecondsUptime() >= TimeConstants.MINUTE * 2 && Server.getSecondsUptime() <= TimeConstants.MINUTE * 5) {
-                    DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg1);
-                }
-                if (Server.getSecondsUptime() >= TimeConstants.MINUTE * 10) {
-                    DiscordHandler.sendToDiscord(CustomChannel.TITAN, msg2);
+        boolean detected = false;
+        boolean located = false;
+        if (!detected && !located) {
+            for (Creature creature : Creatures.getInstance().getCreatures()) {
+                if (Titans.isTitan(creature)) {
+                    if (!detected) {
+                        if (Server.getSecondsUptime() >= TimeConstants.MINUTE * 2 && Server.getSecondsUptime() <= TimeConstants.MINUTE * 5) {
+                            DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("A Titan has been detected by the mystical Wizards of Altura. The Titan has been identified as %s. The wizards are focusing their powers on it and pinpointing its location......", creature.getName()));
+                            detected = true;
+                        }
+                    }
+                    if (!located)
+                        if (Server.getSecondsUptime() >= TimeConstants.MINUTE * 10 && Server.getSecondsUptime() <= TimeConstants.MINUTE * 15) {
+                            DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("%s has been located! Its position in the world is X=%s, Y=%s", creature.getName(), (int) creature.getPosX() / 4, (int) creature.getPosY() / 4));
+                            located = true;
+                        }
                 }
             }
         }

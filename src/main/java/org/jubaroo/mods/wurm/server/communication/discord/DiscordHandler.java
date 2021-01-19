@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.server.Constants;
 
 import javax.security.auth.login.LoginException;
 import java.util.Arrays;
@@ -23,6 +22,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DiscordHandler extends ListenerAdapter {
+    public static String botToken;
+    public static String serverName;
     private static JDA jda;
 
     private static Map<CustomChannel, ConcurrentLinkedQueue<String>> sendQueues =
@@ -53,7 +54,7 @@ public class DiscordHandler extends ListenerAdapter {
         }
 
         try {
-            jda = JDABuilder.create(Constants.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
+            jda = JDABuilder.create(DiscordHandler.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
         } catch (LoginException e) {
             RequiemLogging.logException("Error connecting to discord", e);
         }
@@ -87,9 +88,9 @@ public class DiscordHandler extends ListenerAdapter {
         MessageBuilder builder = new MessageBuilder();
         builder.append(msg);
 
-        List<Guild> guilds = jda.getGuildsByName(Constants.serverName, true);
+        List<Guild> guilds = jda.getGuildsByName(DiscordHandler.serverName, true);
         if (guilds.size() < 1) {
-            RequiemLogging.logWarning(String.format("Server '%s' not found on discord, unable to send messages", Constants.serverName));
+            RequiemLogging.logWarning(String.format("Server '%s' not found on discord, unable to send messages", DiscordHandler.serverName));
             return;
         }
 

@@ -10,7 +10,6 @@ import org.jubaroo.mods.wurm.server.tools.Hooks;
 
 public class Spawn {
 
-
     public static void preInit() {
         try {
             ClassPool classPool = HookManager.getInstance().getClassPool();

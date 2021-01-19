@@ -3,11 +3,13 @@ package org.jubaroo.mods.wurm.server.items;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.actions.character.JoustAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
-import org.jubaroo.mods.wurm.server.server.Constants;
+import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 
 import static com.wurmonline.server.items.ItemList.*;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
+import static org.jubaroo.mods.wurm.server.server.constants.SkillConstants.*;
 
 public class CustomItemCreationEntries {
 
@@ -110,12 +112,12 @@ public class CustomItemCreationEntries {
     }
 
     private static void tannedTaxCreationEntry(int headId, int tannedHeadId) {
-        final AdvancedCreationEntry tannedBlackBearHead = CreationEntryCreator.createAdvancedEntry(Constants.skillTanning, ItemList.lye, headId, tannedHeadId, true, false, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry tannedBlackBearHead = CreationEntryCreator.createAdvancedEntry(skillTanning, ItemList.lye, headId, tannedHeadId, true, false, 0f, true, false, CreationCategories.DECORATION);
         tannedBlackBearHead.addRequirement(new CreationRequirement(1, ItemList.lye, 10, true));
     }
 
     private static void stuffedTaxCreationEntry(int groomedHeadId, int stuffedHeadId) {
-        final AdvancedCreationEntry stuffedBlackBearHead = CreationEntryCreator.createAdvancedEntry(Constants.skillStuffing, ItemList.cotton, groomedHeadId, stuffedHeadId, true, true, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry stuffedBlackBearHead = CreationEntryCreator.createAdvancedEntry(skillStuffing, ItemList.cotton, groomedHeadId, stuffedHeadId, true, true, 0f, true, false, CreationCategories.DECORATION);
         stuffedBlackBearHead.addRequirement(new CreationRequirement(1, ItemList.cotton, 30, true));
         stuffedBlackBearHead.addRequirement(new CreationRequirement(2, ItemList.wool, 20, true));
         stuffedBlackBearHead.addRequirement(new CreationRequirement(3, ItemList.eye, 2, true));
@@ -124,11 +126,11 @@ public class CustomItemCreationEntries {
     }
 
     private static void groomedCreationEntry(int tannedHeadId, int groomedHeadId) {
-        CreationEntryCreator.createSimpleEntry(Constants.skillGrooming, ItemList.groomingBrush, tannedHeadId, groomedHeadId, false, true, 0f, false, false, CreationCategories.DECORATION);
+        CreationEntryCreator.createSimpleEntry(skillGrooming, ItemList.groomingBrush, tannedHeadId, groomedHeadId, false, true, 0f, false, false, CreationCategories.DECORATION);
     }
 
     private static void trophyCreationCreationEntry(int stuffedHeadId, int trophyId) {
-        final AdvancedCreationEntry blackBearHeadTrophy = CreationEntryCreator.createAdvancedEntry(Constants.skillMounting, taxidermyPlaqueId, stuffedHeadId, trophyId, true, true, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry blackBearHeadTrophy = CreationEntryCreator.createAdvancedEntry(skillMounting, taxidermyPlaqueId, stuffedHeadId, trophyId, true, true, 0f, true, false, CreationCategories.DECORATION);
         blackBearHeadTrophy.addRequirement(new CreationRequirement(1, ItemList.nailsIronSmall, 8, true));
         blackBearHeadTrophy.addRequirement(new CreationRequirement(2, ItemList.plank, 5, true));
     }
@@ -496,7 +498,7 @@ public class CustomItemCreationEntries {
         tannedTaxCreationEntry(boarTaxidermyHead.getTemplateId(), boarTaxidermyTannedHead.getTemplateId());
         tannedTaxCreationEntry(wolfTaxidermyHead.getTemplateId(), wolfTaxidermyTannedHead.getTemplateId());
         tannedTaxCreationEntry(worgTaxidermyHead.getTemplateId(), worgTaxidermyTannedHead.getTemplateId());
-        final AdvancedCreationEntry tannedBlackBearBody = CreationEntryCreator.createAdvancedEntry(Constants.skillTanning, ItemList.lye, blackBearTaxidermyBody.getTemplateId(), blackBearTaxidermyTannedBody.getTemplateId(), true, false, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry tannedBlackBearBody = CreationEntryCreator.createAdvancedEntry(skillTanning, ItemList.lye, blackBearTaxidermyBody.getTemplateId(), blackBearTaxidermyTannedBody.getTemplateId(), true, false, 0f, true, false, CreationCategories.DECORATION);
         tannedBlackBearBody.addRequirement(new CreationRequirement(1, ItemList.lye, 30, true));
         //============================================================= STUFFING ==================================================================
         stuffedTaxCreationEntry(blackBearTaxidermyGroomedHead.getTemplateId(), blackBearTaxidermyStuffedHead.getTemplateId());
@@ -510,7 +512,7 @@ public class CustomItemCreationEntries {
         stuffedTaxCreationEntry(boarTaxidermyGroomedHead.getTemplateId(), boarTaxidermyStuffedHead.getTemplateId());
         stuffedTaxCreationEntry(wolfTaxidermyGroomedHead.getTemplateId(), wolfTaxidermyStuffedHead.getTemplateId());
         stuffedTaxCreationEntry(worgTaxidermyGroomedHead.getTemplateId(), worgTaxidermyStuffedHead.getTemplateId());
-        final AdvancedCreationEntry stuffedBlackBear = CreationEntryCreator.createAdvancedEntry(Constants.skillStuffing, ItemList.cotton, blackBearTaxidermyGroomedBody.getTemplateId(), blackBearTaxidermyStuffedBody.getTemplateId(), true, true, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry stuffedBlackBear = CreationEntryCreator.createAdvancedEntry(skillStuffing, ItemList.cotton, blackBearTaxidermyGroomedBody.getTemplateId(), blackBearTaxidermyStuffedBody.getTemplateId(), true, true, 0f, true, false, CreationCategories.DECORATION);
         stuffedBlackBear.addRequirement(new CreationRequirement(1, ItemList.cotton, 80, true));
         stuffedBlackBear.addRequirement(new CreationRequirement(2, ItemList.wool, 40, true));
         stuffedBlackBear.addRequirement(new CreationRequirement(3, ItemList.eye, 2, true));
@@ -529,7 +531,7 @@ public class CustomItemCreationEntries {
         trophyCreationCreationEntry(boarTaxidermyStuffedHead.getTemplateId(), boarTaxidermyHeadTrophy.getTemplateId());
         trophyCreationCreationEntry(wolfTaxidermyStuffedHead.getTemplateId(), wolfTaxidermyHeadTrophy.getTemplateId());
         trophyCreationCreationEntry(worgTaxidermyGroomedHead.getTemplateId(), worgTaxidermyHeadTrophy.getTemplateId());
-        final AdvancedCreationEntry blackBearTrophy = CreationEntryCreator.createAdvancedEntry(Constants.skillMounting, metalShaftId, blackBearTaxidermyStuffedBody.getTemplateId(), blackBearTaxidermyTrophyBody.getTemplateId(), true, true, 0f, true, false, CreationCategories.DECORATION);
+        final AdvancedCreationEntry blackBearTrophy = CreationEntryCreator.createAdvancedEntry(skillMounting, metalShaftId, blackBearTaxidermyStuffedBody.getTemplateId(), blackBearTaxidermyTrophyBody.getTemplateId(), true, true, 0f, true, false, CreationCategories.DECORATION);
         blackBearTrophy.addRequirement(new CreationRequirement(1, metalShaftId, 2, true));
         blackBearTrophy.addRequirement(new CreationRequirement(2, ItemList.nailsIronLarge, 6, true));
         blackBearTrophy.addRequirement(new CreationRequirement(3, glueId, 12, true));
@@ -575,10 +577,10 @@ public class CustomItemCreationEntries {
         CreationEntryCreator.createSimpleEntry(SkillList.MASONRY, ItemList.stoneChisel, ItemList.rock, CustomItems.riftStone2.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
         CreationEntryCreator.createSimpleEntry(SkillList.MASONRY, ItemList.stoneChisel, ItemList.rock, CustomItems.riftStone3.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
         CreationEntryCreator.createSimpleEntry(SkillList.MASONRY, ItemList.stoneChisel, ItemList.rock, CustomItems.riftStone4.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
-        CreationEntryCreator.createSimpleEntry(Constants.skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal1.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
-        CreationEntryCreator.createSimpleEntry(Constants.skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal2.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
-        CreationEntryCreator.createSimpleEntry(Constants.skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal3.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
-        CreationEntryCreator.createSimpleEntry(Constants.skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal4.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
+        CreationEntryCreator.createSimpleEntry(skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal1.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
+        CreationEntryCreator.createSimpleEntry(skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal2.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
+        CreationEntryCreator.createSimpleEntry(skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal3.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
+        CreationEntryCreator.createSimpleEntry(skillGemCrafting, ItemList.stoneChisel, ItemList.rock, CustomItems.riftCrystal4.getTemplateId(), false, true, 0f, false, false, CreationCategories.DECORATION);
         CreationEntryCreator.createSimpleEntry(SkillList.ALCHEMY_NATURAL, ItemList.scrapwood, ItemList.mixedGrass, plant1.getTemplateId(), true, true, 0f, false, false, CreationCategories.DECORATION);
         CreationEntryCreator.createSimpleEntry(SkillList.ALCHEMY_NATURAL, ItemList.scrapwood, ItemList.mixedGrass, plant2.getTemplateId(), true, true, 0f, false, false, CreationCategories.DECORATION);
         CreationEntryCreator.createSimpleEntry(SkillList.ALCHEMY_NATURAL, ItemList.scrapwood, ItemList.mixedGrass, plant3.getTemplateId(), true, true, 0f, false, false, CreationCategories.DECORATION);
@@ -608,7 +610,7 @@ public class CustomItemCreationEntries {
         final AdvancedCreationEntry dyeKit = CreationEntryCreator.createAdvancedEntry(SkillList.LEATHERWORKING, ItemList.needleIron, ItemList.leather, dyeKitId, true, false, 0f, false, false, 0, 65.0, CreationCategories.TOOLS);
         dyeKit.addRequirement(new CreationRequirement(1, ItemList.leather, 1, true));
         dyeKit.addRequirement(new CreationRequirement(2, ItemList.leatherStrip, 3, true));
-        if (joustingLanceId > 0 && Constants.AllowCraftingLance) {
+        if (joustingLanceId > 0 && JoustAction.AllowCraftingLance) {
             final AdvancedCreationEntry creationEntry = CreationEntryCreator.createAdvancedEntry(SkillList.CARPENTRY, ItemList.knifeCarving, ItemList.log, joustingLanceId, false, true, 50.0f, false, false, CreationCategories.WEAPONS);
             creationEntry.addRequirement(new CreationRequirement(1, ItemList.sheetIron, 1, true));
         }
@@ -745,7 +747,7 @@ public class CustomItemCreationEntries {
         creatureRenameCertificate.addRequirement(new CreationRequirement(1, ItemList.paperSheet, 1, true));
         creatureRenameCertificate.addRequirement(new CreationRequirement(2, CustomItems.glueId, 1, true));
         //CreationEntryCreator.createSimpleEntry(SkillList.PAPYRUSMAKING, ItemList.scissors, ItemList.paperSheet, labelId, false, false, 25, false, false, CreationCategories.WRITING);
-        if (!Constants.disableScrollGearBinding) {
+        if (!ToggleConstants.disableScrollGearBinding) {
             final AdvancedCreationEntry scrollOfGearBinding = CreationEntryCreator.createAdvancedEntry(SkillList.PAPYRUSMAKING, ItemList.paperSheet, ItemList.leatherStrip, CustomItems.scrollOfGearBinding.getTemplateId(), true, false, 0f, false, false, CreationCategories.WRITING);
             scrollOfGearBinding.addRequirement(new CreationRequirement(1, ItemList.paperSheet, 2, true));
             scrollOfGearBinding.addRequirement(new CreationRequirement(2, ItemList.sourceSalt, 1, true));

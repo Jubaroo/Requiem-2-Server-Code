@@ -39,11 +39,11 @@ public class PortalEditQuestion extends Question {
         }
         if (mynumberGM.equals("0")) {
             name = PortalMod.myMapGM1.get(mynumber);
-            dbname = "ColdiePortals";
+            dbname = "RequiemPortals";
         }
         if (mynumber.equals("0")) {
             name = PortalMod.myMapGM2.get(mynumberGM);
-            dbname = "ColdieGMPortals";
+            dbname = "RequiemGMPortals";
         }
         if (dbname.equals("")) {
             getResponder().getCommunicator().sendNormalServerMessage("Just pick 1 portal, not 2");
@@ -127,7 +127,7 @@ public class PortalEditQuestion extends Question {
             PortalMod.myMapGM2.clear();
             try {
                 dbcon = ModSupportDb.getModSupportDb();
-                ps = dbcon.prepareStatement("SELECT * FROM ColdieGMPortals ORDER BY name");
+                ps = dbcon.prepareStatement("SELECT * FROM RequiemGMPortals ORDER BY name");
                 rs = ps.executeQuery();
                 int i = 1;
                 f.addRaw("--Choose Portal--,");
@@ -156,7 +156,7 @@ public class PortalEditQuestion extends Question {
             PortalMod.myMapGM1.clear();
             try {
                 dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement("SELECT * FROM ColdiePortals ORDER BY name");
+                ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemPortals ORDER BY name");
                 rs2 = ps2.executeQuery();
                 int i = 1;
                 f.addRaw("--Choose Portal--,");

@@ -6,7 +6,6 @@ import com.wurmonline.server.skills.Skills;
 import com.wurmonline.server.skills.SkillsFactory;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 
-@SuppressWarnings("unused")
 public class CreatureTemplateModifier {
 
     public static void setCorpseModel(int templateId, String corpseModel) {

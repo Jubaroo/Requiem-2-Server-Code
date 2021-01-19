@@ -76,7 +76,7 @@ public class PortalUpkeepQuestion extends Question {
 
             try {
                 dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement(String.format("UPDATE ColdiePortals SET bank = bank + %d WHERE itemid = %s", coins, PortalMod.myMapBank.get(mynumber)));
+                ps2 = dbcon2.prepareStatement(String.format("UPDATE RequiemPortals SET bank = bank + %d WHERE itemid = %s", coins, PortalMod.myMapBank.get(mynumber)));
                 ps2.executeUpdate();
                 ps2.close();
                 dbcon2.close();
@@ -117,7 +117,7 @@ public class PortalUpkeepQuestion extends Question {
             PortalMod.myMapBank.clear();
             try {
                 dbcon = ModSupportDb.getModSupportDb();
-                ps = dbcon.prepareStatement("SELECT * FROM ColdiePortals ORDER BY name");
+                ps = dbcon.prepareStatement("SELECT * FROM RequiemPortals ORDER BY name");
                 rs = ps.executeQuery();
                 f.addRaw("--Choose Portal--,");
                 int i = 1;
@@ -160,7 +160,7 @@ public class PortalUpkeepQuestion extends Question {
             ResultSet rs2;
             try {
                 dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement("SELECT * FROM ColdiePortals ORDER BY name");
+                ps2 = dbcon2.prepareStatement("SELECT * FROM RequiemPortals ORDER BY name");
                 rs2 = ps2.executeQuery();
                 while (rs2.next()) {
                     f.addText(String.format("%s : %d\n", rs2.getString("name"), rs2.getInt("bank")));

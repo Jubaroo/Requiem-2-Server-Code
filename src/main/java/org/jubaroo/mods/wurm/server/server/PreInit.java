@@ -16,8 +16,11 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.ItemRemoval;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.misc.*;
-import org.jubaroo.mods.wurm.server.tools.CustomTitles;
+import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
+
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.mailboxEnableEnchant;
+import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.enableAthanorMechanism;
 
 public class PreInit {
 
@@ -47,10 +50,10 @@ public class PreInit {
             //EconomicChanges.preInit();
             //SkillChanges.preInit();
             //Bloodlust.preInit();
-            if (Constants.mailboxEnableEnchant) {
+            if (mailboxEnableEnchant) {
                 Misc.EnableEnchant();
             }
-            if (Constants.enableAthanorMechanism) {
+            if (enableAthanorMechanism) {
                 AthanorMechanismBehaviour.preInit();
             }
             ClassPool classPool = HookManager.getInstance().getClassPool();
