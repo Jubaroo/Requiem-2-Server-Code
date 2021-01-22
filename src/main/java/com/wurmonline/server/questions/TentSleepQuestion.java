@@ -9,7 +9,7 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.Player;
-import org.jubaroo.mods.wurm.server.actions.items.TentSleepAction;
+import org.jubaroo.mods.wurm.server.actions.TentSleepAction;
 
 import java.util.Properties;
 

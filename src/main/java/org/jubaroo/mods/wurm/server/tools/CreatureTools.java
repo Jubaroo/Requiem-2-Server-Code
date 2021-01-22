@@ -82,19 +82,19 @@ public class CreatureTools {
             CreatureTemplateIds.SPIDER_FOG_CID
     };
 
+    public static int[] randomUndead = {
+            CustomCreatures.zombieWalkerId,
+            CustomCreatures.reanimatedSkeletonId,
+            CustomCreatures.zombieHulkId,
+            CustomCreatures.wraithId
+    };
+
     public static int[] randomDrakeling = {
             CreatureTemplateIds.DRAKE_BLACK_CID,
             CreatureTemplateIds.DRAKE_BLUE_CID,
             CreatureTemplateIds.DRAKE_GREEN_CID,
             CreatureTemplateIds.DRAKE_RED_CID,
             CreatureTemplateIds.DRAKE_WHITE_CID
-    };
-
-    public static int[] randomUndead = {
-            CustomCreatures.reaperId,
-            CustomCreatures.reanimatedSkeletonId,
-            CustomCreatures.zombieHulkId,
-            CustomCreatures.wraithId
     };
 
     public static int[] randomDragon = {
@@ -433,7 +433,7 @@ public class CreatureTools {
             } else if (templateId == CustomCreatures.iceCatId) {
                 floatToRet *= 1.7f;
             } else if (templateId == CustomCreatures.kongId) {
-                floatToRet *= 5f;
+                floatToRet *= 10f;
             } else if (templateId == CustomCreatures.bloblingId) {
                 floatToRet *= 0.35f;
             } else if (templateId == CustomCreatures.prismaticBloblingId) {
@@ -466,6 +466,8 @@ public class CreatureTools {
         } else if (templateId == CustomCreatures.polarBearId) {
             return true;
         } else if (templateId == CustomCreatures.ominousTreeId) {
+            return true;
+        } else if (templateId == CustomCreatures.kongId) {
             return true;
         } else {
             return Titans.isTitan(creature);
@@ -501,6 +503,10 @@ public class CreatureTools {
             corpse.setSizes(size);
             sendStatus = true;
         } else if (cid == CustomCreatures.ominousTreeId) {
+            size *= 100.0;
+            corpse.setSizes(size);
+            sendStatus = true;
+        } else if (cid == CustomCreatures.kongId) {
             size *= 100.0;
             corpse.setSizes(size);
             sendStatus = true;

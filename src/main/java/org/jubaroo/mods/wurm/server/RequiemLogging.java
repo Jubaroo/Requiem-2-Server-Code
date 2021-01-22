@@ -6,20 +6,15 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.PlayerInfoFactory;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
-import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.io.IOException;
 import java.util.logging.Level;
 
-import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.*;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.christmasMobs;
+import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.halloweenMobs;
 
 public class RequiemLogging {
 
@@ -40,7 +35,7 @@ public class RequiemLogging {
 
     public static void debug(String msg) {
         if (Requiem.logger != null) {
-            if (LoggingConstants.debug) {
+            if (debug) {
                 logInfo(msg);
             }
         }
@@ -98,21 +93,16 @@ public class RequiemLogging {
         // ========================== Items ===========================
         if (itemHolyBook) {
             RequiemLogging.logInfo("Holy Book: Enabled");
-            RequiemLogging.logInfo(String.format("Holy Book ID: %d", CustomItems.prayerBookId));
         } else {
             RequiemLogging.logInfo("Holy Book: Disabled");
         }
         if (itemNymphPortal) {
             RequiemLogging.logInfo("NymphPortal: Enabled");
-            RequiemLogging.logInfo(String.format("Nymph Portal ID: %d", CustomItems.nymphPortal.getTemplateId()));
-            RequiemLogging.logInfo(String.format("Nymph Portal Home ID: %d", CustomItems.nymphHomePortal.getTemplateId()));
         } else {
             RequiemLogging.logInfo("NymphPortal: Disabled");
         }
         if (itemDemonPortal) {
             RequiemLogging.logInfo("DemonPortal: Enabled");
-            RequiemLogging.logInfo(String.format("Demon Portal ID: %d", CustomItems.demonPortal.getTemplateId()));
-            RequiemLogging.logInfo(String.format("Demon Portal Home ID: %d", CustomItems.demonHomePortal.getTemplateId()));
         } else {
             RequiemLogging.logInfo("DemonPortal: Disabled");
         }

@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.costPerMin;
+
 public class PollPortals {
     static long lastPoll = 0L;
     static int pollFrequency = (60 * 60 * 1000);//1 hour
@@ -21,8 +23,8 @@ public class PollPortals {
         try {
             dbcon2 = ModSupportDb.getModSupportDb();
             ps2 = dbcon2.prepareStatement("UPDATE RequiemPortals SET bank = bank - ? WHERE bank >= ?");
-            ps2.setInt(1, PortalMod.costPerMin * 60);//updates every hour
-            ps2.setInt(2, PortalMod.costPerMin * 60);
+            ps2.setInt(1, costPerMin * 60);//updates every hour
+            ps2.setInt(2, costPerMin * 60);
             ps2.executeUpdate();
             ps2.close();
             dbcon2.close();

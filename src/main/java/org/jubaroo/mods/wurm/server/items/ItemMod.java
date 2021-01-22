@@ -22,7 +22,7 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.magicItems.PortalTeleportAction;
+import org.jubaroo.mods.wurm.server.actions.PortalTeleportAction;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
@@ -30,11 +30,10 @@ import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.itemCreateLogging;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.structureTemplates;
+import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.actPortalDone;
 
 public class ItemMod {
 

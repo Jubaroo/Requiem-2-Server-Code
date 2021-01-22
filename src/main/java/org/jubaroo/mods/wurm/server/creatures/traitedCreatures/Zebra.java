@@ -57,10 +57,9 @@ public class Zebra implements ModCreature, CreatureTypes, ItemMaterials, MiscCon
         return builder;
     }
 
+    @Override
     public ModVehicleBehaviour getVehicleBehaviour() {
-
         return new ModVehicleBehaviour() {
-
             @Override
             public void setSettingsForVehicle(Item item, Vehicle vehicle) {
             }

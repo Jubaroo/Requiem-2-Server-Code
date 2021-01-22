@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 import static org.gotti.wurmunlimited.modsupport.actions.ActionPropagation.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.itemCrystalCreationDamage;
+import static org.jubaroo.mods.wurm.server.ModConfig.itemCrystalCreationDamage;
 
 public class ArcaneShardAction implements ModAction, ActionPerformer, BehaviourProvider {
     private final short actionId;

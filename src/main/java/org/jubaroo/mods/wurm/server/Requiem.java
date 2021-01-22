@@ -1,6 +1,7 @@
 package org.jubaroo.mods.wurm.server;
 
 import com.wurmonline.server.Message;
+import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.Servers;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.players.Player;
@@ -10,7 +11,10 @@ import org.jubaroo.mods.wurm.server.communication.commands.ArgumentTokenizer;
 import org.jubaroo.mods.wurm.server.communication.discord.ChatHandler;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
-import org.jubaroo.mods.wurm.server.creatures.*;
+import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
+import org.jubaroo.mods.wurm.server.creatures.CustomMountSettings;
+import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.bounty.Bounty;
 import org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
@@ -26,7 +30,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.*;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 
 public class Requiem implements WurmServerMod, ServerStartedListener, ServerShutdownListener, PlayerLoginListener, ItemTemplatesCreatedListener, Configurable, PreInitable, ServerPollListener, Initable, PlayerMessageListener, ChannelMessageListener {
     public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), LoggingConstants.VERSION));
@@ -40,21 +44,20 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             RequiemLogging.logInfo("======= Adding Creatures & Mount Settings for Creatures=======");
             CustomCreatures.registerCustomCreatures();
             CustomMountSettings.registerCustomMountSettings();
-            RequiemLogging.logInfo("======= Creating Item Mod items =======");
+            //RequiemLogging.logInfo("======= Creating Item Mod items =======");
             RequiemLogging.logInfo("======= Creating Cache items =======");
             if (!disableItemMods) {
-                if (!Servers.isThisLoginServer()) {
-                    CustomItemCreationEntries.registerCustomItemCreationEntries();
-                }
+                CustomItemCreationEntries.registerCustomItemCreationEntries();
             }
+
             if (!disableEntireMod) {
                 RequiemLogging.debug("======= Editing existing item templates =======");
                 ItemMod.modifyItemsOnCreated();
             }
-            if (disableVehicleMods)
-                if (!Servers.isThisLoginServer()) {
-                    CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
-                }
+            if (!disableVehicleMods) {
+                CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
+
+            }
         } catch (IllegalArgumentException | ClassCastException | IOException e) {
             e.printStackTrace();
             RequiemLogging.logException("Error in onItemTemplatesCreated()", e);
@@ -122,9 +125,6 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         try {
             if (!disableEntireMod) {
                 OnServerStarted.onServerStarted();
-                if (!Servers.isThisLoginServer()) {
-                    CreatureSpawns.spawnTable();
-                }
                 if (!Servers.isThisATestServer()) {
                     ChatHandler.serverStarted();
                 }
@@ -148,11 +148,10 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public MessagePolicy onPlayerMessage(Communicator communicator, String message, String title) {
         String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
-        final Player p = communicator.getPlayer();
         if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
             DiscordHandler.initJda();
             return MessagePolicy.DISCARD;
-        } else if (communicator.player.getPower() >= 1 && message.startsWith("#eventmsg")) {
+        } else if (communicator.player.getPower() >= MiscConstants.POWER_HERO && message.startsWith("#eventmsg")) {
             String msg = message.replace("#eventmsg", "").trim();
             ChatHandler.setUpcomingEvent(msg);
             if (msg.length() > 0)
@@ -167,15 +166,26 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                     ChatHandler.handleGlobalMessage(chan, communicator, message);
                 return MessagePolicy.DISCARD;
             } else return MessagePolicy.PASS;
-        } else if (!message.startsWith("/me ") && (message.equals("help") || message.contains("guard!") || message.contains("guards!") || message.contains("help guard") || message.contains("help guards"))) {
-            p.getCommunicator().sendNormalServerMessage("Guards have been called!");
-            p.callGuards();
+        }
+
+        //TODO
+        // fix the help commands not calling guards in the new chat system
+        else if (message.equals("/help me ") || (message.equals("help") || message.equals("guard!") || message.equals("guard") || message.equals("guards") || message.equals("guards!") || message.equals("help guard") || message.equals("help guards"))) {
+            communicator.getPlayer().getCommunicator().sendNormalServerMessage("Guards have been called!");
+            communicator.getPlayer().callGuards();
             return MessagePolicy.DISCARD;
-        } else if (OnServerStarted.cmdtool.runWurmCmd(p, argv)) {
+        }
+
+        //else if (communicator.player.getPower() > 0 && message.startsWith("#")) {
+        //    return CommandHandler.handleCommand(communicator, message);
+        //}
+
+        else if (OnServerStarted.cmdtool.runWurmCmd(communicator.getPlayer(), argv)) {
             return MessagePolicy.PASS;
         } else {
             return MessagePolicy.PASS;
         }
+
     }
 
     @Override
@@ -187,9 +197,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onPlayerLogin(Player player) {
         try {
             if (!disableEntireMod) {
-                if (!Servers.isThisLoginServer()) {
-                    OnPlayerLogin.onPlayerLogin(player);
-                }
+                OnPlayerLogin.onPlayerLogin(player);
+
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -201,9 +210,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onPlayerLogout(Player player) {
         try {
             if (!disableEntireMod) {
-                if (!Servers.isThisLoginServer()) {
-                    OnPlayerLogout.onPlayerLogout(player);
-                }
+                OnPlayerLogout.onPlayerLogout(player);
+
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -214,12 +222,10 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public void onServerPoll() {
         if (!disableEntireMod) {
-            if (!Servers.isThisLoginServer()) {
-                OnServerPoll.onServerPoll();
-                Misc.noobTips();
-                PollPortals.pollPortal();
-                Titans.locateTitans();
-            }
+            OnServerPoll.onServerPoll();
+            Misc.noobTips();
+            PollPortals.pollPortal();
+
         }
         if (Servers.localServer.LOGINSERVER)
             DiscordHandler.poll();
@@ -231,6 +237,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     }
 
     //TODO
+    // Action for guide to tell all server features
     // Add portal action into an action performer and make them a list instead of 4 different actions in the main right click menu
     // So just noticed in the ship building menu, knarr's don't have custom sail options.  Also, Caravels are listed as "...caravels caravel," and caravels and cogs are listed twice for each custom sail model.
     // add lava/fire creatures to Creature.doLavaDamage()
@@ -239,7 +246,6 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     // I wish more enchants could be put on shields..seems like shared pain should be allowed
     // Make lesser fire crystal have 3 charges
     // ---> Horse traits do not show up in GM trait set list after trait 40 <--- important
-    // *** redo all items to be in one file ***
     // action for patreons to use a mailbox to order more blueprints
     // Labyrinthia deed that has a maze that changes once a week. the maze has a chest in the middle with random loot each time
     // change the descriptions of the animals that relate to real life

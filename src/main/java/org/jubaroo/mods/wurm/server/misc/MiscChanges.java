@@ -36,9 +36,8 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.createItemDescs;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.hidePlayerGodInscriptions;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
 
 public class MiscChanges {
     private static final int rarityChance = 3600;

@@ -20,9 +20,9 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.ChatHandler;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Zebra;
-import org.jubaroo.mods.wurm.server.misc.database.holidays.Holidays;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
+import org.jubaroo.mods.wurm.server.tools.database.holidays.Holidays;
 
 import java.io.IOException;
 
@@ -32,11 +32,9 @@ import static com.wurmonline.server.zones.EncounterType.*;
 import static com.wurmonline.shared.constants.Enchants.*;
 import static com.wurmonline.shared.constants.ItemMaterials.MATERIAL_ADAMANTINE;
 import static com.wurmonline.shared.constants.ItemMaterials.MATERIAL_GLIMMERSTEEL;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.creatures.CustomCreatures.*;
-import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.*;
 import static org.jubaroo.mods.wurm.server.server.constants.MessageConstants.displayOnScreen;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.disableHolidayCreatures;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.disableTradeShips;
 
 public class CreatureSpawns {
 
@@ -198,7 +196,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnGolemlings(Creature creature) {
+    public static void spawnGolemlings(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -237,7 +235,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnBloblings(Creature creature) {
+    public static void spawnBloblings(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -256,7 +254,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnPrismaticBloblings(Creature creature) {
+    public static void spawnPrismaticBloblings(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -275,7 +273,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnBuffaloSpirit(Creature creature) {
+    public static void spawnBuffaloSpirit(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -318,7 +316,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnMimic(Creature creature) {
+    public static void spawnMimic(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -336,7 +334,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnHorsemanWar(Creature creature) {
+    public static void spawnHorsemanWar(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -355,7 +353,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnHorsemanFamine(Creature creature) {
+    public static void spawnHorsemanFamine(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -374,7 +372,7 @@ public class CreatureSpawns {
         }
     }
 
-    static void spawnHorsemanDeath(Creature creature) {
+    public static void spawnHorsemanDeath(Creature creature) {
         if (creature.getTemplateId() > 0) {
             try {
                 float x = creature.getPosX();
@@ -401,6 +399,7 @@ public class CreatureSpawns {
         try {
             return ItemFactory.createItem(itemId, RandomUtils.getRandomQl(50, 99), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, "Black Knight");
         } catch (FailedException | NoSuchTemplateException e) {
+            RequiemLogging.logException(String.format("Error creating Black Knight item for ID: %d", itemId), e);
             e.printStackTrace();
         }
         return null;
@@ -570,7 +569,9 @@ public class CreatureSpawns {
         if (creatureId > 0)
             try {
                 new EncounterBuilder(tile.id, elevation).addCreatures(creatureId, count).build(chance);
+                RequiemLogging.debug(String.format("Added new encounter for %d on tile %s", creatureId, tile));
             } catch (Exception e) {
+                RequiemLogging.logException(String.format("Error spawning creature for ID: %d", creatureId), e);
                 e.printStackTrace();
             }
     }

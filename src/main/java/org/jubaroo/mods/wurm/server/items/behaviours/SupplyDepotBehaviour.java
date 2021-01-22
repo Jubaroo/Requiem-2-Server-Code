@@ -14,12 +14,11 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.EffectConstants;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-
-import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.sql.Connection;
@@ -127,7 +126,7 @@ public class SupplyDepotBehaviour {
                 sendDepotEffectsToPlayers(item);
             }
         }
-        if (!ToggleConstants.enableDepots) {
+        if (!ModConfig.enableDepots) {
             return;
         }
         if (!initalizedSupplyDepot) {

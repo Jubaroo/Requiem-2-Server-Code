@@ -10,7 +10,6 @@ import com.wurmonline.server.players.Player;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.ArrayList;
@@ -102,9 +101,8 @@ public class PlayerBounty {
 
     public static void checkPlayerBounty(Player player, Creature creature) {
         try {
-            CustomTitles.addPlayerTitlesOrStatsOnKill(player, creature);
             RequiemLogging.debug(String.format("%s killed %s", player.getName(), creature.getName()));
-        } catch (IllegalArgumentException | ClassCastException | NoSuchTemplateException | FailedException e) {
+        } catch (IllegalArgumentException | ClassCastException e) {
             e.printStackTrace();
         }
     }

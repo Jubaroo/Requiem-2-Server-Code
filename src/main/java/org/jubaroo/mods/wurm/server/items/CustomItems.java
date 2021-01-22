@@ -13,6 +13,7 @@ import com.wurmonline.shared.constants.IconConstants;
 import com.wurmonline.shared.constants.ItemMaterials;
 import com.wurmonline.shared.constants.ModelConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.misc.templates.EnchantScrollTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.ScrollTemplate;
@@ -325,7 +326,7 @@ public class CustomItems {
         registerTitaniumLump();
         registerTitaniumSocket();
         registerTreasureBox();
-        if (ItemConstants.itemHolyBook) {
+        if (ModConfig.itemHolyBook) {
             registerPrayerBook();
         }
         RequiemLogging.debug(String.format("========== Registering all of Requiem's custom item templates took %d milliseconds ==========", (System.nanoTime() - start) / 1000000L));
@@ -4422,7 +4423,7 @@ public class CustomItems {
         CACHE_IDS.add(treasureMapCache.getTemplateId());
         CACHE_IDS.add(weaponCache.getTemplateId());
     }
-    
+
     private static ItemTemplate registerServerPortal(String id, String name, String description, String modelName, byte material) throws IOException {
         return new ItemTemplateBuilder(String.format("jubaroo.item.portal.%s.", id))
                 .name(String.format("%s server portal", name), String.format("%s server portals", name), description)

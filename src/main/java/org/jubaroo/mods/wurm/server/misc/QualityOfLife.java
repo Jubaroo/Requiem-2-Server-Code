@@ -24,9 +24,8 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.createItemDescs;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.hidePlayerGodInscriptions;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
 
 public class QualityOfLife {
 
@@ -112,33 +111,18 @@ public class QualityOfLife {
                     CtClass.floatType
             };
             String desc1 = Descriptor.ofMethod(CtClass.booleanType, params1);
-            replace = "$_ = null;"
-                    + QualityOfLife.class.getName() + ".vehicleHook(performer, $0);";
+            replace = String.format("$_ = null;%s.vehicleHook(performer, $0);", QualityOfLife.class.getName());
             Util.instrumentDescribed(thisClass, ctCaveWallBehaviour, "action", desc1, "putItemInfrontof", replace);
 
             CtClass ctTileRockBehaviour = classPool.get("com.wurmonline.server.behaviours.TileRockBehaviour");
             Util.setReason("Allow players to surface mine directly into vehicles.");
-            replace = "$_ = $proceed($$);" +
-                    QualityOfLife.class.getName() + ".vehicleHook(performer, $0);";
+            replace = String.format("$_ = $proceed($$);%s.vehicleHook(performer, $0);", QualityOfLife.class.getName());
             Util.instrumentDeclared(thisClass, ctTileRockBehaviour, "mine", "setDataXY", replace);
 
             Util.setReason("Allow players to chop logs directly into vehicles.");
             CtClass ctMethodsItems = classPool.get("com.wurmonline.server.behaviours.MethodsItems");
-            replace = "$_ = null;" +
-                    QualityOfLife.class.getName() + ".vehicleHook(performer, $0);";
+            replace = String.format("$_ = null;%s.vehicleHook(performer, $0);", QualityOfLife.class.getName());
             Util.instrumentDeclared(thisClass, ctMethodsItems, "chop", "putItemInfrontof", replace);
-
-            //Util.setReason("Allow statuettes to be used when not gold/silver.");
-            //String desc100 = Descriptor.ofMethod(CtClass.booleanType, new CtClass[]{});
-            //replace = "{ return this.template.holyItem; }";
-            //Util.setBodyDescribed(thisClass, ctItem, "isHolyItem", desc100, replace);
-
-            /* Disabled in Wurm Unlimited 1.9 - Priest Rework changes removed this restriction.
-
-            Util.setReason("Remove requirement for Libila priests to bless creatures before taming.");
-            CtClass ctMethodsCreatures = classPool.get("com.wurmonline.server.behaviours.MethodsCreatures");
-            replace = "$_ = false;";
-            Util.instrumentDeclared(thisClass, ctMethodsCreatures, "tame", "isPriest", replace);*/
 
             Util.setReason("Send gems, source crystals, flint, etc. into vehicle.");
             CtClass[] params2 = {
@@ -152,10 +136,10 @@ public class QualityOfLife {
                     ctAction
             };
             String desc2 = Descriptor.ofMethod(ctItem, params2);
-            replace = "$_ = null;" +
-                    QualityOfLife.class.getName() + ".vehicleHook(performer, $0);";
+            replace = String.format("$_ = null;%s.vehicleHook(performer, $0);", QualityOfLife.class.getName());
             Util.instrumentDescribed(thisClass, ctTileRockBehaviour, "createGem", desc2, "putItemInfrontof", replace);
 
+            // Regen stamina in vehicle on any slope
             CtClass ctPlayer = classPool.get("com.wurmonline.server.players.Player");
             ctPlayer.getMethod("poll", "()Z").instrument(new ExprEditor() {
                 @Override
@@ -183,24 +167,18 @@ public class QualityOfLife {
                 hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
                         "answerLocalChat",
                         "(Lcom/wurmonline/server/Message;Ljava/lang/String;)V",
-                        () -> (proxy, method, args) -> {
-                            return null;
-                        });
+                        () -> (proxy, method, args) -> null);
                 hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
                         "getSayToCreature",
                         "(Lcom/wurmonline/server/creatures/Creature;)Ljava/lang/String;",
-                        () -> (proxy, method, args) -> {
-                            return null;
-                        });
+                        () -> (proxy, method, args) -> null);
             }
 
             if (hidePlayerGodInscriptions) {
                 hooks.registerHook("com.wurmonline.server.deities.Deities",
                         "getRandomNonHateDeity",
                         "()Lcom/wurmonline/server/deities/Deity;",
-                        () -> (proxy, method, args) -> {
-                            return null;
-                        });
+                        () -> (proxy, method, args) -> null);
             }
 
             if (gmFullFavor) {
@@ -229,9 +207,7 @@ public class QualityOfLife {
                 hooks.registerHook("com.wurmonline.server.behaviours.CargoTransportationMethods",
                         "targetIsNotEmptyContainerCheck",
                         "(Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;Z)Z",
-                        () -> (proxy, method, args) -> {
-                            return false;
-                        });
+                        () -> (proxy, method, args) -> false);
             }
 
             if (noMineDrift) {
@@ -256,9 +232,7 @@ public class QualityOfLife {
                 hooks.registerHook("com.wurmonline.server.behaviours.MethodsItems",
                         "mayDropTentOnTile",
                         "(Lcom/wurmonline/server/creatures/Creature;)Z",
-                        () -> (proxy, method, args) -> {
-                            return true;
-                        });
+                        () -> (proxy, method, args) -> true);
             }
 
             if (allSurfaceMine) {
@@ -284,7 +258,7 @@ public class QualityOfLife {
                         () -> (proxy, method, args) -> {
                             Item lamp = (Item) proxy;
                             lamp.setAuxData((byte) 127);
-                            return null;
+                            return method.invoke(proxy, args);
                         });
             }
 
@@ -326,6 +300,7 @@ public class QualityOfLife {
             });
         }
 */
+            RequiemLogging.logInfo("========= Finished initializing MiscChanges.init =========");
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new HookException(e);
         }

@@ -6,7 +6,7 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
-import org.jubaroo.mods.wurm.server.items.pottals.PortalAddLocationAction;
+import org.jubaroo.mods.wurm.server.actions.portals.PortalAddLocationAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
 import java.sql.Connection;

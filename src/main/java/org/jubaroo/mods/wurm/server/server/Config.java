@@ -1,17 +1,10 @@
 package org.jubaroo.mods.wurm.server.server;
 
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.character.JoustAction;
-import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
-import org.jubaroo.mods.wurm.server.server.constants.*;
 
 import java.util.Properties;
 
-import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.executionCostLogging;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.*;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 
 public class Config {
 
@@ -24,7 +17,7 @@ public class Config {
         RequiemLogging.logInfo("|-|                         '^`   (o o)  '^`                          | |       ");
         RequiemLogging.logInfo("| |                               `\\Y/'                               |-|      ");
         RequiemLogging.logInfo("|-|                                                                   | |       ");
-        RequiemLogging.logInfo("| |                       Configuring Requiem Mod                     |-|       ");
+        RequiemLogging.logInfo("| |                      Configuring Requiem 2 Mod                    |-|       ");
         RequiemLogging.logInfo("|-|                                                                   | |       ");
         RequiemLogging.logInfo("| |                                                                   |-|       ");
         RequiemLogging.logInfo("|_|___________________________________________________________________| |       ");
@@ -54,7 +47,6 @@ public class Config {
         itemHolyBook = Boolean.parseBoolean(properties.getProperty("holyBook", String.valueOf(itemHolyBook)));
         itemNymphPortal = Boolean.parseBoolean(properties.getProperty("nymphPortal", String.valueOf(itemNymphPortal)));
         itemDemonPortal = Boolean.parseBoolean(properties.getProperty("demonPortal", String.valueOf(itemDemonPortal)));
-        bulkCreationEntries = Boolean.parseBoolean(properties.getProperty("oldCreationEntries", String.valueOf(bulkCreationEntries)));
         // ========================== Creatures ===========================
         stfuNpcs = Boolean.parseBoolean(properties.getProperty("stfuNpcs", String.valueOf(stfuNpcs)));
         setUnicornIsHorse = Boolean.parseBoolean(properties.getProperty("setUnicornIsHorse", String.valueOf(setUnicornIsHorse)));
@@ -91,73 +83,73 @@ public class Config {
             mailboxEnchantPower = 30.0f;
         }
         // ========================== Portals ===========================
-        PortalMod.costPerMin = Integer.parseInt(properties.getProperty("costPerMin", String.valueOf(PortalMod.costPerMin)));
-        PortalMod.costToActivate = Integer.parseInt(properties.getProperty("costToActivate", String.valueOf(PortalMod.costToActivate)));
-        PortalMod.activateBankAmount = Integer.parseInt(properties.getProperty("activateBankAmount", String.valueOf(PortalMod.activateBankAmount)));
-        PortalMod.craftPortals = Boolean.parseBoolean(properties.getProperty("craftPortals", Boolean.toString(PortalMod.craftPortals)));
+        costPerMin = Integer.parseInt(properties.getProperty("costPerMin", String.valueOf(costPerMin)));
+        costToActivate = Integer.parseInt(properties.getProperty("costToActivate", String.valueOf(costToActivate)));
+        activateBankAmount = Integer.parseInt(properties.getProperty("activateBankAmount", String.valueOf(activateBankAmount)));
+        craftPortals = Boolean.parseBoolean(properties.getProperty("craftPortals", Boolean.toString(craftPortals)));
         // ========================== Labyrinth ===========================
-        LoggingConstants.logExecutionCost = executionCostLogging;
+        logExecutionCost = executionCostLogging;
         executionCostLogging = Boolean.parseBoolean(properties.getProperty("executionCostLogging", "false"));
         // ========================== Mission Items ===========================
-        OtherConstants.addMissionItems = Boolean.parseBoolean(properties.getProperty("addMissionItems", "false"));
-        ItemConstants.coins = Boolean.parseBoolean(properties.getProperty("coins", "false"));
-        ItemConstants.riftItems = Boolean.parseBoolean(properties.getProperty("riftItems", "false"));
-        ItemConstants.miscItems = Boolean.parseBoolean(properties.getProperty("miscItems", "false"));
-        ItemConstants.metalLumps = Boolean.parseBoolean(properties.getProperty("metalLumps", "false"));
-        ItemConstants.metalOres = Boolean.parseBoolean(properties.getProperty("metalOres", "false"));
-        ItemConstants.gems = Boolean.parseBoolean(properties.getProperty("gems", "false"));
-        ItemConstants.potionsSalvesOils = Boolean.parseBoolean(properties.getProperty("potionsSalvesOils", "false"));
-        ItemConstants.mineDoors = Boolean.parseBoolean(properties.getProperty("mineDoors", "false"));
-        ItemConstants.mirrors = Boolean.parseBoolean(properties.getProperty("mirrors", "false"));
-        ItemConstants.masks = Boolean.parseBoolean(properties.getProperty("masks", "false"));
-        ItemConstants.magicItems = Boolean.parseBoolean(properties.getProperty("magicItems", "false"));
-        ItemConstants.wands = Boolean.parseBoolean(properties.getProperty("wands", "false"));
+        addMissionItems = Boolean.parseBoolean(properties.getProperty("addMissionItems", "false"));
+        coins = Boolean.parseBoolean(properties.getProperty("coins", "false"));
+        riftItems = Boolean.parseBoolean(properties.getProperty("riftItems", "false"));
+        miscItems = Boolean.parseBoolean(properties.getProperty("miscItems", "false"));
+        metalLumps = Boolean.parseBoolean(properties.getProperty("metalLumps", "false"));
+        metalOres = Boolean.parseBoolean(properties.getProperty("metalOres", "false"));
+        gems = Boolean.parseBoolean(properties.getProperty("gems", "false"));
+        potionsSalvesOils = Boolean.parseBoolean(properties.getProperty("potionsSalvesOils", "false"));
+        mineDoors = Boolean.parseBoolean(properties.getProperty("mineDoors", "false"));
+        mirrors = Boolean.parseBoolean(properties.getProperty("mirrors", "false"));
+        masks = Boolean.parseBoolean(properties.getProperty("masks", "false"));
+        magicItems = Boolean.parseBoolean(properties.getProperty("magicItems", "false"));
+        wands = Boolean.parseBoolean(properties.getProperty("wands", "false"));
         // ========================== MountSettings ===========================
-        VehicleConstants.wagons = Boolean.parseBoolean(properties.getProperty("wagons", "false"));
+        wagons = Boolean.parseBoolean(properties.getProperty("wagons", "false"));
         //wagonKits = Boolean.parseBoolean(properties.getProperty("wagonKits", "false"));
-        VehicleConstants.sailingBoats = Boolean.parseBoolean(properties.getProperty("sailingBoats", "false"));
-        VehicleConstants.cogs = Boolean.parseBoolean(properties.getProperty("cogs", "false"));
-        VehicleConstants.knarrs = Boolean.parseBoolean(properties.getProperty("knarrs", "false"));
-        VehicleConstants.caravels = Boolean.parseBoolean(properties.getProperty("caravels", "false"));
-        VehicleConstants.corbitas = Boolean.parseBoolean(properties.getProperty("corbitas", "false"));
-        VehicleConstants.magicCarpet = Boolean.parseBoolean(properties.getProperty("magicCarpets", "false"));
-        VehicleConstants.vehicleCreationEntries = Boolean.parseBoolean(properties.getProperty("vehicleCreationEntries", "false"));
+        sailingBoats = Boolean.parseBoolean(properties.getProperty("sailingBoats", "false"));
+        cogs = Boolean.parseBoolean(properties.getProperty("cogs", "false"));
+        knarrs = Boolean.parseBoolean(properties.getProperty("knarrs", "false"));
+        caravels = Boolean.parseBoolean(properties.getProperty("caravels", "false"));
+        corbitas = Boolean.parseBoolean(properties.getProperty("corbitas", "false"));
+        magicCarpet = Boolean.parseBoolean(properties.getProperty("magicCarpets", "false"));
+        vehicleCreationEntries = Boolean.parseBoolean(properties.getProperty("vehicleCreationEntries", "false"));
         // ========================== Conquest ============================
-        PollingConstants.delayFogGoblins = Long.parseLong(properties.getProperty("delayFogGoblins", Long.toString(PollingConstants.delayFogGoblins)));
-        PollingConstants.delayTradeTents = Long.parseLong(properties.getProperty("delayTradeTents", Long.toString(PollingConstants.delayTradeTents)));
-        PollingConstants.delayResourcePoints = Long.parseLong(properties.getProperty("delayResourcePoints", Long.toString(PollingConstants.delayResourcePoints)));
-        PollingConstants.delayLootCarpets = Long.parseLong(properties.getProperty("delayLootCarpets", Long.toString(PollingConstants.delayLootCarpets)));
-        PollingConstants.delayMobSpawners = Long.parseLong(properties.getProperty("delayMobSpawners", Long.toString(PollingConstants.delayMobSpawners)));
-        PollingConstants.delayAthanorMechanism = Long.parseLong(properties.getProperty("delayAthanorMechanism", Long.toString(PollingConstants.delayAthanorMechanism)));
-        PollingConstants.delayWallRepair = Long.parseLong(properties.getProperty("delayWallRepair", Long.toString(PollingConstants.delayWallRepair)));
-        PollingConstants.initialGoblinCensus = Boolean.parseBoolean(properties.getProperty("initialGoblinCensus", "false"));
-        PollingConstants.maxFogGoblins = Integer.parseInt(properties.getProperty("maxFogGoblins", Integer.toString(PollingConstants.maxFogGoblins)));
-        PollingConstants.tradeTentsNorthZoneName = String.valueOf(properties.getProperty("tradeTentsNorthZoneName", String.valueOf(PollingConstants.tradeTentsNorthZoneName)));
-        PollingConstants.tradeTentsSouthZoneName = String.valueOf(properties.getProperty("tradeTentsSouthZoneName", String.valueOf(PollingConstants.tradeTentsSouthZoneName)));
-        PollingConstants.tradeTentCoinReward = Long.parseLong(properties.getProperty("tradeTentCoinReward", Long.toString(PollingConstants.tradeTentCoinReward)));
+        delayFogGoblins = Long.parseLong(properties.getProperty("delayFogGoblins", Long.toString(delayFogGoblins)));
+        delayTradeTents = Long.parseLong(properties.getProperty("delayTradeTents", Long.toString(delayTradeTents)));
+        delayResourcePoints = Long.parseLong(properties.getProperty("delayResourcePoints", Long.toString(delayResourcePoints)));
+        delayLootCarpets = Long.parseLong(properties.getProperty("delayLootCarpets", Long.toString(delayLootCarpets)));
+        delayMobSpawners = Long.parseLong(properties.getProperty("delayMobSpawners", Long.toString(delayMobSpawners)));
+        delayAthanorMechanism = Long.parseLong(properties.getProperty("delayAthanorMechanism", Long.toString(delayAthanorMechanism)));
+        delayWallRepair = Long.parseLong(properties.getProperty("delayWallRepair", Long.toString(delayWallRepair)));
+        initialGoblinCensus = Boolean.parseBoolean(properties.getProperty("initialGoblinCensus", "false"));
+        maxFogGoblins = Integer.parseInt(properties.getProperty("maxFogGoblins", Integer.toString(maxFogGoblins)));
+        tradeTentsNorthZoneName = String.valueOf(properties.getProperty("tradeTentsNorthZoneName", String.valueOf(tradeTentsNorthZoneName)));
+        tradeTentsSouthZoneName = String.valueOf(properties.getProperty("tradeTentsSouthZoneName", String.valueOf(tradeTentsSouthZoneName)));
+        tradeTentCoinReward = Long.parseLong(properties.getProperty("tradeTentCoinReward", Long.toString(tradeTentCoinReward)));
         // ========================== World of Wonders ===========================
-        ItemConstants.damageToTake = Integer.parseInt(properties.getProperty("damageToTake", Float.toString(ItemConstants.damageToTake)));
-        ItemConstants.skullLocateUnique = Boolean.parseBoolean(properties.getProperty("skullLocateUnique", "false"));
+        damageToTake = Integer.parseInt(properties.getProperty("damageToTake", Float.toString(damageToTake)));
+        skullLocateUnique = Boolean.parseBoolean(properties.getProperty("skullLocateUnique", "false"));
         //skullImpFactor = Float.parseFloat(properties.getProperty("skullImpFactor", Float.toString(skullImpFactor)));
-        ItemConstants.reloadSkull = Boolean.parseBoolean(properties.getProperty("reloadSkull", "false"));
-        CreatureConstants.bossIds = properties.getProperty("bossIds").split(";");
+        reloadSkull = Boolean.parseBoolean(properties.getProperty("reloadSkull", "false"));
+        bossIds = properties.getProperty("bossIds").split(";");
         //scrollids = properties.getProperty("scrollids").split(";");
         // ========================== Jousting ===========================
-        JoustAction.LanceDamage = Integer.parseInt(properties.getProperty("LanceDamage", "10"));
-        JoustAction.BonusLanceDamage = Integer.parseInt(properties.getProperty("BonusLanceDamage", "5"));
-        JoustAction.BaseHitChance = Integer.parseInt(properties.getProperty("BaseHitChance", "20"));
-        JoustAction.SpearSkillRange = Integer.parseInt(properties.getProperty("SkillRange", "5"));
-        JoustAction.LoseHelmetChance = Integer.parseInt(properties.getProperty("LoseHelmetChance", "5"));
-        JoustAction.PerKMDamageBoost = Float.parseFloat(properties.getProperty("PerKMDamageBonus", "10"));
-        JoustAction.AllowSkillGain = Boolean.parseBoolean(properties.getProperty("AllowSkillGain", "true"));
-        JoustAction.AllowCraftingLance = Boolean.parseBoolean(properties.getProperty("AllowCraftingLance", "true"));
-        JoustAction.LanceRange = Float.parseFloat(properties.getProperty("LanceRange", "5"));
+        LanceDamage = Integer.parseInt(properties.getProperty("LanceDamage", "10"));
+        BonusLanceDamage = Integer.parseInt(properties.getProperty("BonusLanceDamage", "5"));
+        BaseHitChance = Integer.parseInt(properties.getProperty("BaseHitChance", "20"));
+        SpearSkillRange = Integer.parseInt(properties.getProperty("SkillRange", "5"));
+        LoseHelmetChance = Integer.parseInt(properties.getProperty("LoseHelmetChance", "5"));
+        PerKMDamageBoost = Float.parseFloat(properties.getProperty("PerKMDamageBonus", "10"));
+        AllowSkillGain = Boolean.parseBoolean(properties.getProperty("AllowSkillGain", "true"));
+        AllowCraftingLance = Boolean.parseBoolean(properties.getProperty("AllowCraftingLance", "true"));
+        LanceRange = Float.parseFloat(properties.getProperty("LanceRange", "5"));
         // ========================= Logging ==============================
-        LoggingConstants.debug = Boolean.parseBoolean(properties.getProperty("debug", "false"));
-        LoggingConstants.creatureDeathLogging = Boolean.parseBoolean(properties.getProperty("CreatureDeathLogging", "false"));
-        LoggingConstants.creatureCreateLogging = Boolean.parseBoolean(properties.getProperty("CreatureCreateLogging", "false"));
-        LoggingConstants.itemCreateLogging = Boolean.parseBoolean(properties.getProperty("ItemCreateLogging", "false"));
-        LoggingConstants.itemRemoveLogging = Boolean.parseBoolean(properties.getProperty("itemRemoveLogging", "false"));
+        debug = Boolean.parseBoolean(properties.getProperty("debug", "false"));
+        creatureDeathLogging = Boolean.parseBoolean(properties.getProperty("CreatureDeathLogging", "false"));
+        creatureCreateLogging = Boolean.parseBoolean(properties.getProperty("CreatureCreateLogging", "false"));
+        itemCreateLogging = Boolean.parseBoolean(properties.getProperty("ItemCreateLogging", "false"));
+        itemRemoveLogging = Boolean.parseBoolean(properties.getProperty("itemRemoveLogging", "false"));
         // ========================= Mod Toggles ==============================
         disableEntireMod = Boolean.parseBoolean(properties.getProperty("disableEntireMod", "false"));
         disableCreatureLoot = Boolean.parseBoolean(properties.getProperty("disableCreatureLoot", "false"));
@@ -172,9 +164,9 @@ public class Config {
         enableAthanorMechanism = Boolean.parseBoolean(properties.getProperty("enableAthanorMechanism", "false"));
         disableDiscordReliance = Boolean.parseBoolean(properties.getProperty("disableDiscordReliance", "false"));
         disableScrollGearBinding = Boolean.parseBoolean(properties.getProperty("disableScrollGearBinding", "false"));
-        EffectsConstants.tileX = Integer.parseInt(properties.getProperty("LoginServerEffectX"));
-        EffectsConstants.tileY = Integer.parseInt(properties.getProperty("LoginServerEffectY"));
-        EffectsConstants.tileZ = Integer.parseInt(properties.getProperty("LoginServerEffectZ"));
+        tileX = Integer.parseInt(properties.getProperty("LoginServerEffectX"));
+        tileY = Integer.parseInt(properties.getProperty("LoginServerEffectY"));
+        tileZ = Integer.parseInt(properties.getProperty("LoginServerEffectZ"));
         RequiemLogging.logInfo("all configure completed");
     }
 

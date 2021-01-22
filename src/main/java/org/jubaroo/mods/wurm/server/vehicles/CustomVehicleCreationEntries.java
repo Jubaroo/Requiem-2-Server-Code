@@ -5,7 +5,7 @@ import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
-import static org.jubaroo.mods.wurm.server.server.constants.VehicleConstants.*;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.vehicles.CustomVehicles.*;
 
 public class CustomVehicleCreationEntries {

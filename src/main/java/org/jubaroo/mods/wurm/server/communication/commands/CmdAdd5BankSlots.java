@@ -8,7 +8,7 @@ import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.shared.constants.SoundNames;
-import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
 
 public class CmdAdd5BankSlots extends WurmCmd {
 

@@ -4,7 +4,7 @@ import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
-import org.jubaroo.mods.wurm.server.actions.items.HealingFountainAction;
+import org.jubaroo.mods.wurm.server.actions.HealingFountainAction;
 
 import java.util.Properties;
 

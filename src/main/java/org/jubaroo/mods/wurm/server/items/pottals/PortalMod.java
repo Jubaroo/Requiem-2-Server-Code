@@ -18,11 +18,6 @@ public class PortalMod {
     public static HashMap<String, String> myMapGM2 = new HashMap<>();
     public static HashMap<String, Long> myMapPortal = new HashMap<>();
 
-    public static int costPerMin = 1; //1 iron per min default
-    public static int costToActivate = 10000; //1s default
-    public static int activateBankAmount = 5000; //50c default
-    public static boolean craftPortals = false;
-
     public static boolean checkAction(Item target) {
         int clicked = target.getTemplateId();
         return clicked == CustomItems.serverPortal.getTemplateId() || clicked == CustomItems.hugeServerPortal.getTemplateId() ||

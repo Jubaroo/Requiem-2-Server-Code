@@ -33,16 +33,16 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.server.OnPlayerLogin;
-import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationTargetException;
 import java.nio.ByteBuffer;
 import java.util.Set;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.creatureCreateLogging;
+import static org.jubaroo.mods.wurm.server.ModConfig.itemRemoveLogging;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.largeWheelId;
 import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.soundEmissionNpcs;
-import static org.jubaroo.mods.wurm.server.server.constants.LoggingConstants.itemRemoveLogging;
 import static org.jubaroo.mods.wurm.server.server.constants.MessageConstants.displayOnScreen;
 
 public class Hooks {
@@ -230,7 +230,7 @@ public class Hooks {
             return true;
         } else if (cid == CustomCreatures.fireGiantId) {
             return true;
-        }else if (cid == CustomCreatures.spiritTrollId) {
+        } else if (cid == CustomCreatures.spiritTrollId) {
             return true;
         } else if (cid == CreatureTemplateIds.TROLL_CID) {
             return true;
@@ -414,7 +414,7 @@ public class Hooks {
             Village village = creature.getCurrentTile().getVillage();
             String jingleSound = "sound.emote.bucketthree.jump";
 
-            if (LoggingConstants.creatureCreateLogging) {
+            if (creatureCreateLogging) {
                 RequiemLogging.CreatureSpawnLogging(creature);
             }
             // Titans
@@ -483,7 +483,7 @@ public class Hooks {
             // Horseman Conquest
             else if (id == CustomCreatures.horsemanConquestId) {
                 String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
+                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), RandomUtils.getRandomRotation(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
@@ -492,7 +492,7 @@ public class Hooks {
             // Horseman War
             else if (id == CustomCreatures.horsemanWarId) {
                 String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
+                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), RandomUtils.getRandomRotation(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                 horse.setModelName("model.creature.quadraped.horse.ebonyblack.");
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
@@ -502,7 +502,7 @@ public class Hooks {
             // Horseman Famine
             else if (id == CustomCreatures.horsemanFamineId) {
                 String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
+                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), RandomUtils.getRandomRotation(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                 horse.setModelName("model.creature.quadraped.horse.white.");
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);
@@ -512,7 +512,7 @@ public class Hooks {
             // Horseman Death
             else if (id == CustomCreatures.horsemanDeathId) {
                 String message = "The 4 Horseman of the apocalypse have begun to enter our mortal realm to end the lives of all living things. Stop them before they complete their task.";
-                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), 360f * Server.rand.nextFloat(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
+                Creature horse = Creature.doNew(CreatureTemplateIds.HORSE_CID, creature.getPosX(), creature.getPosY(), RandomUtils.getRandomRotation(), creature.getLayer(), creature.getName(), Server.rand.nextBoolean() ? MiscConstants.SEX_MALE : MiscConstants.SEX_FEMALE);
                 horse.setModelName("model.creature.quadraped.horse.white.");
                 SoundPlayer.playSound(SoundNames.HIT_HORSE_SND, creature, 0f);
                 creature.setVehicle(horse.getWurmId(), true, (byte) 3);

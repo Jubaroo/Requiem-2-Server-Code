@@ -1,10 +1,6 @@
 package org.jubaroo.mods.wurm.server.misc;
 
-import com.wurmonline.server.FailedException;
 import com.wurmonline.server.TimeConstants;
-import com.wurmonline.server.creatures.Creature;
-import com.wurmonline.server.items.ItemFactory;
-import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.players.Titles;
 import javassist.ClassPool;
@@ -16,11 +12,6 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.CustomChat;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
-import org.jubaroo.mods.wurm.server.creatures.Titans;
-import org.jubaroo.mods.wurm.server.creatures.bounty.PlayerBounty;
-import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
 import org.jubaroo.mods.wurm.server.server.constants.SkillConstants;
 
 
@@ -143,22 +134,6 @@ public class CustomTitles {
         }
         if (player.getPlayingTime() >= TimeConstants.YEAR_MILLIS) {
             player.addTitle(Titles.Title.getTitle(ANCIENT));
-        }
-    }
-
-    public static void addPlayerTitlesOrStatsOnKill(Player player, Creature creature) throws NoSuchTemplateException, FailedException {
-        final int mobTemplateId = creature.getTemplate().getTemplateId();
-        if (MethodsBestiary.isTreasureGoblin(creature)) {
-            player.addTitle(Titles.Title.getTitle(TREASURE_GOBLIN));
-            DatabaseHelper.addPlayerStat(player.getName(), "GOBLINS");
-        }
-        if (Titans.isTitan(creature)) {
-            player.addTitle(Titles.Title.getTitle(TITAN_SLAYER));
-            player.getInventory().insertItem(ItemFactory.createItem(CustomItems.riftCache.getTemplateId(), 99f, creature.getName()), true);
-            player.getInventory().insertItem(ItemFactory.createItem(CustomItems.affinityOrbId, 99f, creature.getName()), true);
-            player.getInventory().insertItem(ItemFactory.createItem(CustomItems.titanCache.getTemplateId(), 99f, creature.getName()), true);
-            DatabaseHelper.addPlayerStat(player.getName(), "TITANS");
-            PlayerBounty.rewardPowerfulLoot(player, creature);
         }
     }
 

@@ -9,6 +9,7 @@ import org.jubaroo.mods.wurm.server.communication.commands.ArgumentTokenizer;
 import org.jubaroo.mods.wurm.server.communication.commands.WurmCmd;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class CmdTools {
@@ -76,10 +77,10 @@ public class CmdTools {
                     // yuck...
                     byte[] tempStringArr = new byte[byteBuffer.get() & 255];
                     byteBuffer.get(tempStringArr);
-                    String message = new String(tempStringArr, "UTF-8");
+                    String message = new String(tempStringArr, StandardCharsets.UTF_8);
                     tempStringArr = new byte[byteBuffer.get() & 255];
                     byteBuffer.get(tempStringArr);
-                    String title = new String(tempStringArr, "UTF-8");
+                    String title = new String(tempStringArr, StandardCharsets.UTF_8);
 
                     RequiemLogging.logInfo(String.format("User Cmd: %s %s %s", comm.player.getName(), title, message));
 

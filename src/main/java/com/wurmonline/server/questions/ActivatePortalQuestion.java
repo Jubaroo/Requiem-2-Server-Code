@@ -8,7 +8,7 @@ import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.zones.Zones;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
-import org.jubaroo.mods.wurm.server.items.pottals.ActivatePortalAction;
+import org.jubaroo.mods.wurm.server.actions.portals.ActivatePortalAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
 import java.io.IOException;
@@ -17,6 +17,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 
 
 public class ActivatePortalQuestion extends Question {
@@ -32,7 +34,7 @@ public class ActivatePortalQuestion extends Question {
 
 
     public void answer(Properties answer) {
-        int coins = PortalMod.costToActivate;
+        int coins = costToActivate;
         if (!properlySent) {
             return;
         }
@@ -120,7 +122,7 @@ public class ActivatePortalQuestion extends Question {
                     ps.setFloat(2, getResponder().getPosX() / 4);
                     ps.setFloat(3, getResponder().getPosY() / 4);
                     ps.setLong(4, PortalMod.myMapPortal.get("0"));
-                    ps.setInt(5, PortalMod.activateBankAmount);
+                    ps.setInt(5, activateBankAmount);
                     ps.executeUpdate();
                     ps.close();
                     dbcon.close();
@@ -155,8 +157,8 @@ public class ActivatePortalQuestion extends Question {
 
             f.addHidden("id", String.format("%d", id));
             f.addBoldText(getQuestion());
-            f.addText(String.format("\nIt costs %d iron per minute to keep portals active\n ", PortalMod.costPerMin));
-            f.addText(String.format("\n Activating this portal will cost you %d iron from your bank, this will pay for activation and also %d iron into this portals bank", PortalMod.costToActivate, PortalMod.activateBankAmount));
+            f.addText(String.format("\nIt costs %d iron per minute to keep portals active\n ", costPerMin));
+            f.addText(String.format("\n Activating this portal will cost you %d iron from your bank, this will pay for activation and also %d iron into this portals bank", costToActivate, activateBankAmount));
 
             f.addText("\n\n\n\n ");
             f.beginHorizontalFlow();

@@ -13,16 +13,14 @@ import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.terrain.SmoothTerrainAction;
+import org.jubaroo.mods.wurm.server.actions.SmoothTerrainAction;
 import org.jubaroo.mods.wurm.server.creatures.RareSpawns;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.Misc;
-import org.jubaroo.mods.wurm.server.server.constants.EffectsConstants;
 import org.jubaroo.mods.wurm.server.server.constants.PollingConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
-import org.jubaroo.mods.wurm.server.tools.EffectsTools;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
@@ -32,8 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.terrainSmoothing;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.enableAthanorMechanism;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 
 public class OnServerPoll {
 
@@ -64,12 +61,12 @@ public class OnServerPoll {
                         //    PollingConstants.lastPolledCullHotA = now;
                         //    cullCreaturesHotA();
                         //}
-                        if (now - PollingConstants.lastPolledTradeTents > PollingConstants.delayTradeTents) {
+                        if (now - PollingConstants.lastPolledTradeTents > delayTradeTents) {
                             RequiemLogging.debug(String.format("OnServerPoll trade tents at %d, time since last poll : %d minute(s)", PollingConstants.lastPolledTradeTents, (now - PollingConstants.lastPolledTradeTents) / TimeConstants.MINUTE_MILLIS));
                             PollingConstants.lastPolledTradeTents = now;
                             Misc.pollTradeTents();
                         }
-                        if (now - PollingConstants.lastPolledResourcePoints > PollingConstants.delayResourcePoints) {
+                        if (now - PollingConstants.lastPolledResourcePoints > delayResourcePoints) {
                             RequiemLogging.debug(String.format("OnServerPoll resource points at %d, time since last poll : %d minute(s)", PollingConstants.lastPolledResourcePoints, (now - PollingConstants.lastPolledResourcePoints) / TimeConstants.MINUTE_MILLIS));
                             PollingConstants.lastPolledResourcePoints = now;
                             Misc.pollResourcePoints();
@@ -79,13 +76,13 @@ public class OnServerPoll {
                         //    PollingConstants.lastPolledLootCarpets = now;
                         //    Misc.pollLootCarpets();
                         //}
-                        if (now - PollingConstants.lastPolledMobSpawners > PollingConstants.delayMobSpawners) {
+                        if (now - PollingConstants.lastPolledMobSpawners > delayMobSpawners) {
                             RequiemLogging.debug(String.format("OnServerPoll mob spawners at %d, time since last poll : %d minute(s)", PollingConstants.lastPolledMobSpawners, (now - PollingConstants.lastPolledMobSpawners) / TimeConstants.MINUTE_MILLIS));
                             PollingConstants.lastPolledMobSpawners = now;
                             Misc.pollMobSpawners();
                         }
                         if (enableAthanorMechanism) {
-                            if (now - PollingConstants.lastPolledAthanorMechanism > PollingConstants.delayAthanorMechanism) {
+                            if (now - PollingConstants.lastPolledAthanorMechanism > delayAthanorMechanism) {
                                 RequiemLogging.debug(String.format("OnServerPoll Athanor Mechanism at %d, time since last poll : %d minute(s)", PollingConstants.lastPolledAthanorMechanism, (now - PollingConstants.lastPolledAthanorMechanism) / TimeConstants.MINUTE_MILLIS));
                                 PollingConstants.lastPolledAthanorMechanism = now;
                                 AthanorMechanismBehaviour.phaseShiftAthanorMechanism();
@@ -96,7 +93,7 @@ public class OnServerPoll {
                                 AthanorMechanismBehaviour.pollAthanorMechanism();
                             }
                         }
-                        if (now - PollingConstants.lastPolledFogGoblins > PollingConstants.delayFogGoblins) {
+                        if (now - PollingConstants.lastPolledFogGoblins > delayFogGoblins) {
                             RequiemLogging.debug(String.format("OnServerPoll fog goblins at %d, time since last poll : %d minute(s), fog is: %s", PollingConstants.lastPolledFogGoblins, (now - PollingConstants.lastPolledFogGoblins) / TimeConstants.MINUTE_MILLIS, RequiemTools.toPercentage(Server.getWeather().getFog(), 2)));
                             PollingConstants.lastPolledFogGoblins = now;
                             Misc.pollFogGoblins();
@@ -190,6 +187,10 @@ public class OnServerPoll {
                 SupplyDepotBehaviour.pollDepotSpawn();
                 PollingConstants.lastPolledDepots += PollingConstants.pollDepotTime;
             }
+            if (PollingConstants.lastPolledTitanLocate + PollingConstants.pollTitanTitanLocate < System.currentTimeMillis()) {
+                Titans.locateTitans();
+                PollingConstants.lastPolledTitanLocate += PollingConstants.pollTitanTitanLocate;
+            }
             if (PollingConstants.lastPolledTitanSpawn + PollingConstants.pollTitanSpawnTime < System.currentTimeMillis()) {
                 Titans.pollTitanSpawn();
                 PollingConstants.lastPolledTitanSpawn += PollingConstants.pollTitanSpawnTime;
@@ -216,10 +217,11 @@ public class OnServerPoll {
                     PollingConstants.lastPolledTerrainSmooth += PollingConstants.pollTerrainSmoothTime;
                 }
             }
-            if (PollingConstants.lastPolledLightningStrike + PollingConstants.pollLightningStrikeTime < System.currentTimeMillis()) {
-                EffectsTools.tickRandomLightning(EffectsConstants.tileX, EffectsConstants.tileY);
-                PollingConstants.lastPolledLightningStrike += PollingConstants.pollLightningStrikeTime;
-            }
+            //if (PollingConstants.lastPolledLightningStrike + PollingConstants.pollLightningStrikeTime < System.currentTimeMillis()) {
+            //    EffectsTools.tickRandomLightning(tileX, tileY);
+            //    PollingConstants.lastPolledLightningStrike += PollingConstants.pollLightningStrikeTime;
+            //}
+
             //if (PollingConstants.lastPolledCluckster + PollingConstants.pollClucksterTime < System.currentTimeMillis()) {
             //    Cluckster.pollClucksters();
             //    PollingConstants.lastPolledCluckster += PollingConstants.pollClucksterTime;
@@ -240,7 +242,9 @@ public class OnServerPoll {
                 PollingConstants.lastPolledUniqueRegeneration = System.currentTimeMillis();
                 PollingConstants.lastPolledUniqueCollection = System.currentTimeMillis();
                 PollingConstants.lastPolledTerrainSmooth = System.currentTimeMillis();
-                //PollingConstants.lastPolledCluckster = System.currentTimeMillis();
+                PollingConstants.lastPolledLightningStrike = System.currentTimeMillis();
+                PollingConstants.lastPolledTitanLocate = System.currentTimeMillis();
+//PollingConstants.lastPolledCluckster = System.currentTimeMillis();
             }
         }
     }

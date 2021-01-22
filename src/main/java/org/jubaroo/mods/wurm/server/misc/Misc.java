@@ -10,7 +10,6 @@ import com.wurmonline.server.economy.Economy;
 import com.wurmonline.server.epic.Hota;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
-import com.wurmonline.server.questions.VillageFoundationQuestion;
 import com.wurmonline.server.skills.Affinity;
 import com.wurmonline.server.sounds.SoundPlayer;
 import com.wurmonline.server.villages.Citizen;
@@ -29,7 +28,6 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.special.decorative.DecorativeKingdoms;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
@@ -37,7 +35,6 @@ import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
-import org.jubaroo.mods.wurm.server.server.constants.CreatureConstants;
 import org.jubaroo.mods.wurm.server.tools.EffectsTools;
 
 import java.io.BufferedWriter;
@@ -47,10 +44,10 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.Calendar;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.server.constants.CreatureConstants.soundEmissionNpcs;
 import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.disableDiscordReliance;
+import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.fogGoblins;
 
 public class Misc {
     public final static String noobMessage = "Check out the Server Info tab to the left for all the information you could need about this custom server! To view the links, right click on them to open it in your default internet browser.";
@@ -85,7 +82,7 @@ public class Misc {
 
     public static boolean isBoss(final Creature creature) {
         String[] bossids;
-        for (int length = (bossids = CreatureConstants.bossIds).length, i = 0; i < length; ++i) {
+        for (int length = (bossids = bossIds).length, i = 0; i < length; ++i) {
             final String boss = bossids[i];
             if (creature.getTemplate().getTemplateId() == Integer.parseInt(boss)) {
                 return true;
@@ -633,7 +630,7 @@ public class Misc {
                 @Override
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getMethodName().equals("getNameFor"))
-                        m.replace("$_ = " + DecorativeKingdoms.class.getName() + ".getName($1);");
+                        m.replace(String.format("$_ = %s.getName($1);", DecorativeKingdoms.class.getName()));
                 }
             });
 
@@ -641,22 +638,22 @@ public class Misc {
                 @Override
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getMethodName().equals("getSuffixFor"))
-                        m.replace("$_ = " + DecorativeKingdoms.class.getName() + ".getModelSuffix($1);");
+                        m.replace(String.format("$_ = %s.getModelSuffix($1);", DecorativeKingdoms.class.getName()));
                 }
             });
 
             final CtClass ctCommunicator = classPool.get("com.wurmonline.server.creatures.Communicator");
-            ctCommunicator.getMethod("sendAllKingdoms", "()V").setBody(MiscHooks.class.getName() + ".sendKingdoms(this);");
+            ctCommunicator.getMethod("sendAllKingdoms", "()V").setBody(String.format("%s.sendKingdoms(this);", MiscHooks.class.getName()));
 
             ctItem.getMethod("sendWear", "(Lcom/wurmonline/server/items/Item;B)V")
-                    .insertAfter("if (!item.isBodyPartAttached()) " + MiscHooks.class.getName() + ".sendWearHook(item, this.getOwnerOrNull());");
+                    .insertAfter(String.format("if (!item.isBodyPartAttached()) %s.sendWearHook(item, this.getOwnerOrNull());", MiscHooks.class.getName()));
 
             ctItem.getMethod("removeItem", "(JZZZ)Lcom/wurmonline/server/items/Item;")
                     .instrument(new ExprEditor() {
                         @Override
                         public void edit(MethodCall m) throws CannotCompileException {
                             if (m.getMethodName().equals("hasItemBonus"))
-                                m.replace(MiscHooks.class.getName() + ".sendWearHook(item, owner); $_ = $proceed($$);");
+                                m.replace(String.format("%s.sendWearHook(item, owner); $_ = $proceed($$);", MiscHooks.class.getName()));
                         }
                     });
 
@@ -665,12 +662,12 @@ public class Misc {
                 @Override
                 public void edit(MethodCall m) throws CannotCompileException {
                     if (m.getMethodName().equals("sendNewCreature"))
-                        m.replace("$proceed($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13," + MiscHooks.class.getName() + ".creatureKingdom(creature,$14),$15,$16,$17,$18,$19);");
+                        m.replace(String.format("$proceed($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,%s.creatureKingdom(creature,$14),$15,$16,$17,$18,$19);", MiscHooks.class.getName()));
                 }
             });
 
             final CtClass ctServer = classPool.get("com.wurmonline.server.Server");
-            ctServer.getMethod("run", "()V").insertAfter(MiscHooks.class.getName() + ".serverTick(this);");
+            ctServer.getMethod("run", "()V").insertAfter(String.format("%s.serverTick(this);", MiscHooks.class.getName()));
 
             classPool.getCtClass("com.wurmonline.server.items.ChickenCoops")
                     .getMethod("eggPoller", "(Lcom/wurmonline/server/items/Item;)V")
@@ -730,95 +727,19 @@ public class Misc {
 
                     @Override
                     public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-
                         Creature performer = (Creature) args[0];
                         Creature target = (Creature) args[1];
 
                         if (target != null && target.isUnique()) {
-
-                            performer.getCommunicator().sendNormalServerMessage("You cannot dominate " + target
-                                    .getName() + ", because of its immense power.", (byte) 3);
+                            performer.getCommunicator().sendNormalServerMessage(String.format("You cannot dominate %s, because of its immense power.", target.getName()), (byte) 3);
                             return false;
-
                         }
-
                         return method.invoke(object, args);
-
                     }
                 };
             }
         });
 
-        HookManager.getInstance().registerHook("com.wurmonline.server.weather.Weather", "getFog", "()F", new InvocationHandlerFactory() {
-
-            @Override
-            public InvocationHandler createInvocationHandler() {
-                return new InvocationHandler() {
-
-                    @Override
-                    public Object invoke(Object object, Method method, Object[] args) throws Throwable, Exception {
-
-                        final StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
-                        if (stackTrace[4].getClassName().equals("com.wurmonline.server.zones.Zone") && stackTrace[4].getMethodName().equals("poll")) {
-                            // If zone poller asks about fog, pretend there is none so fog spiders do not spawn
-                            return 0.0F;
-                        }
-
-                        return method.invoke(object, args);
-
-                    }
-                };
-            }
-        });
-
-        HookManager.getInstance().registerHook("com.wurmonline.server.questions.VillageFoundationQuestion", "checkTile", "()Z", new InvocationHandlerFactory() {
-
-            @Override
-            public InvocationHandler createInvocationHandler() {
-                return new InvocationHandler() {
-
-                    @Override
-                    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-
-                        VillageFoundationQuestion vfq = (VillageFoundationQuestion) object;
-
-                        VolaTile tile = Zones.getOrCreateTile(vfq.tokenx, vfq.tokeny, vfq.surfaced);
-                        if (tile != null) {
-                            int tx = tile.tilex;
-                            int ty = tile.tiley;
-                            int tt = Server.surfaceMesh.getTile(tx, ty);
-                            if ((Tiles.decodeType(tt) == Tiles.Tile.TILE_LAVA.id) || (Tiles.isMineDoor(Tiles.decodeType(tt)))) {
-                                vfq.getResponder().getCommunicator().sendSafeServerMessage("You cannot found a settlement here.");
-                                return false;
-                            }
-
-                            for (int i = (tx - vfq.selectedWest); i <= (tx + vfq.selectedEast); i++) {
-                                for (int j = (ty - vfq.selectedNorth); j <= (ty + vfq.selectedSouth); j++) {
-                                    //RequiemLogging.debug("checking tile: " + i + ", " + j);
-                                    if (FocusZone.isNoBuildZoneAt(i, j)) {
-                                        FocusZone fz = FocusZone.getZonesAt(i, j).iterator().next();
-                                        vfq.getResponder().getCommunicator().sendSafeServerMessage("You cannot found a settlement here. It is too close to the " + fz.getName());
-                                        return false;
-                                    }
-
-                                }
-                            }
-
-                            for (int x = -1; x <= 1; x++) {
-                                for (int y = -1; y <= 1; y++) {
-                                    int t = Server.surfaceMesh.getTile(tx + x, ty + y);
-                                    if (Tiles.decodeHeight(t) < 0) {
-                                        vfq.getResponder().getCommunicator().sendSafeServerMessage("You cannot found a settlement here. Too close to water.");
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                        return true;
-                    }
-                };
-            }
-        });
     }
 
     /**
@@ -842,12 +763,7 @@ public class Misc {
                 public void edit(NewExpr newExpr) throws CannotCompileException {
                     if (newExpr.getClassName().equals("com.wurmonline.server.items.DbItem")) {
                         ctMethod.insertAt(newExpr.getLineNumber() + 1,
-                                "{ if (templateId >= 510 && templateId <= 513) {" +
-                                        "com.wurmonline.server.items.ItemSpellEffects effs;" +
-                                        "if ((effs = toReturn.getSpellEffects()) == null) effs = new com.wurmonline.server.items.ItemSpellEffects(toReturn.getWurmId());" +
-                                        "toReturn.getSpellEffects().addSpellEffect(new com.wurmonline.server.spells.SpellEffect(toReturn.getWurmId(), (byte)20, " + mailboxEnchantPower + "f, 20000000));" +
-                                        "toReturn.permissions.setPermissionBit(com.wurmonline.server.players.Permissions.Allow.HAS_COURIER.getBit(), true);" +
-                                        "} }");
+                                String.format("{ if (templateId >= 510 && templateId <= 513) {com.wurmonline.server.items.ItemSpellEffects effs;if ((effs = toReturn.getSpellEffects()) == null) effs = new com.wurmonline.server.items.ItemSpellEffects(toReturn.getWurmId());toReturn.getSpellEffects().addSpellEffect(new com.wurmonline.server.spells.SpellEffect(toReturn.getWurmId(), (byte)20, %sf, 20000000));toReturn.permissions.setPermissionBit(com.wurmonline.server.players.Permissions.Allow.HAS_COURIER.getBit(), true);} }", mailboxEnchantPower));
                     }
                 }
             });

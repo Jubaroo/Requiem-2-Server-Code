@@ -16,11 +16,10 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.ItemRemoval;
 import org.jubaroo.mods.wurm.server.items.behaviours.AthanorMechanismBehaviour;
 import org.jubaroo.mods.wurm.server.misc.*;
-import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.mailboxEnableEnchant;
-import static org.jubaroo.mods.wurm.server.server.constants.ToggleConstants.enableAthanorMechanism;
+import static org.jubaroo.mods.wurm.server.ModConfig.enableAthanorMechanism;
+import static org.jubaroo.mods.wurm.server.ModConfig.mailboxEnableEnchant;
 
 public class PreInit {
 
@@ -33,18 +32,18 @@ public class PreInit {
             MissionCreator.preInit();
             //TreasureChestsBehaviour.preInit();
             CustomChat.preInit();
-            CustomTitles.announceTitles();
+            //CustomTitles.announceTitles();
             MiscChanges.preInit();
             Misc.preInit();
             Titans.preInit();
             RareSpawns.preInit();
             MethodsBestiary.preInit();
-            MeditationPerks.preInit();
             CustomMountSettings.preInit();
             QualityOfLife.preInit();
             ItemRemoval.preInit();
             Fishing.preInit();
             Spawn.preInit();
+            MiscHooks.newPlayerQuestion();
             //ItemMod.preInit();
             //PlayerTitles.preInit();
             //EconomicChanges.preInit();
@@ -58,6 +57,7 @@ public class PreInit {
             }
             ClassPool classPool = HookManager.getInstance().getClassPool();
 
+            // Discord Stuff
             CtClass ctPlayers = classPool.getCtClass("com.wurmonline.server.Players");
             ctPlayers.getMethod("sendGlobalKingdomMessage", "(Lcom/wurmonline/server/creatures/Creature;JLjava/lang/String;Ljava/lang/String;ZBIII)V")
                     .insertBefore(String.format(" if (kingdom < 0) {%s.sendMessage($$); return;}", ChatHandler.class.getName()));

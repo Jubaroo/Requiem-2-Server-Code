@@ -1,7 +1,6 @@
 package org.jubaroo.mods.wurm.server.server.constants;
 
 import com.wurmonline.server.TimeConstants;
-import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.CreatureTemplateIds;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemList;
@@ -15,36 +14,8 @@ import org.jubaroo.mods.wurm.server.misc.templates.*;
 import java.util.ArrayList;
 
 public class ItemConstants {
-    public static boolean mailboxEnableEnchant = true;
-    public static float mailboxEnchantPower = 30f;
-    public static boolean terrainSmoothing = false;
-    public static boolean changeToMycelium = false;
-    public static boolean hidePlayerGodInscriptions = false;
-    public static Long cashPerCorpse = 0L;
     // Mission Items
-    public static boolean coins = false;
-    public static boolean riftItems = false;
-    public static boolean miscItems = false;
-    public static boolean metalLumps = false;
-    public static boolean metalOres = false;
-    public static boolean gems = false;
-    public static boolean potionsSalvesOils = false;
-    public static boolean mineDoors = false;
-    public static boolean mirrors = false;
-    public static boolean masks = false;
-    public static boolean magicItems = false;
-    public static boolean wands = false;
-    public static boolean bulkCreationEntries = false;
-    public static int itemCrystalCreationDamage = 1000;
-    public static boolean itemHolyBook = false;
-    public static boolean searchDens = false;
-    public static int damageToTake = 25;
-    public static boolean skullLocateUnique = false;
-    public static boolean reloadSkull = false;
     public static String[] scrollids;
-    public static boolean itemNymphPortal = false;
-    public static boolean itemDemonPortal = false;
-    public static String newsletterImage = "http://filterbubbles.com/img/wu/half-vamp-clue2.png";
     public static String[] createItemDescs = {
             "(IFBBJLjava/lang/String;)Lcom/wurmonline/server/items/Item;",
             "(IFFFFZBBJLjava/lang/String;B)Lcom/wurmonline/server/items/Item;",

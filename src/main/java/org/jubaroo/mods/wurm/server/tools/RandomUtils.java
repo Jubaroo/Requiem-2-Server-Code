@@ -397,6 +397,10 @@ public class RandomUtils {
         return false;
     }
 
+    public static float getRandomRotation() {
+        return 360f * Server.rand.nextFloat();
+    }
+
     public static int getRandArrayInt(int[] array) {
         return array[Server.rand.nextInt(array.length)];
     }

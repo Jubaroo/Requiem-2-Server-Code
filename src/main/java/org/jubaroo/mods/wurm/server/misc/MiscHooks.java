@@ -13,7 +13,6 @@ import javassist.expr.MethodCall;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.special.decorative.DecorativeKingdoms;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -114,7 +113,7 @@ public class MiscHooks {
         }
     }
 
-    public static void init() throws NotFoundException, CannotCompileException {
+    public static void newPlayerQuestion() throws NotFoundException, CannotCompileException {
         final ClassPool classPool = HookManager.getInstance().getClassPool();
         // New creation
         classPool.getCtClass("com.wurmonline.server.LoginHandler").getMethod("handleLogin", "(Ljava/lang/String;Ljava/lang/String;ZZZZLjava/lang/String;Ljava/lang/String;)V")

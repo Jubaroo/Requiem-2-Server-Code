@@ -7,7 +7,7 @@ import com.wurmonline.server.economy.Change;
 import com.wurmonline.server.economy.Economy;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
-import org.jubaroo.mods.wurm.server.items.pottals.AddUpkeepAction;
+import org.jubaroo.mods.wurm.server.actions.portals.AddUpkeepAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
 import java.io.IOException;
@@ -16,6 +16,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static org.jubaroo.mods.wurm.server.ModConfig.costPerMin;
 
 public class PortalUpkeepQuestion extends Question {
 
@@ -107,7 +109,7 @@ public class PortalUpkeepQuestion extends Question {
 
             f.addHidden("id", String.format("%d", id));
             f.addBoldText(getQuestion());
-            f.addText(String.format("\nIt costs %d iron per minute \n ", PortalMod.costPerMin));
+            f.addText(String.format("\nIt costs %d iron per minute \n ", costPerMin));
             f.addRaw("harray{label{text='Portal choices you can add upkeep to'}dropdown{id='portalchoice';options=\"");
             // use table data
 

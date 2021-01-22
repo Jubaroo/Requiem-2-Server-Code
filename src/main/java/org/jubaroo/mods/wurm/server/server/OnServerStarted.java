@@ -7,26 +7,24 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.AddActions;
 import org.jubaroo.mods.wurm.server.communication.KeyEvent;
 import org.jubaroo.mods.wurm.server.communication.commands.*;
+import org.jubaroo.mods.wurm.server.creatures.CreatureSpawns;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
-import org.jubaroo.mods.wurm.server.creatures.LootTable;
 import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.bounty.LootTable;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 import org.jubaroo.mods.wurm.server.misc.AchievementChanges;
-import org.jubaroo.mods.wurm.server.misc.SkillChanges;
-import org.jubaroo.mods.wurm.server.misc.database.DatabaseHelper;
-import org.jubaroo.mods.wurm.server.misc.database.holidays.*;
-import org.jubaroo.mods.wurm.server.tools.CmdTools;
 import org.jubaroo.mods.wurm.server.misc.CustomTitles;
+import org.jubaroo.mods.wurm.server.tools.CmdTools;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
+import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.tools.database.holidays.*;
 import org.jubaroo.mods.wurm.server.utils.Compat3D;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.addCommands;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.noCooldownSpells;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.fogGoblins;
-import static org.jubaroo.mods.wurm.server.server.constants.PollingConstants.initialGoblinCensus;
 
 public class OnServerStarted {
     public static CmdTools cmdtool = null;
@@ -57,7 +55,6 @@ public class OnServerStarted {
             //Requiem.debug("Registering Deity changes...");
             //DeityChanges.onServerStarted();
             RequiemLogging.debug("Registering Skill changes...");
-            SkillChanges.onServerStarted();
             RequiemLogging.debug("Registering actions...");
             AddActions.registerActions();
             RequiemLogging.debug("Setting custom creature corpse models...");
@@ -84,10 +81,11 @@ public class OnServerStarted {
             }
             KeyEvent.preInit();
             CustomTitles.register();
-            //LoginServerEffect.onServerStarted();
+            CreatureSpawns.spawnTable();
+
             RequiemLogging.RequiemLoggingMessages();
         } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
-            RequiemLogging.logException("Error in modifyItemsOnServerStarted()", e);
+            RequiemLogging.logException("Error in onServerStarted()", e);
         } catch (NoSuchCreatureTemplateException | NoSuchFieldException e) {
             e.printStackTrace();
         }

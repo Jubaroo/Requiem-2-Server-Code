@@ -10,7 +10,7 @@ import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestion;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.special.decorative.DecorativeKingdoms;
+import org.jubaroo.mods.wurm.server.misc.DecorativeKingdoms;
 
 import java.util.Properties;
 

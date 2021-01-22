@@ -2,9 +2,7 @@ package org.jubaroo.mods.wurm.server.actions;
 
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.character.*;
-import org.jubaroo.mods.wurm.server.actions.creatures.*;
-import org.jubaroo.mods.wurm.server.actions.creatures.npc.ManageBehaviourProvider;
+import org.jubaroo.mods.wurm.server.actions.manageNpc.ManageBehaviourProvider;
 import org.jubaroo.mods.wurm.server.actions.crystals.ArcaneShardAction;
 import org.jubaroo.mods.wurm.server.actions.crystals.death.CrystalAbortAction;
 import org.jubaroo.mods.wurm.server.actions.crystals.death.DeathAction;
@@ -19,31 +17,22 @@ import org.jubaroo.mods.wurm.server.actions.crystals.life.EnchantGroundAction;
 import org.jubaroo.mods.wurm.server.actions.crystals.life.GrowGrassAction;
 import org.jubaroo.mods.wurm.server.actions.crystals.life.GrowTreesAction;
 import org.jubaroo.mods.wurm.server.actions.crystals.life.RebirthAction;
-import org.jubaroo.mods.wurm.server.actions.gm.*;
-import org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthAction;
-import org.jubaroo.mods.wurm.server.actions.gm.labyrinth.LabyrinthRemoveAction;
-import org.jubaroo.mods.wurm.server.actions.items.*;
-import org.jubaroo.mods.wurm.server.actions.magicItems.*;
-import org.jubaroo.mods.wurm.server.actions.potions.DiseasePotionAction;
-import org.jubaroo.mods.wurm.server.actions.scrolls.*;
-import org.jubaroo.mods.wurm.server.actions.special.LightningStormAction;
-import org.jubaroo.mods.wurm.server.actions.special.events.SummoningStoneAction;
-import org.jubaroo.mods.wurm.server.actions.special.events.TreasureHuntChestAction;
-import org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneAction;
-import org.jubaroo.mods.wurm.server.actions.special.machinaOfFortune.MachinaOfFortuneInstructionsAction;
-import org.jubaroo.mods.wurm.server.actions.vehicles.AltarWagonPrayAction;
+import org.jubaroo.mods.wurm.server.actions.labyrinth.LabyrinthAction;
+import org.jubaroo.mods.wurm.server.actions.labyrinth.LabyrinthRemoveAction;
+import org.jubaroo.mods.wurm.server.actions.portals.*;
+import org.jubaroo.mods.wurm.server.actions.machinaOfFortune.MachinaOfFortuneAction;
+import org.jubaroo.mods.wurm.server.actions.machinaOfFortune.MachinaOfFortuneInstructionsAction;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
-import org.jubaroo.mods.wurm.server.items.pottals.*;
 
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.*;
 
 public class AddActions {
 
     public static void registerActions() {
         RequiemLogging.debug("Registering Item actions...");
-        //ModActions.registerAction( new JoustAction(CustomItems.joustingLanceId, LanceDamage, BaseHitChance, SpearSkillRange, BonusLanceDamage, LoseHelmetChance, PerKMDamageBoost, AllowSkillGain, LanceRange));
+        ModActions.registerAction(new JoustAction(LanceDamage, BaseHitChance, SpearSkillRange, BonusLanceDamage, LoseHelmetChance, PerKMDamageBoost, AllowSkillGain, LanceRange));
         ItemMod.addActPortal();
         ModActions.registerAction(new PortalAction());
         ModActions.registerAction(new PortalAddLocationAction());

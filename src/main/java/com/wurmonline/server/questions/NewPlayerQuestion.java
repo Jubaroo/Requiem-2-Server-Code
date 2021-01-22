@@ -124,7 +124,7 @@ public class NewPlayerQuestion implements ModQuestion {
                         .addText("Select your starting server:", null, BMLBuilder.TextType.BOLD, null)
                         .addString(createServerSelection().toString())
                         .addText("")
-                        .addText("Origin or Avalon is recommended for new players.")
+                        .addText("Foxwood Forest is recommended for new players.")
                         .addText("")
                         .addText("The selection is not permanent, you will be able to freely move between servers using portals. So don't worry about choosing wrong!")
                         .addText("")

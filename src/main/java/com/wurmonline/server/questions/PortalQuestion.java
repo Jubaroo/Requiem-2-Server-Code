@@ -5,7 +5,7 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
-import org.jubaroo.mods.wurm.server.items.pottals.PortalAction;
+import org.jubaroo.mods.wurm.server.actions.portals.PortalAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
 import java.sql.Connection;
@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static org.jubaroo.mods.wurm.server.ModConfig.costPerMin;
 
 public class PortalQuestion extends Question {
     private boolean properlySent = false;
@@ -156,7 +158,7 @@ public class PortalQuestion extends Question {
             try {
                 dbcon = ModSupportDb.getModSupportDb();
                 ps = dbcon.prepareStatement("SELECT * FROM RequiemPortals WHERE bank >= ? ORDER BY name");
-                ps.setInt(1, PortalMod.costPerMin * 60);//updates every hour
+                ps.setInt(1, costPerMin * 60);//updates every hour
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     PortalMod.myMap.put(String.format("%d", i), rs.getString("name"));

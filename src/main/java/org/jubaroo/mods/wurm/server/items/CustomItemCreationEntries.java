@@ -3,11 +3,9 @@ package org.jubaroo.mods.wurm.server.items;
 import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.actions.character.JoustAction;
-import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
-import org.jubaroo.mods.wurm.server.server.constants.ToggleConstants;
 
 import static com.wurmonline.server.items.ItemList.*;
+import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
 import static org.jubaroo.mods.wurm.server.server.constants.SkillConstants.*;
 
@@ -610,7 +608,7 @@ public class CustomItemCreationEntries {
         final AdvancedCreationEntry dyeKit = CreationEntryCreator.createAdvancedEntry(SkillList.LEATHERWORKING, ItemList.needleIron, ItemList.leather, dyeKitId, true, false, 0f, false, false, 0, 65.0, CreationCategories.TOOLS);
         dyeKit.addRequirement(new CreationRequirement(1, ItemList.leather, 1, true));
         dyeKit.addRequirement(new CreationRequirement(2, ItemList.leatherStrip, 3, true));
-        if (joustingLanceId > 0 && JoustAction.AllowCraftingLance) {
+        if (joustingLanceId > 0 && AllowCraftingLance) {
             final AdvancedCreationEntry creationEntry = CreationEntryCreator.createAdvancedEntry(SkillList.CARPENTRY, ItemList.knifeCarving, ItemList.log, joustingLanceId, false, true, 50.0f, false, false, CreationCategories.WEAPONS);
             creationEntry.addRequirement(new CreationRequirement(1, ItemList.sheetIron, 1, true));
         }
@@ -747,7 +745,7 @@ public class CustomItemCreationEntries {
         creatureRenameCertificate.addRequirement(new CreationRequirement(1, ItemList.paperSheet, 1, true));
         creatureRenameCertificate.addRequirement(new CreationRequirement(2, CustomItems.glueId, 1, true));
         //CreationEntryCreator.createSimpleEntry(SkillList.PAPYRUSMAKING, ItemList.scissors, ItemList.paperSheet, labelId, false, false, 25, false, false, CreationCategories.WRITING);
-        if (!ToggleConstants.disableScrollGearBinding) {
+        if (!disableScrollGearBinding) {
             final AdvancedCreationEntry scrollOfGearBinding = CreationEntryCreator.createAdvancedEntry(SkillList.PAPYRUSMAKING, ItemList.paperSheet, ItemList.leatherStrip, CustomItems.scrollOfGearBinding.getTemplateId(), true, false, 0f, false, false, CreationCategories.WRITING);
             scrollOfGearBinding.addRequirement(new CreationRequirement(1, ItemList.paperSheet, 2, true));
             scrollOfGearBinding.addRequirement(new CreationRequirement(2, ItemList.sourceSalt, 1, true));
@@ -782,7 +780,7 @@ public class CustomItemCreationEntries {
         rockCrusher.addRequirement(new CreationRequirement(6, ItemList.sheetIron, 3, true));
         rockCrusher.addRequirement(new CreationRequirement(7, ItemList.brassBand, 2, true));
         // Portals
-        if (PortalMod.craftPortals) {
+        if (craftPortals) {
             AdvancedCreationEntry serverPortal = CreationEntryCreator.createAdvancedEntry(SkillList.MASONRY, stoneBrick, ItemList.concrete, CustomItems.serverPortal.getTemplateId(), true, true, 0.0f, false, true, CreationCategories.EPIC);
             serverPortal.addRequirement(new CreationRequirement(1, ItemList.stoneBrick, 1000, true));
             serverPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1000, true));
