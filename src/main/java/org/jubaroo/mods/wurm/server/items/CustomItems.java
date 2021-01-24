@@ -194,7 +194,7 @@ public class CustomItems {
 
     public static void registerCustomItems() throws IOException {
         long start = System.nanoTime();
-        RequiemLogging.debug("=================  Registering Custom Server Mod Item Templates =================");
+        RequiemLogging.logInfo("=================  Registering Custom Server Mod Item Templates =================");
         registerToolBackpacks();
         registerGemFragments();
         registerElementalCrystals();
@@ -329,7 +329,7 @@ public class CustomItems {
         if (ModConfig.itemHolyBook) {
             registerPrayerBook();
         }
-        RequiemLogging.debug(String.format("========== Registering all of Requiem's custom item templates took %d milliseconds ==========", (System.nanoTime() - start) / 1000000L));
+        RequiemLogging.logInfo(String.format("========== Registering all of Requiem's custom item templates took %d milliseconds ==========", (System.nanoTime() - start) / 1000000L));
     }
 
     private static void registerLibilasAltar() throws IOException {

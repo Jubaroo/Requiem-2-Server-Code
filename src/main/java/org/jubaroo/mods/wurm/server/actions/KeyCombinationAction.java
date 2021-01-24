@@ -357,11 +357,11 @@ public class KeyCombinationAction implements ModAction {
                             Item key = ItemFactory.createItem(ItemList.keyHeavens, 99f, "Entity");
                             performer.getInventory().insertItem(key, true);
                             performer.getCommunicator().sendSafeServerMessage(String.format("You obtain a %s!", key.getTemplate().getName()));
-                            RequiemLogging.debug(String.format("Player %s obtained %s - %s, %s, %s, %s, %s", performer.getName(), key.getName(), KeyEvent.foPower, KeyEvent.magranonPower, KeyEvent.vynoraPower, KeyEvent.libilaPower, KeyEvent.ascendTemplate));
+                            RequiemLogging.logInfo(String.format("Player %s obtained %s - %s, %s, %s, %s, %s", performer.getName(), key.getName(), KeyEvent.foPower, KeyEvent.magranonPower, KeyEvent.vynoraPower, KeyEvent.libilaPower, KeyEvent.ascendTemplate));
                             return true;
                         }
                     } else {
-                        RequiemLogging.debug("Somehow a non-player activated a Treasure Box...");
+                        RequiemLogging.logInfo("Somehow a non-player activated a Treasure Box...");
                     }
                     return false;
                 } catch (Exception e) {

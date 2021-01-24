@@ -81,37 +81,37 @@ public class MissionAddAction implements ModAction {
                             6, 7, 8, 9, 10, 11, 12 // Valrei Entities
                     };
                     if (EpicServerStatus.getCurrentEpicMissions().length >= deityNums.length) {
-                        RequiemLogging.debug("All entities already have a mission. Aborting.");
+                        RequiemLogging.logInfo("All entities already have a mission. Aborting.");
                         return true;
                     }
                     int i = 10;
                     int number = 1;
                     while (i > 0) {
                         number = deityNums[Server.rand.nextInt(deityNums.length)];
-                        RequiemLogging.debug(String.format("Testing number %d", number));
+                        RequiemLogging.logInfo(String.format("Testing number %d", number));
                         if (EpicServerStatus.getEpicMissionForEntity(number) == null) {
-                            RequiemLogging.debug("Has no mission, breaking loop.");
+                            RequiemLogging.logInfo("Has no mission, breaking loop.");
                             break;
                         } else {
-                            RequiemLogging.debug("Has mission, finding new number.");
+                            RequiemLogging.logInfo("Has mission, finding new number.");
                         }
                         i++;
                         if (i == 0) {
-                            RequiemLogging.debug("Ran through 10 possible entities and could not find empty mission. Cancelling.");
+                            RequiemLogging.logInfo("Ran through 10 possible entities and could not find empty mission. Cancelling.");
                             return true;
                         }
                     }
-                    RequiemLogging.debug(String.format("Entity number = %d", number));
+                    RequiemLogging.logInfo(String.format("Entity number = %d", number));
                     String entityName = Deities.getDeityName(number);
-                    RequiemLogging.debug(String.format("Entity name = %s", entityName));
+                    RequiemLogging.logInfo(String.format("Entity name = %s", entityName));
                     int time = 604800;
-                    RequiemLogging.debug(String.format("Current epic missions: %d", EpicServerStatus.getCurrentEpicMissions().length));
+                    RequiemLogging.logInfo(String.format("Current epic missions: %d", EpicServerStatus.getCurrentEpicMissions().length));
                     EpicServerStatus es = new EpicServerStatus();
                     if (EpicServerStatus.getCurrentScenario() != null) {
                         es.generateNewMissionForEpicEntity(number, entityName, -1, time, EpicServerStatus.getCurrentScenario().getScenarioName(), EpicServerStatus.getCurrentScenario().getScenarioNumber(), EpicServerStatus.getCurrentScenario().getScenarioQuest(), true);
                     }
                 } else {
-                    RequiemLogging.debug(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
+                    RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
                 }
                 return true;
             }

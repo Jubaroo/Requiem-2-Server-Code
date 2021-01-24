@@ -84,7 +84,7 @@ public class MissionRemoveAction implements ModAction {
                         if (missions[i].isCurrent()) {
                             try {
                                 int entityId = missions[i].getEpicEntityId();
-                                RequiemLogging.debug("Removing mission for " + Deities.getDeityName(entityId) + ".");
+                                RequiemLogging.logInfo("Removing mission for " + Deities.getDeityName(entityId) + ".");
                                 ReflectionUtil.callPrivateMethod(EpicServerStatus.class, ReflectionUtil.getMethod(EpicServerStatus.class, "destroyLastMissionForEntity"), entityId);
                                 break;
                             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -94,7 +94,7 @@ public class MissionRemoveAction implements ModAction {
                         i++;
                     }
                 } else {
-                    RequiemLogging.debug(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
+                    RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
                 }
                 return true;
             }

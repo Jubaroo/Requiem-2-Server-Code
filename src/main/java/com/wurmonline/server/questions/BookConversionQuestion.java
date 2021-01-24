@@ -41,7 +41,7 @@ public class BookConversionQuestion extends Question {
     public void answer(Properties answer) {
         boolean accepted = answer.containsKey("accept") && answer.get("accept") == "true";
         if (accepted) {
-            RequiemLogging.debug("Accepted BookOfConversion");
+            RequiemLogging.logInfo("Accepted BookOfConversion");
             int entry = Integer.parseInt(answer.getProperty("deity"));
             int deity = deityMap.get(entry);
             if (convertBook == null || convertBook.getOwnerId() != this.getResponder().getWurmId()) {
@@ -50,7 +50,7 @@ public class BookConversionQuestion extends Question {
                 if (this.getResponder() instanceof Player) {
                     try {
                         Player p = (Player) this.getResponder();
-                        RequiemLogging.debug(String.format("Converting %s to %s", p.getName(), Deities.getDeityName(deity)));
+                        RequiemLogging.logInfo(String.format("Converting %s to %s", p.getName(), Deities.getDeityName(deity)));
                         Items.destroyItem(convertBook.getWurmId());
                         Deity d = Deities.getDeity(deity);
                         p.setDeity(d);
@@ -66,7 +66,7 @@ public class BookConversionQuestion extends Question {
                         e.printStackTrace();
                     }
                 } else {
-                    RequiemLogging.debug(String.format("Non-player used a %s?", convertBook.getName()));
+                    RequiemLogging.logInfo(String.format("Non-player used a %s?", convertBook.getName()));
                 }
             }
         }

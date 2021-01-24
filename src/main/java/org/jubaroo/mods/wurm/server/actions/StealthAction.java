@@ -98,7 +98,7 @@ public class StealthAction implements ModAction {
                     if (!p.isStealth() && p.getPower() <= 0) {
                         if (p.getWurmId() != stealther.getWurmId()) {
                             if (p.isWithinDistanceTo(stealther, 30f)) {
-                                RequiemLogging.debug(String.format("%s is too close to %s to be able to insta-stealth", p.getName(), stealther.getName()));
+                                RequiemLogging.logInfo(String.format("%s is too close to %s to be able to insta-stealth", p.getName(), stealther.getName()));
                                 return true;
                             }
                         }

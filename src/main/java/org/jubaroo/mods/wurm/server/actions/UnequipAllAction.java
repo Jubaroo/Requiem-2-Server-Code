@@ -92,7 +92,7 @@ public class UnequipAllAction implements ModAction {
                         e1.printStackTrace();
                     }
                 } else {
-                    RequiemLogging.debug(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
+                    RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
                 }
                 return true;
             }

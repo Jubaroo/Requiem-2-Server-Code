@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modloader.interfaces.WurmServerMod;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.Collections;
@@ -62,7 +62,7 @@ public class SummonScrollAction implements WurmServerMod, ItemTypes, MiscConstan
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
             try {
-                if (MethodsBestiary.spawnCreature(target.getTemplateId(), performer, true)) {
+                if (CreatureTweaks.spawnCreature(target.getTemplateId(), performer, true)) {
                     Items.destroyItem(target.getWurmId());
                 } else {
                     performer.getCommunicator().sendNormalServerMessage("Something is not working, please tell the staff by opening a support ticket.");

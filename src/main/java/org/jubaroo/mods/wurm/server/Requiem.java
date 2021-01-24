@@ -2,7 +2,6 @@ package org.jubaroo.mods.wurm.server;
 
 import com.wurmonline.server.Message;
 import com.wurmonline.server.MiscConstants;
-import com.wurmonline.server.Servers;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
@@ -13,14 +12,11 @@ import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
 import org.jubaroo.mods.wurm.server.creatures.CustomMountSettings;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
-import org.jubaroo.mods.wurm.server.creatures.bounty.Bounty;
 import org.jubaroo.mods.wurm.server.items.CustomItemCreationEntries;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PollPortals;
 import org.jubaroo.mods.wurm.server.misc.Misc;
-import org.jubaroo.mods.wurm.server.misc.QualityOfLife;
 import org.jubaroo.mods.wurm.server.server.*;
 import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries;
@@ -39,24 +35,25 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onItemTemplatesCreated() {
         RequiemLogging.logInfo("onItemTemplatesCreated called");
         try {
+            RequiemLogging.logInfo("======= Registering Custom Items And Vehicles=======");
             CustomItems.registerCustomItems();
             CustomVehicles.registerCustomVehicles();
-            RequiemLogging.logInfo("======= Adding Creatures & Mount Settings for Creatures=======");
+            RequiemLogging.logInfo("======= Registering Custom Creatures & Mount Settings For Creatures=======");
             CustomCreatures.registerCustomCreatures();
-            CustomMountSettings.registerCustomMountSettings();
-            //RequiemLogging.logInfo("======= Creating Item Mod items =======");
-            RequiemLogging.logInfo("======= Creating Cache items =======");
+            if (!disableVehicleMods) {
+                CustomMountSettings.registerCustomMountSettings();
+            }
             if (!disableItemMods) {
+                RequiemLogging.logInfo("======= Registering Custom Items Creation Entries =======");
                 CustomItemCreationEntries.registerCustomItemCreationEntries();
             }
-
-            if (!disableEntireMod) {
-                RequiemLogging.debug("======= Editing existing item templates =======");
-                ItemMod.modifyItemsOnCreated();
-            }
             if (!disableVehicleMods) {
+                RequiemLogging.logInfo("======= Registering Custom Vehicle Creation Entries =======");
                 CustomVehicleCreationEntries.registerCustomVehicleCreationEntries();
-
+            }
+            if (!disableEntireMod) {
+                RequiemLogging.logInfo("======= Registering Modifications Of New Items =======");
+                ItemMod.modifyItemsOnCreated();
             }
         } catch (IllegalArgumentException | ClassCastException | IOException e) {
             e.printStackTrace();
@@ -68,18 +65,6 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public void configure(final Properties properties) {
         Config.doConfig(properties);
-        // Discord
-        DiscordHandler.botToken = properties.getProperty("botToken");
-        DiscordHandler.serverName = properties.getProperty("serverName");
-        CustomChannel.GLOBAL.discordName = properties.getProperty("globalName");
-        CustomChannel.HELP.discordName = properties.getProperty("helpName");
-        CustomChannel.TICKETS.discordName = properties.getProperty("ticketName");
-        CustomChannel.TITLES.discordName = properties.getProperty("titlesName");
-        CustomChannel.EVENTS.discordName = properties.getProperty("eventsName");
-        CustomChannel.TITAN.discordName = properties.getProperty("titanName");
-        CustomChannel.TRADE.discordName = properties.getProperty("tradeName");
-        CustomChannel.LOGINS.discordName = properties.getProperty("loginsName");
-        CustomChannel.SERVER_STATUS.discordName = properties.getProperty("serverStatusName");
     }
 
     @Override
@@ -87,7 +72,9 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         RequiemLogging.logInfo("preInit called");
         try {
             if (!disableEntireMod) {
-                PreInit.preInit();
+                if (!disablePreInit) {
+                    PreInitialize.preInit();
+                }
             }
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new HookException(e);
@@ -100,17 +87,13 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         RequiemLogging.logInfo("init called");
         try {
             if (!disableEntireMod) {
-                RequiemLogging.logInfo("Started Init.init()");
-                try {
-                    ItemMod.init();
-                    Bounty.init();
-                    MethodsBestiary.init();
-                    Misc.init();
-                    //OnServerPoll.init();
-                    QualityOfLife.init();
-                    //MiscHooks.init();
-                } catch (Throwable e) {
-                    RequiemLogging.logException("Error in init()", e);
+                if (!disableInit) {
+                    try {
+                        RequiemLogging.logInfo("Started Init.init()");
+                        Initialize.init();
+                    } catch (Throwable e) {
+                        RequiemLogging.logException("Error in init()", e);
+                    }
                 }
             }
         } catch (Throwable e) {
@@ -124,8 +107,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
         RequiemLogging.logInfo("onServerStarted called");
         try {
             if (!disableEntireMod) {
-                OnServerStarted.onServerStarted();
-                if (!Servers.isThisATestServer()) {
+                if (!disableOnServerStarted) {
+                    OnServerStarted.onServerStarted();
                     ChatHandler.serverStarted();
                 }
             }
@@ -147,58 +130,67 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public MessagePolicy onPlayerMessage(Communicator communicator, String message, String title) {
-        String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
-        if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
-            DiscordHandler.initJda();
-            return MessagePolicy.DISCARD;
-        } else if (communicator.player.getPower() >= MiscConstants.POWER_HERO && message.startsWith("#eventmsg")) {
-            String msg = message.replace("#eventmsg", "").trim();
-            ChatHandler.setUpcomingEvent(msg);
-            if (msg.length() > 0)
-                communicator.sendNormalServerMessage(String.format("Set event line: %s", msg));
-            else
-                communicator.sendNormalServerMessage("Cleared event line.");
-            return MessagePolicy.DISCARD;
-        } else if (!message.startsWith("#") && !message.startsWith("/")) {
-            CustomChannel chan = CustomChannel.findByIngameName(title);
-            if (chan != null) {
-                if (chan.canPlayersSend)
-                    ChatHandler.handleGlobalMessage(chan, communicator, message);
+        if (!disableOnPlayerMessage) {
+            String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
+            if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
+                DiscordHandler.initJda();
                 return MessagePolicy.DISCARD;
-            } else return MessagePolicy.PASS;
-        }
+            } else if (communicator.player.getPower() >= MiscConstants.POWER_HERO && message.startsWith("#eventmsg")) {
+                String msg = message.replace("#eventmsg", "").trim();
+                ChatHandler.setUpcomingEvent(msg);
+                if (msg.length() > 0)
+                    communicator.sendNormalServerMessage(String.format("Set event line: %s", msg));
+                else
+                    communicator.sendNormalServerMessage("Cleared event line.");
+                return MessagePolicy.DISCARD;
+            } else if (!message.startsWith("#") && !message.startsWith("/")) {
+                CustomChannel chan = CustomChannel.findByIngameName(title);
+                if (chan != null) {
+                    if (chan.canPlayersSend)
+                        ChatHandler.handleGlobalMessage(chan, communicator, message);
+                    return MessagePolicy.DISCARD;
+                } else return MessagePolicy.PASS;
+            }
 
-        //TODO
-        // fix the help commands not calling guards in the new chat system
-        else if (message.equals("/help me ") || (message.equals("help") || message.equals("guard!") || message.equals("guard") || message.equals("guards") || message.equals("guards!") || message.equals("help guard") || message.equals("help guards"))) {
-            communicator.getPlayer().getCommunicator().sendNormalServerMessage("Guards have been called!");
-            communicator.getPlayer().callGuards();
-            return MessagePolicy.DISCARD;
-        }
+            //TODO
+            // fix the help commands not calling guards in the new chat system
+            else if (message.equals("/help me ") || (message.equals("help") || message.equals("guard!") || message.equals("guard") || message.equals("guards") || message.equals("guards!") || message.equals("help guard") || message.equals("help guards"))) {
+                communicator.getPlayer().getCommunicator().sendNormalServerMessage("Guards have been called!");
+                communicator.getPlayer().callGuards();
+                return MessagePolicy.DISCARD;
+            }
 
-        //else if (communicator.player.getPower() > 0 && message.startsWith("#")) {
-        //    return CommandHandler.handleCommand(communicator, message);
-        //}
+            //else if (communicator.player.getPower() > 0 && message.startsWith("#")) {
+            //    return CommandHandler.handleCommand(communicator, message);
+            //}
 
-        else if (OnServerStarted.cmdtool.runWurmCmd(communicator.getPlayer(), argv)) {
-            return MessagePolicy.PASS;
+            else if (OnServerStarted.cmdtool.runWurmCmd(communicator.getPlayer(), argv)) {
+                return MessagePolicy.DISCARD; // changed from MessagePolicy.PASS
+            } else {
+                return MessagePolicy.PASS;
+            }
         } else {
-            return MessagePolicy.PASS;
+            return null;
         }
 
     }
 
     @Override
     public MessagePolicy onKingdomMessage(Message message) {
-        return OnKingdomMessage.onKingdomMessage(message);
+        if (!disableOnKingdomMessage) {
+            return OnKingdomMessage.onKingdomMessage(message);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void onPlayerLogin(Player player) {
         try {
             if (!disableEntireMod) {
-                OnPlayerLogin.onPlayerLogin(player);
-
+                if (!disableOnPlayerLogin) {
+                    OnPlayerLogin.onPlayerLogin(player);
+                }
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -210,8 +202,9 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onPlayerLogout(Player player) {
         try {
             if (!disableEntireMod) {
-                OnPlayerLogout.onPlayerLogout(player);
-
+                if (!disableOnPlayerLogout) {
+                    OnPlayerLogout.onPlayerLogout(player);
+                }
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -222,13 +215,13 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     @Override
     public void onServerPoll() {
         if (!disableEntireMod) {
-            OnServerPoll.onServerPoll();
-            Misc.noobTips();
-            PollPortals.pollPortal();
-
+            if (!disablePollingMods) {
+                    DiscordHandler.poll();
+                OnServerPoll.onServerPoll();
+                Misc.noobTips();
+                PollPortals.pollPortal();
+            }
         }
-        if (Servers.localServer.LOGINSERVER)
-            DiscordHandler.poll();
     }
 
     @Override

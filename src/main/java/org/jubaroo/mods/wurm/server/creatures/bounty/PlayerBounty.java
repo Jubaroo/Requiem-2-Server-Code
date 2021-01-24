@@ -7,7 +7,6 @@ import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.ItemTemplate;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
-import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
@@ -99,11 +98,4 @@ public class PlayerBounty {
         }
     }
 
-    public static void checkPlayerBounty(Player player, Creature creature) {
-        try {
-            RequiemLogging.debug(String.format("%s killed %s", player.getName(), creature.getName()));
-        } catch (IllegalArgumentException | ClassCastException e) {
-            e.printStackTrace();
-        }
-    }
 }

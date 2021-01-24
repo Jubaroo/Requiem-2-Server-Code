@@ -7,11 +7,13 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.NoSpaceException;
-import javassist.*;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtMethod;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
-import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.io.IOException;
@@ -87,7 +89,7 @@ public class MiscHooks {
         ServerThreadExecutor.INSTANCE.tick();
     }
 
-    static void hookSurfaceMine(ClassPool pool) {
+    public static void hookSurfaceMine(ClassPool pool) {
         try {
             CtClass tileRockBehav = pool.get("com.wurmonline.server.behaviours.TileRockBehaviour");
             CtMethod cm = tileRockBehav.getMethod("action", "(Lcom/wurmonline/server/behaviours/Action;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;IIZIISF)Z");
@@ -113,17 +115,4 @@ public class MiscHooks {
         }
     }
 
-    public static void newPlayerQuestion() throws NotFoundException, CannotCompileException {
-        final ClassPool classPool = HookManager.getInstance().getClassPool();
-        // New creation
-        classPool.getCtClass("com.wurmonline.server.LoginHandler").getMethod("handleLogin", "(Ljava/lang/String;Ljava/lang/String;ZZZZLjava/lang/String;Ljava/lang/String;)V")
-                .instrument(new ExprEditor() {
-                    @Override
-                    public void edit(MethodCall m) throws CannotCompileException {
-                        if (m.getMethodName().equals("sendQuestion")) {
-                            m.replace("if (!com.wurmonline.server.questions.NewPlayerQuestion.send($0.getResponder())) $proceed();");
-                        }
-                    }
-                });
-    }
 }

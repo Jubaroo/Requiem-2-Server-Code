@@ -10,6 +10,7 @@ import com.wurmonline.server.bodys.BodyTemplate;
 import com.wurmonline.server.combat.Archery;
 import com.wurmonline.server.combat.Weapon;
 import com.wurmonline.server.creatures.*;
+import com.wurmonline.server.economy.Economy;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.ItemList;
@@ -69,7 +70,7 @@ public class Hooks {
             EffectsTools.sendParticleEffect(comm, creatureId, creature, particle1, Float.MAX_VALUE);
             String particle2 = "iceTail1";
             EffectsTools.sendParticleEffect(comm, creatureId, creature, particle2, Float.MAX_VALUE);
-        } else if (MethodsBestiary.isTreasureGoblin(creature)) {
+        } else if (CreatureTweaks.isTreasureGoblin(creature)) {
             String particle = "treasureP";
             EffectsTools.sendParticleEffect(comm, creatureId, creature, particle, Float.MAX_VALUE);
             String particle2 = "sparkleDense";
@@ -203,7 +204,7 @@ public class Hooks {
             if (item.getData2() > 0) {
                 item.setData2(item.getData2() - 1);
                 if (item.getData2() == 0)
-                    RequiemLogging.debug(String.format("A %s (creature den) at location X:%s Y:%s is now able to be searched again.", item.getName(), item.getPosX() / 4, item.getPosY() / 4));
+                    RequiemLogging.logInfo(String.format("A %s (creature den) at location X:%s Y:%s is now able to be searched again.", item.getName(), item.getPosX() / 4, item.getPosY() / 4));
             }
         }
     }
@@ -241,7 +242,7 @@ public class Hooks {
     public static boolean isSacrificeImmune(Creature creature) {
         if (Titans.isTitan(creature) || Titans.isTitanMinion(creature)) {
             return true;
-        } else if (MethodsBestiary.isRareCreature(creature)) {
+        } else if (CreatureTweaks.isRareCreature(creature)) {
             return true;
         } else return creature.isUnique();
     }
@@ -396,7 +397,7 @@ public class Hooks {
     // Apply random types to creatures in the wilderness
     public static byte newCreatureType(int templateid, byte ctype) throws Exception {
         CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateid);
-        if (ctype == 0 && (template.isAggHuman() || template.getBaseCombatRating() > 10) && !template.isUnique() && !Titans.isTitan(templateid) && !MethodsBestiary.isConditionExempt(templateid)) {
+        if (ctype == 0 && (template.isAggHuman() || template.getBaseCombatRating() > 10) && !template.isUnique() && !Titans.isTitan(templateid) && !CreatureTweaks.isConditionExempt(templateid)) {
             if (Server.rand.nextInt(5) == 0) {
                 ctype = (byte) (Server.rand.nextInt(11) + 1);
                 if (Server.rand.nextInt(50) == 0) {
@@ -425,7 +426,7 @@ public class Hooks {
                 Server.getInstance().broadCastAlert(message, true, displayOnScreen);
             }
             // Rare Creatures
-            else if (MethodsBestiary.isRareCreature(creature)) {
+            else if (CreatureTweaks.isRareCreature(creature)) {
                 String message = String.format("A rare %s has surfaced.", creature.getNameWithoutPrefixes());
                 DiscordHandler.sendToDiscord(CustomChannel.EVENTS, message);
                 Server.getInstance().broadCastAlert(message, true, displayOnScreen);
@@ -598,7 +599,7 @@ public class Hooks {
     // change item size
     public float getSizeModifier(Item item) {
         int id = item.getTemplate().getTemplateId();
-        //RequiemLogging.debug("ItemMod.itemSizeMod called");
+        //RequiemLogging.logInfo("ItemMod.itemSizeMod called");
         if (id == CustomItems.machinaOfFortuneId) {
             return -2.5f;
         } else if (id == ItemList.sleepPowder) {
@@ -742,6 +743,18 @@ public class Hooks {
             factor *= creature.getMovementScheme().getSpeedModifier();
         }
         return factor;
+    }
+
+    public static boolean catchFishHook(Creature performer, Item target, Item fish) {
+        double fishBounty = fish.getFullWeight() * 0.005;
+        if (fishBounty >= 1) {
+            performer.getCommunicator().sendNormalServerMessage(String.format("You find %s iron coins inside the %s. You put that into your pocket.", (int) fishBounty, fish.getName()));
+            Item[] coins = Economy.getEconomy().getCoinsFor((long) fishBounty);
+            for (Item coin : coins) {
+                performer.getInventory().insertItem(coin, true);
+            }
+        }
+        return (performer.getInventory().insertItem(fish) || target.insertItem(fish))/* && performer.addMoney((int) fishBounty)*/;
     }
 
 }

@@ -41,7 +41,7 @@ public class CustomCreatures {
 
     public static void registerCustomCreatures() {
         long start = System.nanoTime();
-        RequiemLogging.debug("=================  Registering custom Requiem creature templates =================");
+        RequiemLogging.logInfo("=================  Registering custom Requiem creature templates =================");
         ModCreatures.addCreature(new Bull());
         ModCreatures.addCreature(new Calf());
         ModCreatures.addCreature(new Cat());
@@ -174,7 +174,7 @@ public class CustomCreatures {
         createHorsemanWarTemplate();
         createHorsemanFamineTemplate();
         createHorsemanDeathTemplate();
-        RequiemLogging.debug(String.format("Registering all of Requiem's custom creature templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
+        RequiemLogging.logInfo(String.format("Registering all of Requiem's custom creature templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
     }
 
     static void createBlackWidowTemplate() {
@@ -220,7 +220,7 @@ public class CustomCreatures {
     }
 
     static void createCobraTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] butcheredItems = new int[]{ItemList.tooth, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cobra")
                 .name("Cobra")
@@ -500,7 +500,7 @@ public class CustomCreatures {
     }
 
     static void createOcelotTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_CARNIVORE};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.meat, ItemList.paw, ItemList.pelt, ItemList.eye};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ocelot")
                 .name("Ocelot")
@@ -597,7 +597,7 @@ public class CustomCreatures {
     }
 
     static void createPantherTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_DOMINATABLE};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.paw, ItemList.pelt, ItemList.eye, ItemList.tooth, ItemList.tail, ItemList.tallow};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.panther")
                 .name("Panther")
@@ -695,7 +695,7 @@ public class CustomCreatures {
     }
 
     static void createViperTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.viper")
                 .name("Viper")
@@ -738,7 +738,7 @@ public class CustomCreatures {
     }
 
     static void createWarHoundTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_DOMESTIC};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tallow, ItemList.paw, ItemList.pelt, ItemList.tooth, ItemList.eye};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.warHound")
                 .name("War Hound")
@@ -785,7 +785,7 @@ public class CustomCreatures {
     }
 
     static void createWolfPackmasterTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_BLACK_OR_WHITE};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_BLACK_OR_WHITE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.paw, ItemList.pelt, ItemList.tooth, ItemList.eye, ItemList.tail};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wolfPackmaster")
                 .name("Wolf Packmaster")
@@ -832,7 +832,7 @@ public class CustomCreatures {
     }
 
     static void createFrostyTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_OPENDOORS};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.frosty")
                 .name("Frosty")
@@ -875,7 +875,7 @@ public class CustomCreatures {
     }
 
     static void createGrinchTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_OMNIVORE};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.grinch")
                 .name("Grinch")
@@ -1057,7 +1057,7 @@ public class CustomCreatures {
     }
 
     static void createSnowmanTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_MISSION_OK, CreatureTypes.C_TYPE_MISSION_TRAITOR_OK, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.snowball, ItemList.snowball, ItemList.snowball, ItemList.snowball, ItemList.snowball};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.snowman")
                 .name("Snowman")
@@ -1189,7 +1189,7 @@ public class CustomCreatures {
     }
 
     static void createRainbowUnicornWhiteTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_NON_NEWBIE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_NO_REBIRTH};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.heart, ItemList.horn};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.unicorn.rainbow.white")
                 .name("White Rainbow Unicorn")
@@ -1420,7 +1420,7 @@ public class CustomCreatures {
     }
 
     static void createRidingRoosterTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_GRAZER};
+        final int[] types = {CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tallow, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.rooster.riding")
                 .name("Riding Rooster")
@@ -1835,7 +1835,7 @@ public class CustomCreatures {
     }
 
     static void createBanditTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_CAVEDWELLER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_CAVEDWELLER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.bandit")
                 .name("Bandit")
@@ -1893,7 +1893,7 @@ public class CustomCreatures {
     }
 
     static void createSnakeCultistTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cultist.snake")
                 .name("Snake Cultist")
@@ -1949,7 +1949,7 @@ public class CustomCreatures {
     }
 
     static void createTombRaiderTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.tombRaider")
                 .name("Tomb Raider")
@@ -2317,7 +2317,7 @@ public class CustomCreatures {
     }
 
     static void createFireSpiderTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.spider.fire")
                 .name("Fire Spider")
@@ -2365,7 +2365,7 @@ public class CustomCreatures {
     }
 
     static void createFogGoblinTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_MOD_GREENISH, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_PREY, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_MOD_GREENISH, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_PREY, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.goblin.fog")
                 .name("Fog-goblin potioneer")
@@ -2509,7 +2509,7 @@ public class CustomCreatures {
     }
 
     static void createGiantSerpentTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.serpent.giant")
                 .name("Giant Serpent")
@@ -2564,7 +2564,7 @@ public class CustomCreatures {
     }
 
     static void createGoblinWarlordTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.eye};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.goblin.warlord")
                 .name("Goblin Warlord")
@@ -2964,7 +2964,7 @@ public class CustomCreatures {
     }
 
     static void createTempleGuardianTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.snakeVine")
                 .name("Temple Guardian")
@@ -3018,7 +3018,7 @@ public class CustomCreatures {
     }
 
     static void createTemplePatriarchTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.temple.patriarch")
                 .name("Temple Patriarch")
@@ -3072,7 +3072,7 @@ public class CustomCreatures {
     }
 
     static void createTemplePriestTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_MONSTER, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.temple.priest")
                 .name("Temple Priest")
@@ -3458,7 +3458,7 @@ public class CustomCreatures {
     }
 
     static void createNpcTravelingTraderWagonerTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_MOVE_GLOBAL};
+        final int[] types = {CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_HUMAN, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.trader.traveling")
                 .name("Traveling Trader")
@@ -3991,7 +3991,7 @@ public class CustomCreatures {
     }
 
     static void createNpcMerchantShipTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_SUBMERGED};
+        final int[] types = {CreatureTypes.C_TYPE_INVULNERABLE, CreatureTypes.C_TYPE_NPC_TRADER, CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NOT_MISSION, CreatureTypes.C_TYPE_SUBMERGED, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.npc.ship.merchant")
                 .name("Merchant Ship")
@@ -4090,7 +4090,7 @@ public class CustomCreatures {
     }
 
     static void createGhostHorseTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HORSE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL};
+        final int[] types = {CreatureTypes.C_TYPE_SWIMMING, CreatureTypes.C_TYPE_VEHICLE, CreatureTypes.C_TYPE_DOMESTIC, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_LEADABLE, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HORSE, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_SENTINEL, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.ghost.horse")
                 .name("Ghost Horse")
@@ -4138,7 +4138,7 @@ public class CustomCreatures {
     }
 
     static void createWillOWispTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MOVE_GLOBAL};
+        final int[] types = {CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.willowisp")
                 .name("Will-o'-the-wisp")
@@ -4486,7 +4486,7 @@ public class CustomCreatures {
     }
 
     static void createBloodThiefTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.bloodThief")
                 .name("Blood Thief")
@@ -4536,7 +4536,7 @@ public class CustomCreatures {
     }
 
     static void createGemHoarderTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.gemHoarder")
                 .name("Gem Hoarder")
@@ -4585,7 +4585,7 @@ public class CustomCreatures {
     }
 
     static void createMalevolentTormentorTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.malevolentTormentor")
                 .name("Malevolent Tormentor")
@@ -4635,7 +4635,7 @@ public class CustomCreatures {
     }
 
     static void createMenageristGoblinTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.menageristGoblin")
                 .name("Menagerist Goblin")
@@ -4685,7 +4685,7 @@ public class CustomCreatures {
     }
 
     static void createOdiousCollectorTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.odiousCollector")
                 .name("Odious Collector")
@@ -4734,7 +4734,7 @@ public class CustomCreatures {
     }
 
     static void createRainbowGoblinTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.rainbowGoblin")
                 .name("Rainbow Goblin")
@@ -4783,7 +4783,7 @@ public class CustomCreatures {
     }
 
     static void createTreasureGoblinTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_MONSTER/*, C_TYPE_UNIQUE*/, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.eye, ItemList.tooth, ItemList.gland, ItemList.eye, ItemList.bladder};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.treasureGoblin.treasureGoblin")
                 .name("Treasure Goblin")
@@ -4832,7 +4832,7 @@ public class CustomCreatures {
     }
 
     static void createBonewalkerTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.bonewalker")
                 .name("Bonewalker")
@@ -4889,7 +4889,7 @@ public class CustomCreatures {
     }
 
     static void createFleshwalkerTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.fleshwalker")
                 .name("Fleshwalker")
@@ -4945,7 +4945,7 @@ public class CustomCreatures {
     }
 
     static void createWraithTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.wraith")
                 .name("Wraith")
@@ -5001,7 +5001,7 @@ public class CustomCreatures {
     }
 
     static void createNecromancerTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_CLIMBER, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.necromancer")
                 .name("Necromancer")
@@ -5152,7 +5152,7 @@ public class CustomCreatures {
     }
 
     static void createZombieHulkTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.hulk")
                 .name("Zombie Hulk")
@@ -5203,7 +5203,7 @@ public class CustomCreatures {
     }
 
     static void createZombieHordeLeaderTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.leader")
                 .name("Zombie Horde Leader")
@@ -5254,7 +5254,7 @@ public class CustomCreatures {
     }
 
     static void createZombieWalkerTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_DOMINATABLE};
+        final int[] types = {CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_CARNIVORE, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_STEALTH, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_HERD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_DOMINATABLE, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tooth, ItemList.tooth, ItemList.eye, ItemList.bladder, ItemList.gland};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.zombie.walker")
                 .name("Zombie Walker")
@@ -5303,7 +5303,7 @@ public class CustomCreatures {
     }
 
     static void createClucksterTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.bladder, ItemList.heart, ItemList.eye, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.cluckster")
                 .name("Cluckster")
@@ -5352,7 +5352,7 @@ public class CustomCreatures {
     }
 
     static void createAngyHenTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS};
+        final int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_MOVE_LOCAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_DETECTINVIS, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.bladder, ItemList.heart, ItemList.eye, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall, ItemList.eggSmall};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.hen.angry")
                 .name("Angy Hen")
@@ -5559,7 +5559,7 @@ public class CustomCreatures {
     }
 
     static void createWhiteBuffaloTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_ANIMAL, CreatureTypes.C_TYPE_GRAZER, CreatureTypes.C_TYPE_HERBIVORE, CreatureTypes.C_TYPE_FLEEING, CreatureTypes.C_TYPE_FENCEBREAKER, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[]{ItemList.tail, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.hoof, ItemList.tallow, ItemList.animalHide, ItemList.bladder, ItemList.eye, ItemList.eye, ItemList.horn, ItemList.horn, ItemList.heart};
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.whiteBuffalo")
                 .name("Great White Buffalo")
@@ -5605,7 +5605,7 @@ public class CustomCreatures {
     }
 
     static void createWhiteBuffaloSpiritTemplate() {
-        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_GHOST};
+        final int[] types = {CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_NO_REBIRTH, CreatureTypes.C_TYPE_GHOST, CreatureTypes.C_TYPE_NON_NEWBIE};
         final int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.necromancer")
                 .name("Spirit of the Great White Buffalo")
@@ -5659,7 +5659,7 @@ public class CustomCreatures {
     }
 
     static void createBlackKnightTemplate() {
-        int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_UNDEAD};
+        int[] types = {CreatureTypes.C_TYPE_AGG_HUMAN, CreatureTypes.C_TYPE_AGG_WHITIE, CreatureTypes.C_TYPE_MOVE_GLOBAL, CreatureTypes.C_TYPE_HUNTING, CreatureTypes.C_TYPE_OMNIVORE, CreatureTypes.C_TYPE_OPENDOORS, CreatureTypes.C_TYPE_UNDEAD, CreatureTypes.C_TYPE_NON_NEWBIE};
         int[] itemsButchered = new int[0];
         final CreatureTemplate temp = new CreatureTemplateBuilder("jubaroo.creature.blackKnight")
                 .name("The Black Knight")

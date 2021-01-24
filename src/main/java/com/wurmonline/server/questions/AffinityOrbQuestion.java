@@ -28,7 +28,7 @@ public class AffinityOrbQuestion extends Question {
     public void answer(Properties answer) {
         boolean accepted = answer.containsKey("accept") && answer.get("accept") == "true";
         if (accepted) {
-            RequiemLogging.debug("Accepted AffinityOrb");
+            RequiemLogging.logInfo("Accepted AffinityOrb");
             int entry = Integer.parseInt(answer.getProperty("affinity"));
             int skillNum = affinityMap.get(entry);
             if (affinityOrb == null || affinityOrb.getOwnerId() != this.getResponder().getWurmId()) {
@@ -38,7 +38,7 @@ public class AffinityOrbQuestion extends Question {
                     Player player = (Player) this.getResponder();
                     //Requiem.debug("Converting "+player.getName()+" to " + Deities.getDeityName(deity));
                     String skillName = SkillSystem.getNameFor(skillNum);
-                    RequiemLogging.debug("Adding affinity for skill " + skillName + " to " + player.getName());
+                    RequiemLogging.logInfo("Adding affinity for skill " + skillName + " to " + player.getName());
                     Items.destroyItem(affinityOrb.getWurmId());
 
                     Affinity[] affs = Affinities.getAffinities(player.getWurmId());
@@ -61,7 +61,7 @@ public class AffinityOrbQuestion extends Question {
                         player.getCommunicator().sendSafeServerMessage("Vynora infuses you with an affinity for " + skillName + "!");
                     }
                 } else {
-                    RequiemLogging.debug("Non-player used a " + affinityOrb.getName() + "?");
+                    RequiemLogging.logInfo("Non-player used a " + affinityOrb.getName() + "?");
                 }
             }
         }
@@ -71,11 +71,11 @@ public class AffinityOrbQuestion extends Question {
         String builder = "";
         Random rand = new Random();
         if (affinityOrb.getAuxData() == 0) {
-            RequiemLogging.debug("Orb has no affinity set, creating random seed now.");
+            RequiemLogging.logInfo("Orb has no affinity set, creating random seed now.");
             affinityOrb.setAuxData((byte) ((1 + Server.rand.nextInt(120)) * (Server.rand.nextBoolean() ? 1 : -1)));
         }
         rand.setSeed(affinityOrb.getAuxData());
-        RequiemLogging.debug("Seed set to " + affinityOrb.getAuxData());
+        RequiemLogging.logInfo("Seed set to " + affinityOrb.getAuxData());
         affinityMap.clear();
         int i = 0;
         while (i < 10) {

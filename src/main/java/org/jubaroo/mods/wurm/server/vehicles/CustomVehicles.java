@@ -73,7 +73,7 @@ public class CustomVehicles extends CustomItems {
 
     public static void registerCustomVehicles() throws IOException {
         long start = System.nanoTime();
-        RequiemLogging.debug("=================  Registering Custom Requiem Vehicle Templates =================");
+        RequiemLogging.logInfo("=================  Registering Custom Requiem Vehicle Templates =================");
         registerWagons();
         registerCustomWagons();
         registerCustomWagonManageHooks();
@@ -90,7 +90,7 @@ public class CustomVehicles extends CustomItems {
         registerCogVehicleSettings();
         registerCaravelVehicleSettings();
         MagicCarpet.registerVehicle();
-        RequiemLogging.debug(String.format("Registering all of Requiem's custom vehicle templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
+        RequiemLogging.logInfo(String.format("Registering all of Requiem's custom vehicle templates took %d milliseconds", (System.nanoTime() - start) / 1000000L));
     }
 
     private static ItemTemplate registerWagon(String id, String modelSuffix, String name) throws IOException {
@@ -747,7 +747,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Caravel hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Caravel hook: %s", e.toString()));
         }
     }
 
@@ -794,7 +794,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Cog hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Cog hook: %s", e.toString()));
         }
     }
 
@@ -839,7 +839,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Corbita hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Corbita hook: %s", e.toString()));
         }
     }
 
@@ -890,7 +890,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Knarr hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Knarr hook: %s", e.toString()));
         }
     }
 
@@ -933,7 +933,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Sailing boat hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Sailing boat hook: %s", e.toString()));
         }
     }
 
@@ -997,7 +997,7 @@ public class CustomVehicles extends CustomItems {
                         return method.invoke(proxy, args);
                     });
         } catch (NotFoundException e) {
-            RequiemLogging.debug(String.format("Wagon hook: %s", e.toString()));
+            RequiemLogging.logInfo(String.format("Wagon hook: %s", e.toString()));
         }
     }
 

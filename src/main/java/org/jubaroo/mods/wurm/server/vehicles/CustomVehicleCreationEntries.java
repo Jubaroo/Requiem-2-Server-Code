@@ -249,7 +249,7 @@ public class CustomVehicleCreationEntries {
                     entry.setIsEpicBuildMissionTarget(false);
                 }
             }
-            RequiemLogging.debug(String.format("Initialising custom vehicle creation entries took %s millis.", (float) (System.nanoTime() - start) / 1000000f));
+            RequiemLogging.logInfo(String.format("Initialising custom vehicle creation entries took %s millis.", (float) (System.nanoTime() - start) / 1000000f));
         }
     }
 

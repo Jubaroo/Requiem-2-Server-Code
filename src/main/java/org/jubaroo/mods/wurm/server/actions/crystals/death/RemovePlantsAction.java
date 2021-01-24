@@ -79,7 +79,7 @@ public class RemovePlantsAction implements ModAction, BehaviourProvider, ActionP
                         performer.getCommunicator().sendNormalServerMessage("The last of the vegetation turns to dust and blows away in the wind.");
                         Server.setSurfaceTile(tilex, tiley, Tiles.decodeHeight(tile), Tiles.Tile.TILE_DIRT.id, (byte) 0);
                         Players.getInstance().sendChangedTile(tilex, tiley, true, false);
-                        RequiemLogging.debug(String.format("%s uses a %s to turn the tile to dirt at %s X-%s Y-%s", performer.getName(), object.getName(), tile, tilex, tiley));
+                        RequiemLogging.logInfo(String.format("%s uses a %s to turn the tile to dirt at %s X-%s Y-%s", performer.getName(), object.getName(), tile, tilex, tiley));
                         Cooldowns.setUsed(playerEffect);
                         return true;
                     }

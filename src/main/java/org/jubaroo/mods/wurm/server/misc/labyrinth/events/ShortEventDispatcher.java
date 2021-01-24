@@ -19,7 +19,7 @@ public class ShortEventDispatcher {
 
     private static void startPolling() {
         if (ShortEventDispatcher.timer != null) {
-            RequiemLogging.debug("startPolling(): Poller is already running");
+            RequiemLogging.logInfo("startPolling(): Poller is already running");
             return;
         }
         (ShortEventDispatcher.timer = new Timer()).schedule(new TimerTask() {
@@ -28,17 +28,17 @@ public class ShortEventDispatcher {
                 poll();
             }
         }, 50L, 1L);
-        RequiemLogging.debug("stopPolling(): started");
+        RequiemLogging.logInfo("stopPolling(): started");
     }
 
     private static void stopPolling() {
         if (ShortEventDispatcher.timer != null) {
-            RequiemLogging.debug("stopPolling(): stopped");
+            RequiemLogging.logInfo("stopPolling(): stopped");
             ShortEventDispatcher.timer.cancel();
             ShortEventDispatcher.timer = null;
             return;
         }
-        RequiemLogging.debug("stopPolling(): Poller was not running. Why call this, eh?");
+        RequiemLogging.logInfo("stopPolling(): Poller was not running. Why call this, eh?");
     }
 
     public static void add(final EventOnce event) {

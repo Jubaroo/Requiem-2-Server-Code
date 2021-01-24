@@ -92,7 +92,7 @@ public class DepthDrillAction implements ModAction {
                             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     } else {
-                        RequiemLogging.debug(String.format("Somehow a non-player activated a %s.", source.getTemplate().getName()));
+                        RequiemLogging.logInfo(String.format("Somehow a non-player activated a %s.", source.getTemplate().getName()));
                     }
                     return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
@@ -138,7 +138,7 @@ public class DepthDrillAction implements ModAction {
                         }
                     }
                 }
-                RequiemLogging.debug(String.format("Player %s uses depth drill at %d, %d and prospects %s in the ground.", performer.getName(), x, y, ores.toString()));
+                RequiemLogging.logInfo(String.format("Player %s uses depth drill at %d, %d and prospects %s in the ground.", performer.getName(), x, y, ores.toString()));
 
                 Iterator<String> it = ores.iterator();
                 if (ores.size() == 1) {

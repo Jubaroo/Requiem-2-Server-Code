@@ -56,24 +56,24 @@ public class NewSpawnQuestion extends Question {
     public void answer(Properties answer) {
         boolean accepted = answer.containsKey("accept") && answer.get("accept") == "true";
         if (accepted) {
-            RequiemLogging.debug("Accepted NewSpawnQuestion");
+            RequiemLogging.logInfo("Accepted NewSpawnQuestion");
             int entry = Integer.parseInt(answer.getProperty("spawnpoint"));
             Spawnpoint spawn = spawns.get(entry);
             this.spawn((Player) this.getResponder(), spawn);
         } else {
             boolean transfer = answer.containsKey("transfer") && answer.get("transfer") == "true";
             if (transfer) {
-                RequiemLogging.debug("Respawning player before transfer.");
+                RequiemLogging.logInfo("Respawning player before transfer.");
                 Spawnpoint spawn = spawns.get(0);
                 this.spawn((Player) this.getResponder(), spawn);
-                RequiemLogging.debug("Spawn complete, beginning to unequip all items into inventory.");
+                RequiemLogging.logInfo("Spawn complete, beginning to unequip all items into inventory.");
                 for (Item equip : this.getResponder().getBody().getAllItems()) {
                     AutoEquipMethods.unequip(equip, this.getResponder());
                 }
                 if (!this.getResponder().getPrimWeapon().isBodyPartAttached()) {
                     AutoEquipMethods.unequip(this.getResponder().getPrimWeapon(), this.getResponder());
                 }
-                RequiemLogging.debug("Unequip method complete. Beginning transfer.");
+                RequiemLogging.logInfo("Unequip method complete. Beginning transfer.");
                 try {
                     ServerEntry targetServer = Servers.localServer.serverSouth;
                     Player player = Players.getInstance().getPlayer(this.getResponder().getWurmId());
@@ -89,7 +89,7 @@ public class NewSpawnQuestion extends Question {
                         player.sendTransfer(Server.getInstance(), targetServer.EXTERNALIP, Integer.parseInt(targetServer.EXTERNALPORT), targetServer.INTRASERVERPASSWORD, targetServer.getId(), tilex, tiley, true, false, player.getKingdomId());
                     }
                 } catch (NoSuchPlayerException e) {
-                    RequiemLogging.debug(String.format("Could not find player for WurmId %d [%s]", this.getResponder().getWurmId(), this.getResponder().getName()));
+                    RequiemLogging.logInfo(String.format("Could not find player for WurmId %d [%s]", this.getResponder().getWurmId(), this.getResponder().getName()));
                     e.printStackTrace();
                 }
             } else {

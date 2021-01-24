@@ -95,7 +95,7 @@ public class EnchantersCrystalInfuseAction implements ModAction {
                                     effs.addSpellEffect(eff);
                                     Items.destroyItem(source.getWurmId());
                                 } else {
-                                    RequiemLogging.debug(String.format("Failed to find a valid enchant to add to item %s for player %s!", target.getName(), performer.getName()));
+                                    RequiemLogging.logInfo(String.format("Failed to find a valid enchant to add to item %s for player %s!", target.getName(), performer.getName()));
                                     performer.getCommunicator().sendNormalServerMessage("Nothing happens!");
                                 }
                             } else if (power > 75) {
@@ -159,7 +159,7 @@ public class EnchantersCrystalInfuseAction implements ModAction {
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     } else {
-                        RequiemLogging.debug(String.format("Somehow a non-player activated a custom item (%d)...", source.getTemplateId()));
+                        RequiemLogging.logInfo(String.format("Somehow a non-player activated a custom item (%d)...", source.getTemplateId()));
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {

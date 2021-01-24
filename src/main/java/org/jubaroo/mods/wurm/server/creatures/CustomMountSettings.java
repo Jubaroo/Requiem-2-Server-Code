@@ -8,12 +8,6 @@ import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.NoSpaceException;
 import com.wurmonline.shared.constants.BodyPartConstants;
 import com.wurmonline.shared.constants.ProtoConstants;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
-import mod.sin.lib.Util;
-import org.gotti.wurmunlimited.modloader.classhooks.HookException;
-import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviour;
 import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviours;
 import org.gotti.wurmunlimited.modsupport.vehicles.VehicleFacade;
@@ -152,27 +146,6 @@ public class CustomMountSettings {
             factor += shoe.getRarity() * 0.03f;
         }
         return factor;
-    }
-
-    public static void preInit() {
-        try {
-            ClassPool classPool = HookManager.getInstance().getClassPool();
-            final Class<CustomMountSettings> thisClass = CustomMountSettings.class;
-            String replace;
-
-            Util.setReason("Scaling horse speed.");
-            CtClass ctCreature = classPool.get("com.wurmonline.server.creatures.Creature");
-            replace = String.format("{ return %s.newMountSpeedMultiplier(this, $1); }", CustomMountSettings.class.getName());
-            Util.setBodyDeclared(thisClass, ctCreature, "getMountSpeedPercent", replace);
-
-            Util.setReason("Force mount speed change check on damage.");
-            replace = "forceMountSpeedChange();";
-            Util.insertBeforeDeclared(thisClass, ctCreature, "setWounded", replace);
-
-        } catch (NotFoundException | IllegalArgumentException | ClassCastException e) {
-            throw new HookException(e);
-        }
-
     }
 
 }

@@ -116,7 +116,7 @@ public class SorceryCombineAction implements ModAction {
                                 ChatHandler.systemMessage((Player) performer, CustomChannel.EVENTS, String.format("%s has created a new sorcery!", performer.getName()), 52, 152, 219);
                                 Item sorcery = ItemTools.createRandomSorcery((byte) (2 + Server.rand.nextInt(1)));
                                 if (sorcery != null) {
-                                    RequiemLogging.debug(String.format("Player %s created a %s with %d charges.", performer.getName(), sorcery.getName(), 3 - sorcery.getAuxData()));
+                                    RequiemLogging.logInfo(String.format("Player %s created a %s with %d charges.", performer.getName(), sorcery.getName(), 3 - sorcery.getAuxData()));
                                     performer.getInventory().insertItem(sorcery, true);
                                 }
                                 if (newAux >= 0) {

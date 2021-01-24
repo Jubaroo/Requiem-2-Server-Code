@@ -314,10 +314,10 @@ public class AchievementChanges {
                 if (!temp.getRequirement().equals("") && !temp.isForCooking() && !blacklist.contains(i)) {
                     fixName(temp);
                     goodAchievements.put(i, temp);
-                    RequiemLogging.debug(temp.getNumber() + ": " + temp.getName() + " - " + temp.getDescription() + " (" + temp.getRequirement() + ")");
+                    RequiemLogging.logInfo(temp.getNumber() + ": " + temp.getName() + " - " + temp.getDescription() + " (" + temp.getRequirement() + ")");
                 }
             }
-            RequiemLogging.debug("Total achievements loaded into system: " + goodAchievements.size());
+            RequiemLogging.logInfo("Total achievements loaded into system: " + goodAchievements.size());
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }

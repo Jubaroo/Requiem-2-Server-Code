@@ -102,12 +102,12 @@ public class AffinityCatcherCaptureAction implements ModAction {
                     int affinityCount = 0;
                     for (Affinity affinity : affs) {
                         if (affinity.getNumber() > 0) {
-                            RequiemLogging.debug("Adding " + affinity.getNumber() + " affinities to total due to skill " + SkillSystem.getNameFor(affinity.getSkillNumber()));
+                            RequiemLogging.logInfo("Adding " + affinity.getNumber() + " affinities to total due to skill " + SkillSystem.getNameFor(affinity.getSkillNumber()));
                             affinityCount += affinity.getNumber();
                         }
                     }
                     if (affinityCount < 3) {
-                        RequiemLogging.debug("Player " + performer.getName() + " does not have enough affinities to utilize an affinity catcher.");
+                        RequiemLogging.logInfo("Player " + performer.getName() + " does not have enough affinities to utilize an affinity catcher.");
                         performer.getCommunicator().sendNormalServerMessage("You must have at least 3 affinities in total before using an " + source.getName() + ".");
                         return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                     }
@@ -117,7 +117,7 @@ public class AffinityCatcherCaptureAction implements ModAction {
                             break;
                         }
                         Affinities.setAffinity(player.getWurmId(), skillNum, affinity.getNumber() - 1, false);
-                        RequiemLogging.debug("Setting " + source.getName() + " data to " + skillNum);
+                        RequiemLogging.logInfo("Setting " + source.getName() + " data to " + skillNum);
                         source.setData(skill.getNumber());
                         source.setName("captured " + skill.getName() + " affinity");
                         performer.getCommunicator().sendSafeServerMessage("Your " + skill.getName() + " affinity is captured!");
@@ -126,7 +126,7 @@ public class AffinityCatcherCaptureAction implements ModAction {
                     // Only called if the affinity is not found or it breaks from having less than one.
                     player.getCommunicator().sendNormalServerMessage("You must have an affinity in the skill to capture.");
                 } else {
-                    RequiemLogging.debug("Somehow a non-player activated an Affinity Catcher...");
+                    RequiemLogging.logInfo("Somehow a non-player activated an Affinity Catcher...");
                 }
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }

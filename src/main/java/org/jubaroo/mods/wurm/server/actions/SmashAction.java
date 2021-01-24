@@ -111,7 +111,7 @@ public class SmashAction implements ModAction, ActionTypesProxy {
                     if (SmashAction.this.canMiss) {
                         final double strCheck = Math.min(95.0, 30.0 + strength * 0.7);
                         final int rndCheck = Server.rand.nextInt(100);
-                        RequiemLogging.debug(String.format("smash(): rnd %d > str %s == %smiss!", rndCheck, strCheck, (rndCheck > strCheck) ? "" : "not "));
+                        RequiemLogging.logInfo(String.format("smash(): rnd %d > str %s == %smiss!", rndCheck, strCheck, (rndCheck > strCheck) ? "" : "not "));
                         if (rndCheck > strCheck) {
                             MiscChanges.actionNotify(performer, "You swing viciously, but miss.", "%NAME swings viciously, but miss.", "A shadowy form swings viciously, but miss");
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

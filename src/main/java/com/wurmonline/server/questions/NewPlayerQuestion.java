@@ -72,7 +72,7 @@ public class NewPlayerQuestion implements ModQuestion {
                 TransferUtils.sendPlayerToServer(responder, server.get(), null, (byte) -1);
 
                 RequiemLogging.logInfo(String.format("Created player %s (%d) as %s and sent to %s skip=%s", responder.getName(), responder.getWurmId(), male ? "male" : "female", server.get().name, skip));
-
+Servers.getServerWithId(1);
                 ok = true;
             }
         } catch (Exception e) {
@@ -96,7 +96,6 @@ public class NewPlayerQuestion implements ModQuestion {
 
     @Override
     public void sendQuestion(Question question) {
-
         responder.getCommunicator().sendCloseWindow((short) 9);
         responder.getCommunicator().sendCloseWindow((short) 5);
         responder.getCommunicator().sendCloseWindow((short) 1);
@@ -124,7 +123,9 @@ public class NewPlayerQuestion implements ModQuestion {
                         .addText("Select your starting server:", null, BMLBuilder.TextType.BOLD, null)
                         .addString(createServerSelection().toString())
                         .addText("")
-                        .addText("Foxwood Forest is recommended for new players.")
+                        .addText("Tranquil Garden is recommended for new players wanting a peaceful time.")
+                        .addText("Cragmoor Isles is recommended for experienced players.")
+                        .addText("The Wilds is recommended for players wanting a fighting challenge.")
                         .addText("")
                         .addText("The selection is not permanent, you will be able to freely move between servers using portals. So don't worry about choosing wrong!")
                         .addText("")

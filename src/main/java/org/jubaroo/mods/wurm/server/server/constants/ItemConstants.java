@@ -20,6 +20,7 @@ public class ItemConstants {
             "(IFBBJLjava/lang/String;)Lcom/wurmonline/server/items/Item;",
             "(IFFFFZBBJLjava/lang/String;B)Lcom/wurmonline/server/items/Item;",
     };
+    public static boolean actPortalDone = false;
     public static ArrayList<Item> mobSpawners = new ArrayList<>();
     public static ArrayList<Item> resourcePoints = new ArrayList<>();
     public static ArrayList<Item> tradeTents = new ArrayList<>();

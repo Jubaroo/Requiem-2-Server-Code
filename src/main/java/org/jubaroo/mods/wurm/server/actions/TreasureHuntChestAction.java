@@ -111,20 +111,18 @@ public class TreasureHuntChestAction implements ModAction {
                         comm.sendNormalServerMessage("That is not a treasure chest.");
                         return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                     }
-                    if (!Servers.isThisATestServer()) {
-                        if (performer.getPower() != 5) {
-                            if (!allMissionsCompleted(performer)) {
-                                performer.getCommunicator().sendNormalServerMessage("The chest will not open no matter what you try. Maybe you should check out Marnbourne for clues. (You must complete all parts of the treasure hunt before you can open the chest)");
-                                return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
-                            }
-                            if (!Holidays.isRequiemTreasureHunt()) {
-                                performer.getCommunicator().sendNormalServerMessage("The Treasure Hunt is not currently running.");
-                                return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
-                            }
-                            if (Cooldowns.isOnCooldown(playerEffect, cooldown)) {
-                                performer.getCommunicator().sendNormalServerMessage("The chest is empty, there is nothing left to take.");
-                                return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
-                            }
+                    if (performer.getPower() != 5) {
+                        if (!allMissionsCompleted(performer)) {
+                            performer.getCommunicator().sendNormalServerMessage("The chest will not open no matter what you try. Maybe you should check out Marnbourne for clues. (You must complete all parts of the treasure hunt before you can open the chest)");
+                            return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
+                        }
+                        if (!Holidays.isRequiemTreasureHunt()) {
+                            performer.getCommunicator().sendNormalServerMessage("The Treasure Hunt is not currently running.");
+                            return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
+                        }
+                        if (Cooldowns.isOnCooldown(playerEffect, cooldown)) {
+                            performer.getCommunicator().sendNormalServerMessage("The chest is empty, there is nothing left to take.");
+                            return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     }
                     if (counter == 1f) {

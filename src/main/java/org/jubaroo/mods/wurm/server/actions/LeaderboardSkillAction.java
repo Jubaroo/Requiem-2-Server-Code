@@ -76,7 +76,7 @@ public class LeaderboardSkillAction implements ModAction {
                 if (performer instanceof Player) {
                     this.action(act, performer, skill, action, counter);
                 } else {
-                    RequiemLogging.debug("Somehow a non-player opened a leaderboard...");
+                    RequiemLogging.logInfo("Somehow a non-player opened a leaderboard...");
                 }
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }

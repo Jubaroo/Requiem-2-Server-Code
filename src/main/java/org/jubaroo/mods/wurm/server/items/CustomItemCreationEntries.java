@@ -803,7 +803,7 @@ public class CustomItemCreationEntries {
             crystalServerPortal.addRequirement(new CreationRequirement(2, ItemList.concrete, 1000, true));
         }
 
-        RequiemLogging.debug(String.format("Initialising custom item creation entries took %s millis.", (float) (System.nanoTime() - start) / 1000000f));
+        RequiemLogging.logInfo(String.format("Initialising custom item creation entries took %s millis.", (float) (System.nanoTime() - start) / 1000000f));
     }
 
 }

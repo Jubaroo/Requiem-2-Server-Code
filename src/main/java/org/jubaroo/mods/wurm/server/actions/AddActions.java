@@ -31,7 +31,7 @@ import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.*;
 public class AddActions {
 
     public static void registerActions() {
-        RequiemLogging.debug("Registering Item actions...");
+        RequiemLogging.logInfo("Registering Item actions...");
         ModActions.registerAction(new JoustAction(LanceDamage, BaseHitChance, SpearSkillRange, BonusLanceDamage, LoseHelmetChance, PerKMDamageBoost, AllowSkillGain, LanceRange));
         ItemMod.addActPortal();
         ModActions.registerAction(new PortalAction());
@@ -100,8 +100,8 @@ public class AddActions {
         ModActions.registerAction(new HeraldicCertificateAction());
         ModActions.registerAction(new RenameAction());
         ModActions.registerAction(new ScrollOfTitlesAction());
-        RequiemLogging.debug("Registering Cache actions...");
-        RequiemLogging.debug("Registering Server actions...");
+        RequiemLogging.logInfo("Registering Cache actions...");
+        RequiemLogging.logInfo("Registering Server actions...");
         ModActions.registerAction(new MissionAddAction());
         ModActions.registerAction(new MissionRemoveAction());
         ModActions.registerAction(new CreatureReportAction());
@@ -113,7 +113,7 @@ public class AddActions {
         ModActions.registerAction(new AddSubGroupAction());
         ModActions.registerAction(new SprintAction());
         //ModActions.registerAction(new ReplacementChristmasGiftAction());
-        RequiemLogging.debug("Registering Crystal actions...");
+        RequiemLogging.logInfo("Registering Crystal actions...");
         ModActions.registerAction(new ArcaneShardAction());
         // Fire Crystal
         ModActions.registerAction(new BurnCorpseAction());
@@ -136,7 +136,7 @@ public class AddActions {
         if (searchDens) {
             ModActions.registerAction(new DisturbDenAction());
         }
-        RequiemLogging.debug("Registering GM actions...");
+        RequiemLogging.logInfo("Registering GM actions...");
         if (addGmProtect) {
             ModActions.registerAction(new GmProtectAction());
         }

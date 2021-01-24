@@ -18,21 +18,11 @@ import com.wurmonline.server.zones.FocusZone;
 import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zone;
 import com.wurmonline.server.zones.Zones;
-import javassist.*;
-import javassist.bytecode.Descriptor;
-import javassist.expr.ExprEditor;
-import javassist.expr.MethodCall;
-import javassist.expr.NewExpr;
-import mod.sin.lib.Util;
-import org.gotti.wurmunlimited.modloader.classhooks.HookException;
-import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
-import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
 import org.jubaroo.mods.wurm.server.misc.templates.SpawnerTemplate;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
 import org.jubaroo.mods.wurm.server.tools.EffectsTools;
@@ -40,8 +30,6 @@ import org.jubaroo.mods.wurm.server.tools.EffectsTools;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import static org.jubaroo.mods.wurm.server.ModConfig.*;
@@ -65,7 +53,7 @@ public class Misc {
 
     public static boolean isRequiemPatreon(Player player) {
         switch (player.getName()) {
-            case "Vyse":
+            case "Taita":
                 return true;
             case "Oluf":
                 return true;
@@ -239,16 +227,17 @@ public class Misc {
                         fogGoblins.add(fg);
                     }
                 }
-                RequiemLogging.debug(String.format("Added some fog goblins, there are now: %d", fogGoblins.size()));
+                RequiemLogging.logInfo(String.format("Added some fog goblins, there are now: %d", fogGoblins.size()));
             }
         } else {
             if (fogGoblins.size() > 0) {
                 Creature fg = fogGoblins.iterator().next();
                 fogGoblins.remove(fg);
                 fg.destroy();
-                RequiemLogging.debug(String.format("Removed a fog goblin from the world, there are now: %d", fogGoblins.size()));
+                RequiemLogging.logInfo(String.format("Removed a fog goblin from the world, there are now: %d", fogGoblins.size()));
             }
         }
+
     }
 
     public static void pollRepairingNPCs() {
@@ -257,7 +246,7 @@ public class Misc {
             for (Creature creature : Creatures.getInstance().getCreatures()) {
                 if (creature.getTemplate().getTemplateId() == CustomCreatures.npcDockWorkerId) {
                     soundEmissionNpcs.add(creature);
-                    RequiemLogging.debug(String.format("Repairing NPC located and remembered, with wurmid: %d", creature.getWurmId()));
+                    RequiemLogging.logInfo(String.format("Repairing NPC located and remembered, with wurmid: %d", creature.getWurmId()));
                 }
             }
         }
@@ -278,7 +267,7 @@ public class Misc {
                 for (SpawnerTemplate template : spawnerTemplates) {
                     if (item.getTemplateId() == template.templateID) {
                         mobSpawners.add(item);
-                        RequiemLogging.debug(String.format("Mob Spawner located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
+                        RequiemLogging.logInfo(String.format("Mob Spawner located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
             }
@@ -320,7 +309,7 @@ public class Misc {
                 if (item.getTemplateId() == lootFlagID || item.getTemplateId() == smallLootFlagID) {
                     if (item.getTemplateId() != 0 && !item.getName().equals("inventory")) {
                         lootCarpets.add(item);
-                        RequiemLogging.debug(String.format("Loot Carpet located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
+                        RequiemLogging.logInfo(String.format("Loot Carpet located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
             }
@@ -362,7 +351,7 @@ public class Misc {
                     if (item.getTemplateId() == template.templateID) {
                         if (item.getTemplateId() != 0 && !item.getName().equals("inventory")) {
                             resourcePoints.add(item);
-                            RequiemLogging.debug(String.format("Resource Point located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
+                            RequiemLogging.logInfo(String.format("Resource Point located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                         }
                     }
                 }
@@ -388,7 +377,7 @@ public class Misc {
                 if (item.getTemplateId() == tradeTentID) {
                     if (item.getTemplateId() != 0) {
                         tradeTents.add(item);
-                        RequiemLogging.debug(String.format("Trade Tents located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
+                        RequiemLogging.logInfo(String.format("Trade Tents located and remembered, with name: %s, and wurmid: %d", item.getName(), item.getWurmId()));
                     }
                 }
             }
@@ -621,217 +610,4 @@ public class Misc {
         }
     }
 
-    public static void init() {
-        RequiemLogging.logInfo("========= Initializing Misc.init =========");
-        try {
-            final ClassPool classPool = HookManager.getInstance().getClassPool();
-            CtClass ctItem = classPool.get("com.wurmonline.server.items.Item");
-            ctItem.getMethod("getName", "(Z)Ljava/lang/String;").instrument(new ExprEditor() {
-                @Override
-                public void edit(MethodCall m) throws CannotCompileException {
-                    if (m.getMethodName().equals("getNameFor"))
-                        m.replace(String.format("$_ = %s.getName($1);", DecorativeKingdoms.class.getName()));
-                }
-            });
-
-            ctItem.getMethod("getModelName", "()Ljava/lang/String;").instrument(new ExprEditor() {
-                @Override
-                public void edit(MethodCall m) throws CannotCompileException {
-                    if (m.getMethodName().equals("getSuffixFor"))
-                        m.replace(String.format("$_ = %s.getModelSuffix($1);", DecorativeKingdoms.class.getName()));
-                }
-            });
-
-            final CtClass ctCommunicator = classPool.get("com.wurmonline.server.creatures.Communicator");
-            ctCommunicator.getMethod("sendAllKingdoms", "()V").setBody(String.format("%s.sendKingdoms(this);", MiscHooks.class.getName()));
-
-            ctItem.getMethod("sendWear", "(Lcom/wurmonline/server/items/Item;B)V")
-                    .insertAfter(String.format("if (!item.isBodyPartAttached()) %s.sendWearHook(item, this.getOwnerOrNull());", MiscHooks.class.getName()));
-
-            ctItem.getMethod("removeItem", "(JZZZ)Lcom/wurmonline/server/items/Item;")
-                    .instrument(new ExprEditor() {
-                        @Override
-                        public void edit(MethodCall m) throws CannotCompileException {
-                            if (m.getMethodName().equals("hasItemBonus"))
-                                m.replace(String.format("%s.sendWearHook(item, owner); $_ = $proceed($$);", MiscHooks.class.getName()));
-                        }
-                    });
-
-            CtMethod mAddCreature = classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z");
-            mAddCreature.instrument(new ExprEditor() {
-                @Override
-                public void edit(MethodCall m) throws CannotCompileException {
-                    if (m.getMethodName().equals("sendNewCreature"))
-                        m.replace(String.format("$proceed($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,%s.creatureKingdom(creature,$14),$15,$16,$17,$18,$19);", MiscHooks.class.getName()));
-                }
-            });
-
-            final CtClass ctServer = classPool.get("com.wurmonline.server.Server");
-            ctServer.getMethod("run", "()V").insertAfter(String.format("%s.serverTick(this);", MiscHooks.class.getName()));
-
-            classPool.getCtClass("com.wurmonline.server.items.ChickenCoops")
-                    .getMethod("eggPoller", "(Lcom/wurmonline/server/items/Item;)V")
-                    .instrument(new ExprEditor() {
-                        @Override
-                        public void edit(MethodCall m) throws CannotCompileException {
-                            if (m.getMethodName().equals("getQualityLevel"))
-                                m.replace("$_=99f;");
-                        }
-                    });
-        } catch (NotFoundException | CannotCompileException e) {
-            RequiemLogging.logWarning(e.getMessage());
-            throw new HookException(e);
-        }
-
-        HookManager.getInstance().registerHook("com.wurmonline.server.creatures.Creature", "getMountSpeedPercent", "(Z)F", new InvocationHandlerFactory() {
-            @Override
-            public InvocationHandler createInvocationHandler() {
-                return new InvocationHandler() {
-                    @Override
-                    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-                        Creature creature = (Creature) object;
-                        float speed = (float) method.invoke(object, args);
-                        //Requiem.debug("old speed: " + speed);
-                        if (!creature.isRidden()) {
-                            try {
-                                if (creature.getBonusForSpellEffect((byte) 22) > 0.0F) {
-                                    speed -= 0.2F * (creature.getBonusForSpellEffect((byte) 22) / 100.0F);
-                                    //Requiem.debug("decrease because oakshell: " + (0.2F * (creature.getBonusForSpellEffect((byte) 22) / 100.0F)));
-                                }
-                                Item barding = creature.getArmour((byte) 2);
-                                if (barding != null) {
-                                    if (barding.getMaterial() == Materials.MATERIAL_LEATHER) {
-                                        speed -= 0.1F;
-                                        //Requiem.debug("decrease because leather: 0.1");
-                                    } else {
-                                        speed -= 0.2F;
-                                        //Requiem.debug("decrease because barding: 0.2");
-                                    }
-                                }
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
-                            }
-                        }
-                        //Requiem.debug("new speed: " + speed);
-                        return speed;
-                    }
-                };
-            }
-        });
-
-        HookManager.getInstance().registerHook("com.wurmonline.server.spells.Dominate", "mayDominate", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/creatures/Creature;)Z", new InvocationHandlerFactory() {
-
-            @Override
-            public InvocationHandler createInvocationHandler() {
-                return new InvocationHandler() {
-
-                    @Override
-                    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-                        Creature performer = (Creature) args[0];
-                        Creature target = (Creature) args[1];
-
-                        if (target != null && target.isUnique()) {
-                            performer.getCommunicator().sendNormalServerMessage(String.format("You cannot dominate %s, because of its immense power.", target.getName()), (byte) 3);
-                            return false;
-                        }
-                        return method.invoke(object, args);
-                    }
-                };
-            }
-        });
-
-    }
-
-    /**
-     * Enables Courier enchants of newly created mailboxes.
-     */
-    public static void EnableEnchant() {
-        try {
-            // Places a 30 power courier enchantment on newly created mailboxes.
-            CtClass ctClass = HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.ItemFactory");
-            CtClass[] parameters = new CtClass[]{
-                    CtPrimitiveType.intType,
-                    CtPrimitiveType.floatType,
-                    CtPrimitiveType.byteType,
-                    CtPrimitiveType.byteType,
-                    CtPrimitiveType.longType,
-                    HookManager.getInstance().getClassPool().get("java.lang.String")
-            };
-            CtMethod ctMethod = ctClass.getMethod("createItem", Descriptor.ofMethod(HookManager.getInstance().getClassPool().get("com.wurmonline.server.items.Item"), parameters));
-            ctMethod.instrument(new ExprEditor() {
-                @Override
-                public void edit(NewExpr newExpr) throws CannotCompileException {
-                    if (newExpr.getClassName().equals("com.wurmonline.server.items.DbItem")) {
-                        ctMethod.insertAt(newExpr.getLineNumber() + 1,
-                                String.format("{ if (templateId >= 510 && templateId <= 513) {com.wurmonline.server.items.ItemSpellEffects effs;if ((effs = toReturn.getSpellEffects()) == null) effs = new com.wurmonline.server.items.ItemSpellEffects(toReturn.getWurmId());toReturn.getSpellEffects().addSpellEffect(new com.wurmonline.server.spells.SpellEffect(toReturn.getWurmId(), (byte)20, %sf, 20000000));toReturn.permissions.setPermissionBit(com.wurmonline.server.players.Permissions.Allow.HAS_COURIER.getBit(), true);} }", mailboxEnchantPower));
-                    }
-                }
-            });
-        } catch (NotFoundException | CannotCompileException ex) {
-            RequiemLogging.logException("Error in EnableEnchant - ", ex);
-        }
-    }
-
-    public static void preInit() {
-        try {
-            ClassPool classPool = HookManager.getInstance().getClassPool();
-            Class<Misc> thisClass = Misc.class;
-            String replace;
-
-            CtClass ctCreature = classPool.get("com.wurmonline.server.creatures.Creature");
-            CtClass ctItem = classPool.get("com.wurmonline.server.items.Item");
-            CtClass ctTerraforming = classPool.get("com.wurmonline.server.behaviours.Terraforming");
-            CtClass ctVillage = classPool.get("com.wurmonline.server.villages.Village");
-
-            Util.setReason("Change HotA reward");
-            replace = String.format("%s.createNewHotaPrize(this, $1);", Misc.class.getName());
-            Util.setBodyDeclared(thisClass, ctVillage, "createHotaPrize", replace);
-
-            CtClass ctHota = classPool.get("com.wurmonline.server.epic.Hota");
-
-            Util.setReason("Display discord message for HotA announcements.");
-            replace = String.format("%s.sendHotaMessage($1);$_ = $proceed($$);", Misc.class.getName());
-            Util.instrumentDeclared(thisClass, ctHota, "poll", "broadCastSafe", replace);
-
-            Util.setReason("Display discord message for HotA wins.");
-            Util.instrumentDeclared(thisClass, ctHota, "win", "broadCastSafe", replace);
-
-            Util.setReason("Display discord message for HotA conquers & neutralizes.");
-            replace = String.format("if($2.getData1() == 0){  %s.sendHotaMessage($1.getName() + \" neutralizes the \" + $2.getName() + \".\");}else{  %s.sendHotaMessage($1.getName() + \" conquers the \" + $2.getName() + \".\");}", Misc.class.getName(), Misc.class.getName());
-            Util.insertBeforeDeclared(thisClass, ctHota, "addPillarConquered", replace);
-
-            CtClass ctMeshIO = classPool.get("com.wurmonline.mesh.MeshIO");
-            CtClass[] params7 = new CtClass[]{
-                    ctCreature,
-                    ctItem,
-                    CtClass.intType,
-                    CtClass.intType,
-                    CtClass.intType,
-                    CtClass.floatType,
-                    CtClass.booleanType,
-                    ctMeshIO,
-                    CtClass.booleanType
-            };
-            String desc7 = Descriptor.ofMethod(CtClass.booleanType, params7);
-            Util.setReason("Announce digging up artifacts on Discord.");
-            replace = String.format("%s.sendHotaMessage($1+\" \"+$2);$_ = $proceed($$);", Misc.class.getName());
-            Util.instrumentDescribed(thisClass, ctTerraforming, "dig", desc7, "addHistory", replace);
-
-            // Add light effects for the supply depots, since they are unique
-            CtClass ctPlayers = classPool.get("com.wurmonline.server.Players");
-            ctPlayers.getDeclaredMethod("sendAltarsToPlayer").insertBefore(String.format("%s.sendDepotEffectsToPlayer($1);", SupplyDepotBehaviour.class.getName()));
-
-            /*
-            if (Holidays.isRequiemChristmas()) {
-                // - Add creatures to the list of spawnable uniques - //
-                CtClass ctDens = classPool.get("com.wurmonline.server.zones.Dens");
-                ctDens.getDeclaredMethod("checkDens").insertAt(0, "com.wurmonline.server.zones.Dens.checkTemplate(" + CustomCreatures.frostyId + ", whileRunning)" +
-                        " && com.wurmonline.server.zones.Dens.checkTemplate(" + CustomCreatures.grinchId + ", whileRunning)" +
-                        " && com.wurmonline.server.zones.Dens.checkTemplate(" + CustomCreatures.rudolphId + ", whileRunning);");
-            }
-             */
-        } catch (NotFoundException | CannotCompileException e) {
-            throw new HookException(e);
-        }
-    }
 }

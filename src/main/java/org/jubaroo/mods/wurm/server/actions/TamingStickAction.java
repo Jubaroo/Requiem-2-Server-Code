@@ -15,7 +15,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.server.spells.Dominate;
 import org.gotti.wurmunlimited.modsupport.actions.*;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
 
@@ -95,15 +95,15 @@ public class TamingStickAction implements ModAction, ActionPerformer, BehaviourP
                 performer.getCommunicator().sendNormalServerMessage(String.format("The %s is dominated by someone you already.", creature.getName()), (byte) 3);
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
-            if (creature.isUnique() || MethodsBestiary.isRareCreature(creature)) {
+            if (creature.isUnique() || CreatureTweaks.isRareCreature(creature)) {
                 performer.getCommunicator().sendNormalServerMessage(String.format("The %s is too strong.", creature.getName()), (byte) 3);
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
-            if (MethodsBestiary.isChristmasMob(creature) || MethodsBestiary.isHalloweenMob(creature)) {
+            if (CreatureTweaks.isChristmasMob(creature) || CreatureTweaks.isHalloweenMob(creature)) {
                 performer.getCommunicator().sendNormalServerMessage("You cannot control holiday creatures.", (byte) 3);
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
-            if (MethodsBestiary.isRequiemNPC(creature) || creature.isNpc() || creature.isTrader() || creature.isNpcTrader() || creature.isBartender() || creature.isGuide()) {
+            if (CreatureTweaks.isRequiemNPC(creature) || creature.isNpc() || creature.isTrader() || creature.isNpcTrader() || creature.isBartender() || creature.isGuide()) {
                 performer.getCommunicator().sendNormalServerMessage("You cannot control NPC's.", (byte) 3);
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }

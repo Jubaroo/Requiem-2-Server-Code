@@ -14,7 +14,7 @@ import com.wurmonline.shared.constants.CreatureTypes;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.utils.TweakApiPerms;
 
@@ -394,7 +394,7 @@ public class CreatureTools {
                     default: {
                     }
                 }
-                if (MethodsBestiary.isUsuallyHitched(statusHolder.getTemplate().getTemplateId())) {
+                if (CreatureTweaks.isUsuallyHitched(statusHolder.getTemplate().getTemplateId())) {
                     change *= 0.2f;
                 }
                 floatToRet += change;

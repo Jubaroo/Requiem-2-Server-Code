@@ -8,12 +8,6 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.zones.Zone;
 import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.EffectConstants;
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
-import org.gotti.wurmunlimited.modloader.classhooks.HookException;
-import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.misc.templates.Location;
 import org.jubaroo.mods.wurm.server.server.constants.ItemConstants;
@@ -97,18 +91,6 @@ public class AthanorMechanismBehaviour {
         } catch (Exception e) {
             RequiemLogging.logWarning(String.format("Error in phaseShiftAthanorMechanism - %s", e.toString()));
             e.printStackTrace();
-        }
-    }
-
-    public static void preInit() {
-        try {
-            ClassPool classPool = HookManager.getInstance().getClassPool();
-            // - Add xmas light effect for the athanor mechanism - //
-            CtClass ctPlayers = classPool.get("com.wurmonline.server.Players");
-            ctPlayers.getDeclaredMethod("sendAltarsToPlayer").insertBefore(String.format("%s.sendMechanismEffectsToPlayer($1);", AthanorMechanismBehaviour.class.getName()));
-            RequiemLogging.logInfo("AthanorMechanism.preInit called");
-        } catch (CannotCompileException | NotFoundException e) {
-            throw new HookException(e);
         }
     }
 

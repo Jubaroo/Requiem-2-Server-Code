@@ -20,7 +20,7 @@ public class Holidays {
 
     public static boolean isRequiemMardiGras() { // Ash Wednesday is always 46 days before Easter, and Fat Tuesday is always the day before Ash Wednesday.
         Calendar c = EasterCalculator.findHolyDay(Calendar.getInstance().get(Calendar.YEAR));
-        return WurmCalendar.nowIsAfter(10, 0, c.get(5) - 47, c.get(2), c.get(1));
+        return WurmCalendar.nowIsAfter(10, 0, c.get(Calendar.DATE) - 47, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
     }
 
     public static boolean isRequiemValentinesDay() { // Feb 14

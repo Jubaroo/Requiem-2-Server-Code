@@ -33,14 +33,6 @@ public class RequiemLogging {
             Requiem.logger.log(Level.INFO, msg);
     }
 
-    public static void debug(String msg) {
-        if (Requiem.logger != null) {
-            if (debug) {
-                logInfo(msg);
-            }
-        }
-    }
-
     public static void RequiemLoggingMessages() {
         // ========================= Logger Messages ==============================
         // ============================ Actions ================================
@@ -307,16 +299,6 @@ public class RequiemLogging {
         RequiemLogging.logInfo(String.format("delayMobSpawners: %d", delayMobSpawners));
         RequiemLogging.logInfo(String.format("delayAthanorMechanism: %d", delayAthanorMechanism));
         // ========================== debugging ===========================
-        if (executionCostLogging) {
-            RequiemLogging.logInfo("Execution Cost Logging: Enabled");
-        } else {
-            RequiemLogging.logInfo("Execution Cost Logging: Disabled");
-        }
-        if (debug) {
-            RequiemLogging.logInfo("Debug: Enabled");
-        } else {
-            RequiemLogging.logInfo("Debug: Disabled");
-        }
         if (creatureCreateLogging) {
             RequiemLogging.logInfo("New Creature Logging: Enabled");
         } else {
@@ -368,7 +350,38 @@ public class RequiemLogging {
         } else {
             RequiemLogging.logInfo("Misc Module: Enabled");
         }
+        if (disableDatabaseChanges) {
+            RequiemLogging.logInfo("Database Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Database Module: Enabled");
+        }
+        if (disableColoredUnicorns) {
+            RequiemLogging.logInfo("Colored Unicorn Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Colored Unicorn Module: Enabled");
+        }
+        if (disableFogGoblins) {
+            RequiemLogging.logInfo("Fog Goblin Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Fog Goblin Module: Enabled");
+        }
+        if (disableMissionChanges) {
+            RequiemLogging.logInfo("Mission Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Mission Module: Enabled");
+        }
 
+
+        if (disableOnServerStarted) {
+            RequiemLogging.logInfo("Server Started Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Server Started Module: Enabled");
+        }
+        if (disableInit) {
+            RequiemLogging.logInfo("Init Module: Disabled");
+        } else {
+            RequiemLogging.logInfo("Init Module: Enabled");
+        }
         logInfo(String.format("Newly created mailboxes will%s get %f power Courier enchants.", (!mailboxEnableEnchant ? " not" : ""), mailboxEnchantPower));
 
     }
@@ -414,7 +427,7 @@ public class RequiemLogging {
 
     public static void CreatureDeathLogging(Creature creature) {
         try {
-            // show inventory
+            // Show Inventory
             int templateId = creature.getTemplate().getTemplateId();
             if (templateId != 0) {
                 logInfo("----------> Creature Death <----------");

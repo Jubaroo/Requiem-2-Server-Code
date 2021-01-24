@@ -67,11 +67,11 @@ public class LeaderboardQuestion extends Question {
         } else {
             String name = this.getResponder().getName();
             if (answer.containsKey("optin") && answer.get("optin") == "true") {
-                RequiemLogging.debug(String.format("Player %s has opted into Leaderboard system.", name));
+                RequiemLogging.logInfo(String.format("Player %s has opted into Leaderboard system.", name));
                 setPlayerOptStatus(name, 1);
                 this.getResponder().getCommunicator().sendNormalServerMessage("You have opted into the Leaderboard system!");
             } else if (answer.containsKey("optout") && answer.get("optout") == "true") {
-                RequiemLogging.debug(String.format("Player %s has opted out of the Leaderboard system.", name));
+                RequiemLogging.logInfo(String.format("Player %s has opted out of the Leaderboard system.", name));
                 setPlayerOptStatus(name, 0);
                 this.getResponder().getCommunicator().sendNormalServerMessage("You have opted out of the Leaderboard system.");
             }

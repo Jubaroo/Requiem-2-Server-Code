@@ -569,7 +569,7 @@ public class CreatureSpawns {
         if (creatureId > 0)
             try {
                 new EncounterBuilder(tile.id, elevation).addCreatures(creatureId, count).build(chance);
-                RequiemLogging.debug(String.format("Added new encounter for %d on tile %s", creatureId, tile));
+                RequiemLogging.logInfo(String.format("Added new encounter for %d on tile %s", creatureId, tile));
             } catch (Exception e) {
                 RequiemLogging.logException(String.format("Error spawning creature for ID: %d", creatureId), e);
                 e.printStackTrace();

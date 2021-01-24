@@ -6,6 +6,7 @@ import org.gotti.wurmunlimited.modloader.interfaces.MessagePolicy;
 
 public class CommandHandler {
     public static MessagePolicy handleCommand(Communicator communicator, String message) {
+        //noinspection ConstantConditions
         if (message.startsWith("#spawnGravestone") && communicator.player.getPower() >= MiscConstants.POWER_DEMIGOD) {
             if (!communicator.player.isOnSurface()) {
                 communicator.sendAlertServerMessage("Gravestones can't be spawned underground");

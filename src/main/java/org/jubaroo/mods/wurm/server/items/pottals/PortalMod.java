@@ -4,6 +4,7 @@ import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
 import java.sql.Connection;
@@ -33,7 +34,6 @@ public class PortalMod {
         try {
             Connection con = ModSupportDb.getModSupportDb();
             String sql;
-
             if (!ModSupportDb.hasTable(con, "RequiemPortals")) {
                 sql = "CREATE TABLE RequiemPortals (\t\tname\t\t\t\t\tVARCHAR(20)\t\tNOT NULL DEFAULT 'Unknown',"
                         + "\t\tposx\t\t\t\t\tINT\t\tNOT NULL DEFAULT 100,"
@@ -46,6 +46,7 @@ public class PortalMod {
                 con.close();
             }
         } catch (SQLException e) {
+            RequiemLogging.logException("Error creating RequiemPortals table in ModSupport.db", e.getCause());
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -53,7 +54,6 @@ public class PortalMod {
         try {
             Connection con2 = ModSupportDb.getModSupportDb();
             String sql2;
-
             if (!ModSupportDb.hasTable(con2, "RequiemGMPortals")) {
                 sql2 = "CREATE TABLE RequiemGMPortals (\t\tname\t\t\t\t\tVARCHAR(20)\t\tNOT NULL DEFAULT 'Unknown',"
                         + "\t\tposx\t\t\t\t\tINT\t\tNOT NULL DEFAULT 100,"
@@ -66,6 +66,7 @@ public class PortalMod {
                 con2.close();
             }
         } catch (SQLException e) {
+            RequiemLogging.logException("Error creating RequiemGMPortals table in ModSupport.db", e.getCause());
             e.printStackTrace();
             throw new RuntimeException(e);
         }

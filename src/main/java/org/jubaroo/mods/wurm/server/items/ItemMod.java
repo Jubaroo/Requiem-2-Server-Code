@@ -1,39 +1,26 @@
 package org.jubaroo.mods.wurm.server.items;
 
 import com.wurmonline.server.FailedException;
-import com.wurmonline.server.Items;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.combat.ArmourTemplate;
 import com.wurmonline.server.combat.Weapon;
-import com.wurmonline.server.creatures.Creature;
-import com.wurmonline.server.economy.Change;
-import com.wurmonline.server.economy.Economy;
 import com.wurmonline.server.economy.MonetaryConstants;
 import com.wurmonline.server.items.*;
-import com.wurmonline.server.zones.FocusZone;
 import com.wurmonline.shared.constants.ItemMaterials;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
-import javassist.expr.ExprEditor;
-import javassist.expr.MethodCall;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
-import org.gotti.wurmunlimited.modloader.classhooks.InvocationHandlerFactory;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.PortalTeleportAction;
-import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-
 import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
-import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.structureTemplates;
-import static org.jubaroo.mods.wurm.server.server.constants.OtherConstants.actPortalDone;
+import static org.jubaroo.mods.wurm.server.server.constants.ItemConstants.actPortalDone;
 
 public class ItemMod {
 
@@ -136,7 +123,7 @@ public class ItemMod {
 
     static void createCustomWeapons() {
         try {
-            RequiemLogging.debug("Beginning custom weapon creation.");
+            RequiemLogging.logInfo("Beginning custom weapon creation.");
             new Weapon(battleYoyoId, 6.85f, 3.85f, 0.008f, 2, 2, 0f, 0d);
             new Weapon(clubId, 8.1f, 4.5f, 0.002f, 3, 3, 0.4f, 0.5d);
             new Weapon(knucklesId, 3.6f, 2.2f, 0.002f, 1, 1, 0.2f, 0.5d);
@@ -419,7 +406,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.coinGold);
                     ItemHelper.missionsItem(ItemList.coinGoldFive);
                     ItemHelper.missionsItem(ItemList.coinGoldTwenty);
-                    RequiemLogging.debug("Coins added");
+                    RequiemLogging.logInfo("Coins added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Coins", e);
                 }
@@ -433,7 +420,7 @@ public class ItemMod {
                     ItemHelper.notMissionsItem(ItemList.riftCrystal);
                     ItemHelper.notMissionsItem(ItemList.riftStone);
                     ItemHelper.notMissionsItem(ItemList.riftWood);
-                    RequiemLogging.debug("Rift Items added");
+                    RequiemLogging.logInfo("Rift Items added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Rift Items", e);
                 }
@@ -453,7 +440,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.teleportationTwig);
                     ItemHelper.missionsItem(ItemList.farwalkerAmulet);
                     ItemHelper.missionsItem(ItemList.rodTransmutation);
-                    RequiemLogging.debug("Magic Items added");
+                    RequiemLogging.logInfo("Magic Items added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Magic Items", e);
                 }
@@ -467,7 +454,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.wandTeleport);
                     ItemHelper.missionsItem(ItemList.wandTile);
                     ItemHelper.missionsItem(ItemList.lcmWand);
-                    RequiemLogging.debug("Wands added");
+                    RequiemLogging.logInfo("Wands added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Wands", e);
                 }
@@ -482,7 +469,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.julbord);
                     ItemHelper.missionsItem(ItemList.eggSmall);
                     ItemHelper.missionsItem(ItemList.pelt);
-                    RequiemLogging.debug("Miscellaneous Items added");
+                    RequiemLogging.logInfo("Miscellaneous Items added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Miscellaneous Items", e);
                 }
@@ -516,7 +503,7 @@ public class ItemMod {
                     ItemHelper.notMissionsItem(ItemList.tinBar);
                     ItemHelper.notMissionsItem(ItemList.brassBar);
                     ItemHelper.notMissionsItem(ItemList.bronzeBar);
-                    RequiemLogging.debug("Metal Lumps added");
+                    RequiemLogging.logInfo("Metal Lumps added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Metal Lumps", e);
                 }
@@ -542,7 +529,7 @@ public class ItemMod {
                     ItemHelper.notMissionsItem(ItemList.leadOre);
                     ItemHelper.notMissionsItem(ItemList.tinOre);
                     ItemHelper.notMissionsItem(ItemList.zincOre);
-                    RequiemLogging.debug("Metal Ores added");
+                    RequiemLogging.logInfo("Metal Ores added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Metal Ores", e);
                 }
@@ -560,7 +547,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.emeraldStar);
                     ItemHelper.missionsItem(ItemList.rubyStar);
                     ItemHelper.missionsItem(ItemList.opalBlack);
-                    RequiemLogging.debug("Gems added");
+                    RequiemLogging.logInfo("Gems added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Gems", e);
                 }
@@ -589,7 +576,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.potionWaterwalking);
                     ItemHelper.missionsItem(ItemList.potionWeaponSmithing);
                     ItemHelper.missionsItem(ItemList.potionWoodcutting);
-                    RequiemLogging.debug("Potions, Salves, and Oils added");
+                    RequiemLogging.logInfo("Potions, Salves, and Oils added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Potions, Salves, and Oils", e);
                 }
@@ -607,7 +594,7 @@ public class ItemMod {
                     ItemHelper.notMissionsItem(ItemList.mineDoorSilver);
                     ItemHelper.notMissionsItem(ItemList.mineDoorSteel);
                     ItemHelper.notMissionsItem(ItemList.mineDoorStone);
-                    RequiemLogging.debug("Mine Doors added");
+                    RequiemLogging.logInfo("Mine Doors added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Mine Doors", e);
                 }
@@ -617,7 +604,7 @@ public class ItemMod {
                 try {
                     ItemHelper.missionsItem(ItemList.goldenMirror);
                     ItemHelper.missionsItem(ItemList.handMirror);
-                    RequiemLogging.debug("Mirrors added");
+                    RequiemLogging.logInfo("Mirrors added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Mirrors", e);
                 }
@@ -634,7 +621,7 @@ public class ItemMod {
                     ItemHelper.missionsItem(ItemList.maskShadow);
                     ItemHelper.missionsItem(ItemList.maskTrollHalloween);
                     ItemHelper.missionsItem(ItemList.midsummerMask);
-                    RequiemLogging.debug("Masks added");
+                    RequiemLogging.logInfo("Masks added");
                 } catch (Throwable e) {
                     RequiemLogging.logException("Error in adding Masks", e);
                 }
@@ -689,95 +676,5 @@ public class ItemMod {
         }
     }
 
-    public static void init() {
-        try {
-            RequiemLogging.logInfo("========= Initializing ItemMod.init =========");
-            final ClassPool classPool = HookManager.getInstance().getClassPool();
-            final CtClass ctCommunicator = classPool.get("com.wurmonline.server.creatures.Communicator");
-
-            // Sends effects to items
-            ctCommunicator.getMethod("sendItem", "(Lcom/wurmonline/server/items/Item;JZ)V")
-                    .insertAfter(String.format("%s.sendItemHook(this, $1);", Hooks.class.getName()));
-
-            // Removes effects from items
-            ctCommunicator.getMethod("sendRemoveItem", "(Lcom/wurmonline/server/items/Item;)V")
-                    .insertAfter(String.format("%s.removeItemHook(this, $1);", Hooks.class.getName()));
-
-            // Make searched dens tick down and be able to be searched again
-            CtClass ctItem = classPool.get("com.wurmonline.server.items.Item");
-            ctItem.getMethod("poll", "(ZZJ)Z").insertAfter(String.format("%s.itemTick(this);", Hooks.class.getName()));
-
-            // block certain items from moving to another
-            classPool.getCtClass("com.wurmonline.server.items.Item")
-                    .getMethod("moveToItem", "(Lcom/wurmonline/server/creatures/Creature;JZ)Z")
-                    .instrument(new ExprEditor() {
-                        boolean patched = false;
-
-                        @Override
-                        public void edit(MethodCall m) throws CannotCompileException {
-                            if (!patched && m.getMethodName().equals("getItem")) {
-                                m.replace(String.format("$_=$proceed($$); if (%s.blockMove(this, $_, mover)) return false;", Hooks.class.getName()));
-                                RequiemLogging.logInfo(String.format("Hooking Item.moveToItem at %d", m.getLineNumber()));
-                                patched = true;
-                            }
-                        }
-                    });
-
-            // control the max number of items that can be put into a container
-            HookManager.getInstance().registerHook("com.wurmonline.server.items.Item", "mayCreatureInsertItem", "()Z", new InvocationHandlerFactory() {
-                @Override
-                public InvocationHandler createInvocationHandler() {
-                    return new InvocationHandler() {
-                        @Override
-                        public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-                            Item item = (Item) object;
-                            for (StructureTemplate template : structureTemplates) {
-                                if (item.getTemplateId() == template.templateID) {
-                                    return item.getItemCount() < 500;
-                                }
-                            }
-                            if (item.getTemplateId() == CustomVehicles.loggingWagon.getTemplateId()) {
-                                return item.getItemCount() < 200;
-                            }
-                            return method.invoke(object, args);
-                        }
-                    };
-                }
-            });
-
-            // control what happens when cargo is unloaded
-            HookManager.getInstance().registerHook("com.wurmonline.server.behaviours.CargoTransportationMethods", "unloadCargo", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;F)Z", new InvocationHandlerFactory() {
-                @Override
-                public InvocationHandler createInvocationHandler() {
-                    return new InvocationHandler() {
-                        @Override
-                        public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-                            Creature performer = (Creature) args[0];
-                            Item item = (Item) args[1];
-                            long coin = tradeTentCoinReward;
-                            if (performer.getCurrentAction().currentSecond() == 3) {
-                                for (FocusZone fz : FocusZone.getZonesAt(performer.currentTile.tilex, performer.currentTile.tiley)) {
-                                    if (fz.getName().equals(tradeTentsNorthZoneName) && item.getData() == 801L) {
-                                        Items.destroyItem(item.getWurmId());
-                                        performer.addMoney(coin);
-                                        final Change newch = Economy.getEconomy().getChangeFor(coin);
-                                        performer.getCommunicator().sendNormalServerMessage(String.format("You receive a payment of %s for delivering the trade goods.", newch));
-                                    } else if (fz.getName().equals(tradeTentsSouthZoneName) && item.getData() == 802L) {
-                                        Items.destroyItem(item.getWurmId());
-                                        performer.addMoney(coin);
-                                        final Change newch = Economy.getEconomy().getChangeFor(coin);
-                                        performer.getCommunicator().sendNormalServerMessage(String.format("You receive a payment of %s for delivering the trade goods.", newch));
-                                    }
-                                }
-                            }
-                            return method.invoke(object, args);
-                        }
-                    };
-                }
-            });
-        } catch (CannotCompileException | NotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
 

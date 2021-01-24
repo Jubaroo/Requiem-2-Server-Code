@@ -87,13 +87,13 @@ public class TreasureCacheOpenAction implements ModAction {
                         } else if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
                             performer.getCommunicator().sendNormalServerMessage("You open your " + target.getName() + ".");
                             Server.getInstance().broadCastAction(performer.getName() + " opens " + performer.getHisHerItsString() + " " + target.getName() + ".", performer, 5);
-                            RequiemLogging.debug("Player " + performer.getName() + " opened " + target.getName() + " at quality " + target.getCurrentQualityLevel() + " and rarity " + ItemTools.getRarityString(target.getRarity()));
+                            RequiemLogging.logInfo("Player " + performer.getName() + " opened " + target.getName() + " at quality " + target.getCurrentQualityLevel() + " and rarity " + ItemTools.getRarityString(target.getRarity()));
                             Caches.openCache(performer, target);
                             Items.destroyItem(target.getWurmId());
                             return true;
                         }
                     } else {
-                        RequiemLogging.debug("Somehow a non-player activated a Treasure Box...");
+                        RequiemLogging.logInfo("Somehow a non-player activated a Treasure Box...");
                     }
                     return false;
                 } catch (Exception e) {

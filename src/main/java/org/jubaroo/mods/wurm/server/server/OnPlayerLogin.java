@@ -5,6 +5,7 @@ import com.wurmonline.server.TimeConstants;
 import com.wurmonline.server.WurmCalendar;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.shared.constants.Enchants;
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
@@ -27,7 +28,9 @@ public class OnPlayerLogin {
 
     public static void onPlayerLogin(Player player) {
         try {
-            DatabaseHelper.onPlayerLogin(player);
+            if (!ModConfig.disableDatabaseChanges) {
+                DatabaseHelper.onPlayerLogin(player);
+            }
             //EffectsTools.sendBeam(player, EffectConstants.RIFT_SPAWN, tileX, tileY, tileZ);
             OnPlayerLogin.loginAnnouncement(player);
             //DatabaseHelper.steamIdDatabase(player);

@@ -43,7 +43,7 @@ public class RequiemAnniversaryGift {
             rs.close();
             ps.close();
             if (!steamIdGifted & !thisYear) {
-                RequiemLogging.debug(String.format("Player %s has not been gifted this year, giving RequiemAnniversaryGift now...", player.getName()));
+                RequiemLogging.logInfo(String.format("Player %s has not been gifted this year, giving RequiemAnniversaryGift now...", player.getName()));
                 dbcon = ModSupportDb.getModSupportDb();
                 ps = dbcon.prepareStatement("INSERT INTO RequiemAnniversary (NAME,STEAMID,GIFTEDYEAR) VALUES(?,?,?)");
                 ps.setString(1, player.getName());
@@ -65,7 +65,7 @@ public class RequiemAnniversaryGift {
             String sql;
             String tableName = "RequiemAnniversary";
             if (!ModSupportDb.hasTable(con, tableName)) {
-                RequiemLogging.debug(String.format("%s table not found in ModSupport, creating it now.", tableName));
+                RequiemLogging.logInfo(String.format("%s table not found in ModSupport, creating it now.", tableName));
                 sql = String.format("CREATE TABLE %s (NAME VARCHAR(30) NOT NULL DEFAULT 'Unknown', STEAMID LONG NOT NULL DEFAULT 0, GIFTEDYEAR INT NOT NULL DEFAULT 0)", tableName);
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.execute();

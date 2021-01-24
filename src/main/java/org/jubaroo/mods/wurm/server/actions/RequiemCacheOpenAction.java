@@ -14,7 +14,7 @@ import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepotBehaviour;
+import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepots;
 
 import java.util.Collections;
 import java.util.List;
@@ -88,16 +88,16 @@ public class RequiemCacheOpenAction implements ModAction {
                         } else if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
                             performer.getCommunicator().sendNormalServerMessage(String.format("You open your %s.", target.getName()));
                             Server.getInstance().broadCastAction(String.format("%s opens %s %s.", performer.getName(), performer.getHisHerItsString(), target.getName()), performer, 5);
-                            RequiemLogging.debug(String.format("Player %s opened Requiem cache.", performer.getName()));
+                            RequiemLogging.logInfo(String.format("Player %s opened Requiem cache.", performer.getName()));
                             // Sorcery fragment.
 							/*Item sorceryFragment = ItemFactory.createItem(SorceryFragment.getId(), 90f, null);
 							performer.getInventory().insertItem(sorceryFragment, true);*/
-                            SupplyDepotBehaviour.giveCacheReward(performer);
+                            SupplyDepots.giveCacheReward(performer);
                             Items.destroyItem(target.getWurmId());
                             return true;
                         }
                     } else {
-                        RequiemLogging.debug("Somehow a non-player activated a Requiem cache...");
+                        RequiemLogging.logInfo("Somehow a non-player activated a Requiem cache...");
                     }
                     return false;
                 } catch (Exception e) {

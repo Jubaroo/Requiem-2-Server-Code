@@ -8,8 +8,9 @@ import org.jubaroo.mods.wurm.server.actions.AddActions;
 import org.jubaroo.mods.wurm.server.communication.KeyEvent;
 import org.jubaroo.mods.wurm.server.communication.commands.*;
 import org.jubaroo.mods.wurm.server.creatures.CreatureSpawns;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
+import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.creatures.bounty.LootTable;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
@@ -31,13 +32,13 @@ public class OnServerStarted {
 
     public static void onServerStarted() {
         try {
-            RequiemLogging.debug("Attempting to load 3D Stuff mod...");
+            RequiemLogging.logInfo("Attempting to load 3D Stuff mod...");
             Compat3D.installDisplayHook();
             addCommands();
             PortalMod.onServerStarted();
-            RequiemLogging.debug("Registering Creature Loot Drops...");
+            RequiemLogging.logInfo("Registering Creature Loot Drops...");
             LootTable.creatureDied();
-            RequiemLogging.debug("Registering Holiday Gifts...");
+            RequiemLogging.logInfo("Registering Holiday Gifts...");
             RequiemChristmasGift.onServerStarted();
             RequiemAnniversaryGift.onServerStarted();
             RequiemStPatrickDayGift.onServerStarted();
@@ -47,28 +48,30 @@ public class OnServerStarted {
             RequiemThanksgivingGift.onServerStarted();
             RequiemIndependenceDayGift.onServerStarted();
             RequiemVictoriaDayGift.onServerStarted();
-            //RequiemLogging.debug("Registering Patreon Gifts...");
+            //RequiemLogging.logInfo("Registering Patreon Gifts...");
             //PatreonSleepPowderGift.onServerStarted();
-            RequiemLogging.debug("Registering Database helper...");
+            RequiemLogging.logInfo("Registering Database helper...");
             DatabaseHelper.onServerStarted();
-            //RequiemLogging.debug("Registering Item Mod creation entries...");
+            //RequiemLogging.logInfo("Registering Item Mod creation entries...");
             //Requiem.debug("Registering Deity changes...");
             //DeityChanges.onServerStarted();
-            RequiemLogging.debug("Registering Skill changes...");
-            RequiemLogging.debug("Registering actions...");
+            RequiemLogging.logInfo("Registering Skill changes...");
+            RequiemLogging.logInfo("Registering actions...");
             AddActions.registerActions();
-            RequiemLogging.debug("Setting custom creature corpse models...");
-            MethodsBestiary.setTemplateVariables();
-            RequiemLogging.debug("Setting up Achievement templates...");
+            RequiemLogging.logInfo("Setting custom creature corpse models...");
+            CreatureTweaks.setTemplateVariables();
+            RequiemLogging.logInfo("Setting up Achievement templates...");
             AchievementChanges.onServerStarted();
-            RequiemLogging.debug("Editing existing item templates...");
+            RequiemLogging.logInfo("Editing existing item templates...");
             ItemMod.modifyItemsOnServerStarted();
-            RequiemLogging.debug("Setting creatures to have custom names when bred...");
-            RequiemLogging.debug("Setting spells to have no cooldown...");
+            RequiemLogging.logInfo("Setting creatures to have custom names when bred...");
+            RequiemLogging.logInfo("Setting spells to have no cooldown...");
             for (String name : noCooldownSpells.split(",")) {
                 SpellTools.noSpellCooldown(name);
             }
             DatabaseHelper.setUniques();
+            Titans.initializeTitanTimer();
+            //SupplyDepotBehaviour.initializeDepotTimer();
 
             if (!initialGoblinCensus) {
                 for (Creature c : Creatures.getInstance().getCreatures()) {
@@ -76,7 +79,7 @@ public class OnServerStarted {
                         fogGoblins.add(c);
                     }
                 }
-                RequiemLogging.debug(String.format("Performed census of fog goblins, currently there are: %d fog goblins", fogGoblins.size()));
+                RequiemLogging.logInfo(String.format("Performed census of fog goblins, currently there are: %d fog goblins", fogGoblins.size()));
                 initialGoblinCensus = true;
             }
             KeyEvent.preInit();
@@ -92,7 +95,7 @@ public class OnServerStarted {
     }
 
     public static void addCommands() {
-        RequiemLogging.debug("Registering Server commands...");
+        RequiemLogging.logInfo("Registering Server commands...");
         if (addCommands) {
             cmdtool = new CmdTools();
             cmdtool.addWurmCmd(new CmdGoTo());

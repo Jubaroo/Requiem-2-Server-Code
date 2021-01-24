@@ -95,7 +95,7 @@ public class CreatureReportAction implements ModAction {
                     }
                     creatureReport(performer.getCommunicator());
                 } else {
-                    RequiemLogging.debug(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
+                    RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
                 }
                 return true;
             }

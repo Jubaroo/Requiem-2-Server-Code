@@ -233,7 +233,7 @@ public class SmoothTerrainAction implements ModAction {
             x++;
         }
         if (System.currentTimeMillis() - start > 500) {
-            RequiemLogging.debug(String.format("Smoothing terrain at [%s, %s] took %s milliseconds.", tilex, tiley, System.currentTimeMillis() - start));
+            RequiemLogging.logInfo(String.format("Smoothing terrain at [%s, %s] took %s milliseconds.", tilex, tiley, System.currentTimeMillis() - start));
         }
     }
 
@@ -289,7 +289,7 @@ public class SmoothTerrainAction implements ModAction {
                     smoothArea(tilex, tiley);
                     //SmoothTerrainAction.setForageSnow(tilex, tiley, Server.surfaceMesh);
                 } else {
-                    RequiemLogging.debug(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
+                    RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));
                 }
                 return true;
             }

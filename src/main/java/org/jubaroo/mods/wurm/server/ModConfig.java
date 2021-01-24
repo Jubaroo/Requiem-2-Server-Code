@@ -52,10 +52,7 @@ public class ModConfig {
     public static int activateBankAmount = 5000; //50c default
     public static boolean craftPortals = false;
 
-    public static boolean logExecutionCost = true;
-    public static boolean executionCostLogging = true;
     public static boolean addMissionItems = false;
-
     public static boolean coins = false;
     public static boolean riftItems = false;
     public static boolean miscItems = false;
@@ -108,7 +105,6 @@ public class ModConfig {
     public static boolean AllowCraftingLance;
     public static float LanceRange;
 
-    public static boolean debug = false;
     public static boolean creatureDeathLogging = false;
     public static boolean creatureCreateLogging = false;
     public static boolean itemCreateLogging = false;
@@ -127,6 +123,17 @@ public class ModConfig {
     public static boolean disableDiscordReliance = false;
     public static boolean enableAthanorMechanism = false;
     public static boolean disableScrollGearBinding = false;
+    public static boolean disablePreInit = false;
+    public static boolean disableInit = false;
+    public static boolean disableOnPlayerLogin = false;
+    public static boolean disableOnPlayerLogout = false;
+    public static boolean disableOnServerStarted = false;
+    public static boolean disableOnKingdomMessage = false;
+    public static boolean disableOnPlayerMessage = false;
+    public static boolean disableFogGoblins = false;
+    public static boolean disableColoredUnicorns = false;
+    public static boolean disableDatabaseChanges = false;
+    public static boolean disableMissionChanges = false;
 
     public static int tileX;
     public static int tileY;

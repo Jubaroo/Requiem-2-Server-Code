@@ -1,6 +1,8 @@
 package org.jubaroo.mods.wurm.server.server;
 
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
+import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 
 import java.util.Properties;
 
@@ -31,6 +33,18 @@ public class Config {
     public static void doConfig(Properties properties) {
         RequiemLogging.logInfo("configure called");
         ASCIIDragon();
+        // ========================== Discord ===========================
+        DiscordHandler.botToken = properties.getProperty("botToken");
+        DiscordHandler.serverName = properties.getProperty("serverName");
+        CustomChannel.GLOBAL.discordName = properties.getProperty("globalName");
+        CustomChannel.HELP.discordName = properties.getProperty("helpName");
+        CustomChannel.TICKETS.discordName = properties.getProperty("ticketName");
+        CustomChannel.TITLES.discordName = properties.getProperty("titlesName");
+        CustomChannel.EVENTS.discordName = properties.getProperty("eventsName");
+        CustomChannel.TITAN.discordName = properties.getProperty("titanName");
+        CustomChannel.TRADE.discordName = properties.getProperty("tradeName");
+        CustomChannel.LOGINS.discordName = properties.getProperty("loginsName");
+        CustomChannel.SERVER_STATUS.discordName = properties.getProperty("serverStatusName");
         // ========================== AddActions ===========================
         addGmProtect = Boolean.parseBoolean(properties.getProperty("addGmProtect", String.valueOf(addGmProtect)));
         addGmUnprotect = Boolean.parseBoolean(properties.getProperty("addGmUnprotect", String.valueOf(addGmUnprotect)));
@@ -67,6 +81,9 @@ public class Config {
         // ========================== Spells ===========================
         noCooldownSpells = properties.getProperty("noCooldownSpells", String.valueOf(noCooldownSpells));
         // ========================== Other ===========================
+        tileX = Integer.parseInt(properties.getProperty("LoginServerEffectX"));
+        tileY = Integer.parseInt(properties.getProperty("LoginServerEffectY"));
+        tileZ = Integer.parseInt(properties.getProperty("LoginServerEffectZ"));
         enableMyceliumSpread = Boolean.parseBoolean(properties.getProperty("enableMyceliumSpread", "false"));
         addCommands = Boolean.parseBoolean(properties.getProperty("addCommands", "false"));
         loadFullContainers = Boolean.parseBoolean(properties.getProperty("loadFullContainers", "false"));
@@ -80,16 +97,13 @@ public class Config {
         mailboxEnableEnchant = Boolean.parseBoolean(properties.getProperty("enableEnchant", "false"));
         mailboxEnchantPower = Float.parseFloat(properties.getProperty("enchantPower", String.valueOf(mailboxEnchantPower)));
         if (mailboxEnchantPower < 1.0f || mailboxEnchantPower > 101.0f) {
-            mailboxEnchantPower = 30.0f;
+            mailboxEnchantPower = 10.0f;
         }
         // ========================== Portals ===========================
         costPerMin = Integer.parseInt(properties.getProperty("costPerMin", String.valueOf(costPerMin)));
         costToActivate = Integer.parseInt(properties.getProperty("costToActivate", String.valueOf(costToActivate)));
         activateBankAmount = Integer.parseInt(properties.getProperty("activateBankAmount", String.valueOf(activateBankAmount)));
         craftPortals = Boolean.parseBoolean(properties.getProperty("craftPortals", Boolean.toString(craftPortals)));
-        // ========================== Labyrinth ===========================
-        logExecutionCost = executionCostLogging;
-        executionCostLogging = Boolean.parseBoolean(properties.getProperty("executionCostLogging", "false"));
         // ========================== Mission Items ===========================
         addMissionItems = Boolean.parseBoolean(properties.getProperty("addMissionItems", "false"));
         coins = Boolean.parseBoolean(properties.getProperty("coins", "false"));
@@ -145,7 +159,6 @@ public class Config {
         AllowCraftingLance = Boolean.parseBoolean(properties.getProperty("AllowCraftingLance", "true"));
         LanceRange = Float.parseFloat(properties.getProperty("LanceRange", "5"));
         // ========================= Logging ==============================
-        debug = Boolean.parseBoolean(properties.getProperty("debug", "false"));
         creatureDeathLogging = Boolean.parseBoolean(properties.getProperty("CreatureDeathLogging", "false"));
         creatureCreateLogging = Boolean.parseBoolean(properties.getProperty("CreatureCreateLogging", "false"));
         itemCreateLogging = Boolean.parseBoolean(properties.getProperty("ItemCreateLogging", "false"));
@@ -164,9 +177,19 @@ public class Config {
         enableAthanorMechanism = Boolean.parseBoolean(properties.getProperty("enableAthanorMechanism", "false"));
         disableDiscordReliance = Boolean.parseBoolean(properties.getProperty("disableDiscordReliance", "false"));
         disableScrollGearBinding = Boolean.parseBoolean(properties.getProperty("disableScrollGearBinding", "false"));
-        tileX = Integer.parseInt(properties.getProperty("LoginServerEffectX"));
-        tileY = Integer.parseInt(properties.getProperty("LoginServerEffectY"));
-        tileZ = Integer.parseInt(properties.getProperty("LoginServerEffectZ"));
+        disablePreInit = Boolean.parseBoolean(properties.getProperty("disablePreInit", "false"));
+        disableInit = Boolean.parseBoolean(properties.getProperty("disableInit", "false"));
+        disableOnServerStarted = Boolean.parseBoolean(properties.getProperty("disableOnServerStarted", "false"));
+        disableFogGoblins = Boolean.parseBoolean(properties.getProperty("disableFogGoblins", "false"));
+        disableColoredUnicorns = Boolean.parseBoolean(properties.getProperty("disableColoredUnicorns", "false"));
+        disableDatabaseChanges = Boolean.parseBoolean(properties.getProperty("disableDatabaseChanges", "false"));
+        disableInit = Boolean.parseBoolean(properties.getProperty("disableInit", "false"));
+        disableOnPlayerLogin = Boolean.parseBoolean(properties.getProperty("disableOnPlayerLogin", "false"));
+        disableOnPlayerLogout = Boolean.parseBoolean(properties.getProperty("disableOnPlayerLogout", "false"));
+        disableOnServerStarted = Boolean.parseBoolean(properties.getProperty("disableOnServerStarted", "false"));
+        disableOnKingdomMessage = Boolean.parseBoolean(properties.getProperty("disableOnKingdomMessage", "false"));
+        disableOnPlayerMessage = Boolean.parseBoolean(properties.getProperty("disableOnPlayerMessage", "false"));
+        disableMissionChanges = Boolean.parseBoolean(properties.getProperty("disableMissionChanges", "false"));
         RequiemLogging.logInfo("all configure completed");
     }
 

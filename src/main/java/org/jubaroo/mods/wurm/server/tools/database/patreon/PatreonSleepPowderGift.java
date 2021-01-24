@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import java.util.Calendar;
 
 public class PatreonSleepPowderGift {
-    private static int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-    private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    private static final int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+    private static final int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
     public static void onServerStarted() {
         try {
@@ -27,7 +27,7 @@ public class PatreonSleepPowderGift {
             String sql;
             String tableName = "RequiemPatreonGift";
             if (!ModSupportDb.hasTable(con, tableName)) {
-                RequiemLogging.debug(String.format("%s table not found in ModSupport, creating it now.", tableName));
+                RequiemLogging.logInfo(String.format("%s table not found in ModSupport, creating it now.", tableName));
                 sql = String.format("CREATE TABLE %s (NAME VARCHAR(30) NOT NULL DEFAULT 'Unknown', STEAMID LONG NOT NULL DEFAULT 0, GIFTED_MONTH INT NOT NULL DEFAULT 0, GIFTED_YEAR INT NOT NULL DEFAULT 0)", tableName);
                 PreparedStatement ps = con.prepareStatement(sql);
                 ps.execute();
@@ -61,7 +61,7 @@ public class PatreonSleepPowderGift {
             rs.close();
             ps.close();
             if (!steamIdGifted && !thisMonth && !thisYear) {
-                RequiemLogging.debug(String.format("Player %s has not been gifted this month, giving sleep powder x5 now...", player.getName()));
+                RequiemLogging.logInfo(String.format("Player %s has not been gifted this month, giving sleep powder x5 now...", player.getName()));
                 dbcon = ModSupportDb.getModSupportDb();
                 ps = dbcon.prepareStatement("INSERT INTO RequiemPatreonGift (NAME,STEAMID,GIFTED_MONTH,GIFTED_YEAR) VALUES(?,?,?,?)");
                 ps.setString(1, player.getName());

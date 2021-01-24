@@ -23,8 +23,8 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.creatures.CreatureSpawns;
+import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.creatures.CustomCreatures;
-import org.jubaroo.mods.wurm.server.creatures.MethodsBestiary;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.CustomTitles;
@@ -543,7 +543,7 @@ public class LootTable {
         // All Christmas Creatures During Christmas
         if (Holidays.isRequiemChristmas() && !disableHolidayCreatures) {
             LootManager.add(LootRule.create()
-                    .requireCreature((MethodsBestiary::isChristmasMob))
+                    .requireCreature((CreatureTweaks::isChristmasMob))
                     .chance((c -> 0.15f))
                     .addDrop(LootDrop.create(ItemList.sweet)
                             .ql(RandomUtils.getRandomQl(1f, 99f)))
@@ -588,7 +588,7 @@ public class LootTable {
 
         // Reaper
         LootManager.add(LootRule.create()
-                .requireCreature(MethodsBestiary::isRareCreature)
+                .requireCreature(CreatureTweaks::isRareCreature)
                 .addTrigger((c, k) -> Server.getInstance().broadCastAlert(String.format("The rare %s has been slain. A new rare creature may enter the realm soon.", c.getNameWithoutPrefixes())))
         );
 
@@ -764,7 +764,7 @@ public class LootTable {
                             if (creatureDeathLogging) {
                                 RequiemLogging.CreatureDeathLogging(c);
                             }
-                            RequiemLogging.debug(String.format("%s killed a %s", k.getName(), c.getName()));
+                            RequiemLogging.logInfo(String.format("%s killed a %s", k.getName(), c.getName()));
                         })
                         .chance(0.01f)
                         .addSubRule(LootRule.create()

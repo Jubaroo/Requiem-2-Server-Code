@@ -144,7 +144,7 @@ public class ChaosCrystalInfuseAction implements ModAction {
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     } else {
-                        RequiemLogging.debug("Somehow a non-player activated a custom item (" + source.getTemplateId() + ")...");
+                        RequiemLogging.logInfo("Somehow a non-player activated a custom item (" + source.getTemplateId() + ")...");
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {

@@ -107,13 +107,13 @@ public class TreasureBoxAction implements ModAction {
                                 performer.getCommunicator().sendNormalServerMessage("You open your treasure box containing rare treasures.");
                                 Server.getInstance().broadCastAction(String.format("%s opens %s treasure box, containing rare treasures.", performer.getName(), performer.getHisHerItsString()), performer, 5);
                             }
-                            RequiemLogging.debug(String.format("Player %s opened treasure box with power %d.", performer.getName(), aux));
+                            RequiemLogging.logInfo(String.format("Player %s opened treasure box with power %d.", performer.getName(), aux));
                             TreasureChestsBehaviour.newFillTreasureChest(performer.getInventory(), aux);
                             Items.destroyItem(target.getWurmId());
                             return true;
                         }
                     } else {
-                        RequiemLogging.debug("Somehow a non-player activated a Treasure Box...");
+                        RequiemLogging.logInfo("Somehow a non-player activated a Treasure Box...");
                     }
                     return false;
                 } catch (Exception e) {
