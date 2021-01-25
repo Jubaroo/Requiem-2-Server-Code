@@ -43,6 +43,8 @@ public class NewPlayerQuestion implements ModQuestion {
 
                 if (!male) responder.setSex((byte) 1, false);
 
+                responder.setKingdomId(MiscConstants.KINGDOM_FREEDOM);
+
                 responder.createSomeItems(1.0f, false);
 
                 responder.setFullyLoaded();
@@ -123,9 +125,9 @@ Servers.getServerWithId(1);
                         .addText("Select your starting server:", null, BMLBuilder.TextType.BOLD, null)
                         .addString(createServerSelection().toString())
                         .addText("")
-                        .addText("Tranquil Garden is recommended for new players wanting a peaceful time.")
-                        .addText("Cragmoor Isles is recommended for experienced players.")
                         .addText("The Wilds is recommended for players wanting a fighting challenge.")
+                        .addText("Tranquil Garden is recommended for new players wanting a peaceful time.")
+                        .addText("Cragmoor Isles is recommended for a more balanced feel.")
                         .addText("")
                         .addText("The selection is not permanent, you will be able to freely move between servers using portals. So don't worry about choosing wrong!")
                         .addText("")

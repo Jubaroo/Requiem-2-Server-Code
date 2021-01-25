@@ -745,6 +745,7 @@ public class Hooks {
         return factor;
     }
 
+    //TODO make it go directly into the bank
     public static boolean catchFishHook(Creature performer, Item target, Item fish) {
         double fishBounty = fish.getFullWeight() * 0.005;
         if (fishBounty >= 1) {

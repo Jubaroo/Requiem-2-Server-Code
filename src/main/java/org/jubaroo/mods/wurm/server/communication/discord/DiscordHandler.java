@@ -107,7 +107,7 @@ public class DiscordHandler extends ListenerAdapter {
 
     public static void sendToDiscord(CustomChannel channel, String msg) {
         try {
-            if (Servers.isThisATestServer()) return;
+            //if (Servers.isThisATestServer()) return;
             if (jda == null || channel.discordName == null) return;
             if (jda.getStatus() != JDA.Status.CONNECTED) {
                 RequiemLogging.logInfo(String.format("Discord not ready, queueing: [%s] %s", channel, msg));

@@ -31,18 +31,15 @@ public class OnPlayerLogin {
             if (!ModConfig.disableDatabaseChanges) {
                 DatabaseHelper.onPlayerLogin(player);
             }
-            //EffectsTools.sendBeam(player, EffectConstants.RIFT_SPAWN, tileX, tileY, tileZ);
-            OnPlayerLogin.loginAnnouncement(player);
-            //DatabaseHelper.steamIdDatabase(player);
+            //OnPlayerLogin.loginAnnouncement(player);
             OnPlayerLogin.onLogin(player);
             //OnPlayerLogin.holidayLogin(player);
             OnPlayerLogin.addBuffsToPlayersOnLogin(player);
             OnPlayerLogin.addMonthlyBuffsToPlayers(player);
             CustomTitles.playerLoginTitles(player);
             Misc.noobTips();
-            //LoginServerEffect.playerLogin(player);
             if (player.getPlayingTime() <= TimeConstants.DAY) {
-                player.getCommunicator().sendAlertServerMessage(Misc.noobMessage, (byte) 1);
+                player.getCommunicator().sendAlertServerMessage(Misc.noobMessage, MessageConstants.displayOnScreen);
             }
         } catch (IllegalArgumentException |
                 ClassCastException e) {
@@ -123,21 +120,19 @@ public class OnPlayerLogin {
             String message = "Happy St. Patrick's Day!";
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
-        //if (Misc.isRequiemPatreon(player)) {
-        //PatreonSleepPowderGift.onPlayerLogin(player);
-        //}
+
     }
 
 
     private static void addBuffsToPlayersOnLogin(Player player) {
         if (player.getPlayingTime() < TimeConstants.DAY_MILLIS) {
             CreatureTools.applyBuff(player, Enchants.CRET_CURIOSITY_HEALTH, 500.0f, (int) TimeConstants.HOURS18_MILLIS / 2, false);
-            player.getCommunicator().sendSafeServerMessage("New players heal extremely fast!");
+            player.getCommunicator().sendSafeServerMessage("New players heal much faster!");
         }
     }
 
     private static void loginAnnouncement(Player player) {
-        if (player.getPower() == 0)
+        if (player.getPower() < 5)
             if (!disableDiscordReliance)
                 DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("%s has logged in.", player.getNameWithoutPrefixes()));
     }

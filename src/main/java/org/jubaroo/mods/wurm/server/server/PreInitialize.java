@@ -39,7 +39,6 @@ public class PreInitialize {
         try {
             ModActions.init();
             ModVehicleBehaviours.init();
-
             ClassPool classPool = HookManager.getInstance().getClassPool();
             CtClass ctClass = classPool.getCtClass("com.wurmonline.server.items.ItemFactory");
             CtMethod ctGuardPlan = classPool.getCtClass("com.wurmonline.server.villages.GuardPlan").getMethod("pollGuards", "()V");
@@ -721,7 +720,7 @@ public class PreInitialize {
                 e.printStackTrace();
             }
 
-            if (disableDatabaseChanges) {
+            if (!disableDatabaseChanges) {
                 try {
                     DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\Cragmoor Isles", "Requiem.db");
                     DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\The Wilds", "Requiem.db");
@@ -764,16 +763,18 @@ public class PreInitialize {
                 throw new HookException(e);
             }
 
-            // New player spawn question
-            classPool.getCtClass("com.wurmonline.server.LoginHandler").getMethod("handleLogin", "(Ljava/lang/String;Ljava/lang/String;ZZZZLjava/lang/String;Ljava/lang/String;)V")
-                    .instrument(new ExprEditor() {
-                        @Override
-                        public void edit(MethodCall m) throws CannotCompileException {
-                            if (m.getMethodName().equals("sendQuestion")) {
-                                m.replace("if (!com.wurmonline.server.questions.NewPlayerQuestion.send($0.getResponder())) $proceed();");
+            if (enableNewPlayerQuestion) {
+                // New player spawn question
+                classPool.getCtClass("com.wurmonline.server.LoginHandler").getMethod("handleLogin", "(Ljava/lang/String;Ljava/lang/String;ZZZZLjava/lang/String;Ljava/lang/String;)V")
+                        .instrument(new ExprEditor() {
+                            @Override
+                            public void edit(MethodCall m) throws CannotCompileException {
+                                if (m.getMethodName().equals("sendQuestion")) {
+                                    m.replace("if (!com.wurmonline.server.questions.NewPlayerQuestion.send($0.getResponder())) $proceed();");
+                                }
                             }
-                        }
-                    });
+                        });
+            }
 
             if (enableAthanorMechanism) {
                 // - Add xmas light effect for the athanor mechanism - //

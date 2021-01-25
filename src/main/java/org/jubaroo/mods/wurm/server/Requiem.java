@@ -134,6 +134,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
             if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
                 DiscordHandler.initJda();
+                communicator.sendNormalServerMessage("Discord reconnected command sent");
                 return MessagePolicy.DISCARD;
             } else if (communicator.player.getPower() >= MiscConstants.POWER_HERO && message.startsWith("#eventmsg")) {
                 String msg = message.replace("#eventmsg", "").trim();
@@ -216,7 +217,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     public void onServerPoll() {
         if (!disableEntireMod) {
             if (!disablePollingMods) {
-                    DiscordHandler.poll();
+                DiscordHandler.poll();
                 OnServerPoll.onServerPoll();
                 Misc.noobTips();
                 PollPortals.pollPortal();

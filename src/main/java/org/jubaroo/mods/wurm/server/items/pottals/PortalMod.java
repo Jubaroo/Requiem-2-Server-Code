@@ -31,23 +31,19 @@ public class PortalMod {
     }
 
     public static void onServerStarted() {
-        try {
-            Connection con = ModSupportDb.getModSupportDb();
-            String sql;
+        try(Connection con = ModSupportDb.getModSupportDb()) {
             if (!ModSupportDb.hasTable(con, "RequiemPortals")) {
-                sql = "CREATE TABLE RequiemPortals (\t\tname\t\t\t\t\tVARCHAR(20)\t\tNOT NULL DEFAULT 'Unknown',"
+                String sql = "CREATE TABLE RequiemPortals (\t\tname\t\t\t\t\tVARCHAR(20)\t\tNOT NULL DEFAULT 'Unknown',"
                         + "\t\tposx\t\t\t\t\tINT\t\tNOT NULL DEFAULT 100,"
                         + "\t\tposy\t\t\t\t\tINT\t\tNOT NULL DEFAULT 100,"
                         + "\t\tbank\t\t\t\t\tINT\t\tNOT NULL DEFAULT 0,"
                         + "\t\titemid\t\t\t\t\tLONG\t\tNOT NULL DEFAULT 0)";
-                PreparedStatement ps = con.prepareStatement(sql);
-                ps.execute();
-                ps.close();
-                con.close();
+                try (PreparedStatement ps = con.prepareStatement(sql)) {
+                    ps.execute();
+                }
             }
         } catch (SQLException e) {
             RequiemLogging.logException("Error creating RequiemPortals table in ModSupport.db", e.getCause());
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
 

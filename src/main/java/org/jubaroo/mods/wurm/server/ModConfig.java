@@ -110,6 +110,8 @@ public class ModConfig {
     public static boolean itemCreateLogging = false;
     public static boolean itemRemoveLogging = false;
 
+    public static boolean enableNewPlayerQuestion = false;
+    public static boolean enableAthanorMechanism = false;
     public static boolean disableEntireMod = false;
     public static boolean disableCreatureLoot = false;
     public static boolean disableHolidayCreatures = false;
@@ -121,7 +123,6 @@ public class ModConfig {
     public static boolean disableMiscMods = false;
     public static boolean disablePollingMods = false;
     public static boolean disableDiscordReliance = false;
-    public static boolean enableAthanorMechanism = false;
     public static boolean disableScrollGearBinding = false;
     public static boolean disablePreInit = false;
     public static boolean disableInit = false;

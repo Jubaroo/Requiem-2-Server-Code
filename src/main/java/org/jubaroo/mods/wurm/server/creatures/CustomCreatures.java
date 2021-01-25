@@ -2952,7 +2952,7 @@ public class CustomCreatures {
                 .maxPercentOfCreatures(0.00001f)
                 .keepSex(true)
                 .boundsValues(-0.5f, -1f, 0.5f, 1.42f)
-                .sizeModifier(125, 125, 125)
+                .sizeModifier(150, 150, 150)
                 .usesNewAttacks(true)
                 .addPrimaryAttack(new AttackAction("strangle", AttackIdentifier.MAUL, new AttackValues(10f, 0.1F, 6f, 4, 2, Wound.TYPE_PIERCE, false, 3, 1.5f)))
                 .addPrimaryAttack(new AttackAction("vine whip", AttackIdentifier.STRIKE, new AttackValues(5f, 0.03F, 4f, 3, 1, Wound.TYPE_PIERCE, false, 3, 1.4f)))
