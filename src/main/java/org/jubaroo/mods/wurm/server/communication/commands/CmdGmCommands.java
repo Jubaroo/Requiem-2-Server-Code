@@ -7,7 +7,7 @@ import com.wurmonline.server.creatures.Creature;
 public class CmdGmCommands extends WurmCmd {
 
     public CmdGmCommands() {
-        super("#gmcommands", MiscConstants.POWER_HERO);
+        super("#gmcommands", MiscConstants.POWER_HIGH_GOD);
     }
 
     @Override

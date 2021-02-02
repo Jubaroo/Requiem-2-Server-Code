@@ -36,7 +36,7 @@ public class CmdFillUp extends WurmCmd {
             comm.sendNormalServerMessage(String.format("Player %s not found", argv[1]));
             return false;
         } catch (Throwable e) {
-            comm.sendNormalServerMessage("error: " + e.toString());
+            comm.sendNormalServerMessage("[ERROR]: " + e.toString());
             return true;
         }
         return true;

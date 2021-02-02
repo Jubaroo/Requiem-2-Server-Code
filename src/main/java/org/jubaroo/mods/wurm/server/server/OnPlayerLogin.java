@@ -31,7 +31,7 @@ public class OnPlayerLogin {
             if (!ModConfig.disableDatabaseChanges) {
                 DatabaseHelper.onPlayerLogin(player);
             }
-            //OnPlayerLogin.loginAnnouncement(player);
+            OnPlayerLogin.loginAnnouncement(player);
             OnPlayerLogin.onLogin(player);
             //OnPlayerLogin.holidayLogin(player);
             OnPlayerLogin.addBuffsToPlayersOnLogin(player);
@@ -49,19 +49,19 @@ public class OnPlayerLogin {
 
     public static void addMonthlyBuffsToPlayers(Player player) {
         if (Misc.isDayOfMonth(1)) {
-            CreatureTools.applyBuff(player, Enchants.CRET_CURIOSITY_HEALTH, 100.0f, (int) TimeConstants.HOURS18_MILLIS / 2, false);
+            CreatureTools.applyBuff(player, Enchants.CRET_CURIOSITY_HEALTH, 100.0f, (int) TimeConstants.DAY, false);
             player.getCommunicator().sendServerMessage(MessageConstants.dayOneBuffMessage, 0, 255, 0);
         }
         if (Misc.isDayOfMonth(7)) {
-            CreatureTools.applyBuff(player, Enchants.CRET_EXCEL, 100.0f, (int) TimeConstants.HOURS18_MILLIS / 2, false);
+            CreatureTools.applyBuff(player, Enchants.CRET_EXCEL, 100.0f, (int) TimeConstants.DAY, false);
             player.getCommunicator().sendServerMessage(MessageConstants.daySevenBuffMessage, 0, 255, 0);
         }
         if (Misc.isDayOfMonth(15)) {
-            CreatureTools.applyBuff(player, Enchants.CRET_CURIOSITY_FOOD, 100.0f, (int) TimeConstants.HOURS18_MILLIS / 2, false);
+            CreatureTools.applyBuff(player, Enchants.CRET_CURIOSITY_FOOD, 100.0f, (int) TimeConstants.DAY, false);
             player.getCommunicator().sendServerMessage(MessageConstants.dayFifteenBuffMessage, 0, 255, 0);
         }
         if (Misc.isDayOfMonth(23)) {
-            CreatureTools.applyBuff(player, Enchants.CRET_TRUEHIT, 100.0f, (int) TimeConstants.HOURS18_MILLIS / 2, false);
+            CreatureTools.applyBuff(player, Enchants.CRET_TRUEHIT, 100.0f, (int) TimeConstants.DAY, false);
             player.getCommunicator().sendServerMessage(MessageConstants.dayTwentyThreeBuffMessage, 0, 255, 0);
         }
     }
@@ -101,8 +101,7 @@ public class OnPlayerLogin {
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
         if (Holidays.isRequiemAnniversary() | Servers.isThisATestServer()) {
-            RequiemAnniversaryGift.onPlayerLogin(player);
-            String message = String.format("It is now Requiem of Wurm's %s anniversary! December 1st through December 14th, we are celebrating our %s year here at Requiem of Wurm. Thank you for your support and for choosing this server. See you next year!", RequiemAnniversaryGift.formattedYear, RequiemAnniversaryGift.formattedYear);
+            String message = String.format("It is now Requiem of Wurm's %s anniversary! December 1st through December 14th, we are celebrating our %s year here at Requiem of Wurm. Thank you for your support and for choosing this server. See you next year!", DatabaseHelper.formattedYear, DatabaseHelper.formattedYear);
             player.getCommunicator().sendServerMessage(message, 0, 255, 0);
         }
         if (Holidays.isRequiemChristmas() | Servers.isThisATestServer()) {
@@ -132,9 +131,11 @@ public class OnPlayerLogin {
     }
 
     private static void loginAnnouncement(Player player) {
-        if (player.getPower() < 5)
-            if (!disableDiscordReliance)
-                DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("%s has logged in.", player.getNameWithoutPrefixes()));
+        if (player.getPower() < 3)
+            if (!disableDiscordReliance) {
+                DiscordHandler.sendToDiscord(CustomChannel.LOGINS, String.format("[%s] Player %s has logged in.", Servers.getLocalServerName(), player.getName()));
+                RequiemLogging.logInfo(String.format("[%s] Player %s has logged in.", Servers.getLocalServerName(), player.getName()));
+            }
     }
 
 }

@@ -23,7 +23,7 @@ public class LeaderboardAchievementQuestion extends Question {
     protected HashMap<String, Integer> optIn = new HashMap<>();
 
     public LeaderboardAchievementQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget, int achievementNum) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.achievementNum = achievementNum;
         this.template = AchievementChanges.goodAchievements.get(achievementNum);
     }

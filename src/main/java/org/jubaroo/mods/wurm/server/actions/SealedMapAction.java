@@ -25,8 +25,6 @@ public class SealedMapAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public SealedMapAction() {
-        RequiemLogging.logWarning("TreasureCacheOpenAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -96,11 +94,11 @@ public class SealedMapAction implements ModAction {
                             return true;
                         }
                     } else {
-                        RequiemLogging.logWarning("Somehow a non-player activated a Treasure Box...");
+                        RequiemLogging.logWarning("Somehow a non-player activated a Sealed Map...");
                     }
                     return false;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in SealedMapAction", e);
                     return true;
                 }
             }

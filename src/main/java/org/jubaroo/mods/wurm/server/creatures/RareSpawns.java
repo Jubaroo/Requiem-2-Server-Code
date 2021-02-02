@@ -45,8 +45,7 @@ public class RareSpawns {
             RequiemLogging.logInfo(String.format("Spawning new rare creature(%d) at %s, %s", templateId, spawnX * 0.25f, spawnY * 0.25f));
             Creature.doNew(templateId, spawnX, spawnY, RandomUtils.getRandomRotation(), 0, "", Server.rand.nextBoolean() ? (byte) 0 : (byte) 1);
         } catch (Exception e) {
-            RequiemLogging.logException("Failed to create Rare Spawn.", e);
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] Failed to create Rare Spawn", e);
         }
     }
 

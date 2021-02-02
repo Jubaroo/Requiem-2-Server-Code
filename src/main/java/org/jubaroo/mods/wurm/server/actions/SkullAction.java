@@ -11,16 +11,13 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.ItemTypes;
 import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modloader.interfaces.WurmServerMod;
-import org.gotti.wurmunlimited.modsupport.ModSupportDb;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
@@ -65,34 +62,10 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
         }
         if (skullLocateUnique && source.getTemplateId() == ItemList.skull && target.getTemplateId() == ItemList.skull) {
             if (reloadSkull) {
-                DatabaseHelper.setUniques();
+                //DatabaseHelper.setUniques();
             }
-            Connection dbcon2;
-            PreparedStatement ps2;
-            ResultSet rs2;
-            int smallestdistance = 100000000;
             try {
-                dbcon2 = ModSupportDb.getModSupportDb();
-                ps2 = dbcon2.prepareStatement("SELECT * FROM UniqueLocations");
-                rs2 = ps2.executeQuery();
-                while (rs2.next()) {
-                    if (performer.getPower() > 4) {
-                        performer.getCommunicator().sendNormalServerMessage(String.format("%s %s %s", rs2.getString("name"), rs2.getFloat("X"), rs2.getFloat("Y")));
-                    }
-                    final int xDistance = (int) Math.abs(performer.getTileX() - rs2.getFloat("X"));
-                    final int yDistance = (int) Math.abs(performer.getTileY() - rs2.getFloat("Y"));
-                    final int distance = (int) Math.sqrt(xDistance * xDistance + yDistance * yDistance);
-                    if (distance < smallestdistance) {
-                        uniqueX = rs2.getFloat("X");
-                        uniqueY = rs2.getFloat("Y");
-                        uniqueName = rs2.getString("name");
-                        smallestdistance = distance;
-                    }
-                }
-                rs2.close();
-                ps2.close();
-                dbcon2.close();
-                if (smallestdistance != 100000000) {
+                if (DatabaseHelper.skullActionDatabaseGetter(performer) != 100000000) {
                     final float newdamage = source.getDamage() + damageToTake;
                     performer.getCommunicator().sendNormalServerMessage(String.format("The %s took %d damage.", source.getName(), damageToTake));
                     source.setDamage(newdamage);
@@ -102,10 +75,10 @@ public class SkullAction implements WurmServerMod, ItemTypes, MiscConstants, Mod
                     final int direction = MethodsCreatures.getDir(performer, (int) uniqueX, (int) uniqueY);
                     performer.getCommunicator().sendNormalServerMessage(EndGameItems.getDistanceString(distance2, String.format("%s ", uniqueName), MethodsCreatures.getLocationStringFor(performer.getStatus().getRotation(), direction, "you"), true));
                 } else {
-                    performer.getCommunicator().sendNormalServerMessage("no uniques on map");
+                    performer.getCommunicator().sendNormalServerMessage("No uniques are on the map.");
                 }
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                RequiemLogging.logException("[Error] in action in SkullAction", e);
             }
             return true;
         }

@@ -7,7 +7,7 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import static com.wurmonline.server.items.ItemList.*;
 import static org.jubaroo.mods.wurm.server.ModConfig.*;
 import static org.jubaroo.mods.wurm.server.items.CustomItems.*;
-import static org.jubaroo.mods.wurm.server.server.constants.SkillConstants.*;
+import static org.jubaroo.mods.wurm.server.server.constants.SkillIds.*;
 
 public class CustomItemCreationEntries {
 

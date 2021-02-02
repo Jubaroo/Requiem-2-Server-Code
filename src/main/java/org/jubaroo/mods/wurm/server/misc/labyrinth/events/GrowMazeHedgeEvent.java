@@ -4,6 +4,7 @@ import com.wurmonline.server.structures.DbFence;
 import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.StructureConstantsEnum;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ public class GrowMazeHedgeEvent extends EventOnce {
             final VolaTile tile = Zones.getTileOrNull(this.fence.getTileX(), this.fence.getTileY(), true);
             tile.updateFence(this.fence);
         } catch (IOException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in invoke in GrowMazeHedgeEvent", e);
         }
         return true;
     }

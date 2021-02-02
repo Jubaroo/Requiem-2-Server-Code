@@ -19,8 +19,6 @@ public class AffinityOrbAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public AffinityOrbAction() {
-        RequiemLogging.logWarning("AffinityOrbAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,

@@ -142,7 +142,7 @@ public class MachinaOfFortuneAction implements ModAction, ActionPerformer, Behav
             }
             return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in action in MachinaOfFortuneAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Machina Of Fortune action error: %s", e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (by typing /support) and provide the message above. Thank you.");
             return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

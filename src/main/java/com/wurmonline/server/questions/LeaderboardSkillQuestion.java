@@ -22,7 +22,7 @@ public class LeaderboardSkillQuestion extends Question {
     protected HashMap<String, Integer> optIn = new HashMap<>();
 
     public LeaderboardSkillQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget, int skillNum) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.skillNum = skillNum;
     }
 
@@ -100,7 +100,7 @@ public class LeaderboardSkillQuestion extends Question {
         ResultSet rs;
         try {
             dbcon = DbConnector.getPlayerDbCon();
-            ps = dbcon.prepareStatement("SELECT players.name, skills.value, players.deity FROM skills JOIN players ON skills.owner = players.wurmid WHERE skills.number = " + skillNum + " AND (players.power = 0) ORDER BY skills.value DESC LIMIT 20");
+            ps = dbcon.prepareStatement(String.format("SELECT players.name, skills.value, players.deity FROM skills JOIN players ON skills.owner = players.wurmid WHERE skills.number = %d AND (players.power = 0) ORDER BY skills.value DESC LIMIT 20", skillNum));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -131,9 +131,9 @@ public class LeaderboardSkillQuestion extends Question {
             int[] color = getSkilLevelColors(skills.get(i));
             if (names.get(i).equals(this.getResponder().getName())) {
                 name = names.get(i);
-                f.addBoldColoredText(df.format(skills.get(i)) + " - " + name + extra, color[0], color[1], color[2]);
+                f.addBoldColoredText(String.format("%s - %s%s", df.format(skills.get(i)), name, extra), color[0], color[1], color[2]);
             } else {
-                f.addColoredText(df.format(skills.get(i)) + " - " + name + extra, color[0], color[1], color[2]);
+                f.addColoredText(String.format("%s - %s%s", df.format(skills.get(i)), name, extra), color[0], color[1], color[2]);
             }
             i++;
         }

@@ -77,7 +77,7 @@ public class HeraldicQuestion implements ModQuestion {
                         comm.sendUpdateInventoryItem(target);
                     }
                 } catch (Exception e) {
-                    RequiemLogging.logException("Heraldic certificate error", e);
+                    RequiemLogging.logException("[ERROR] in Heraldic certificate question", e);
                     comm.sendAlertServerMessage("Something went wrong. Try again or notify staff using /support.");
                 }
             } else {

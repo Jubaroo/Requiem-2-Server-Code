@@ -9,6 +9,7 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.Arrays;
 
+@SuppressWarnings("ALL")
 public class CreatureTemplateModifier {
 
     public static void setCorpseModel(int templateId, String corpseModel) {
@@ -19,7 +20,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its corpse model changed to %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), corpseModel));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setCorpseModel in CreatureTemplateModifier", e);
         }
     }
 
@@ -29,10 +30,10 @@ public class CreatureTemplateModifier {
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "isNotRebirthable"), true);
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "regenerating"), false);
-                RequiemLogging.logInfo(String.format("Creature %s is now a Unique creature.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s is now a Unique creature.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setUniqueTypes in CreatureTemplateModifier", e);
         }
     }
 
@@ -41,10 +42,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "ghost"), true);
-                RequiemLogging.logInfo(String.format("Creature %s is now a ghost.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s is now a ghost.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setUniqueTypes in CreatureTemplateModifier", e);
         }
     }
 
@@ -53,10 +54,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "noCorpse"), true);
-                RequiemLogging.logInfo(String.format("Creature %s now has no corpse when it dies.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s now has no corpse when it dies.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setNoCorpse in CreatureTemplateModifier", e);
         }
     }
 
@@ -65,10 +66,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "grazer"), true);
-                RequiemLogging.logInfo(String.format("Creature %s will now graze on grass to feed itself.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s will now graze on grass to feed itself.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setGrazer in CreatureTemplateModifier", e);
         }
     }
 
@@ -77,10 +78,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "milkable"), true);
-                RequiemLogging.logInfo(String.format("Creature %s will now be able to be milked.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s will now be able to be milked.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMilkable in CreatureTemplateModifier", e);
         }
     }
 
@@ -89,10 +90,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "domestic"), true);
-                RequiemLogging.logInfo(String.format("Creature %s will now be a domestic animal able to be lead without taming.", templateId));
+                RequiemLogging.logInfo(String.format("Creature %s will now be a domestic animal able to be lead without taming.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDomestic in CreatureTemplateModifier", e);
         }
     }
 
@@ -104,7 +105,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its vision changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), vision));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setVision in CreatureTemplateModifier", e);
         }
     }
 
@@ -113,10 +114,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "longDesc"), description);
-                RequiemLogging.logInfo(String.format("Creature %s had its description changed. It is now \"\"%s\"\"", templateId, description));
+                RequiemLogging.logInfo(String.format("Creature %s had its description changed. It is now \"\"%s\"\"", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), description));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setLongDesc in CreatureTemplateModifier", e);
         }
     }
 
@@ -128,7 +129,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its male death sound changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), deathSoundMale));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDeathSoundMale in CreatureTemplateModifier", e);
         }
     }
 
@@ -140,7 +141,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its male hit sound changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), hitSoundMale));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHitSoundMale in CreatureTemplateModifier", e);
         }
     }
 
@@ -152,7 +153,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its female death sound changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), deathSoundFemale));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDeathSoundFemale in CreatureTemplateModifier", e);
         }
     }
 
@@ -164,7 +165,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its female hit sound changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), hitSoundFemale));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHitSoundFemale in CreatureTemplateModifier", e);
         }
     }
 
@@ -176,7 +177,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its meat material changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), meatMaterial));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMeatMaterial in CreatureTemplateModifier", e);
         }
     }
 
@@ -188,7 +189,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its den name changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), denName));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDenName in CreatureTemplateModifier", e);
         }
     }
 
@@ -200,7 +201,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its den material changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), denMaterial));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDenMaterial in CreatureTemplateModifier", e);
         }
     }
 
@@ -212,7 +213,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its hand damage string changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), handDamageString));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHandDamString in CreatureTemplateModifier", e);
         }
     }
 
@@ -224,7 +225,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its bite damage string changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), biteDamageString));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBiteDamString in CreatureTemplateModifier", e);
         }
     }
 
@@ -236,7 +237,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its kick damage string changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), kickDamageString));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setKickDamString in CreatureTemplateModifier", e);
         }
     }
 
@@ -248,7 +249,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its headbutt damage string changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), headbuttDamageString));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHeadbuttDamString in CreatureTemplateModifier", e);
         }
     }
 
@@ -260,7 +261,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its breath damage string changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), breathDamageString));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBreathDamString in CreatureTemplateModifier", e);
         }
     }
 
@@ -272,7 +273,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its aggression changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), aggressivity));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAggression in CreatureTemplateModifier", e);
         }
     }
 
@@ -284,7 +285,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its alignment changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), alignment));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAlignment in CreatureTemplateModifier", e);
         }
     }
 
@@ -296,7 +297,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its natural armor changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), naturalArmour));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setNaturalArmour in CreatureTemplateModifier", e);
         }
     }
 
@@ -308,7 +309,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its armor type changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), armourType));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setArmourType in CreatureTemplateModifier", e);
         }
     }
 
@@ -320,7 +321,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s can lay eggs? %b.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), eggLayer));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setEggLayer in CreatureTemplateModifier", e);
         }
     }
 
@@ -332,7 +333,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its egg template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(eggTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setEggTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -344,7 +345,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its child template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(childTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setChildTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -356,7 +357,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its combat moves changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), Arrays.toString(combatMoves)));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setCombatMoves in CreatureTemplateModifier", e);
         }
     }
 
@@ -368,7 +369,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s is now considered a subterranean creature? %b.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), subterranean));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSubterranean in CreatureTemplateModifier", e);
         }
     }
 
@@ -377,10 +378,10 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "isNoSkillgain"), isNoSkillgain);
-                RequiemLogging.logInfo(String.format("Creature %s will not gix skill when fought and killed? %b", templateId, isNoSkillgain));
+                RequiemLogging.logInfo(String.format("Creature %s will not give skill when fought and killed? %b", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), isNoSkillgain));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setIsNoSkillgain in CreatureTemplateModifier", e);
         }
     }
 
@@ -391,10 +392,10 @@ public class CreatureTemplateModifier {
                 Skills skills = ReflectionUtil.getPrivateField(template, ReflectionUtil.getField(template.getClass(), "skills"));
                 skills.learnTemp(skillId, value);
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "skills"), skills);
-                RequiemLogging.logInfo(String.format("Creature %s had its %d changed to %f", templateId, skillId, value));
+                RequiemLogging.logInfo(String.format("Creature %s had its %d changed to %f", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), skillId, value));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSkill in CreatureTemplateModifier", e);
         }
     }
 
@@ -406,7 +407,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its mate template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(mateTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMateTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -418,7 +419,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its hand damage changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), handDamage));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHandDamage in CreatureTemplateModifier", e);
         }
     }
 
@@ -430,7 +431,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its bite damage changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), biteDamage));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBiteDamage in CreatureTemplateModifier", e);
         }
     }
 
@@ -442,7 +443,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its kick damage changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), kickDamage));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setKickDamage in CreatureTemplateModifier", e);
         }
     }
 
@@ -454,7 +455,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its headbutt damage changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), headButtDamage));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setHeadButtDamage in CreatureTemplateModifier", e);
         }
     }
 
@@ -466,7 +467,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its breath damage changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), breathDamage));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBreathDamage in CreatureTemplateModifier", e);
         }
     }
 
@@ -478,7 +479,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its speed changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), speed));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSpeed in CreatureTemplateModifier", e);
         }
     }
 
@@ -490,7 +491,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its move rate changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), moveRate));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMoveRate in CreatureTemplateModifier", e);
         }
     }
 
@@ -502,7 +503,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its butchered items changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), Arrays.toString(butcheredItems)));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setButcheredItems in CreatureTemplateModifier", e);
         }
     }
 
@@ -514,7 +515,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its max hunt distance changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), maxHuntDistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMaxHuntDistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -526,7 +527,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its leader template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(leaderTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setLeaderTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -538,7 +539,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its adult female template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(adultFemaleTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAdultFemaleTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -550,7 +551,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its adult male template Id changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), CreatureTemplateFactory.getInstance().getTemplate(adultMaleTemplateId).getName()));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAdultMaleTemplateId in CreatureTemplateModifier", e);
         }
     }
 
@@ -562,7 +563,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s will keep its sex? %b.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), keepSex));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setKeepSex in CreatureTemplateModifier", e);
         }
     }
 
@@ -574,7 +575,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its max group attack size changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), maxGroupAttackSize));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMaxGroupAttackSize in CreatureTemplateModifier", e);
         }
     }
 
@@ -586,7 +587,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its max age changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), maxAge));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMaxAge in CreatureTemplateModifier", e);
         }
     }
 
@@ -598,7 +599,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its base combat rating changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), baseCombatRating));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBaseCombatRating in CreatureTemplateModifier", e);
         }
     }
 
@@ -610,7 +611,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its bonus combat rating changed. It is now %f.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), bonusCombatRating));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBonusCombatRating in CreatureTemplateModifier", e);
         }
     }
 
@@ -622,7 +623,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its bonus combat damage type changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), combatDamageType));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setCombatDamageType in CreatureTemplateModifier", e);
         }
     }
 
@@ -636,7 +637,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its color changed. It is now %dR %dG %dB.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), colorRed, colorGreen, colorBlue));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setColor in CreatureTemplateModifier", e);
         }
     }
 
@@ -648,7 +649,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s will glow? %b.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), glowing));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setGlowing in CreatureTemplateModifier", e);
         }
     }
 
@@ -662,7 +663,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its size changed. It's size is now X: %d Y: %d Z: %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), sizeModX, sizeModY, sizeModZ));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSize in CreatureTemplateModifier", e);
         }
     }
 
@@ -674,7 +675,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s will on fire? %b.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), isOnFire));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setIsOnFire in CreatureTemplateModifier", e);
         }
     }
 
@@ -686,7 +687,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its fire radius changed. It is now %d.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), fireRadius));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setFireRadius in CreatureTemplateModifier", e);
         }
     }
 
@@ -698,7 +699,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its cold resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), coldResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setColdResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -710,7 +711,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its disease resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), diseaseResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDiseaseResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -722,7 +723,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its physical resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), physicalResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPhysicalResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -734,7 +735,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its pierce resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), pierceResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPhysicalResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -746,7 +747,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its slash resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), slashResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSlashResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -758,7 +759,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its crush resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), crushResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setCrushResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -770,7 +771,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its bite resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), biteResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBiteResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -782,7 +783,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its poison resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), poisonResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPoisonResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -794,7 +795,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its water resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), waterResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setWaterResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -806,7 +807,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its acid resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), acidResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAcidResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -818,7 +819,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its internal resistance changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), internalResistance));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setInternalResistance in CreatureTemplateModifier", e);
         }
     }
 
@@ -830,7 +831,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its fire vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), fireVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setFireVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -842,7 +843,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its cold vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), coldVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setColdVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -854,7 +855,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its disease vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), diseaseVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setDiseaseVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -866,7 +867,7 @@ public class CreatureTemplateModifier {
                 RequiemLogging.logInfo(String.format("Creature %s had its physical vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), physicalVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPhysicalVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -877,7 +878,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "pierceVulnerability"), pierceVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPierceVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -888,7 +889,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "slashVulnerability"), slashVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setSlashVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -899,7 +900,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "biteVulnerability"), biteVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setBiteVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -910,7 +911,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "poisonVulnerability"), poisonVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setPoisonVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -921,7 +922,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "waterVulnerability"), waterVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setWaterVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -932,7 +933,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "acidVulnerability"), acidVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setAcidVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -943,7 +944,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "internalVulnerability"), internalVulnerability);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setInternalVulnerability in CreatureTemplateModifier", e);
         }
     }
 
@@ -954,7 +955,7 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "maxPercentOfCreatures"), maxPercentOfCreatures);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMaxPercentOfCreatures in CreatureTemplateModifier", e);
         }
     }
 
@@ -965,7 +966,16 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "maxPopulationOfCreatures"), maxPopulationOfCreatures);
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setMaxPopulationOfCreatures in CreatureTemplateModifier", e);
+        }
+    }
+
+    public static void setNonSentinel(int templateId) {
+        try {
+            if (templateId > 0)
+                ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
+        } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchCreatureTemplateException | NoSuchFieldException e) {
+            RequiemLogging.logException("[ERROR] in setNonSentinel in CreatureTemplateModifier", e);
         }
     }
 
@@ -990,16 +1000,8 @@ public class CreatureTemplateModifier {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "skills"), skills);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setWorgFields in CreatureTemplateModifier", e);
         }
-    }
-
-    public static void setNonSentinel(int templateId) throws NoSuchFieldException, NoSuchCreatureTemplateException, IllegalAccessException {
-        ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
-    }
-
-    public static void setNonSentinel(Creature creature) throws Exception {
-        ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(creature.getNameWithoutPrefixes()), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
     }
 
 }

@@ -209,8 +209,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The %s splits into two!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Golemlings.");
+                RequiemLogging.logException("[Error] in spawnGolemlings in CreatureSpawns", e);
             }
         }
     }
@@ -229,8 +228,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction("A wolf packmaster and its pack have just appeared near you! It would be wise to avoid it unless prepared to fight.", creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Wolves.");
+                RequiemLogging.logException("[Error] in spawnWolves in CreatureSpawns", e);
             }
         }
     }
@@ -248,8 +246,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The %s splits into two!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Bloblings.");
+                RequiemLogging.logException("[Error] in spawnBloblings in CreatureSpawns", e);
             }
         }
     }
@@ -267,8 +264,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The %s splits into two!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Prismatic Bloblings.");
+                RequiemLogging.logException("[Error] in spawnPrismaticBloblings in CreatureSpawns", e);
             }
         }
     }
@@ -286,8 +282,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAlert(String.format("The %s is released from the soul of the %s, seeking vengeance for its physical form!", creature.getTemplate().getName(), creature.getTemplate().getName()));
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Buffalo Spirit.");
+                RequiemLogging.logException("[Error] in spawnBuffaloSpirit in CreatureSpawns", e);
             }
         }
     }
@@ -310,8 +305,7 @@ public class CreatureSpawns {
                 Server.getInstance().broadCastAction("A horde of zombies has just formed near you, LOOK OUT!!!", creature, 15);
                 Server.getInstance().broadCastAlert("A zombie horde has just formed somewhere in the world! It would be best to avoid it until prepared.", true, displayOnScreen);
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Zombie Horde!");
+                RequiemLogging.logException("[Error] in spawnZombieHorde in CreatureSpawns", e);
             }
         }
     }
@@ -328,8 +322,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The %s busts apart as you hit it and a Mimic jumps out ready to fight!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Mimic.");
+                RequiemLogging.logException("[Error] in spawnMimic in CreatureSpawns", e);
             }
         }
     }
@@ -347,8 +340,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The horseman %s appears from the void ready to fight!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Horseman Conquest.");
+                RequiemLogging.logException("[Error] in spawnHorsemanWar in CreatureSpawns", e);
             }
         }
     }
@@ -366,8 +358,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The horseman %s appears from the void ready to fight!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Horseman Conquest.");
+                RequiemLogging.logException("[Error] in spawnHorsemanFamine in CreatureSpawns", e);
             }
         }
     }
@@ -385,8 +376,7 @@ public class CreatureSpawns {
                     Server.getInstance().broadCastAction(String.format("The horseman %s appears from the void ready to fight!", creature.getTemplate().getName()), creature, 20);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                RequiemLogging.logWarning("Error in Spawning Horseman Conquest.");
+                RequiemLogging.logException("[Error] in spawnHorsemanDeath in CreatureSpawns", e);
             }
         }
     }
@@ -400,7 +390,6 @@ public class CreatureSpawns {
             return ItemFactory.createItem(itemId, RandomUtils.getRandomQl(50, 99), ItemMaterials.MATERIAL_STEEL, MiscConstants.COMMON, "Black Knight");
         } catch (FailedException | NoSuchTemplateException e) {
             RequiemLogging.logException(String.format("Error creating Black Knight item for ID: %d", itemId), e);
-            e.printStackTrace();
         }
         return null;
     }
@@ -560,7 +549,7 @@ public class CreatureSpawns {
                 // Send message on spawn
                 ChatHandler.systemMessage((Player) creature, CustomChannel.EVENTS, String.format("The %s has departed across the lands to seek out worthy challengers. Seek %s out to claim honor and glory by defeating %s in single combat.", creature.getNameWithoutPrefixes(), creature.getHimHerItString(), creature.getHimHerItString()), 255, 104, 0);
             } catch (NoSpaceException | FailedException | NoSuchTemplateException | IOException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in blackKnightSpawn in CreatureSpawns", e);
             }
         }
     }
@@ -572,7 +561,6 @@ public class CreatureSpawns {
                 RequiemLogging.logInfo(String.format("Added new encounter for %d on tile %s", creatureId, tile));
             } catch (Exception e) {
                 RequiemLogging.logException(String.format("Error spawning creature for ID: %d", creatureId), e);
-                e.printStackTrace();
             }
     }
 
@@ -613,7 +601,7 @@ public class CreatureSpawns {
             spawnOnTerrain(TILE_SLATE_SLABS, ELEVATION_GROUND, templateId, 1, 1);
             spawnOnTerrain(TILE_SLATE_BRICKS, ELEVATION_GROUND, templateId, 1, 1);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in spawnOnMostTerrain in CreatureSpawns", e);
         }
     }
 

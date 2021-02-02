@@ -26,7 +26,7 @@ public class LeaderboardQuestion extends Question {
     protected HashMap<Integer, Integer> achievementIdMap = new HashMap<>();
 
     public LeaderboardQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
     protected void setPlayerOptStatus(String name, int opt) {

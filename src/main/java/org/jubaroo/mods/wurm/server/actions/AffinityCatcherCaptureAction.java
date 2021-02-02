@@ -21,8 +21,6 @@ public class AffinityCatcherCaptureAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public AffinityCatcherCaptureAction() {
-        RequiemLogging.logWarning("AffinityCatcherCaptureAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -34,14 +32,11 @@ public class AffinityCatcherCaptureAction implements ModAction {
     }
 
     public static boolean hasAffinityCatcher(Creature performer) {
-        //Requiem.debug("Checking if creature has affinity catcher.");
         for (Item i : performer.getInventory().getItems()) {
             if (i.getTemplateId() == CustomItems.affinityCatcherId) {
-                //Requiem.debug("Has affinity catcher.");
                 return true;
             }
         }
-        //Requiem.debug("No affinity catcher found.");
         return false;
     }
 
@@ -137,6 +132,6 @@ public class AffinityCatcherCaptureAction implements ModAction {
             }
 
 
-        }; // ActionPerformer
+        };
     }
 }

@@ -92,7 +92,7 @@ public class LightFireAction implements ModAction, ActionPerformer, BehaviourPro
         try {
             ReflectionUtil.callPrivateMethod(target, Item.class.getDeclaredMethod("notifyWatchersTempChange"));
         } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-            RequiemLogging.logWarning("Error heating item: " + e);
+            RequiemLogging.logException("[ERROR] heating item: ", e);
         }
 
         if (target.getTemplate().getBehaviourType() == BehaviourList.fireBehaviour && target.getTemplateId() != ItemList.beeSmoker) {

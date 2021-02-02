@@ -102,7 +102,7 @@ public class ChampionOrbAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in action in ChampionOrbAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

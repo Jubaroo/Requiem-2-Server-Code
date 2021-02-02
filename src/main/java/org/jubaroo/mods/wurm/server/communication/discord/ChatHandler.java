@@ -24,7 +24,7 @@ public class ChatHandler {
             communicator.sendNormalServerMessage("You are muted.");
             return;
         }
-        chatlogger.log(Level.INFO, channel.ingameName + "-" + "<" + communicator.player.getName() + "> " + message);
+        chatlogger.log(Level.INFO, String.format("%s-<%s> %s", channel.ingameName, communicator.player.getName(), message));
 
         sendToPlayers(channel, communicator.player.getName(), message, communicator.player.getWurmId(),
                 communicator.player.hasColoredChat() ? communicator.player.getCustomRedChat() : -1,
@@ -39,7 +39,7 @@ public class ChatHandler {
         );
 
         if (Servers.localServer.LOGINSERVER)
-            DiscordHandler.sendToDiscord(channel, "<" + communicator.player.getName() + "> " + message);
+            DiscordHandler.sendToDiscord(channel, String.format("<%s> %s", communicator.player.getName(), message));
 
         communicator.player.chatted();
     }
@@ -53,8 +53,8 @@ public class ChatHandler {
                     sendToPlayers(CustomChannel.INFO, "", eventsMsg, MiscConstants.NOID, 255, 140, 0);
             } else {
                 if (Servers.localServer.LOGINSERVER)
-                    DiscordHandler.sendToDiscord(chan, "<" + playerName + "> " + message);
-                chatlogger.log(Level.INFO, chan.ingameName + "-" + "<" + playerName + "> " + message);
+                    DiscordHandler.sendToDiscord(chan, String.format("<%s> %s", playerName, message));
+                chatlogger.log(Level.INFO, String.format("%s-<%s> %s", chan.ingameName, playerName, message));
                 sendToPlayers(chan, playerName, message, senderId, r, g, b);
             }
         }
@@ -105,7 +105,7 @@ public class ChatHandler {
 
     static void sendToPlayers(CustomChannel channel, String author, String msg, long wurmId, int r, int g, int b) {
         ServerThreadExecutor.INSTANCE.execute(() -> {
-            Message mess = new Message(null, (byte) 16, channel.ingameName, (author.length() == 0 ? "" : "<" + author + "> ") + msg);
+            Message mess = new Message(null, (byte) 16, channel.ingameName, (author.length() == 0 ? "" : String.format("<%s> ", author)) + msg);
             mess.setColorR(r);
             mess.setColorG(g);
             mess.setColorB(b);
@@ -150,9 +150,13 @@ public class ChatHandler {
     }
 
     public static void handleBroadcast(String msg) {
-        if (msg.startsWith("The settlement of") || msg.startsWith("Rumours of") || msg.endsWith("has been slain.")) {
+        if (msg.startsWith("The settlement of") ||/* msg.startsWith("Rumours of") ||*/ msg.endsWith("has been slain.")) {
             ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
-            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s", msg));
+            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("[%s] %s", Servers.getLocalServerName(), msg));
+        } else if (msg.startsWith("Rumours of")) {
+            ChatHandler.sendToPlayersAndServers(CustomChannel.UNIQUES, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            DiscordHandler.sendToDiscord(CustomChannel.UNIQUES, String.format("[%s] %s", Servers.getLocalServerName(), msg));
         }
     }
+
 }

@@ -44,9 +44,9 @@ public class GrowTreesAction implements ModAction, BehaviourProvider, ActionPerf
     }
 
     private static void rampantGrowth(final Creature performer, final int tilex, final int tiley) {
-        Requiem.logger.log(Level.INFO, performer.getName() + " creates trees and bushes at " + tilex + ", " + tiley);
+        Requiem.logger.log(Level.INFO, String.format("%s creates trees and bushes at %d, %d", performer.getName(), tilex, tiley));
         if (performer.getLogger() != null) {
-            performer.getLogger().log(Level.INFO, "Creates trees and bushes at " + tilex + ", " + tiley);
+            performer.getLogger().log(Level.INFO, String.format("Creates trees and bushes at %d, %d", tilex, tiley));
         }
         for (int x = tilex - 5; x < tilex + 5; ++x) {
             for (int y = tiley - 5; y < tiley + 5; ++y) {

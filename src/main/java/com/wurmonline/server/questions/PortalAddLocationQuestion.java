@@ -22,7 +22,7 @@ public class PortalAddLocationQuestion extends Question {
     }
 
     public PortalAddLocationQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
     public void answer(Properties answer) {

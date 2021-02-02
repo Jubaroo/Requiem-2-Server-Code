@@ -7,7 +7,6 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.spells.SpellEffect;
 import com.wurmonline.shared.constants.Enchants;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
-import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.server.constants.ItemConstants;
@@ -18,7 +17,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 public class ItemTools {
     public static Item lumps;
@@ -103,7 +101,7 @@ public class ItemTools {
             sorcery.setAuxData((byte) (3 - charges));
             return sorcery;
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomSorcery in ItemTools", e);
         }
         return null;
     }
@@ -142,7 +140,7 @@ public class ItemTools {
             enchantOrb.setDescription(String.format("%s %d", eff.getName(), Math.round(power)));
             return enchantOrb;
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createEnchantOrb in ItemTools", e);
         }
         return null;
     }
@@ -153,7 +151,7 @@ public class ItemTools {
             armour.setMaterial(material);
             return armour;
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomPlateChain in ItemTools", e);
         }
         return null;
     }
@@ -162,7 +160,7 @@ public class ItemTools {
         try {
             return ItemFactory.createItem(RandomUtils.randomToolWeaponTemplates(), minQL + ((maxQL - minQL) * Server.rand.nextFloat()), creator);
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomToolWeapon in ItemTools", e);
         }
         return null;
     }
@@ -171,7 +169,7 @@ public class ItemTools {
         try {
             return lumps = ItemFactory.createItem(RandomUtils.randomLumpTemplates(), minQL + ((maxQL - minQL) * Server.rand.nextFloat()), creator);
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomMaterialsLumps in ItemTools", e);
         }
         return null;
     }
@@ -180,7 +178,7 @@ public class ItemTools {
         try {
             return ItemFactory.createItem(RandomUtils.randomMaterialConstructionTemplates(), minQL + ((maxQL - minQL) * Server.rand.nextFloat()), creator);
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomMaterialsConstruction in ItemTools", e);
         }
         return null;
     }
@@ -189,7 +187,7 @@ public class ItemTools {
         try {
             return ItemFactory.createItem(RandomUtils.randomGem(false), minQL + ((maxQL - minQL) * Server.rand.nextFloat()), creator);
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomGem in ItemTools", e);
         }
         return null;
     }
@@ -198,7 +196,7 @@ public class ItemTools {
         try {
             return ItemFactory.createItem(RandomUtils.randomGem(true), RandomUtils.getRandomQl(1f, 99f), creator);
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomStarGem in ItemTools", e);
         }
         return null;
     }
@@ -261,10 +259,10 @@ public class ItemTools {
             }
             SpellEffect eff = new SpellEffect(tool.getWurmId(), enchant, power, 20000000);
             effs.addSpellEffect(eff);
-            tool.setDescription(eff.getName() + " " + String.valueOf((byte) power));
+            tool.setDescription(String.format("%s %s", eff.getName(), String.valueOf((byte) power)));
             return tool;
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createRandomLootTool in ItemTools", e);
         }
         return null;
     }
@@ -281,7 +279,7 @@ public class ItemTools {
             }
             return treasureBox;
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in createTreasureBox in ItemTools", e);
         }
         return null;
     }
@@ -306,11 +304,15 @@ public class ItemTools {
 
     public static boolean isScroll(final Item item) {
         String[] scrollIds;
-        for (int length = (scrollIds = ItemConstants.scrollids).length, i = 0; i < length; ++i) {
-            final String boss = scrollIds[i];
-            if (item.getTemplateId() == Integer.parseInt(boss)) {
-                return true;
+        try {
+            for (int length = (scrollIds = ItemConstants.scrollids).length, i = 0; i < length; ++i) {
+                final String boss = scrollIds[i];
+                if (item.getTemplateId() == Integer.parseInt(boss)) {
+                    return true;
+                }
             }
+        } catch (NumberFormatException e) {
+            RequiemLogging.logException("[ERROR] in isScroll in ItemTools", e);
         }
         return false;
     }
@@ -368,8 +370,8 @@ public class ItemTools {
 
                 player.getCommunicator().getConnection().flush();
 
-            } catch (Exception ex) {
-                Requiem.logger.log(Level.WARNING, String.format("Failed to send item %s (%d) to player %s (%d)", player.getName(), player.getWurmId(), item.getName(), item.getWurmId()), ex);
+            } catch (Exception e) {
+                RequiemLogging.logException(String.format("[ERROR] in sendItem in ItemTools. Failed to send item %s (%d) to player %s (%d)", player.getName(), player.getWurmId(), item.getName(), item.getWurmId()), e);
                 player.setLink(false);
             }
         }

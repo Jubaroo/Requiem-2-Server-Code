@@ -14,6 +14,7 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
@@ -98,7 +99,7 @@ public class GuardTokenAction implements ModAction, ActionPerformer, BehaviourPr
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in action in GuardTokenAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: %s", GuardTokenAction.class.getName(), e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return true;

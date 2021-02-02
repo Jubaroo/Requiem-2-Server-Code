@@ -8,6 +8,7 @@ import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.questions.DestroyCreatureQuestion;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
 import java.util.Collections;
@@ -61,9 +62,8 @@ public class HealingFountainAction implements ModAction, ActionPerformer, Behavi
 
             return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
-            performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: " +
-                    "%s", HealingFountainAction.class.getName(), e.toString()));
+            RequiemLogging.logException("[ERROR] in action in HealingFountainAction", e);
+            performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: %s", HealingFountainAction.class.getName(), e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }

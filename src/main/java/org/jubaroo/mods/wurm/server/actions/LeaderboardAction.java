@@ -18,8 +18,6 @@ public class LeaderboardAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public LeaderboardAction() {
-        RequiemLogging.logWarning("LeaderboardAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -70,7 +68,7 @@ public class LeaderboardAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in action in LeaderboardAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

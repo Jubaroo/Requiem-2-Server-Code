@@ -101,8 +101,7 @@ public class SupplyDepotAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    RequiemLogging.logException("Error in SupplyDepotAction", e.getCause());
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in SupplyDepotAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

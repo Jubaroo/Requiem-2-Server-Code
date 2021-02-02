@@ -79,7 +79,7 @@ public class LootTable {
                     ItemFactory.createItem(CustomItems.friyanTabletId, 80f + Server.rand.nextInt(20), (float) x * 4, (float) y * 4, Server.rand.nextFloat() * 360f, true, (byte) 0, -10, "Friyanouce");
                     RequiemLogging.logInfo(String.format("Created a Tablet of Friyan at %d, %d.", x, y));
                 } catch (NoSuchTemplateException | FailedException e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in spawnFriyanTablets in LootTable", e);
                 }
                 i--;
             }
@@ -106,7 +106,7 @@ public class LootTable {
                                         byte ctype = (byte) Math.max(0, Server.rand.nextInt(17) - 5);
                                         Creature.doNew(template.getTemplateId(), true, c.getPosX(), c.getPosY(), Server.rand.nextFloat() * 360f, c.getLayer(), template.getName(), (byte) 0, c.getKingdomId(), ctype, false, (byte) 60);
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        RequiemLogging.logException("[Error] in spawning undead in creatureDied in LootTable", e);
                                     }
                                     Server.getInstance().broadCastAlert("An undead creature is released from the underworld to claim the soul of a powerful creature that was just slain!");
                                 })
@@ -650,7 +650,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnGolemlings(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning golem in LootTable", e);
                             }
                         })
                 )
@@ -664,7 +664,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnBloblings(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning blob in LootTable", e);
                             }
                         })
                 )
@@ -678,7 +678,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnPrismaticBloblings(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning prismatic blob in LootTable", e);
                             }
                         })
                 )
@@ -692,7 +692,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnBuffaloSpirit(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning Great White Buffalo in LootTable", e);
                             }
                         })
                 )
@@ -706,7 +706,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnMimic(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning Mimic in LootTable", e);
                             }
                         })
                 )
@@ -720,7 +720,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnHorsemanWar(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning Horseman Conquest in LootTable", e);
                             }
                         })
                 )
@@ -734,7 +734,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnHorsemanFamine(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning Horseman War in LootTable", e);
                             }
                         })
                 )
@@ -748,7 +748,7 @@ public class LootTable {
                             try {
                                 CreatureSpawns.spawnHorsemanDeath(c);
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in spawning Horseman Famine in LootTable", e);
                             }
                         })
                 )

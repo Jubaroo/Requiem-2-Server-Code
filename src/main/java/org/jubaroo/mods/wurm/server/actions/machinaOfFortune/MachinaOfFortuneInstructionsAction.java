@@ -17,6 +17,7 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
 
@@ -99,7 +100,7 @@ public class MachinaOfFortuneInstructionsAction implements ModAction, ActionPerf
             }
             return propagate(action, CONTINUE_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in MachinaOfFortuneInstructionsAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Machina Of Fortune action error: %s", e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

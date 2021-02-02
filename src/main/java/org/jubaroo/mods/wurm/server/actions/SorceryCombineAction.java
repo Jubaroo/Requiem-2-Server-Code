@@ -24,8 +24,6 @@ public class SorceryCombineAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public SorceryCombineAction() {
-        RequiemLogging.logWarning("SorceryCombineAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -137,7 +135,7 @@ public class SorceryCombineAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in SorceryCombineAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

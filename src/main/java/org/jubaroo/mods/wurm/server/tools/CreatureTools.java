@@ -449,7 +449,7 @@ public class CreatureTools {
             return floatToRet * ageSizeModifier * aiDataModifier;
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | ClassCastException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in getAdjustedSizeMod in CreatureTools", e);
         }
         return 1f;
     }
@@ -519,7 +519,7 @@ public class CreatureTools {
                 zone.removeItem(corpse, true, true);
                 zone.addItem(corpse, true, false, false);
             } catch (NoSuchZoneException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in setCorpseSizes in CreatureTools", e);
             }
         }
     }

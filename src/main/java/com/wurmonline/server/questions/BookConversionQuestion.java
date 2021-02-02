@@ -18,7 +18,7 @@ public class BookConversionQuestion extends Question {
     protected Item convertBook;
 
     public BookConversionQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget, Item book) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.convertBook = book;
     }
 
@@ -63,10 +63,10 @@ public class BookConversionQuestion extends Question {
                         p.setFaith(p.getFaith() * 0.9f);
                         p.getCommunicator().sendAlertServerMessage(String.format("%s accepts your conversion.", Deities.getDeityName(deity)));
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        RequiemLogging.logException("[Error] in answer in BookConversionQuestion", e);
                     }
                 } else {
-                    RequiemLogging.logInfo(String.format("Non-player used a %s?", convertBook.getName()));
+                    RequiemLogging.logWarning(String.format("Non-player used a %s?", convertBook.getName()));
                 }
             }
         }

@@ -9,6 +9,7 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.Player;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.TentSleepAction;
 
 import java.util.Properties;
@@ -23,7 +24,7 @@ public class TentSleepQuestion extends Question {
     }
 
     public TentSleepQuestion(final Creature aResponder, final String aTitle, final String aQuestion, final long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.properlySent = false;
     }
 
@@ -34,7 +35,7 @@ public class TentSleepQuestion extends Question {
         try {
             this.item = Items.getItem(this.target);
         } catch (NoSuchItemException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in TentSleepQuestion answer", e);
         }
         final String val = answers.getProperty("sleep");
         if (val != null && val.equals("true")) {
@@ -69,11 +70,7 @@ public class TentSleepQuestion extends Question {
         }
         if (ok) {
             this.properlySent = true;
-            String buf = this.getBmlHeader() +
-                    "text{text='Do you want to go to sleep? You will log off Wurm.'}text{text=''}" +
-                    "radio{ group='sleep'; id='true';text='Yes';selected='true'}" +
-                    "radio{ group='sleep'; id='false';text='No'}" +
-                    this.createAnswerButton2();
+            String buf = String.format("%stext{text='Do you want to go to sleep? You will log off Wurm.'}text{text=''}radio{ group='sleep'; id='true';text='Yes';selected='true'}radio{ group='sleep'; id='false';text='No'}%s", this.getBmlHeader(), this.createAnswerButton2());
             this.getResponder().getCommunicator().sendBml(300, 300, true, true, buf, 200, 200, 200, this.title);
         }
     }

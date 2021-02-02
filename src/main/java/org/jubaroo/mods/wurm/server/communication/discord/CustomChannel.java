@@ -7,6 +7,7 @@ public enum CustomChannel {
     TITLES("Titles", (byte) -4, false, false),
     EVENTS("Events", (byte) -5, false, false),
     TITAN("Titan", (byte) -6, false, false),
+    UNIQUES("Uniques", (byte) -6, true, false),
     TRADE("Trade", (byte) -7, true, false),
     SERVER_STATUS("*", (byte) -8, false, true),
     TICKETS("*", (byte) -9, false, true),

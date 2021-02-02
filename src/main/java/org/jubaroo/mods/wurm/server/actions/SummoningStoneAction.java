@@ -18,6 +18,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.CreatureTypes;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
@@ -174,7 +175,7 @@ public class SummoningStoneAction implements ModAction, ActionPerformer, Behavio
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in action in SorcerySplitAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Summoning Stone action error: %s", e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

@@ -25,7 +25,7 @@ import org.jubaroo.mods.wurm.server.misc.MiscChanges;
 import org.jubaroo.mods.wurm.server.misc.QualityOfLife;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
-import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.tools.SpellExamine;
 import org.jubaroo.mods.wurm.server.utils.MissionCreator;
 
 import java.lang.reflect.Modifier;
@@ -138,14 +138,14 @@ public class PreInitialize {
                 classPool.getCtClass("com.wurmonline.server.support.Tickets").getMethod("addTicket", "(Lcom/wurmonline/server/support/Ticket;Z)Lcom/wurmonline/server/support/Ticket;").insertBefore(String.format("%s.updateTicket($1);", TicketHandler.class.getName()));
                 classPool.getCtClass("com.wurmonline.server.support.Ticket").getMethod("addTicketAction", "(Lcom/wurmonline/server/support/TicketAction;)V").insertBefore(String.format("%s.addTicketAction(this, $1);", TicketHandler.class.getName()));
             } catch (Exception e) {
-                RequiemLogging.logException("error initializing Discord relay", e.getCause());
+                RequiemLogging.logException("[ERROR] initializing Discord relay", e);
             }
 
             final Class<CustomMountSettings> thisClass = CustomMountSettings.class;
             String replace;
 
             Util.setReason("Scaling horse speed.");
-            replace = String.format("{ return %s.newMountSpeedMultiplier(this, $1); }", CustomMountSettings.class.getName());
+            replace = String.format("{ return %s.newMountSpeedMultiplier(this, $1); }", Hooks.class.getName());
             Util.setBodyDeclared(thisClass, ctCreature, "getMountSpeedPercent", replace);
 
             Util.setReason("Force mount speed change check on damage.");
@@ -260,12 +260,6 @@ public class PreInitialize {
                         }
                     });
                 }
-
-                Util.setReason("Fix Portal Issues.");
-                Util.instrumentDeclared(thisClass, ctPortal, "sendQuestion", "willLeaveServer", "$_ = true;");
-
-                Util.setReason("Fix Portal Issues.");
-                Util.instrumentDeclared(thisClass, ctPortal, "sendQuestion", "getKnowledge", "$_ = true;");
 
                 Util.setReason("Disable the minimum 0.01 damage on shield damage, allowing damage modifiers to rule.");
                 replace = "if($1 < 0.5f){  $_ = $proceed((float) 0, (float) $2);}else{  $_ = $proceed($$);}";
@@ -433,9 +427,7 @@ public class PreInitialize {
                 Util.instrumentDeclared(thisClass, ctAbilities, "isInProperLocation", "getTemplateId", replace);
 
                 Util.setReason("Disable GM commands from displaying in /help unless the player is a GM.");
-                replace = "if($1.getPower() < 1){" +
-                        "  return;" +
-                        "}";
+                replace = "if($1.getPower() < 1){  return;}";
                 Util.insertBeforeDeclared(thisClass, ctServerTweaksHandler, "sendHelp", replace);
 
                 Util.setReason("Make damage less likely to interrupt actions during combat.");
@@ -443,9 +435,7 @@ public class PreInitialize {
                 Util.insertBeforeDeclared(thisClass, ctCreature, "maybeInterruptAction", replace);
 
                 Util.setReason("Fix mission null pointer exception.");
-                replace = "if(itemplates.size() < 1){" +
-                        "  com.wurmonline.server.epic.EpicServerStatus.setupMissionItemTemplates();" +
-                        "}";
+                replace = "if(itemplates.size() < 1){  com.wurmonline.server.epic.EpicServerStatus.setupMissionItemTemplates();}";
                 Util.insertBeforeDeclared(thisClass, ctEpicServerStatus, "getRandomItemTemplateUsed", replace);
 
                 // Show power on vesseled gems
@@ -476,8 +466,7 @@ public class PreInitialize {
                             @Override
                             public void edit(MethodCall m) throws CannotCompileException {
                                 if (m.getMethodName().equals("getTimestamp"))
-                                    m.replace("$_=com.wurmonline.server.utils.DbUtilities.getTimestampOrNull(rs.getString($1)); " +
-                                            "if ($_==null) $_=new java.sql.Timestamp(java.lang.System.currentTimeMillis());");
+                                    m.replace("$_=com.wurmonline.server.utils.DbUtilities.getTimestampOrNull(rs.getString($1)); if ($_==null) $_=new java.sql.Timestamp(java.lang.System.currentTimeMillis());");
                             }
                         });
 
@@ -620,7 +609,7 @@ public class PreInitialize {
                 Util.instrumentDeclared(thisClass, ctCreature, "checkPregnancy", "saveCreatureName", replace);
 
                 Util.setReason("Set custom corpse sizes.");
-                replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", Hooks.class.getName(), CreatureTools.class.getName());
+                replace = String.format("$_ = $proceed($$);if(%s.hasCustomCorpseSize(this)){  %s.setCorpseSizes(this, corpse);}", CreatureTools.class.getName(), CreatureTools.class.getName());
                 Util.instrumentDescribed(thisClass, ctCreature, "die", desc5, "addItem", replace);
 
                 Util.setReason("Add spell resistance to custom creatures.");
@@ -717,18 +706,7 @@ public class PreInitialize {
             } catch (NotFoundException | IllegalArgumentException | ClassCastException e) {
                 throw new HookException(e);
             } catch (CannotCompileException e) {
-                e.printStackTrace();
-            }
-
-            if (!disableDatabaseChanges) {
-                try {
-                    DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\Cragmoor Isles", "Requiem.db");
-                    DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\The Wilds", "Requiem.db");
-                    DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\Login", "Requiem.db");
-                    DatabaseHelper.createRequiemDatabase("E:\\SteamLibrary\\steamapps\\common\\Wurm Unlimited Dedicated Server\\Tranquil Garden", "Requiem.db");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                RequiemLogging.logException("[Error] in preInit in PreInitialize", e);
             }
 
             try {
@@ -751,7 +729,7 @@ public class PreInitialize {
                             }
                         });
             } catch (NotFoundException | CannotCompileException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] adding coin from fish in PreInitialize", e);
             }
 
             try {
@@ -781,6 +759,29 @@ public class PreInitialize {
                 ctPlayers.getDeclaredMethod("sendAltarsToPlayer").insertBefore(String.format("%s.sendMechanismEffectsToPlayer($1);", AthanorMechanismBehaviour.class.getName()));
                 RequiemLogging.logInfo("AthanorMechanism.preInit called");
             }
+
+            ctMethodsItems.getMethod("getEnhancementStrings", "(Lcom/wurmonline/server/items/Item;)Ljava/util/List;")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("getName")) {
+                                m.replace(String.format("$_ = %s.getName($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getName at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            } else if (m.getMethodName().equals("getLongDesc")) {
+                                m.replace(String.format("$_ = %s.getLongDesc($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getLongDesc at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            }
+                        }
+                    });
+
+            try {
+                // Change the size of items
+                ctItem.getMethod("getSizeMod", "()F").insertAfter(String.format("$_ = $_ * %s.getSizeModifier(this);", Hooks.class.getName()));
+            } catch (CannotCompileException | NotFoundException e) {
+                RequiemLogging.logException("[ERROR] in preInit in ItemMod", e);
+                throw new RuntimeException(e);
+            }
+
         } catch (IllegalArgumentException | ClassCastException | NotFoundException | CannotCompileException e) {
             throw new HookException(e);
         }

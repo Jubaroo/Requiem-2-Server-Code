@@ -8,6 +8,7 @@ import com.wurmonline.server.items.NotOwnedException;
 import com.wurmonline.server.skills.NoSuchSkillException;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.Enchants;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
 public class Crystals {
@@ -50,7 +51,7 @@ public class Crystals {
         try {
             diff -= performer.getSkills().getSkill(SkillList.MIND).getKnowledge() * 0.3f;
         } catch (NoSuchSkillException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in getInfusionDifficulty in Crystal", e);
         }
         return diff;
     }
@@ -61,7 +62,7 @@ public class Crystals {
         try {
             diff -= performer.getSkills().getSkill(SkillList.MIND).getKnowledge() * 0.3f;
         } catch (NoSuchSkillException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in getEnchantersInfusionDifficulty in Crystal", e);
         }
         if (target.getSpellEffects() != null) {
             diff += target.getSpellEffects().getEffects().length * 10;
@@ -116,7 +117,7 @@ public class Crystals {
                 return true;
             }
         } catch (NotOwnedException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in shouldCancelCombine in Crystals", e);
         }
         if (source.getRarity() < target.getRarity()) {
             performer.getCommunicator().sendNormalServerMessage("That crystal is too potent for this combination.");

@@ -450,8 +450,7 @@ public class Caches {
                     }
                     inv.insertItem(basicItem, true);
                 } catch (FailedException | NoSuchTemplateException e) {
-                    RequiemLogging.logWarning("Error: Failed to create item for cache with template id " + templateId);
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in openCache in Caches", e);
                 }
                 i++;
             }
@@ -472,7 +471,7 @@ public class Caches {
                 }
             } catch (FailedException | NoSuchTemplateException e) {
                 RequiemLogging.logWarning("Error: Failed to create item for cache with template id " + templateId);
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in openCache in Caches", e);
             }
         }
     }

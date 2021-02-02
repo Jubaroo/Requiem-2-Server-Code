@@ -30,7 +30,7 @@ public class CmdMassSleepBonus extends WurmCmd {
                 RequiemLogging.logInfo(String.format("Player %s used %s", actor.getName(), CmdMassSleepBonus.class.getName()));
             }
         } catch (Throwable e) {
-            actor.getCommunicator().sendNormalServerMessage(String.format("error: %s", e.toString()));
+            actor.getCommunicator().sendNormalServerMessage(String.format("[ERROR]: %s", e.toString()));
             return true;
         }
         return true;

@@ -13,11 +13,12 @@ import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.server.Config;
-import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
 
 import java.io.InputStream;
-import java.nio.file.*;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,7 +28,7 @@ public class RequiemReloadAction implements WurmServerMod, ItemTypes, MiscConsta
 
     public RequiemReloadAction() {
         RequiemReloadAction.actionId = (short) ModActions.getNextActionId();
-        ModActions.registerAction(RequiemReloadAction.actionEntry = ActionEntry.createEntry(RequiemReloadAction.actionId, "Reload Requiem properties", "Reloading Requiem properties", new int[0]));
+        ModActions.registerAction(RequiemReloadAction.actionEntry = ActionEntry.createEntry(RequiemReloadAction.actionId, "Reload Requiem config", "Reloading Requiem config", new int[0]));
     }
 
     public BehaviourProvider getBehaviourProvider() {
@@ -47,8 +48,8 @@ public class RequiemReloadAction implements WurmServerMod, ItemTypes, MiscConsta
     }
 
     public List<ActionEntry> getBehavioursFor(final Creature performer, final Item target) {
-        if ((performer instanceof Player && performer.getPower() > 4) || performer.getName().equals("Jubaroo")) {
-            return Arrays.asList(RequiemReloadAction.actionEntry);
+        if ((performer instanceof Player && performer.getPower() == MiscConstants.POWER_IMPLEMENTOR)) {
+            return Collections.singletonList(RequiemReloadAction.actionEntry);
         }
         return null;
     }
@@ -59,16 +60,16 @@ public class RequiemReloadAction implements WurmServerMod, ItemTypes, MiscConsta
 
     public boolean action(final Action act, final Creature performer, final Item target, final short action, final float counter) {
         if ((performer instanceof Player && performer.getPower() == MiscConstants.POWER_IMPLEMENTOR) || performer.getName().equals("Jubaroo")) {
-            final Path path = Paths.get("mods/Requiem.properties", new String[0]);
-            if (!Files.exists(path, new LinkOption[0])) {
+            final Path path = Paths.get("mods/Requiem.config");
+            if (!Files.exists(path)) {
                 performer.getCommunicator().sendAlertServerMessage("The config file seems to be missing.");
                 return true;
             }
             InputStream stream = null;
-            DatabaseHelper.setUniques();
+            //DatabaseHelper.setUniques();
             try {
                 performer.getCommunicator().sendAlertServerMessage("Opening the config file.");
-                stream = Files.newInputStream(path, new OpenOption[0]);
+                stream = Files.newInputStream(path);
                 final Properties properties = new Properties();
                 performer.getCommunicator().sendAlertServerMessage("Reading from the config file.");
                 properties.load(stream);

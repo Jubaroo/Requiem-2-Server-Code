@@ -84,12 +84,12 @@ public class SorcerySplitAction implements ModAction {
                             player.getInventory().insertItem(newSorcery, true);
                             target.setAuxData((byte) (target.getAuxData() + 1));
                         } catch (FailedException | NoSuchTemplateException e) {
-                            e.printStackTrace();
+                            RequiemLogging.logException("[ERROR] in action in SorcerySplitAction", e);
                             break;
                         }
                     }
                 } else {
-                    RequiemLogging.logWarning("Somehow a non-player activated a " + target.getName() + "...");
+                    RequiemLogging.logWarning(String.format("Somehow a non-player activated a %s...", target.getName()));
                 }
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }

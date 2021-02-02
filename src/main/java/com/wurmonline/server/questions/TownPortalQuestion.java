@@ -42,11 +42,7 @@ public class TownPortalQuestion extends Question {
     }
 
     public void sendQuestion() {
-        String buf = this.getBmlHeader() +
-                "text{text=''}" +
-                "radio{ group='port'; id='townportal';text='Town Portal'}" +
-                "radio{ group='port'; id='false';text='Do nothing';selected='true'}" +
-                this.createAnswerButton2();
+        String buf = String.format("%stext{text=''}radio{ group='port'; id='townportal';text='Town Portal'}radio{ group='port'; id='false';text='Do nothing';selected='true'}%s", this.getBmlHeader(), this.createAnswerButton2());
         this.getResponder().getCommunicator().sendBml(150, 230, true, true, buf, 150, 150, 200, this.title);
     }
 }

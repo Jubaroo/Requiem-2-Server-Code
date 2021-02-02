@@ -2,6 +2,7 @@ package org.jubaroo.mods.wurm.server.misc.labyrinth.events;
 
 import com.wurmonline.mesh.Tiles;
 import com.wurmonline.server.zones.NoSuchZoneException;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.misc.labyrinth.Maze;
 
 import java.io.IOException;
@@ -32,8 +33,7 @@ public class CreateMazeHedgeEvent extends EventOnce {
         try {
             this.maze.createHedge(this.border, this.tileX, this.tileY, this.animateGrowth);
         } catch (NoSuchZoneException | IOException ex2) {
-            final Exception e = ex2;
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in invoke in CreateMazeHedgeEvent", ex2);
         }
         return true;
     }

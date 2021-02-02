@@ -21,8 +21,6 @@ public class AffinityCatcherConsumeAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public AffinityCatcherConsumeAction() {
-        RequiemLogging.logWarning("AffinityCatcherConsumeAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -107,6 +105,6 @@ public class AffinityCatcherConsumeAction implements ModAction {
             }
 
 
-        }; // ActionPerformer
+        };
     }
 }

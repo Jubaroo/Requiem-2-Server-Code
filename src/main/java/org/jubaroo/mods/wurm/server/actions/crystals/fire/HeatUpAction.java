@@ -17,14 +17,12 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
-import org.jubaroo.mods.wurm.server.Requiem;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.logging.Level;
 
 import static org.gotti.wurmunlimited.modsupport.actions.ActionPropagation.*;
 
@@ -103,7 +101,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
                 item.dropItem(sub.getWurmId(), false);
                 newItem.insertItem(sub, true);
             } catch (NoSuchItemException e) {
-                RequiemLogging.logWarning("No such item when moving subs" + e);
+                RequiemLogging.logException("[ERROR] in transformItem in HeatUpAction]", e);
             }
         }
 
@@ -151,7 +149,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
         try {
             parent = target.getParent();
         } catch (NoSuchItemException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in HeatUpAction", e);
         }
 
         if (!canUse(performer, source, target)) {
@@ -185,7 +183,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
                 }
                 performer.getCommunicator().sendNormalServerMessage(String.format("You touch the snowball with the %s and it melts into the %s.", source.getName(), parent.getName()));
             } catch (FailedException | NoSuchTemplateException | NoSuchItemException e) {
-                Requiem.logger.log(Level.SEVERE, ("Error on cool action: " + e));
+                RequiemLogging.logException("[Error] on cool action: ", e);
             }
         }
         if (target.getTemplateId() == ItemList.snowman) {
@@ -202,7 +200,7 @@ public class HeatUpAction implements ModAction, ActionPerformer, BehaviourProvid
             try {
                 ReflectionUtil.callPrivateMethod(target, Item.class.getDeclaredMethod("notifyWatchersTempChange"));
             } catch (IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
-                RequiemLogging.logWarning("Error heating item" + e);
+                RequiemLogging.logException("[ERROR] in action in HeatUpAction]", e);
             }
         }
         return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

@@ -15,6 +15,7 @@ import com.wurmonline.server.players.Player;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.server.spells.Dominate;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.CreatureTweaks;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
@@ -143,7 +144,7 @@ public class TamingStickAction implements ModAction, ActionPerformer, BehaviourP
             }
             return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in TamingStickAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Controlling Rod action error: %s", e.toString()), (byte) 3);
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.", (byte) 3);
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

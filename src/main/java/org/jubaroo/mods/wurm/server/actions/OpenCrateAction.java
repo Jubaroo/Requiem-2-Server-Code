@@ -87,8 +87,8 @@ public class OpenCrateAction implements ModAction {
                 player.getInventory().insertItem(newItem);
                 player.getCommunicator().sendSafeServerMessage("You open the loot box - inside you find a " + newItem.getName().toLowerCase() + ".");
                 Items.destroyItem(crate.getWurmId());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in giveItem in OpenCrateAction", e);
             }
         } else {
 
@@ -115,8 +115,8 @@ public class OpenCrateAction implements ModAction {
                 }
                 Items.destroyItem(crate.getWurmId());
                 player.getCommunicator().sendSafeServerMessage(message.toString());
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (Exception e) {
+                RequiemLogging.logException("[Error] in action in OpenCrateAction", e);
             }
         }
     }

@@ -19,6 +19,7 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.Collections;
 import java.util.List;
@@ -106,7 +107,7 @@ public class LightningStormAction implements WurmServerMod, ItemTypes, MiscConst
                     }
                     this.timeToBeam(tilex, tiley);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in LightningStormAction", e);
                 }
                 return true;
             }

@@ -1274,7 +1274,7 @@ public class CustomItems {
 
     private static void registerStructureTemplates() throws IOException {
         for (StructureTemplate template : ItemConstants.structureTemplates) {
-            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.structure." + template.name);
+            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder(String.format("jubaroo.item.template.structure.%s", template.name));
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), String.format("A %s.", template.name));
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
             itemTemplateBuilder.itemTypes(new short[]{
@@ -1311,7 +1311,7 @@ public class CustomItems {
 
     private static void registerSpawnerTemplates() throws IOException {
         for (SpawnerTemplate template : ItemConstants.spawnerTemplates) {
-            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.spawner." + template.name);
+            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder(String.format("jubaroo.item.template.spawner.%s", template.name));
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), String.format("A %s.", template.name));
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
             itemTemplateBuilder.itemTypes(new short[]{
@@ -1348,7 +1348,7 @@ public class CustomItems {
 
     private static void registerScrollTemplates() throws IOException {
         for (ScrollTemplate template : ItemConstants.scrollTemplates) {
-            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.scroll." + template.name);
+            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder(String.format("jubaroo.item.template.scroll.%s", template.name));
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), template.description);
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
             itemTemplateBuilder.itemTypes(new short[]{
@@ -1379,7 +1379,7 @@ public class CustomItems {
 
     private static void registerEnchantScrollTemplates() throws IOException {
         for (EnchantScrollTemplate template : ItemConstants.enchantScrollTemplates) {
-            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder("jubaroo.item.template.scroll.enchant." + template.name);
+            ItemTemplateBuilder itemTemplateBuilder = new ItemTemplateBuilder(String.format("jubaroo.item.template.scroll.enchant.%s", template.name));
             itemTemplateBuilder.name(template.name, String.format("%ss", template.name), template.description);
             itemTemplateBuilder.descriptions("excellent", "good", "ok", "poor");
             itemTemplateBuilder.itemTypes(new short[]{

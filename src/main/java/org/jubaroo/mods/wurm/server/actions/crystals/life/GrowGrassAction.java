@@ -61,7 +61,7 @@ public class GrowGrassAction implements ModAction, BehaviourProvider, ActionPerf
                 if (counter == 1f) {
                     final int time = 70;
                     performer.getCommunicator().sendNormalServerMessage("You touch the crystal to the dirt.");
-                    Server.getInstance().broadCastAction(performer.getName() + " touches a crystal of life to the dirt in front of " + performer.getHimHerItString() + ".", performer, 10);
+                    Server.getInstance().broadCastAction(String.format("%s touches a crystal of life to the dirt in front of %s.", performer.getName(), performer.getHimHerItString()), performer, 10);
                     performer.getCurrentAction().setTimeLeft(50);
                     performer.sendActionControl("Growing grass", true, 50);
                 } else {
@@ -71,7 +71,7 @@ public class GrowGrassAction implements ModAction, BehaviourProvider, ActionPerf
                         Server.setSurfaceTile(tilex, tiley, Tiles.decodeHeight(tile), Tiles.Tile.TILE_GRASS.id, (byte) 0);
                         Players.getInstance().sendChangedTile(tilex, tiley, true, false);
                         performer.getCommunicator().sendNormalServerMessage("The crystals energy penetrates the ground and grass shoots out of the ground.");
-                        Server.getInstance().broadCastAction("Grass instantly grows in front of " + performer.getName() + ".", performer, 10);
+                        Server.getInstance().broadCastAction(String.format("Grass instantly grows in front of %s.", performer.getName()), performer, 10);
                         Cooldowns.setUsed(playerEffect);
                         return true;
                     }

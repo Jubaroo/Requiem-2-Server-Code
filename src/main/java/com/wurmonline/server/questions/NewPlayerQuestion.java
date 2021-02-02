@@ -74,7 +74,7 @@ public class NewPlayerQuestion implements ModQuestion {
                 TransferUtils.sendPlayerToServer(responder, server.get(), null, (byte) -1);
 
                 RequiemLogging.logInfo(String.format("Created player %s (%d) as %s and sent to %s skip=%s", responder.getName(), responder.getWurmId(), male ? "male" : "female", server.get().name, skip));
-Servers.getServerWithId(1);
+                Servers.getServerWithId(1);
                 ok = true;
             }
         } catch (Exception e) {
@@ -137,7 +137,7 @@ Servers.getServerWithId(1);
                                 .addButton("send", "Create", 100, 20, true)
                         ).toString())
         );
-        responder.getCommunicator().sendBml(300, 370, true, false, bml.toString(), 200, 200, 200, question.getTitle());
+        responder.getCommunicator().sendBml(300, 400, true, false, bml.toString(), 200, 200, 200, question.getTitle());
     }
 
     private static Stream<ServerEntry> getServers(Player player) {

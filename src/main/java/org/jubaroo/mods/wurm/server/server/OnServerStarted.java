@@ -16,6 +16,7 @@ import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 import org.jubaroo.mods.wurm.server.misc.AchievementChanges;
 import org.jubaroo.mods.wurm.server.misc.CustomTitles;
+import org.jubaroo.mods.wurm.server.spells.CustomSpells;
 import org.jubaroo.mods.wurm.server.tools.CmdTools;
 import org.jubaroo.mods.wurm.server.tools.SpellTools;
 import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
@@ -38,9 +39,10 @@ public class OnServerStarted {
             PortalMod.onServerStarted();
             RequiemLogging.logInfo("Registering Creature Loot Drops...");
             LootTable.creatureDied();
+            RequiemLogging.logInfo("Registering Custom Spells...");
+            CustomSpells.registerCustomSpells();
             RequiemLogging.logInfo("Registering Holiday Gifts...");
             RequiemChristmasGift.onServerStarted();
-            RequiemAnniversaryGift.onServerStarted();
             RequiemStPatrickDayGift.onServerStarted();
             RequiemNewYearGift.onServerStarted();
             RequiemCanadaDayGift.onServerStarted();
@@ -60,7 +62,7 @@ public class OnServerStarted {
             AddActions.registerActions();
             RequiemLogging.logInfo("Setting custom creature corpse models...");
             CreatureTweaks.setTemplateVariables();
-            RequiemLogging.logInfo("Setting up Achievement templates...");
+            RequiemLogging.logInfo("Setting up Leaderboard Achievement templates...");
             AchievementChanges.onServerStarted();
             RequiemLogging.logInfo("Editing existing item templates...");
             ItemMod.modifyItemsOnServerStarted();
@@ -69,7 +71,7 @@ public class OnServerStarted {
             for (String name : noCooldownSpells.split(",")) {
                 SpellTools.noSpellCooldown(name);
             }
-            DatabaseHelper.setUniques();
+            //DatabaseHelper.setUniques();
             Titans.initializeTitanTimer();
             //SupplyDepotBehaviour.initializeDepotTimer();
 
@@ -87,10 +89,8 @@ public class OnServerStarted {
             CreatureSpawns.spawnTable();
 
             RequiemLogging.RequiemLoggingMessages();
-        } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
-            RequiemLogging.logException("Error in onServerStarted()", e);
-        } catch (NoSuchCreatureTemplateException | NoSuchFieldException e) {
-            e.printStackTrace();
+        } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchMethodException | InvocationTargetException | NoSuchCreatureTemplateException | NoSuchFieldException e) {
+            RequiemLogging.logException("[ERROR] in onServerStarted in OnServerStarted", e);
         }
     }
 

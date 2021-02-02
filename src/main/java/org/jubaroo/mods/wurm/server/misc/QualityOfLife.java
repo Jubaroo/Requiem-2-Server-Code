@@ -8,6 +8,7 @@ import com.wurmonline.server.creatures.NoSuchCreatureException;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.zones.NoSuchZoneException;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 public class QualityOfLife {
 
@@ -64,7 +65,7 @@ public class QualityOfLife {
         try {
             item.putItemInfrontof(performer);
         } catch (NoSuchCreatureException | NoSuchItemException | NoSuchPlayerException | NoSuchZoneException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in vehicleHook in QualityOfLife", e);
         }
     }
 

@@ -26,7 +26,7 @@ public class LeaderboardCustomQuestion extends Question {
     protected HashMap<Long, Integer> structureFloors = new HashMap<>();
 
     public LeaderboardCustomQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget, int entryNum) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.entryNum = entryNum;
     }
 
@@ -70,7 +70,7 @@ public class LeaderboardCustomQuestion extends Question {
         double skill;
         try {
             dbcon = DbConnector.getPlayerDbCon();
-            ps = dbcon.prepareStatement("SELECT players.name, achievements.counter FROM achievements JOIN players ON achievements.player = players.wurmid WHERE achievements.achievement = 371 AND players.power = 0 ORDER BY achievements.counter DESC LIMIT " + limit);
+            ps = dbcon.prepareStatement(String.format("SELECT players.name, achievements.counter FROM achievements JOIN players ON achievements.player = players.wurmid WHERE achievements.achievement = 371 AND players.power = 0 ORDER BY achievements.counter DESC LIMIT %d", limit));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -119,7 +119,7 @@ public class LeaderboardCustomQuestion extends Question {
         double skill;
         try {
             dbcon = DbConnector.getPlayerDbCon();
-            ps = dbcon.prepareStatement("SELECT players.name, COUNT(titles.wurmid) as Count FROM titles JOIN players ON titles.wurmid = players.wurmid WHERE players.power = 0 GROUP BY titles.wurmid ORDER BY Count DESC LIMIT " + limit);
+            ps = dbcon.prepareStatement(String.format("SELECT players.name, COUNT(titles.wurmid) as Count FROM titles JOIN players ON titles.wurmid = players.wurmid WHERE players.power = 0 GROUP BY titles.wurmid ORDER BY Count DESC LIMIT %d", limit));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -142,7 +142,7 @@ public class LeaderboardCustomQuestion extends Question {
         double affinities;
         try {
             dbcon = DbConnector.getPlayerDbCon();
-            ps = dbcon.prepareStatement("SELECT players.name, sum(affinities.number) as Count FROM affinities JOIN players ON affinities.wurmid = players.wurmid WHERE players.power = 0 GROUP BY players.name ORDER BY Count DESC LIMIT " + limit);
+            ps = dbcon.prepareStatement(String.format("SELECT players.name, sum(affinities.number) as Count FROM affinities JOIN players ON affinities.wurmid = players.wurmid WHERE players.power = 0 GROUP BY players.name ORDER BY Count DESC LIMIT %d", limit));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -165,7 +165,7 @@ public class LeaderboardCustomQuestion extends Question {
         double achievements;
         try {
             dbcon = DbConnector.getPlayerDbCon();
-            ps = dbcon.prepareStatement("SELECT players.name, count(*) AS theCount FROM achievements JOIN players ON achievements.player = players.wurmid WHERE players.power = 0 GROUP BY players.name ORDER BY theCount DESC LIMIT " + limit);
+            ps = dbcon.prepareStatement(String.format("SELECT players.name, count(*) AS theCount FROM achievements JOIN players ON achievements.player = players.wurmid WHERE players.power = 0 GROUP BY players.name ORDER BY theCount DESC LIMIT %d", limit));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -305,7 +305,7 @@ public class LeaderboardCustomQuestion extends Question {
         double stat;
         try {
             dbcon = DbConnector.getZonesDbCon();
-            ps = dbcon.prepareStatement("SELECT name, maxcitizens, mayor FROM villages WHERE disbanded = 0 ORDER BY maxcitizens DESC LIMIT " + limit);
+            ps = dbcon.prepareStatement(String.format("SELECT name, maxcitizens, mayor FROM villages WHERE disbanded = 0 ORDER BY maxcitizens DESC LIMIT %d", limit));
             rs = ps.executeQuery();
             while (rs.next()) {
                 name = rs.getString(1);
@@ -416,9 +416,9 @@ public class LeaderboardCustomQuestion extends Question {
                     name = "Unknown";
                 }
             }
-            line = df.format(values.get(i)) + " - " + name;
+            line = String.format("%s - %s", df.format(values.get(i)), name);
             if (extra.size() >= i + 1) {
-                line = line + " (" + extra.get(i) + ")";
+                line = String.format("%s (%s)", line, extra.get(i));
             }
             if (names.get(i).equals(this.getResponder().getName())) {
                 f.addBoldText(line);

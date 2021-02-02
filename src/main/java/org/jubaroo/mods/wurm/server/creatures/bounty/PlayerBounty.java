@@ -7,6 +7,7 @@ import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.ItemTemplate;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
@@ -67,7 +68,7 @@ public class PlayerBounty {
             player.getInventory().insertItem(enchantOrb);
             player.getCommunicator().sendSafeServerMessage(String.format("Libila takes the %s's soul,  but leaves something else behind...", mob.getNameWithoutPrefixes()));
         } catch (NoSuchTemplateException | FailedException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in rewardPowerfulLoot in PlayerBounty", e);
         }
     }
 
@@ -94,7 +95,7 @@ public class PlayerBounty {
             }
             player.getCommunicator().sendSafeServerMessage(String.format("The spirit recognizes you as a %s warrior, and rewards you accordingly.", fightStrength));
         } catch (NoSuchTemplateException | FailedException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in rewardSpectralLoot in PlayerBounty", e);
         }
     }
 

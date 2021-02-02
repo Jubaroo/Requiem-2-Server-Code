@@ -26,8 +26,6 @@ public class MissionRemoveAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public MissionRemoveAction() {
-        RequiemLogging.logWarning("UnequipAllAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -88,7 +86,7 @@ public class MissionRemoveAction implements ModAction {
                                 ReflectionUtil.callPrivateMethod(EpicServerStatus.class, ReflectionUtil.getMethod(EpicServerStatus.class, "destroyLastMissionForEntity"), entityId);
                                 break;
                             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] action in MissionRemoveAction", e);
                             }
                         }
                         i++;

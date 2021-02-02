@@ -17,6 +17,7 @@ import com.wurmonline.server.zones.AreaSpellEffect;
 import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
@@ -27,10 +28,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Logger;
 
 public class Titans {
-    public static Logger logger = Logger.getLogger(Titans.class.getName());
     protected static boolean initializedTitans = false;
     public static long titanRespawnTime = TimeConstants.HOUR_MILLIS * (long) RandomUtils.getRandomIntegerInRange(70, 90);
     private static boolean detected = false;
@@ -85,7 +84,7 @@ public class Titans {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        logger.info("Initialized Titan timer: " + lastSpawnedTitan);
+        RequiemLogging.logInfo(String.format("Initialized Titan timer: %d", lastSpawnedTitan));
         initializedTitans = true;
     }
 
@@ -288,7 +287,7 @@ public class Titans {
                 return;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in lilithPainRainAttack in Titans", e);
         }
         lCret.setTarget(titan.getWurmId(), false);
     }
@@ -373,7 +372,7 @@ public class Titans {
                     target = targets.get(Server.rand.nextInt(targets.size()));
                 }
                 if (target == null) {
-                    logger.info("Something went absolutely horribly wrong and there is no target for the Titan.");
+                    RequiemLogging.logWarning("Something went absolutely horribly wrong and there is no target for the Titan.");
                 }
                 int damage = target.getStatus().damage;
                 int minhealth = 65435;
@@ -384,7 +383,7 @@ public class Titans {
                     try {
                         target.addWoundOfType(titan, Wound.TYPE_BURN, target.getBody().getRandomWoundPos(), false, 1.0f, false, maxdam, 0f, 0f, true, true);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        RequiemLogging.logException("[Error] in performBasicAbility in Titans", e);
                     }
                 }
             }
@@ -402,7 +401,7 @@ public class Titans {
             spellName = "Summon Fiend";
         }
         if (templateType == -10) {
-            logger.severe("[ERROR]: Template type not set in summonChampions()");
+            RequiemLogging.logWarning("[ERROR]: Template type not set in summonChampions()");
             return;
         }
         try {
@@ -456,7 +455,7 @@ public class Titans {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in summonChampions in Titans", e);
         }
     }
 
@@ -471,7 +470,7 @@ public class Titans {
             spellName = "Summon Spider";
         }
         if (templateType == -10) {
-            logger.severe("[ERROR]: Template type not set in summonMinions()");
+            RequiemLogging.logWarning("[ERROR]: Template type not set in summonMinions()");
             return;
         }
         try {
@@ -525,7 +524,7 @@ public class Titans {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in summonMinions in Titans", e);
         }
     }
 
@@ -741,7 +740,7 @@ public class Titans {
         for (Creature c : crets) {
             if (isTitan(c) && !titans.contains(c)) {
                 titans.add(c);
-                logger.info(String.format("Existing titan identified (%s). Adding to titan list.", c.getName()));
+                RequiemLogging.logInfo(String.format("Existing titan identified (%s). Adding to titan list.", c.getName()));
             }
         }
 		/*for(Creature c : titans){
@@ -753,14 +752,14 @@ public class Titans {
         while (i < titans.size()) {
             if (titans.get(i).isDead()) {
                 titans.remove(titans.get(i));
-                logger.info(String.format("Titan was found dead (%s). Removing from titan list.", titans.get(i).getName()));
+                RequiemLogging.logInfo(String.format("Titan was found dead (%s). Removing from titan list.", titans.get(i).getName()));
             } else {
                 i++;
             }
         }
         if (titans.isEmpty()) {
             if (lastSpawnedTitan + titanRespawnTime < System.currentTimeMillis()) {
-                logger.info("No Titan was found, and the timer has expired. Spawning a new one.");
+                RequiemLogging.logInfo("No Titan was found, and the timer has expired. Spawning a new one.");
                 boolean found = false;
                 int spawnX = 2048;
                 int spawnY = 2048;
@@ -799,8 +798,7 @@ public class Titans {
                     lastSpawnedTitan = System.currentTimeMillis();
                     updateLastSpawnedTitan();
                 } catch (Exception e) {
-                    logger.severe("Failed to create Titan.");
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] Failed to create Titan.", e);
                 }
             }
         } else {

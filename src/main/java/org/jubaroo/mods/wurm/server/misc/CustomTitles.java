@@ -12,7 +12,7 @@ import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.CustomChat;
-import org.jubaroo.mods.wurm.server.server.constants.SkillConstants;
+import org.jubaroo.mods.wurm.server.server.constants.SkillIds;
 
 
 public class CustomTitles {
@@ -69,12 +69,13 @@ public class CustomTitles {
     public static int RIFT_WARRIOR = 12015;
     public static int RIFT_SLAYER = 12016;
     public static int FACEBREYKER = 12017;
+    public static int WIKI_MASTER = 12018;
 
     public static void register() {
         RequiemLogging.logInfo("Registering Custom Titles");
         ModTitles.addTitle(DONOR, "Donor");
         ModTitles.addTitle(PATREON, "Patreon");
-        ModTitles.addTitle(SERPENTS_SIN, "the Serpent's Sin");
+        ModTitles.addTitle(SERPENTS_SIN, "Serpent's Sin");
         ModTitles.addTitle(DAME_DE_DRAGONS, "Dame de Dragons");
         ModTitles.addTitle(TITAN_SLAYER, "Titanslayer");
         ModTitles.addTitle(SPECTRAL, "Spectral");
@@ -86,23 +87,23 @@ public class CustomTitles {
         ModTitles.addTitle(FLOYDIAN, "Floydian");
         ModTitles.addTitle(APOTHECARY, "Apothecary");
         ModTitles.addTitle(REQUIEM, "of Requiem");
-        ModTitles.addTitle(CRAZY_CAT, "the Crazy Cat Man", "the Crazy Cat Lady");
+        ModTitles.addTitle(CRAZY_CAT, "Crazy Cat Man", "Crazy Cat Lady");
         ModTitles.addTitle(ZEALOT_LIBILA, "Zealot of Libila");
         ModTitles.addTitle(ZEALOT_FO, "Zealot of Fo");
         ModTitles.addTitle(ZEALOT_MAG, "Zealot of Magranon");
         ModTitles.addTitle(ZEALOT_VYNORA, "Zealot of Vynora");
-        ModTitles.addTitle(DREAMER, "the Dreamer");
-        ModTitles.addTitle(FEARLESS, "the Fearless");
-        ModTitles.addTitle(TITANS, "Herald of the Titans");
+        ModTitles.addTitle(DREAMER, "Dreamer");
+        ModTitles.addTitle(FEARLESS, "Fearless");
+        ModTitles.addTitle(TITANS, "Herald of Titans");
         ModTitles.addTitle(HAND_OF_ZEUS, "Hand of Zeus");
         ModTitles.addTitle(WARLORD, "Warlord of Requiem");
-        ModTitles.addTitle(DEVOTED, "the Devoted");
-        ModTitles.addTitle(ELDER, "the Elder");
-        ModTitles.addTitle(PATRIOT, "the Patriot");
-        ModTitles.addTitle(SALTY, "the Salty");
-        ModTitles.addTitle(ANCIENT, "the Ancient");
+        ModTitles.addTitle(DEVOTED, "Devoted");
+        ModTitles.addTitle(ELDER, "Elder");
+        ModTitles.addTitle(PATRIOT, "Patriot");
+        ModTitles.addTitle(SALTY, "Salty");
+        ModTitles.addTitle(ANCIENT, "Ancient");
         ModTitles.addTitle(TREASURE_GOBLIN, "Treasure Goblin Hunter", "Treasure Goblin Huntress");
-        ModTitles.addTitle(EXPERIENCED, "the Experienced");
+        ModTitles.addTitle(EXPERIENCED, "Experienced");
         ModTitles.addTitle(GAME_MASTER, "Game Master");
         ModTitles.addTitle(DEVELOPER, "Developer");
         ModTitles.addTitle(MACRO_ROYALTY, "Macro King", "Macro Queen");
@@ -112,20 +113,20 @@ public class CustomTitles {
         ModTitles.addTitle(PROPHET_EAR, "Prophet Ear");
         ModTitles.addTitle(KOZA, "Koza");
         ModTitles.addTitle(HOME_DECORATOR, "Home Decorator");
-        ModTitles.addTitle(TAXIDERMY_MINOR, "Junior Taxidermist", SkillConstants.skillTaxidermy, "MINOR");
-        ModTitles.addTitle(TAXIDERMY_NORMAL, "Anthropomorphic Taxidermist", SkillConstants.skillTaxidermy, "NORMAL");
-        ModTitles.addTitle(TAXIDERMY_MASTER, "Head Hunter", SkillConstants.skillTaxidermy, "MASTER");
-        ModTitles.addTitle(TAXIDERMY_EPIC, "Epic Taxidermist", SkillConstants.skillTaxidermy, "EPIC");
-        ModTitles.addTitle(TAXIDERMY_LEGENDARY, "Legendary Taxidermist", SkillConstants.skillTaxidermy, "LEGENDARY");
-        ModTitles.addTitle(GEMCRAFTING_MINOR, "Facetor", SkillConstants.skillGemCrafting, "MINOR");
-        ModTitles.addTitle(GEMCRAFTING_NORMAL, "Gem Stone Cutter", SkillConstants.skillGemCrafting, "NORMAL");
-        ModTitles.addTitle(GEMCRAFTING_MASTER, "Diamond Driller", SkillConstants.skillGemCrafting, "MASTER");
-        ModTitles.addTitle(GEMCRAFTING_EPIC, "Gem Expert", SkillConstants.skillGemCrafting, "EPIC");
-        ModTitles.addTitle(GEMCRAFTING_LEGENDARY, "Gemologist", SkillConstants.skillGemCrafting, "LEGENDARY");
+        ModTitles.addTitle(TAXIDERMY_MINOR, "Junior Taxidermist", SkillIds.skillTaxidermy, "MINOR");
+        ModTitles.addTitle(TAXIDERMY_NORMAL, "Anthropomorphic Taxidermist", SkillIds.skillTaxidermy, "NORMAL");
+        ModTitles.addTitle(TAXIDERMY_MASTER, "Head Hunter", SkillIds.skillTaxidermy, "MASTER");
+        ModTitles.addTitle(TAXIDERMY_EPIC, "Epic Taxidermist", SkillIds.skillTaxidermy, "EPIC");
+        ModTitles.addTitle(TAXIDERMY_LEGENDARY, "Legendary Taxidermist", SkillIds.skillTaxidermy, "LEGENDARY");
+        ModTitles.addTitle(GEMCRAFTING_MINOR, "Facetor", SkillIds.skillGemCrafting, "MINOR");
+        ModTitles.addTitle(GEMCRAFTING_NORMAL, "Gem Stone Cutter", SkillIds.skillGemCrafting, "NORMAL");
+        ModTitles.addTitle(GEMCRAFTING_MASTER, "Diamond Driller", SkillIds.skillGemCrafting, "MASTER");
+        ModTitles.addTitle(GEMCRAFTING_EPIC, "Gem Expert", SkillIds.skillGemCrafting, "EPIC");
+        ModTitles.addTitle(GEMCRAFTING_LEGENDARY, "Gemologist", SkillIds.skillGemCrafting, "LEGENDARY");
         ModTitles.addTitle(RIFT_WARRIOR, "Rift Warrior");
         ModTitles.addTitle(RIFT_SLAYER, "Rift Slayer");
         ModTitles.addTitle(FACEBREYKER, "Facebreykerer");
-
+        ModTitles.addTitle(WIKI_MASTER, "Wiki Master");
     }
 
     public static void playerLoginTitles(Player player) {

@@ -19,7 +19,7 @@ public class NewsletterQuestion extends Question {
     }
 
     public NewsletterQuestion(final Creature aResponder, final String aTitle, final String aQuestion, final long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.properlySent = false;
     }
 

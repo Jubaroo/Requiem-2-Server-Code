@@ -25,8 +25,6 @@ public class ArrowPackUnpackAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public ArrowPackUnpackAction() {
-        RequiemLogging.logWarning("ArrowPackUnpackAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -82,7 +80,7 @@ public class ArrowPackUnpackAction implements ModAction {
                         }
                         if (counter == 1f) {
                             performer.getCommunicator().sendNormalServerMessage("You begin to unpack your arrows.");
-                            Server.getInstance().broadCastAction(performer.getName() + " begins unpacking " + performer.getHisHerItsString() + " arrows.", performer, 5);
+                            Server.getInstance().broadCastAction(String.format("%s begins unpacking %s arrows.", performer.getName(), performer.getHisHerItsString()), performer, 5);
                             act.setTimeLeft(50);
                             performer.sendActionControl("Unpacking", true, act.getTimeLeft());
                         } else if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
@@ -110,7 +108,7 @@ public class ArrowPackUnpackAction implements ModAction {
                             while (i < 40) {
                                 arrow = ItemFactory.createItem(arrowTemplate, quality, performer.getName());
                                 arrow.setMaterial(target.getMaterial());
-                                arrow.setRarity(target.getRarity());
+                                //arrow.setRarity(target.getRarity());
                                 if (!spellEffects.isEmpty()) {
                                     for (byte b : spellEffects.keySet()) {
                                         ItemSpellEffects arrowEffs = arrow.getSpellEffects();
@@ -125,7 +123,7 @@ public class ArrowPackUnpackAction implements ModAction {
                                 i++;
                             }
                             performer.getCommunicator().sendNormalServerMessage("You unpack your arrows into a usable quiver.");
-                            Server.getInstance().broadCastAction(performer.getName() + " unpacks " + performer.getHisHerItsString() + " arrows into a quiver.", performer, 5);
+                            Server.getInstance().broadCastAction(String.format("%s unpacks %s arrows into a quiver.", performer.getName(), performer.getHisHerItsString()), performer, 5);
                             Items.destroyItem(target.getWurmId());
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
@@ -134,7 +132,7 @@ public class ArrowPackUnpackAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in ArrowPackUnpackAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }
@@ -145,4 +143,5 @@ public class ArrowPackUnpackAction implements ModAction {
             }
         };
     }
+
 }

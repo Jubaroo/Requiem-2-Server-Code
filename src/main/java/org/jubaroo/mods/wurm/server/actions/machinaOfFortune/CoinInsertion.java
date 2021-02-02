@@ -10,6 +10,7 @@ import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.skills.SkillList;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
@@ -293,7 +294,7 @@ class CoinInsertion {
                     break;
             }
         } catch (NoSuchTemplateException | FailedException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in coinInsert in CoinInsertion", e);
             comm.sendNormalServerMessage(String.format("Machina Of Fortune action error: %s", e.toString()));
             comm.sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
         }

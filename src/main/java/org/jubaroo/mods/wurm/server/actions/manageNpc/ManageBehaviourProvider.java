@@ -19,7 +19,7 @@ public class ManageBehaviourProvider implements BehaviourProvider {
 
     public static boolean canManage(Creature performer, Creature target) {
         if (performer.getPower() >= MiscConstants.POWER_DEMIGOD) {
-            target.getTemplate().getTemplateId();
+            target.isNpc();
         }
         return false;
     }

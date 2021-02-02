@@ -1,5 +1,6 @@
 package org.jubaroo.mods.wurm.server.actions;
 
+import com.wurmonline.server.TimeConstants;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.ActionTypesProxy;
@@ -44,7 +45,7 @@ public class BartenderFoodAction implements ModAction {
             }
 
             public List<ActionEntry> getBehavioursFor(final Creature performer, final Item subject, final Creature target) {
-                if (performer instanceof Player && target != null && target.getName().contains(npcName)) {
+                if (performer instanceof Player && target != null && target.getName().contains(npcName) && performer.getPlayingTime() > TimeConstants.DAY_MILLIS) {
                     return Collections.singletonList(BartenderFoodAction.this.actionEntry);
                 }
                 return null;

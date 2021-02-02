@@ -1,8 +1,8 @@
 package org.jubaroo.mods.wurm.server.server;
 
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
-import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 
 import java.util.Properties;
 
@@ -34,8 +34,8 @@ public class Config {
         RequiemLogging.logInfo("configure called");
         ASCIIDragon();
         // ========================== Discord ===========================
-        DiscordHandler.botToken = properties.getProperty("botToken");
-        DiscordHandler.serverName = properties.getProperty("serverName");
+        ModConfig.botToken = properties.getProperty("botToken");
+        ModConfig.serverName = properties.getProperty("serverName");
         CustomChannel.GLOBAL.discordName = properties.getProperty("globalName");
         CustomChannel.HELP.discordName = properties.getProperty("helpName");
         CustomChannel.TICKETS.discordName = properties.getProperty("ticketName");

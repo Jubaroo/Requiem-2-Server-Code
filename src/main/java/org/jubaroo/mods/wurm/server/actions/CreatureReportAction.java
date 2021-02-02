@@ -22,8 +22,6 @@ public class CreatureReportAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public CreatureReportAction() {
-        RequiemLogging.logWarning("CreatureReportAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,

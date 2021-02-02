@@ -7,6 +7,7 @@ import com.wurmonline.server.behaviours.MethodsCreatures;
 import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.NoSuchCreatureException;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.KillCreatureAction;
 
 import java.util.Properties;
@@ -20,7 +21,7 @@ public class DestroyCreatureQuestion extends Question {
     }
 
     public DestroyCreatureQuestion(final Creature aResponder, final String aTitle, final String aQuestion, final long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.properlySent = false;
     }
 
@@ -38,7 +39,7 @@ public class DestroyCreatureQuestion extends Question {
             }
         } catch (NoSuchPlayerException | NoSuchCreatureException | NumberFormatException ex2) {
             this.getResponder().getCommunicator().sendNormalServerMessage("That Id doesn't exist or is just messed up, get it right!");
-            ex2.printStackTrace();
+            RequiemLogging.logException("[ERROR] in answer in DestroyCreatureQuestion", ex2);
         }
     }
 

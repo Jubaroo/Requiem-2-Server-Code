@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AchievementChanges {
     public static HashMap<Integer, AchievementTemplate> goodAchievements = new HashMap<>();
-    private static final ArrayList<Integer> blacklist = new ArrayList<>();
+    public static ArrayList<Integer> blacklist = new ArrayList<>();
 
     protected static int getNumber(String name) {
         AchievementTemplate temp = Achievement.getTemplate(name);
@@ -22,11 +22,11 @@ public class AchievementChanges {
         return -1;
     }
 
-    private static void blacklist(String name) {
+    protected static void blacklist(String name) {
         blacklist.add(getNumber(name));
     }
 
-    private static void blacklist(int number) {
+    protected static void blacklist(int number) {
         blacklist.add(number);
     }
 
@@ -41,7 +41,7 @@ public class AchievementChanges {
         return ach;
     }
 
-    private static void generateBlacklist() {
+    protected static void generateBlacklist() {
         blacklist("Adulterator");
         blacklist("All Hell");
         blacklist("Ambitious");
@@ -158,7 +158,7 @@ public class AchievementChanges {
         blacklist("distilled liters");
     }
 
-    private static void setRequirement(AchievementTemplate temp, String req) {
+    protected static void setRequirement(AchievementTemplate temp, String req) {
         try {
             ReflectionUtil.setPrivateField(temp, ReflectionUtil.getField(temp.getClass(), "requirement"), req);
         } catch (IllegalAccessException | NoSuchFieldException e) {
@@ -166,7 +166,7 @@ public class AchievementChanges {
         }
     }
 
-    private static void addRequirements(AchievementTemplate temp) {
+    protected static void addRequirements(AchievementTemplate temp) {
         if (temp.getName().equals("Meoww!")) {
             setRequirement(temp, "Kill a Wild Cat");
         }
@@ -241,7 +241,7 @@ public class AchievementChanges {
         }
     }
 
-    private static void fixName(AchievementTemplate temp) {
+    protected static void fixName(AchievementTemplate temp) {
         if (temp.getName().contains("Invisible:")) {
             temp.setName(temp.getName().replaceAll("Invisible:", ""));
         }
@@ -314,12 +314,13 @@ public class AchievementChanges {
                 if (!temp.getRequirement().equals("") && !temp.isForCooking() && !blacklist.contains(i)) {
                     fixName(temp);
                     goodAchievements.put(i, temp);
-                    RequiemLogging.logInfo(temp.getNumber() + ": " + temp.getName() + " - " + temp.getDescription() + " (" + temp.getRequirement() + ")");
+                    RequiemLogging.logInfo(String.format("%d: %s - %s (%s)", temp.getNumber(), temp.getName(), temp.getDescription(), temp.getRequirement()));
                 }
             }
-            RequiemLogging.logInfo("Total achievements loaded into system: " + goodAchievements.size());
+            RequiemLogging.logInfo(String.format("Total achievements loaded into system: %d", goodAchievements.size()));
         } catch (IllegalAccessException | NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
+
 }

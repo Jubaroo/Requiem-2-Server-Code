@@ -19,6 +19,7 @@ import com.wurmonline.server.tutorial.MissionPerformed;
 import com.wurmonline.server.tutorial.MissionPerformer;
 import com.wurmonline.shared.constants.EffectConstants;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.communication.discord.DiscordHandler;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
@@ -153,7 +154,7 @@ public class TreasureHuntChestAction implements ModAction {
                     }
                     return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in TreasureHuntChestAction", e);
                     return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

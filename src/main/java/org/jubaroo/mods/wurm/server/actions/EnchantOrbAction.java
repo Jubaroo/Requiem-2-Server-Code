@@ -27,8 +27,6 @@ public class EnchantOrbAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public EnchantOrbAction() {
-        RequiemLogging.logWarning("EnchantOrbAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -133,7 +131,7 @@ public class EnchantOrbAction implements ModAction {
                                 }
                                 canEnchant = ReflectionUtil.callPrivateMethod(spell, m, player.getChannelingSkill(), performer, target);
                             } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[ERROR] in action in EnchantOrbAction", e);
                             }
                         }
                         if (canEnchant) {

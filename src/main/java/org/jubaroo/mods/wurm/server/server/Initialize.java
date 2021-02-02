@@ -312,7 +312,7 @@ public class Initialize {
                 }
             });
         } catch (CannotCompileException | NotFoundException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in createInvocationHandler for unloadCargo in Initialize", e);
         }
 
         try {
@@ -428,8 +428,8 @@ public class Initialize {
                                         //Requiem.debug("decrease because barding: 0.2");
                                     }
                                 }
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
+                            } catch (Exception e) {
+                                RequiemLogging.logException("[Error] in createInvocationHandler for getMountSpeedPercent in Initialize", e);
                             }
                         }
                         //Requiem.debug("new speed: " + speed);

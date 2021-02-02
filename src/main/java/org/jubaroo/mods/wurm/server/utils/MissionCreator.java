@@ -32,7 +32,7 @@ public class MissionCreator {
                         RequiemLogging.logInfo(String.format("Detected an existing current mission for %s that was completed or expired. Removing now.", Deities.getDeityName(entityId)));
                         ReflectionUtil.callPrivateMethod(EpicServerStatus.class, ReflectionUtil.getMethod(EpicServerStatus.class, "destroyLastMissionForEntity"), entityId);
                     } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                        e.printStackTrace();
+                        RequiemLogging.logException("[ERROR] in pollMissions in MissionCreator", e);
                     }
                 }
             }
@@ -73,7 +73,7 @@ public class MissionCreator {
         try {
             info.setMoney(info.money + 2000 + Server.rand.nextInt(2000));
         } catch (IOException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in awardMissionBonus in MissionCreator", e);
         }
     }
 

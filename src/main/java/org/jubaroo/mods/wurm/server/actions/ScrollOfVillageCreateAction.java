@@ -9,6 +9,7 @@ import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.villages.Village;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 
@@ -75,12 +76,12 @@ public class ScrollOfVillageCreateAction implements ModAction, ActionPerformer, 
                 float bonus = v.getFaithCreateValue() + RandomUtils.getRandomIntegerInRange(1, 10);
                 v.setFaithCreate(bonus);
                 Items.destroyItem(source.getWurmId());
-                performer.getCommunicator().sendNormalServerMessage("The scroll crumbles to dust as you read the last word. You have added a faith bonus to  your settlement: Enchanting faith bonus is now (" + nf.format(v.getFaithCreateValue()) + "): " + nf.format(v.getFaithCreateBonus()) + "%, Rarity window: " + (int) Math.min(10.0f, v.getFaithCreateValue()) + " bonus seconds.");
+                performer.getCommunicator().sendNormalServerMessage(String.format("The scroll crumbles to dust as you read the last word. You have added a faith bonus to  your settlement: Enchanting faith bonus is now (%s): %s%%, Rarity window: %d bonus seconds.", nf.format(v.getFaithCreateValue()), nf.format(v.getFaithCreateBonus()), (int) Math.min(10.0f, v.getFaithCreateValue())));
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
             return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in ScrollOfVillageCreateAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: %s", ScrollOfVillageCreateAction.class.getName(), e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

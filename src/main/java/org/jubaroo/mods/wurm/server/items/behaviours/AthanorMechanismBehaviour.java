@@ -89,8 +89,7 @@ public class AthanorMechanismBehaviour {
                 RequiemLogging.logInfo(String.format("Athanor Mechanism shifted to x: %s, y: %s", targetLocation.x, targetLocation.y));
             }
         } catch (Exception e) {
-            RequiemLogging.logWarning(String.format("Error in phaseShiftAthanorMechanism - %s", e.toString()));
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in phaseShiftAthanorMechanism in AthanorMechanismBehaviour", e);
         }
     }
 

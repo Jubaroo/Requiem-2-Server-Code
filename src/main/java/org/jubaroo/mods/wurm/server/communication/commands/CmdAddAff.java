@@ -30,7 +30,7 @@ public class CmdAddAff extends WurmCmd {
             String mesg = String.format("affinity set on %s %s: %d", argv[1], argv[2], skill.affinity);
             comm.sendNormalServerMessage(mesg);
         } catch (Throwable e) {
-            comm.sendNormalServerMessage("error: " + e.toString());
+            comm.sendNormalServerMessage("[ERROR]: " + e.toString());
             return true;
         }
         return true;

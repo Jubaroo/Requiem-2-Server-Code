@@ -8,6 +8,7 @@ import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.zones.Zones;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.portals.ActivatePortalAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
@@ -29,7 +30,7 @@ public class ActivatePortalQuestion extends Question {
     }
 
     public ActivatePortalQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
 
@@ -60,9 +61,9 @@ public class ActivatePortalQuestion extends Question {
                     logger.info(String.format("Removing %d iron from %s for activating portal. portal wurmid %d", coins, getResponder().getName(), PortalMod.myMapPortal.get("0")));
                     getResponder().getCommunicator().sendNormalServerMessage(String.format("Removed %d iron from your bank to activate portal at %s", coins, v.getName()));
 
-                } catch (IOException e1) {
+                } catch (IOException e) {
                     // TODO Auto-generated catch block
-                    e1.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in TreasureHuntChestAction", e);
                 }
 
                 Connection dbcon3;

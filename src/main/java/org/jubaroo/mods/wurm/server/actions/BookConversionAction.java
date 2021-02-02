@@ -66,7 +66,7 @@ public class BookConversionAction implements ModAction {
                     BookConversionQuestion bcq = new BookConversionQuestion(performer, "Faith Conversion", "Which faith would you like to conver to?", performer.getWurmId(), target);
                     bcq.sendQuestion();
                 } else {
-                    RequiemLogging.logWarning("Somehow a non-player activated a " + target.getName() + "...");
+                    RequiemLogging.logWarning(String.format("Somehow a non-player activated a %s...", target.getName()));
                 }
                 return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }

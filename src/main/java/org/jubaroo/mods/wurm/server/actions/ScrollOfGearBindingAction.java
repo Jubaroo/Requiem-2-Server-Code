@@ -8,6 +8,7 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 
@@ -79,15 +80,16 @@ public class ScrollOfGearBindingAction implements ModAction, ActionPerformer, Be
                 target.setHasNoDecay(true);
                 target.setIsIndestructible(true);
                 target.setIsNoDrop(true);
+                // TODO set a data field to indicate is is soulbound for use with hammer of unbinding
                 target.savePermissions();
-                target.setName(String.format("Soulbound %s", target.getName()));
+                target.setName(String.format("%s (soulbound)", target.getName()));
                 Items.destroyItem(source.getWurmId());
                 performer.getCommunicator().sendNormalServerMessage(String.format("The scroll crumbles to dust as you read the last word. and the %s is now bound to your soul.", target.getName()));
                 return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
             }
             return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in DisintegrationRodAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: %s", actStr, e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform a GM by opening a ticket (/support) and provide the message above. Thank you.");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);

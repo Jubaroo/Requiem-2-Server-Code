@@ -24,8 +24,6 @@ public class MissionAddAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public MissionAddAction() {
-        RequiemLogging.logWarning("UnequipAllAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,

@@ -164,7 +164,7 @@ public abstract class ArgumentTokenizer {
                         }
                         break;
                     default:
-                        throw new IllegalStateException("ArgumentTokenizer state " + state + " is invalid!");
+                        throw new IllegalStateException(String.format("ArgumentTokenizer state %d is invalid!", state));
                 }
             }
         }
@@ -181,7 +181,7 @@ public abstract class ArgumentTokenizer {
         // Format each argument if we've been told to stringify them
         if (stringify) {
             for (int i = 0; i < argList.size(); i++) {
-                argList.set(i, "\"" + _escapeQuotesAndBackslashes(argList.get(i)) + "\"");
+                argList.set(i, String.format("\"%s\"", _escapeQuotesAndBackslashes(argList.get(i))));
             }
         }
         return argList;

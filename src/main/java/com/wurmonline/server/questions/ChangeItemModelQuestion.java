@@ -7,6 +7,7 @@ import com.wurmonline.server.items.ItemTemplate;
 import org.gotti.wurmunlimited.modloader.ReflectionUtil;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestion;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.Properties;
 
@@ -44,7 +45,7 @@ public class ChangeItemModelQuestion implements ModQuestion {
                 ReflectionUtil.setPrivateField(renameTarget.getTemplate(), ReflectionUtil.getField(ItemTemplate.class, "modelName"), renameText);
                 renameTarget.updateModelNameOnGroundItem();
             } catch (Throwable e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[ERROR] in sendQuestion in ChangeItemModelQuestion", e);
             }
         }
     }

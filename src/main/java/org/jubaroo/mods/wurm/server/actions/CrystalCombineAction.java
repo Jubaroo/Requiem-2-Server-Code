@@ -101,11 +101,11 @@ public class CrystalCombineAction implements ModAction {
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
                     } else {
-                        RequiemLogging.logWarning("Somehow a non-player activated a custom item (" + source.getTemplateId() + ")...");
+                        RequiemLogging.logWarning(String.format("Somehow a non-player activated a custom item (%d)...", source.getTemplateId()));
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in CrystalCombineAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

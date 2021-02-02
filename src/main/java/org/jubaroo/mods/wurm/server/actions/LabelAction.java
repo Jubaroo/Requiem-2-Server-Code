@@ -24,8 +24,6 @@ public class LabelAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public LabelAction() {
-        RequiemLogging.logWarning("LabelAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -107,7 +105,7 @@ public class LabelAction implements ModAction {
                     }
                     return true;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in LabelAction", e);
                     return true;
                 }
             }

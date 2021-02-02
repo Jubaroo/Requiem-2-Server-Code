@@ -24,8 +24,6 @@ public class TreasureBoxAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public TreasureBoxAction() {
-        RequiemLogging.logWarning("TreasureBoxAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -117,7 +115,7 @@ public class TreasureBoxAction implements ModAction {
                     }
                     return false;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in action in TreasureBoxAction", e);
                     return true;
                 }
             }

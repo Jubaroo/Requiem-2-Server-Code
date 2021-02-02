@@ -50,7 +50,7 @@ public class CmdMassRefresh extends WurmCmd {
                 comm.sendNormalServerMessage(message);
             }
         } catch (Throwable e) {
-            comm.sendNormalServerMessage(String.format("error: %s", e.toString()));
+            comm.sendNormalServerMessage(String.format("[ERROR]: %s", e.toString()));
         }
     }
 

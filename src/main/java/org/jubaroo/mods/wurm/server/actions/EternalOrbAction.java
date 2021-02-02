@@ -20,8 +20,6 @@ public class EternalOrbAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public EternalOrbAction() {
-        RequiemLogging.logWarning("EternalOrbAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -105,7 +103,7 @@ public class EternalOrbAction implements ModAction {
                         performer.getInventory().insertItem(enchantOrb, true);
                         Items.destroyItem(source.getWurmId());
                     } catch (FailedException | NoSuchTemplateException e) {
-                        e.printStackTrace();
+                        RequiemLogging.logException("[ERROR] in action in EternalOrbAction", e);
                     }
                 } else {
                     RequiemLogging.logInfo("Somehow a non-player activated an Enchant Orb...");

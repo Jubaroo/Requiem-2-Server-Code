@@ -464,7 +464,7 @@ public class RequiemLogging {
                 logInfo("----------------------------------------");
             }
         } catch (NoSuchPlayerException | IOException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in CreatureDeathLogging in RequiemLogging", e);
         }
     }
 

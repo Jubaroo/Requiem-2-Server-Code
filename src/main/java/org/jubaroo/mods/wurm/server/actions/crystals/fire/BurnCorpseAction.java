@@ -95,7 +95,7 @@ public class BurnCorpseAction implements ModAction, ActionPerformer, BehaviourPr
                     performer.getCurrentAction().setTimeLeft(30);
                     performer.sendActionControl("burning", true, 30);
                     comm.sendNormalServerMessage(String.format("You touch the crystal to the %s and it bursts into flames!", source.getName()));
-                    Server.getInstance().broadCastAction(performer.getName() + " touches the " + source.getName() + " to the " + target.getName() + " and it bursts into flames!", performer, 5);
+                    Server.getInstance().broadCastAction(String.format("%s touches the %s to the %s and it bursts into flames!", performer.getName(), source.getName(), target.getName()), performer, 5);
                     performer.playAnimation("place", false);
                     comm.sendAddEffect(target.getWurmId(), target.getWurmId(), EffectConstants.EFFECT_GENERIC, target.getPosX(), target.getPosY(), target.getPosZ(), (byte) 0, "magicfire", 7, 0f);
                 } else {
@@ -117,7 +117,7 @@ public class BurnCorpseAction implements ModAction, ActionPerformer, BehaviourPr
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logWarning("search action error" + e);
+            RequiemLogging.logException("[ERROR] in action in BurnCorpseAction]", e);
             return true;
         }
     }

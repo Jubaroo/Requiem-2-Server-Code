@@ -9,10 +9,8 @@ import com.wurmonline.server.items.ItemTypes;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.questions.PortalQuestion;
 import org.gotti.wurmunlimited.modloader.interfaces.WurmServerMod;
-import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
-import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
-import org.gotti.wurmunlimited.modsupport.actions.ModAction;
-import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
 import java.util.Collections;
@@ -71,19 +69,15 @@ public class PortalAction implements WurmServerMod, ItemTypes, MiscConstants, Mo
     @Override
     public boolean action(Action act, Creature performer, Item target, short action, float counter) {
         if (!PortalMod.checkAction(target)) {
-            return false;
+            return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
         try {
-            PortalQuestion aq = new PortalQuestion(
-                    performer,
-                    "Portal Menu",
-                    "Where would you like to portal to?\n\n",
-                    performer.getWurmId());
-
+            PortalQuestion aq = new PortalQuestion(performer, "Portal Menu", "Where would you like to portal to?", performer.getWurmId());
             aq.sendQuestion();
             return true;
-        } catch (Exception e) {
-            return false;
+        } catch (Exception | NoSuchMethodError e) {
+            RequiemLogging.logException("[Error] in action in PortalAction", e);
+            return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
     }
 

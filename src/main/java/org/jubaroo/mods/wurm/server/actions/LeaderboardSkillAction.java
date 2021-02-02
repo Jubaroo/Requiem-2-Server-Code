@@ -18,8 +18,6 @@ public class LeaderboardSkillAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public LeaderboardSkillAction() {
-        RequiemLogging.logWarning("LeaderboardSkillAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,

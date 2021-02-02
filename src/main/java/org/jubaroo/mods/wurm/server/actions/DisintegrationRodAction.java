@@ -16,7 +16,7 @@ import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class DisintegrationRodAction implements ModAction {
@@ -24,8 +24,6 @@ public class DisintegrationRodAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public DisintegrationRodAction() {
-        RequiemLogging.logWarning("DisintegrationRodAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -39,7 +37,6 @@ public class DisintegrationRodAction implements ModAction {
         ModActions.registerAction(actionEntry);
     }
 
-
     @Override
     public BehaviourProvider getBehaviourProvider() {
         return new BehaviourProvider() {
@@ -47,7 +44,7 @@ public class DisintegrationRodAction implements ModAction {
             @Override
             public List<ActionEntry> getBehavioursFor(Creature performer, Item subject, int tilex, int tiley, boolean onSurface, int tile, int dir) {
                 if (performer instanceof Player && subject != null && subject.getTemplateId() == CustomItems.disintegrationRodId && Tiles.isSolidCave(Tiles.decodeType(tile))) {
-                    return Arrays.asList(actionEntry);
+                    return Collections.singletonList(actionEntry);
                 }
                 return null;
             }
@@ -124,7 +121,7 @@ public class DisintegrationRodAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in DisintegrationRodAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

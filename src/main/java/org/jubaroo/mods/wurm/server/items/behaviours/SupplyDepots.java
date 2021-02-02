@@ -116,8 +116,7 @@ public class SupplyDepots {
                             i++;
                         }
                     } catch (Exception e) {
-                        RequiemLogging.logException("Failed to create Arena Depot.", e.getCause());
-                        e.printStackTrace();
+                        RequiemLogging.logException("[Error] Failed to create Arena Depot", e);
                     }
                 }
                 if (i >= 20) {
@@ -173,7 +172,7 @@ public class SupplyDepots {
             }
 
         } catch (FailedException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in giveCacheReward in SupplyDepots", e);
         }
     }
 

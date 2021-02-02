@@ -22,7 +22,7 @@ public class NewSpawnQuestion extends Question {
     protected static HashMap<Integer, Spawnpoint> spawns = new HashMap<>();
 
     public NewSpawnQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
     public void spawn(Player p, Spawnpoint spawnpoint) {
@@ -46,7 +46,7 @@ public class NewSpawnQuestion extends Question {
             try { //p.setDead(false);
                 ReflectionUtil.callPrivateMethod(p, ReflectionUtil.getMethod(p.getClass(), "setDead"), false);
             } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in spawn in NewSpawnQuestion", e);
             }
             p.spawnpoints = null;
         }
@@ -90,7 +90,7 @@ public class NewSpawnQuestion extends Question {
                     }
                 } catch (NoSuchPlayerException e) {
                     RequiemLogging.logInfo(String.format("Could not find player for WurmId %d [%s]", this.getResponder().getWurmId(), this.getResponder().getName()));
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in answer in NewSpawnQuestion", e);
                 }
             } else {
                 this.getResponder().getCommunicator().sendNormalServerMessage("You can bring the spawn question back by typing /respawn in a chat window.");

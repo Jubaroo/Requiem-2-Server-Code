@@ -21,8 +21,6 @@ public class UnequipAllAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public UnequipAllAction() {
-        RequiemLogging.logWarning("UnequipAllAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -52,7 +50,7 @@ public class UnequipAllAction implements ModAction {
                         return Collections.singletonList(actionEntry);
                     }
                 } catch (NoSuchItemException e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in getBehavioursFor in UnequipAllAction", e);
                 }
 
                 return null;
@@ -88,8 +86,8 @@ public class UnequipAllAction implements ModAction {
                                 AutoEquipMethods.unequip(equip, player);
                             }
                         }
-                    } catch (NoSuchItemException e1) {
-                        e1.printStackTrace();
+                    } catch (NoSuchItemException e) {
+                        RequiemLogging.logException("[Error] in action in UnequipAllAction", e);
                     }
                 } else {
                     RequiemLogging.logInfo(String.format("Somehow a non-player activated action ID %d...", actionEntry.getNumber()));

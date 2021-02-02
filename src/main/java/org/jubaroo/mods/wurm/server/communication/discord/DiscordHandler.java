@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.events.StatusChangeEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import javax.security.auth.login.LoginException;
@@ -22,8 +23,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DiscordHandler extends ListenerAdapter {
-    public static String botToken;
-    public static String serverName;
     private static JDA jda;
 
     private static Map<CustomChannel, ConcurrentLinkedQueue<String>> sendQueues =
@@ -54,7 +53,7 @@ public class DiscordHandler extends ListenerAdapter {
         }
 
         try {
-            jda = JDABuilder.create(DiscordHandler.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
+            jda = JDABuilder.create(ModConfig.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
         } catch (LoginException e) {
             RequiemLogging.logException("Error connecting to discord", e);
         }
@@ -68,7 +67,7 @@ public class DiscordHandler extends ListenerAdapter {
                 String name = event.getMember().getEffectiveName();
                 for (Message.Attachment att : event.getMessage().getAttachments()) {
                     String url = att.getUrl();
-                    ChatHandler.sendToPlayersAndServers(channel, "@" + name, url, -10L, -1, -1, -1);
+                    ChatHandler.sendToPlayersAndServers(channel, String.format("@%s", name), url, -10L, -1, -1, -1);
                 }
                 String msg = event.getMessage().getContentDisplay().trim();
                 for (Map.Entry<String, String> p : emojis.entrySet()) {
@@ -77,7 +76,7 @@ public class DiscordHandler extends ListenerAdapter {
                 for (String part : msg.split("\n")) {
                     part = part.trim();
                     if (part.length() > 0) {
-                        ChatHandler.sendToPlayersAndServers(channel, "@" + name, part, -10L, -1, -1, -1);
+                        ChatHandler.sendToPlayersAndServers(channel, String.format("@%s", name), part, -10L, -1, -1, -1);
                     }
                 }
             }
@@ -88,9 +87,9 @@ public class DiscordHandler extends ListenerAdapter {
         MessageBuilder builder = new MessageBuilder();
         builder.append(msg);
 
-        List<Guild> guilds = jda.getGuildsByName(DiscordHandler.serverName, true);
+        List<Guild> guilds = jda.getGuildsByName(ModConfig.serverName, true);
         if (guilds.size() < 1) {
-            RequiemLogging.logWarning(String.format("Server '%s' not found on discord, unable to send messages", DiscordHandler.serverName));
+            RequiemLogging.logWarning(String.format("Server '%s' not found on discord, unable to send messages", ModConfig.serverName));
             return;
         }
 

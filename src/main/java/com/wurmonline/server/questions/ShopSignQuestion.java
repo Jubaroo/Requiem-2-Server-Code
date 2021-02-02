@@ -74,7 +74,7 @@ public class ShopSignQuestion implements ModQuestion {
                         comm.sendUpdateInventoryItem(target);
                     }
                 } catch (Exception e) {
-                    RequiemLogging.logException("Shop sign error", e);
+                    RequiemLogging.logException("[ERROR] in shop sign question", e);
                     comm.sendAlertServerMessage("Something went wrong. Try again or notify staff using /support.");
                 }
             } else {

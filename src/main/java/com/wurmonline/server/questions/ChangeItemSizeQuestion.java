@@ -7,6 +7,7 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestion;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
 
 import java.util.Properties;
@@ -48,7 +49,7 @@ public class ChangeItemSizeQuestion implements ModQuestion {
                     tile.makeVisible(resizeTarget);
                 }
             } catch (Throwable e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[ERROR] in answer in ChangeItemSizeQuestion", e);
             }
         }
     }

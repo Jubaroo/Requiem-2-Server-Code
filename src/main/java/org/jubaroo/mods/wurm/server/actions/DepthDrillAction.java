@@ -22,8 +22,6 @@ public class DepthDrillAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public DepthDrillAction() {
-        RequiemLogging.logWarning("DepthDrillAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -96,7 +94,7 @@ public class DepthDrillAction implements ModAction {
                     }
                     return propagate(action, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in DepthDrillAction", e);
                     return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

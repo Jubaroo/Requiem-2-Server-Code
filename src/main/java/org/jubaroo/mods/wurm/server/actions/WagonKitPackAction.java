@@ -11,6 +11,7 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 
 import java.util.Collections;
@@ -86,7 +87,7 @@ public class WagonKitPackAction implements ModAction, ActionPerformer, Behaviour
             }
             return false;
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in WagonKitPackAction", e);
             performer.getCommunicator().sendNormalServerMessage(String.format("Action error in class (%s). Error message: %s", actStr, e.toString()));
             performer.getCommunicator().sendNormalServerMessage("Please inform the staff by opening a ticket (/support) and provide the message above. Thank you.");
             return true;

@@ -63,7 +63,7 @@ public class FreezeLavaAction implements ModAction, BehaviourProvider, ActionPer
                     if (counter * 10f > performer.getCurrentAction().getTimeLeft()) {
                         Terraforming.freezeLava(performer, tilex, tiley, onSurface, tile, 0, false);
                         performer.getCommunicator().sendNormalServerMessage("The lava hisses and turns to solid rock as the crystals energy penetrates the ground.");
-                        Server.getInstance().broadCastAction(performer.getName() + " uses a crystal of permafrost to freeze the lava in front of " + performer.getHimHerItString() + ".", performer, 10);
+                        Server.getInstance().broadCastAction(String.format("%s uses a crystal of permafrost to freeze the lava in front of %s.", performer.getName(), performer.getHimHerItString()), performer, 10);
                         Cooldowns.setUsed(playerEffect);
                         return true;
                     }
@@ -71,7 +71,7 @@ public class FreezeLavaAction implements ModAction, BehaviourProvider, ActionPer
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logException(e.getMessage(), e);
+            RequiemLogging.logException("[ERROR] in action in FreezeLavaAction", e);
             return true;
         }
     }

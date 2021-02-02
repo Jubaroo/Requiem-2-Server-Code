@@ -11,6 +11,7 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestion;
 import org.gotti.wurmunlimited.modsupport.questions.ModQuestions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.Objects;
 import java.util.Properties;
@@ -33,16 +34,16 @@ public class RenameQuestion implements ModQuestion {
     @Override
     public void sendQuestion(Question question) {
         final StringBuilder buf = new StringBuilder(ModQuestions.getBmlHeader(question));
-        buf.append("harray{input{text=\'" + renameTarget.getName() + "\'; id=\'data1\'; maxchars=\'40\'}}");
-        buf.append("text{text=\'\'}");
+        buf.append("harray{input{text='").append(renameTarget.getName()).append("'; id='data1'; maxchars='40'}}");
+        buf.append("text{text=''}");
         if (renameTarget.getSex() == 0) {
-            buf.append("radio{ group=\'sex\'; id=\'sexmale\';text=\'Male\';selected=\'true\'}");
-            buf.append("radio{ group=\'sex\'; id=\'sexfemale\';text=\'Female\'}");
+            buf.append("radio{ group='sex'; id='sexmale';text='Male';selected='true'}");
+            buf.append("radio{ group='sex'; id='sexfemale';text='Female'}");
         } else {
-            buf.append("radio{ group=\'sex\'; id=\'sexmale\';text=\'Male\'}");
-            buf.append("radio{ group=\'sex\'; id=\'sexfemale\';text=\'Female\';selected=\'true\'}");
+            buf.append("radio{ group='sex'; id='sexmale';text='Male'}");
+            buf.append("radio{ group='sex'; id='sexfemale';text='Female';selected='true'}");
         }
-        buf.append("text{text=\'\'}");
+        buf.append("text{text=''}");
         buf.append(ModQuestions.createAnswerButton2(question, "Confirm"));
 
         question.getResponder().getCommunicator().sendBml(300, 200, false, true, buf.toString(), 200, 200, 200, question.getTitle());
@@ -100,7 +101,7 @@ public class RenameQuestion implements ModQuestion {
                     tile.makeVisible(renameTarget);
                 }
             } catch (NoSuchCreatureException | NoSuchPlayerException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in answer in RenameQuestion", e);
             }
             if (toDestroy) {
                 Items.destroyItem(subject.getWurmId());

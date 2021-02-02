@@ -24,7 +24,7 @@ public class ItemHelper {
         try {
             return (ItemTemplate) _getItemTemplate.invoke(null, id);
         } catch (InvocationTargetException | IllegalAccessException e) {
-            RequiemLogging.logException("getItemTemplate: " + e.toString(), e);
+            RequiemLogging.logException(String.format("[ERROR] in getItemTemplate: %s", e.toString()), e);
             return null;
         }
     }
@@ -35,7 +35,7 @@ public class ItemHelper {
             final ItemTemplate item = ItemTemplateFactory.getInstance().getTemplate(templateId);
             ReflectionUtil.setPrivateField(item, ReflectionUtil.getField(item.getClass(), "fragmentAmount"), fragmentCount);
         } catch (IllegalAccessException | NoSuchFieldException | NoSuchTemplateException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in setFragments in ItemHelper", e);
         }
     }
 

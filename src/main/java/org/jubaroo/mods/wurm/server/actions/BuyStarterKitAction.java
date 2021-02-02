@@ -56,7 +56,7 @@ public class BuyStarterKitAction implements ModAction {
             }
 
             public boolean action(final Action act, final Creature performer, final Creature target, final short action, final float counter) {
-                if (performer instanceof Player && target != null && target.getName().contains(npcName)) {
+                if (performer instanceof Player && target != null && target.getName().equals(npcName)) {
                     performer.getCommunicator().sendNormalServerMessage(String.format("%s says, \"Buy a kit with what? Think this is charity? Activate a coin of correct value and talk to me again.\"", npcName));
                 }
                 return true;

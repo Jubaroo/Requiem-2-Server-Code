@@ -7,6 +7,7 @@ import com.wurmonline.server.items.Item;
 import com.wurmonline.shared.constants.EffectConstants;
 import com.wurmonline.shared.constants.SoundNames;
 import org.gotti.wurmunlimited.modsupport.actions.*;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.MiscChanges;
 import org.jubaroo.mods.wurm.server.utils.Cooldowns;
@@ -93,7 +94,7 @@ public class CrystalAbortAction implements ModAction, ActionPerformer, Behaviour
             }
             return false;
         } catch (NoSuchActionException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in action in CrystalAbortAction", e);
         }
         return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
     }

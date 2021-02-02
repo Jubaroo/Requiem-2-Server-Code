@@ -106,7 +106,7 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
             }
             return false;
         } catch (Exception e) {
-            RequiemLogging.logWarning("search action error" + e);
+            RequiemLogging.logException("[ERROR] in action in DisturbDenAction", e);
             return true;
         }
     }
@@ -174,7 +174,7 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
             }
 
         } catch (NoSuchTemplateException | FailedException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in giveLootFromDen in DisturbDenAction", e);
         }
 
     }

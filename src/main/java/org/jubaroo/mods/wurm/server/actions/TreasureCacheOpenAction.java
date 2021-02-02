@@ -24,8 +24,6 @@ public class TreasureCacheOpenAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public TreasureCacheOpenAction() {
-        RequiemLogging.logWarning("TreasureCacheOpenAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -97,7 +95,7 @@ public class TreasureCacheOpenAction implements ModAction {
                     }
                     return false;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in TreasureCacheOpenAction", e);
                     return true;
                 }
             }

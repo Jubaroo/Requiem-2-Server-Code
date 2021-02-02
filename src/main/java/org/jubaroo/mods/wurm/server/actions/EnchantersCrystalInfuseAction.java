@@ -25,8 +25,6 @@ public class EnchantersCrystalInfuseAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public EnchantersCrystalInfuseAction() {
-        RequiemLogging.logWarning("EnchantersCrystalInfuseAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -163,7 +161,7 @@ public class EnchantersCrystalInfuseAction implements ModAction {
                     }
                     return propagate(act, ActionPropagation.CONTINUE_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in EnchantersCrystalInfuseAction", e);
                     return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

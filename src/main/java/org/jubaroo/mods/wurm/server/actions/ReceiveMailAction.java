@@ -89,7 +89,7 @@ public class ReceiveMailAction implements ModAction {
                         try {
                             itemset.add(Items.getItem(m.itemId));
                         } catch (NoSuchItemException e) {
-                            e.printStackTrace();
+                            RequiemLogging.logException("[ERROR] in action in ReceiveMailAction", e);
                         }
                     }
                     if (!itemset.isEmpty()) {

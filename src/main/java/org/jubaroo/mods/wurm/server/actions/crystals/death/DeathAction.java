@@ -108,7 +108,7 @@ public class DeathAction implements ModAction, ActionPerformer, BehaviourProvide
                 perfComm.sendNormalServerMessage(String.format("%s looks surprised as the hand of Libila herself reaches from the void and quickly rips the heart out from %s body.", creature.getNameWithGenus(), creature.getHisHerItsString()));
                 tgtComm.sendAlertServerMessage("You look surprised as the hand of Libila herself reaches from the void and suddenly rips the heart out of your body.");
                 tgtComm.sendAlertServerMessage("You see it throb one last time.");
-                Server.getInstance().broadCastAction(creature.getNameWithGenus() + " looks very surprised as the hand of Libila herself reaches from the void and suddenly rips the heart out of " + creature.getHisHerItsString() + " body.", performer, creature, 5);
+                Server.getInstance().broadCastAction(String.format("%s looks very surprised as the hand of Libila herself reaches from the void and suddenly rips the heart out of %s body.", creature.getNameWithGenus(), creature.getHisHerItsString()), performer, creature, 5);
                 final Item heart = ItemFactory.createItem(ItemList.heart, 99f, performer.getName());
                 heart.setData1(creature.getTemplate().getTemplateId());
                 heart.setName(creature.getName().toLowerCase() + " heart");
@@ -123,7 +123,7 @@ public class DeathAction implements ModAction, ActionPerformer, BehaviourProvide
                 creature.die(true, "Death crystal kill");
                 Cooldowns.setUsed(playerEffect);
             } catch (NoSuchTemplateException | FailedException ex3) {
-                RequiemLogging.logWarning("Error on death action: " + ex3.getMessage());
+                RequiemLogging.logWarning(String.format("Error on death action: %s", ex3.getMessage()));
             }
         }
         return propagate(action, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);

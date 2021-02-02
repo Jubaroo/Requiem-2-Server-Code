@@ -93,7 +93,7 @@ public class JoustAction implements ModAction {
                         return null;
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in getBehaviourProvider in JoustAction", e);
                 }
                 return null;
             }
@@ -260,7 +260,7 @@ public class JoustAction implements ModAction {
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in DidJoustingHit in JoustAction", e);
                 }
 
                 return (hitroll < HitChance);
@@ -331,7 +331,7 @@ public class JoustAction implements ModAction {
                     debugStr = debugStr.concat(String.format("but the %s(%s/%s", armour.getName(), damageMod, qualitymod)) + ") ";
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in AdjustJoustingDamage in JoustAction", e);
                 }
 
                 return damage * damageMod;
@@ -361,7 +361,7 @@ public class JoustAction implements ModAction {
                             }
                         }
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        RequiemLogging.logException("[Error] in RunJoust doing shield effects in JoustAction", e);
                     }
 
                     byte hitlocation = GetJoustingHitLocation();
@@ -399,7 +399,7 @@ public class JoustAction implements ModAction {
                                         Server.getInstance().broadCastMessage(String.format("%s had their helmet torn off!", defender.getName()), defender.getTileX(), defender.getTileY(), true, broadcastRange);
                                     }
                                 } catch (Exception e) {
-                                    e.printStackTrace();
+                                    RequiemLogging.logException("[Error] in RunJoust checking for helm in JoustAction", e);
                                 }
                             }
                         }
@@ -425,7 +425,7 @@ public class JoustAction implements ModAction {
                             }
 
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            RequiemLogging.logException("[Error] in RunJoust checking for lance in JoustAction", e);
                         }
 
                         //Did they get knocked off their horse?
@@ -472,7 +472,6 @@ public class JoustAction implements ModAction {
                         performer.sendActionControl("Jousting", true, time);
 
                         target.stopCurrentAction();
-                        return false;
 
                     } else {
 
@@ -504,10 +503,10 @@ public class JoustAction implements ModAction {
                             target.stopCurrentAction();
                             return true;
                         }
-                        return false;
                     }
+                    return false;
                 } catch (NoSuchActionException e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in JoustAction", e);
                 }
                 return false;
             }

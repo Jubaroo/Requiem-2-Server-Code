@@ -5,6 +5,7 @@ import com.wurmonline.server.behaviours.NoSuchActionException;
 import com.wurmonline.server.creatures.Creature;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.portals.PortalAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
@@ -24,7 +25,7 @@ public class PortalQuestion extends Question {
     }
 
     public PortalQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
     public void answer(Properties answer) {
@@ -106,7 +107,6 @@ public class PortalQuestion extends Question {
 
     public void sendQuestion() {
         boolean ok;
-
         try {
             ok = false;
             Action act = getResponder().getCurrentAction();
@@ -121,7 +121,6 @@ public class PortalQuestion extends Question {
             properlySent = true;
 
             BmlForm f = new BmlForm("");
-
             f.addHidden("id", String.format("%d", id));
             f.addBoldText(getQuestion());
             f.addText("\n ");
@@ -148,7 +147,7 @@ public class PortalQuestion extends Question {
                 ps2.close();
                 dbcon2.close();
             } catch (SQLException e) {
-
+                RequiemLogging.logException("[Error] in sendQuestion in PortalAction", e);
                 throw new RuntimeException(e);
             }
 

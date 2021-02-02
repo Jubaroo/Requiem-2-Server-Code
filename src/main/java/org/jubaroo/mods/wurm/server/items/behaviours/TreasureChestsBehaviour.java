@@ -85,7 +85,7 @@ public class TreasureChestsBehaviour {
                     } // if
                     inventory.insertItem(toInsert, true);
                 } catch (NoSuchTemplateException | FailedException | NoSuchCreatureTemplateException e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in doItemSpawn in TreasureChestsBehaviour", e);
                 }
             }
         }

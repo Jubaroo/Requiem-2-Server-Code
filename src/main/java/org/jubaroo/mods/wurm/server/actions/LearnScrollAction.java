@@ -14,6 +14,7 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.BehaviourProvider;
 import org.gotti.wurmunlimited.modsupport.actions.ModAction;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.misc.templates.ScrollTemplate;
 
 import java.util.Collections;
@@ -109,16 +110,16 @@ public class LearnScrollAction implements ModAction, BehaviourProvider, ActionPe
                             Skill s = skills.getSkill(skillNum);
                             if (s.affinity < 5) {
                                 Affinities.setAffinity(performer.getWurmId(), skillNum, s.affinity + 1, false);
-                                performer.getCommunicator().sendSafeServerMessage("You gain an affinity for " + s.getName());
+                                performer.getCommunicator().sendSafeServerMessage(String.format("You gain an affinity for %s", s.getName()));
                                 Items.destroyItem(target.getWurmId());
                                 return true;
                             } else {
-                                performer.getCommunicator().sendSafeServerMessage("You start thinking about " + s.getName() + ", but you already have a very strong affinity for this.");
+                                performer.getCommunicator().sendSafeServerMessage(String.format("You start thinking about %s, but you already have a very strong affinity for this.", s.getName()));
                                 return true;
                             }
 
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            RequiemLogging.logException("[ERROR] in action in LearnScrollAction", e);
                         }
                     } else {
                         try {
@@ -126,7 +127,7 @@ public class LearnScrollAction implements ModAction, BehaviourProvider, ActionPe
                             Skill s = skills.getSkill(template.skillID);
 
                             if (s.getKnowledge() + template.skillModifier >= 90) {
-                                performer.getCommunicator().sendSafeServerMessage("Your " + s.getName().toLowerCase() + " is so high that you would not benefit from this scroll.");
+                                performer.getCommunicator().sendSafeServerMessage(String.format("Your %s is so high that you would not benefit from this scroll.", s.getName().toLowerCase()));
                                 return true;
                             } else if (s.getKnowledge() + template.skillModifier >= 70) {
                                 s.setKnowledge(s.getKnowledge() + (template.skillModifier / 20), false);
@@ -136,7 +137,7 @@ public class LearnScrollAction implements ModAction, BehaviourProvider, ActionPe
                                 s.setKnowledge(s.getKnowledge() + template.skillModifier, false);
                             }
 
-                            performer.getCommunicator().sendSafeServerMessage("You gain some " + s.getName().toLowerCase() + ".");
+                            performer.getCommunicator().sendSafeServerMessage(String.format("You gain some %s.", s.getName().toLowerCase()));
                             Items.destroyItem(target.getWurmId());
                             return true;
                         } catch (Exception e) {

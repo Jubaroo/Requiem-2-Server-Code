@@ -24,8 +24,6 @@ public class RequiemCacheOpenAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public RequiemCacheOpenAction() {
-        RequiemLogging.logWarning("RequiemCacheOpenAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -101,7 +99,7 @@ public class RequiemCacheOpenAction implements ModAction {
                     }
                     return false;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in action in RequiemCacheOpenAction", e);
                     return true;
                 }
             }
@@ -112,6 +110,6 @@ public class RequiemCacheOpenAction implements ModAction {
             }
 
 
-        }; // ActionPerformer
+        };
     }
 }

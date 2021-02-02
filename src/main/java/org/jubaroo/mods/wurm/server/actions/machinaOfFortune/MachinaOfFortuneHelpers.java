@@ -18,6 +18,7 @@ import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import com.wurmonline.shared.constants.SoundNames;
 import com.wurmonline.shared.util.MulticolorLineSegment;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
 import org.jubaroo.mods.wurm.server.tools.RequiemTools;
@@ -253,7 +254,7 @@ class MachinaOfFortuneHelpers {
                 noFortune(comm, source);
             }
         } catch (NoSuchCreatureException | NoSuchItemException | NoSuchPlayerException | NoSuchZoneException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in singleItemTwoRollContainerInsert in MachinaOfFortunesHelpers", e);
         }
     }
 
@@ -276,7 +277,7 @@ class MachinaOfFortuneHelpers {
                 noFortune(comm, source);
             }
         } catch (NoSuchCreatureException | NoSuchItemException | NoSuchPlayerException | NoSuchZoneException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in multipleItemTwoRollContainerInsert in MachinaOfFortunesHelpers", e);
         }
     }
 

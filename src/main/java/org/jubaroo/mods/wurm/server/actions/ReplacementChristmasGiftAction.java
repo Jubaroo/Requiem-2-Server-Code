@@ -88,7 +88,7 @@ public class ReplacementChristmasGiftAction implements ModAction {
                     }
                     return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[ERROR] in action in ReplacementChristmasGiftAction", e);
                     return propagate(act, FINISH_ACTION, NO_SERVER_PROPAGATION, NO_ACTION_PERFORMER_PROPAGATION);
                 }
             }

@@ -31,8 +31,6 @@ public class SmoothTerrainAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public SmoothTerrainAction() {
-        RequiemLogging.logWarning("SmoothTerrainAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -206,7 +204,7 @@ public class SmoothTerrainAction implements ModAction {
                             Zone toCheckForChange = Zones.getZone(tilex + x, tiley + y, true);
                             toCheckForChange.changeTile(tilex + x, tiley + y);
                         } catch (NoSuchZoneException nsz) {
-                            RequiemLogging.logException("no such zone?: " + tilex + ", " + tiley, nsz);
+                            RequiemLogging.logException(String.format("no such zone?: %d, %d", tilex, tiley), nsz);
                         }
                     }
                 }

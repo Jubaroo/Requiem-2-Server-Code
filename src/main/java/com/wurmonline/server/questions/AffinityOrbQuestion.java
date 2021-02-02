@@ -13,14 +13,13 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.Random;
 
 public class AffinityOrbQuestion extends Question {
     public static HashMap<Integer, Integer> affinityMap = new HashMap<>();
     protected Item affinityOrb;
 
     public AffinityOrbQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget, Item orb) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
         this.affinityOrb = orb;
     }
 
@@ -36,9 +35,8 @@ public class AffinityOrbQuestion extends Question {
             } else {
                 if (this.getResponder() instanceof Player) {
                     Player player = (Player) this.getResponder();
-                    //Requiem.debug("Converting "+player.getName()+" to " + Deities.getDeityName(deity));
                     String skillName = SkillSystem.getNameFor(skillNum);
-                    RequiemLogging.logInfo("Adding affinity for skill " + skillName + " to " + player.getName());
+                    RequiemLogging.logInfo(String.format("Adding affinity for skill %s to %s", skillName, player.getName()));
                     Items.destroyItem(affinityOrb.getWurmId());
 
                     Affinity[] affs = Affinities.getAffinities(player.getWurmId());
@@ -46,50 +44,49 @@ public class AffinityOrbQuestion extends Question {
                     for (Affinity affinity : affs) {
                         if (affinity.getSkillNumber() != skillNum) continue;
                         if (affinity.getNumber() >= 5) {
-                            player.getCommunicator().sendSafeServerMessage("You already have the maximum amount of affinities for " + skillName);
+                            player.getCommunicator().sendSafeServerMessage(String.format("You already have the maximum amount of affinities for %s", skillName));
                             return;
                         }
                         Affinities.setAffinity(player.getWurmId(), skillNum, affinity.getNumber() + 1, false);
                         found = true;
                         Items.destroyItem(affinityOrb.getWurmId());
-                        player.getCommunicator().sendSafeServerMessage("Vynora infuses you with an affinity for " + skillName + "!");
+                        player.getCommunicator().sendSafeServerMessage(String.format("Vynora infuses you with an affinity for %s!", skillName));
                         break;
                     }
                     if (!found) {
                         Affinities.setAffinity(player.getWurmId(), skillNum, 1, false);
                         Items.destroyItem(affinityOrb.getWurmId());
-                        player.getCommunicator().sendSafeServerMessage("Vynora infuses you with an affinity for " + skillName + "!");
+                        player.getCommunicator().sendSafeServerMessage(String.format("Vynora infuses you with an affinity for %s!", skillName));
                     }
                 } else {
-                    RequiemLogging.logInfo("Non-player used a " + affinityOrb.getName() + "?");
+                    RequiemLogging.logWarning(String.format("Non-player used a %s?", affinityOrb.getName()));
                 }
             }
         }
     }
 
     private String getAffinities() {
-        String builder = "";
-        Random rand = new Random();
+        StringBuilder builder = new StringBuilder();
         if (affinityOrb.getAuxData() == 0) {
             RequiemLogging.logInfo("Orb has no affinity set, creating random seed now.");
             affinityOrb.setAuxData((byte) ((1 + Server.rand.nextInt(120)) * (Server.rand.nextBoolean() ? 1 : -1)));
         }
-        rand.setSeed(affinityOrb.getAuxData());
-        RequiemLogging.logInfo("Seed set to " + affinityOrb.getAuxData());
+        Server.rand.setSeed(affinityOrb.getAuxData());
+        RequiemLogging.logInfo(String.format("Seed set to %s", affinityOrb.getAuxData()));
         affinityMap.clear();
         int i = 0;
         while (i < 10) {
-            int num = rand.nextInt(SkillSystem.getNumberOfSkillTemplates());
+            int num = Server.rand.nextInt(SkillSystem.getNumberOfSkillTemplates());
             if (!affinityMap.containsValue(num)) {
-                builder = builder + SkillSystem.getSkillTemplateByIndex(num).getName();
+                builder.append(SkillSystem.getSkillTemplateByIndex(num).getName());
                 affinityMap.put(i, SkillSystem.getSkillTemplateByIndex(num).getNumber());
                 i++;
                 if (i < 10) {
-                    builder = builder + ",";
+                    builder.append(",");
                 }
             }
         }
-        return builder;
+        return builder.toString();
     }
 
     @Override
@@ -100,11 +97,11 @@ public class AffinityOrbQuestion extends Question {
         }
         BmlForm f = new BmlForm("");
         f.addHidden("id", String.valueOf(this.id));
-        f.addBoldText("Select the affinity you would like to obtain\n", new String[0]);
+        f.addBoldText("Select the affinity you would like to obtain\n");
         f.addRaw("harray{label{text='Select Affinity:'}dropdown{id='affinity';options='");
         f.addRaw(getAffinities());
         f.addRaw("'}}");
-        f.addText("\n\n", new String[0]);
+        f.addText("\n\n");
         f.beginHorizontalFlow();
         f.addButton("Accept", "accept");
         f.endHorizontalFlow();

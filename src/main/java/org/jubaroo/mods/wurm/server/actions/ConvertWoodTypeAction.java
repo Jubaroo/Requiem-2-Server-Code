@@ -99,7 +99,7 @@ public class ConvertWoodTypeAction implements ModAction, ActionPerformer, Behavi
                         parent.dropItem(target.getWurmId(), false);
                         parent.insertItem(target, true);
                     } catch (NoSuchItemException e) {
-                        RequiemLogging.logWarning("Error setting wood material: " + e);
+                        RequiemLogging.logException("[Error] setting wood material: ", e);
                     }
                 }
             }

@@ -78,7 +78,7 @@ public class UseEnchantScrollAction implements ModAction, BehaviourProvider, Act
             if (foundTemplate != null) {
 
                 if (!mayBeEnchanted(target)) {
-                    performer.getCommunicator().sendNormalServerMessage("The scroll cannot be used on the " + target.getName() + ".", (byte) 3);
+                    performer.getCommunicator().sendNormalServerMessage(String.format("The scroll cannot be used on the %s.", target.getName()), (byte) 3);
                     return true;
                 }
 
@@ -86,7 +86,7 @@ public class UseEnchantScrollAction implements ModAction, BehaviourProvider, Act
                         (target.isArmour() && !mayArmourBeEnchanted(target, (byte) foundTemplate.enchantID)) ||
                         (target.isEnchantableJewelry() && !mayJewelryBeEnchanted(target, (byte) foundTemplate.enchantID)) ||
                         !mayReceiveSkillGainBuff(target, (byte) foundTemplate.enchantID)) {
-                    performer.getCommunicator().sendNormalServerMessage("The " + target.getName() + " is already enchanted with something that conflicts with this scroll.", (byte) 3);
+                    performer.getCommunicator().sendNormalServerMessage(String.format("The %s is already enchanted with something that conflicts with this scroll.", target.getName()), (byte) 3);
                     return true;
                 }
 
@@ -96,16 +96,16 @@ public class UseEnchantScrollAction implements ModAction, BehaviourProvider, Act
                 }
                 SpellEffect eff = effs.getSpellEffect((byte) foundTemplate.enchantID);
                 if (eff == null) {
-                    performer.getCommunicator().sendNormalServerMessage("You use the scroll, and enchant the " + target.getName() + ".", (byte) 2);
+                    performer.getCommunicator().sendNormalServerMessage(String.format("You use the scroll, and enchant the %s.", target.getName()), (byte) 2);
 
                     eff = new SpellEffect(target.getWurmId(), (byte) foundTemplate.enchantID, power, 20000000);
                     effs.addSpellEffect(eff);
-                    Server.getInstance().broadCastAction(performer.getNameWithGenus() + " looks pleased.", performer, 5);
+                    Server.getInstance().broadCastAction(String.format("%s looks pleased.", performer.getNameWithGenus()), performer, 5);
                     Items.destroyItem(source.getWurmId());
                     return true;
                 } else if (eff.getPower() > power) {
                     performer.getCommunicator().sendNormalServerMessage("You use the scroll, but fail to improve the enchantment.", (byte) 3);
-                    Server.getInstance().broadCastAction(performer.getNameWithGenus() + " frowns.", performer, 5);
+                    Server.getInstance().broadCastAction(String.format("%s frowns.", performer.getNameWithGenus()), performer, 5);
                     Items.destroyItem(source.getWurmId());
                     return true;
                 } else {

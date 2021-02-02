@@ -214,7 +214,7 @@ public class RebirthAction implements ModAction, ActionPerformer, BehaviourProvi
                 if (counter == 1f) {
                     performer.getCommunicator().sendNormalServerMessage(String.format("You touch the crystal to the %s in an attempt to bring its soul back from beyond. A lightning bolt strikes the corpse and to begins to move a little!", target.getName()));
                     performer.getCurrentAction().setTimeLeft(100);
-                    performer.sendActionControl("Resurrecting a " + target.getName(), true, 100);
+                    performer.sendActionControl(String.format("Resurrecting a %s", target.getName()), true, 100);
                     performer.getCommunicator().sendAddEffect(target.getWurmId(), target.getWurmId(), EffectConstants.EFFECT_GENERIC, target.getPosX(), target.getPosY(), target.getPosZ(), (byte) 0, "lightningBall01", 10, 0f);
                     Server.getWeather().setRainAdd(40f);
                     Server.getWeather().setCloudTarget(40f);
@@ -238,8 +238,8 @@ public class RebirthAction implements ModAction, ActionPerformer, BehaviourProvi
                 }
             }
             return false;
-        } catch (NoSuchActionException ex3) {
-            RequiemLogging.logWarning("Error on death action: " + ex3.getMessage());
+        } catch (NoSuchActionException e) {
+            RequiemLogging.logException("Error in action in RebirthAction", e);
         }
         return true;
     }

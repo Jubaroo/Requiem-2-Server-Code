@@ -18,7 +18,6 @@ import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PollPortals;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.server.*;
-import org.jubaroo.mods.wurm.server.server.constants.LoggingConstants;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicleCreationEntries;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
@@ -29,7 +28,8 @@ import java.util.logging.Logger;
 import static org.jubaroo.mods.wurm.server.ModConfig.*;
 
 public class Requiem implements WurmServerMod, ServerStartedListener, ServerShutdownListener, PlayerLoginListener, ItemTemplatesCreatedListener, Configurable, PreInitable, ServerPollListener, Initable, PlayerMessageListener, ChannelMessageListener {
-    public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), LoggingConstants.VERSION));
+    public static String VERSION = "3.0";
+    public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), VERSION));
 
     @Override
     public void onItemTemplatesCreated() {
@@ -56,7 +56,6 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                 ItemMod.modifyItemsOnCreated();
             }
         } catch (IllegalArgumentException | ClassCastException | IOException e) {
-            e.printStackTrace();
             RequiemLogging.logException("Error in onItemTemplatesCreated()", e);
         }
         RequiemLogging.logInfo("all onItemTemplatesCreated completed");
@@ -166,7 +165,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             //}
 
             else if (OnServerStarted.cmdtool.runWurmCmd(communicator.getPlayer(), argv)) {
-                return MessagePolicy.DISCARD; // changed from MessagePolicy.PASS
+                return MessagePolicy.PASS;
             } else {
                 return MessagePolicy.PASS;
             }
@@ -227,7 +226,7 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public String getVersion() {
-        return LoggingConstants.VERSION;
+        return VERSION;
     }
 
     //TODO

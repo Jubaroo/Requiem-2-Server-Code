@@ -32,8 +32,6 @@ public class KeyCombinationAction implements ModAction {
     private final ActionEntry actionEntry;
 
     public KeyCombinationAction() {
-        RequiemLogging.logWarning("KeyCombinationAction()");
-
         actionId = (short) ModActions.getNextActionId();
         actionEntry = ActionEntry.createEntry(
                 actionId,
@@ -361,11 +359,11 @@ public class KeyCombinationAction implements ModAction {
                             return true;
                         }
                     } else {
-                        RequiemLogging.logInfo("Somehow a non-player activated a Treasure Box...");
+                        RequiemLogging.logWarning("Somehow a non-player activated a Custom Action...");
                     }
                     return false;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in action in KeyCombinationAction", e);
                     return true;
                 }
             }

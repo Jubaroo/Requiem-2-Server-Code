@@ -287,7 +287,7 @@ public class Misc {
                             try {
                                 mobCount = mobCount + Zones.getOrCreateTile(i, j, mobSpawner.isOnSurface()).getCreatures().length;
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                RequiemLogging.logException("[Error] in pollMobSpawners in Misc", e);
                             }
                         }
                     }
@@ -511,7 +511,7 @@ public class Misc {
                 item.insertItem(toInsert, true);
 
             } catch (FailedException | NoSuchTemplateException e) {
-                e.printStackTrace();
+                RequiemLogging.logException("[Error] in spawnItemSpawn in Misc", e);
             }
 
         }
@@ -545,8 +545,8 @@ public class Misc {
                     item.getPosX() - 5.0F + (Server.rand.nextFloat() * 10.0F), item.getPosY() - 5.0F + (Server.rand.nextFloat() * 10.0F), 65.0F,
                     item.isOnSurface(), (byte) 0, MiscConstants.NOID, "");
             crate.setData(id);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            RequiemLogging.logException("[Error] in spawnTradeCrate in Misc", e);
         }
     }
 
@@ -558,8 +558,8 @@ public class Misc {
             if (box.isOnSurface()) {
                 Items.destroyItem(box.getWurmId());
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            RequiemLogging.logException("[Error] in spawnLootBox in Misc", e);
         }
     }
 

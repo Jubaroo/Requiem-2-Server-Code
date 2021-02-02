@@ -11,14 +11,12 @@ import com.wurmonline.server.combat.Archery;
 import com.wurmonline.server.combat.Weapon;
 import com.wurmonline.server.creatures.*;
 import com.wurmonline.server.economy.Economy;
-import com.wurmonline.server.items.Item;
-import com.wurmonline.server.items.ItemFactory;
-import com.wurmonline.server.items.ItemList;
-import com.wurmonline.server.items.NoSpaceException;
+import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.skills.NoSuchSkillException;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.server.sounds.SoundPlayer;
+import com.wurmonline.server.spells.SpellEffect;
 import com.wurmonline.server.villages.Village;
 import com.wurmonline.server.zones.VirtualZone;
 import com.wurmonline.shared.constants.*;
@@ -34,6 +32,7 @@ import org.jubaroo.mods.wurm.server.creatures.*;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 import org.jubaroo.mods.wurm.server.server.OnPlayerLogin;
+import org.jubaroo.mods.wurm.server.spells.FeedingHand;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationTargetException;
@@ -196,15 +195,23 @@ public class Hooks {
             comm.sendRemoveEffect(item.getWurmId());
             comm.sendAddEffect(item.getWurmId(), item.getWurmId(), EffectConstants.EFFECT_GENERIC, item.getPosX(), item.getPosY(), item.getPosZ(), (byte) 0, "treasureP", Float.MAX_VALUE, 0f);
         }
+
     }
 
-    // Make searched dens tick down and be able to be searched again
     public static void itemTick(Item item) {
         if (item.getTemplateId() == ItemList.creatureSpawn) {
             if (item.getData2() > 0) {
                 item.setData2(item.getData2() - 1);
                 if (item.getData2() == 0)
                     RequiemLogging.logInfo(String.format("A %s (creature den) at location X:%s Y:%s is now able to be searched again.", item.getName(), item.getPosX() / 4, item.getPosY() / 4));
+            }
+        }
+        if (item.getTemplateId() == ItemList.hopper && !item.isEmpty(false)) {
+            ItemSpellEffects effects = item.getSpellEffects();
+            if (effects != null) {
+                SpellEffect effect = effects.getSpellEffect(Enchants.BUFF_DARKMESSENGER);
+                if (effect != null && effect.power > 0)
+                    FeedingHand.poll(item, effect.power);
             }
         }
     }
@@ -358,7 +365,7 @@ public class Hooks {
                         return true;
                     }
                 } catch (NoSuchSkillException e) {
-                    e.printStackTrace();
+                    RequiemLogging.logException("[Error] in blockSkillFrom in Hooks", e);
                 }
             } else {
                 if (defender.getBonusForSpellEffect(Enchants.CRET_BEARPAW) < 50f) {
@@ -581,7 +588,7 @@ public class Hooks {
                 CreatureSpawns.blackKnightSpawn(creature);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in modifyNewCreature in Hooks", e);
         }
     }
 
@@ -597,7 +604,7 @@ public class Hooks {
     }
 
     // change item size
-    public float getSizeModifier(Item item) {
+    public static float getSizeModifier(Item item) {
         int id = item.getTemplate().getTemplateId();
         //RequiemLogging.logInfo("ItemMod.itemSizeMod called");
         if (id == CustomItems.machinaOfFortuneId) {
@@ -704,7 +711,7 @@ public class Hooks {
             float traitMove = ReflectionUtil.callPrivateMethod(creature, ReflectionUtil.getMethod(creature.getClass(), "getTraitMovePercent"), mounting);
             factor += traitMove;
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[Error] in newMountSpeedMultiplier in Hooks", e);
         }
         if (creature.isHorse() || creature.isUnicorn()) {
             factor *= CustomMountSettings.newCalcHorseShoeBonus(creature);

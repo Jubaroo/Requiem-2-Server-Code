@@ -146,13 +146,13 @@ public class GMUnprotectAction implements ModAction, BehaviourProvider, ActionPe
             target.setIsNotLockpickable(false);
             target.savePermissions();
 
-            comm.sendNormalServerMessage("Un-Protect Action: " + target.getName(), (byte) 3);
-            RequiemLogging.logInfo("Un-Protect Action: " + target.getName());
+            comm.sendNormalServerMessage(String.format("Un-Protect Action: %s", target.getName()), (byte) 3);
+            RequiemLogging.logInfo(String.format("Un-Protect Action: %s", target.getName()));
             return true;
 
         } catch (Throwable e) {
-            RequiemLogging.logException("action error: " + e.toString(), e);
-            comm.sendNormalServerMessage("action error: " + e.toString());
+            RequiemLogging.logException(String.format("[ERROR] in action in GMUnprotectAction: %s", e.toString()), e);
+            comm.sendNormalServerMessage(String.format("action error: %s", e.toString()));
             return true;
         }
     }

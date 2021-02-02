@@ -7,6 +7,7 @@ import com.wurmonline.server.economy.Change;
 import com.wurmonline.server.economy.Economy;
 import net.coldie.tools.BmlForm;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
+import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.actions.portals.AddUpkeepAction;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
 
@@ -28,7 +29,7 @@ public class PortalUpkeepQuestion extends Question {
     }
 
     public PortalUpkeepQuestion(Creature aResponder, String aTitle, String aQuestion, long aTarget) {
-        super(aResponder, aTitle, aQuestion, 79, aTarget);
+        super(aResponder, aTitle, aQuestion, LOCATEQUESTION, aTarget);
     }
 
     public void answer(Properties answer) {
@@ -68,9 +69,9 @@ public class PortalUpkeepQuestion extends Question {
                 getResponder().chargeMoney(coins);
                 getResponder().getCommunicator().sendNormalServerMessage(String.format("Removed %d from your account", coins));
                 logger.info(String.format("Removing %d iron from %s for adding upkeep to portal. portal wurmid %s", coins, getResponder().getName(), PortalMod.myMapBank.get(mynumber)));
-            } catch (IOException e1) {
+            } catch (IOException e) {
                 // TODO Auto-generated catch block
-                e1.printStackTrace();
+                RequiemLogging.logException("[Error] in action in PortalUpkeepQuestion", e);
             }
 
             Connection dbcon2;
