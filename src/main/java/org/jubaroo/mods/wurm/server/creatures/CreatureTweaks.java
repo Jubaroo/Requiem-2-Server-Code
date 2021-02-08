@@ -287,8 +287,8 @@ public class CreatureTweaks {
         // Set Speed
         CreatureTemplateModifier.setSpeed(CreatureTemplateIds.DRAKESPIRIT_CID, 0.5f);
         CreatureTemplateModifier.setSpeed(CreatureTemplateIds.EAGLESPIRIT_CID, 0.5f);
-        // Set non-Sentinel
-        CreatureTemplateModifier.setNonSentinel(CustomCreatures.npcTravelingTraderId);
+        // Set Sentinel
+        CreatureTemplateModifier.setSentinel(CustomCreatures.npcTravelingTraderId, false);
     }
 
     public static boolean spawnCreature(final int templateId, final Creature performer, final boolean scroll) {

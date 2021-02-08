@@ -311,15 +311,19 @@ public class AchievementChanges {
             for (int i : templates.keySet()) {
                 AchievementTemplate temp = templates.get(i);
                 addRequirements(temp);
-                if (!temp.getRequirement().equals("") && !temp.isForCooking() && !blacklist.contains(i)) {
+                if (
+                        !temp.getRequirement().equals("") && //TODO fix this line
+                                !temp.isForCooking() &&
+                                !blacklist.contains(i)) {
                     fixName(temp);
                     goodAchievements.put(i, temp);
                     RequiemLogging.logInfo(String.format("%d: %s - %s (%s)", temp.getNumber(), temp.getName(), temp.getDescription(), temp.getRequirement()));
                 }
             }
             RequiemLogging.logInfo(String.format("Total achievements loaded into system: %d", goodAchievements.size()));
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
+        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException e) {
+            RequiemLogging.logException("[ERROR] in onServerStarted in AchievementChanges", e);
+            e.getCause();
         }
     }
 

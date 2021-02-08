@@ -26,7 +26,9 @@ import org.jubaroo.mods.wurm.server.items.behaviours.SupplyDepots;
 import org.jubaroo.mods.wurm.server.misc.DecorativeKingdoms;
 import org.jubaroo.mods.wurm.server.misc.MiscHooks;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
+import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
+import org.jubaroo.mods.wurm.server.tools.SpellExamine;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationHandler;
@@ -43,12 +45,14 @@ public class Initialize {
         ModCreatures.init();
 
         ClassPool classPool = HookManager.getInstance().getClassPool();
-        CtMethod mAddCreature = classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z");
         CtClass ctCreature = classPool.getCtClass("com.wurmonline.server.creatures.Creature");
         CtClass ctCreatureStatus = classPool.getCtClass("com.wurmonline.server.creatures.CreatureStatus");
         CtClass ctCommunicator = classPool.getCtClass("com.wurmonline.server.creatures.Communicator");
         CtClass ctItem = classPool.getCtClass("com.wurmonline.server.items.Item");
         CtClass ctServer = classPool.getCtClass("com.wurmonline.server.Server");
+        CtClass ctMethodsItems = classPool.getCtClass("com.wurmonline.server.behaviours.MethodsItems");
+        CtMethod mAddCreature = classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z");
+        CtMethod ctDoNew = ctCreature.getMethod("doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;");
 
         HookManager.getInstance().registerHook("com.wurmonline.server.Players", "sendAltarsToPlayer", "(Lcom/wurmonline/server/players/Player;)V", new InvocationHandlerFactory() {
 
@@ -70,19 +74,60 @@ public class Initialize {
             }
         });
 
-        CtMethod ctDoNew = ctCreature.getMethod("doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;");
+        try {
+            // Spell examine
+            ctMethodsItems.getMethod("getEnhancementStrings", "(Lcom/wurmonline/server/items/Item;)Ljava/util/List;")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("getName")) {
+                                m.replace(String.format("$_ = %s.getName($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getName at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            } else if (m.getMethodName().equals("getLongDesc")) {
+                                m.replace(String.format("$_ = %s.getLongDesc($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getLongDesc at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            }
+                        }
+                    });
+
+            ctItem.getMethod("sendColoredEnchant", "(Lcom/wurmonline/server/creatures/Communicator;Lcom/wurmonline/server/spells/SpellEffect;)V")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("getName")) {
+                                m.replace(String.format("$_ = %s.getName($0, this);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied sendColoredEnchant patch for getName at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            } else if (m.getMethodName().equals("getLongDesc")) {
+                                m.replace(String.format("$_ = %s.getLongDesc($0, this);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied sendColoredEnchant patch for getLongDesc at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            }
+                        }
+                    });
+
+            classPool.getCtClass("com.wurmonline.server.spells.Dirt")
+                    .getMethod("doEffect", "(Lcom/wurmonline/server/skills/Skill;DLcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;)V")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("min"))
+                                m.replace("$_=$proceed(100,$2);");
+                        }
+                    });
+        } catch (CannotCompileException | NotFoundException e) {
+            RequiemLogging.logException("[ERROR] in custom spell display.", e);
+        }
 
         ctDoNew.instrument(new ExprEditor() {
             public void edit(MethodCall m) throws CannotCompileException {
                 if (m.getMethodName().equals("sendToWorld")) {
-                    m.replace("$_ = $proceed($$);org.jubaroo.mods.wurm.server.tools.Hooks.modifyNewCreature($1);");
+                    m.replace(String.format("$_ = $proceed($$);%s.modifyNewCreature($1);", Hooks.class.getName()));
                     return;
                 }
             }
         });
 
         // -- Enable adjusting size for creatures -- //
-        ctCreatureStatus.getDeclaredMethod("getSizeMod").setBody("{return org.jubaroo.mods.wurm.server.tools.CreatureTools.getAdjustedSizeMod(this);}");
+        ctCreatureStatus.getDeclaredMethod("getSizeMod").setBody(String.format("{return %s.getAdjustedSizeMod(this);}", CreatureTools.class.getName()));
 
         try {
             //setUpNpcMovement();
@@ -124,7 +169,7 @@ public class Initialize {
                     "increaseAffinity",
                     "(II)V",
                     () -> (proxy, method, args) -> {
-                        RequiemLogging.logWarning(String.format("incAff: %d %d", args[0], args[1]));
+                        RequiemLogging.logInfo(String.format("incAff: %d %d", args[0], args[1]));
                         return method.invoke(proxy, args);
                     });
 
@@ -318,8 +363,7 @@ public class Initialize {
         try {
             if (!ModConfig.disableColoredUnicorns) {
                 // Make unicorns have random colors
-                classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z")
-                        .insertAfter(String.format("%s.addCreatureHook(this, $1);", Hooks.class.getName()));
+                classPool.getCtClass("com.wurmonline.server.zones.VirtualZone").getMethod("addCreature", "(JZJFFF)Z").insertAfter(String.format("%s.addCreatureHook(this, $1);", Hooks.class.getName()));
             }
 
             if (!ModConfig.disableFogGoblins) {

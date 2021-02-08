@@ -14,7 +14,6 @@ import org.jubaroo.mods.wurm.server.creatures.Titans;
 import org.jubaroo.mods.wurm.server.creatures.bounty.LootTable;
 import org.jubaroo.mods.wurm.server.items.ItemMod;
 import org.jubaroo.mods.wurm.server.items.pottals.PortalMod;
-import org.jubaroo.mods.wurm.server.misc.AchievementChanges;
 import org.jubaroo.mods.wurm.server.misc.CustomTitles;
 import org.jubaroo.mods.wurm.server.spells.CustomSpells;
 import org.jubaroo.mods.wurm.server.tools.CmdTools;
@@ -62,8 +61,8 @@ public class OnServerStarted {
             AddActions.registerActions();
             RequiemLogging.logInfo("Setting custom creature corpse models...");
             CreatureTweaks.setTemplateVariables();
-            RequiemLogging.logInfo("Setting up Leaderboard Achievement templates...");
-            AchievementChanges.onServerStarted();
+            //RequiemLogging.logInfo("Setting up Leaderboard Achievement templates...");
+            //AchievementChanges.onServerStarted();
             RequiemLogging.logInfo("Editing existing item templates...");
             ItemMod.modifyItemsOnServerStarted();
             RequiemLogging.logInfo("Setting creatures to have custom names when bred...");

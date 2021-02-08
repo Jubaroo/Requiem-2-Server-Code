@@ -5,7 +5,6 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.spells.SpellEffect;
 import com.wurmonline.shared.constants.Enchants;
 
-@SuppressWarnings("ConstantConditions")
 public class SpellExamine {
 
     public static String getName(SpellEffect enchant, Item item) {

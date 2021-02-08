@@ -87,7 +87,10 @@ public class JoustAction implements ModAction {
             @Override
             public List<ActionEntry> getBehavioursFor(Creature performer, Item subject, Creature target) {
                 try {
-                    if ((performer.getRighthandItem().getTemplateId() == LanceID && target.getRighthandItem().getTemplateId() == LanceID) && (performer.isPlayer() && target.isPlayer()) && FindMount(performer) != null && FindMount(target) != null) {
+                    if ((performer.getRighthandItem().getTemplateId() == LanceID && target.getRighthandItem().getTemplateId() == LanceID) &&
+                            (performer.isPlayer() && target.isPlayer()) &&
+                            FindMount(performer) != null &&
+                            FindMount(target) != null) {
                         return Collections.singletonList(actionEntry);
                     } else {
                         return null;

@@ -21,8 +21,19 @@ public class CustomSpells {
 
         // Greater Dirt
         Spell greaterDirt = new GreaterDirt();
-        Arrays.stream(Deities.getDeities()).forEach(d -> d.addSpell(greaterDirt));
+        Deities.getDeity(Deities.DEITY_LIBILA).addSpell(greaterDirt);
         mAddSpell.invoke(null, greaterDirt);
+
+        // Sprout Trees
+        Spell sproutTrees = new SproutTrees();
+        Deities.getDeity(Deities.DEITY_LIBILA).addSpell(sproutTrees);
+        mAddSpell.invoke(null, sproutTrees);
+
+        // Dark Genesis
+        Spell darkGenesis = new DarkGenesis();
+        Deities.getDeity(Deities.DEITY_LIBILA).addSpell(darkGenesis);
+        mAddSpell.invoke(null, darkGenesis);
+
     }
 
 }

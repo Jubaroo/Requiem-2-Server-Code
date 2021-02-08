@@ -1,16 +1,12 @@
 package org.jubaroo.mods.wurm.server.tools.database;
 
 import com.wurmonline.server.DbConnector;
-import com.wurmonline.server.FailedException;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.Creatures;
-import com.wurmonline.server.items.*;
 import com.wurmonline.server.players.Player;
-import com.wurmonline.shared.util.MaterialUtilities;
 import org.gotti.wurmunlimited.modsupport.ModSupportDb;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
-import org.jubaroo.mods.wurm.server.items.CustomItems;
 import org.jubaroo.mods.wurm.server.misc.Misc;
 
 import java.sql.Connection;
@@ -88,7 +84,7 @@ public class DatabaseHelper {
         }
 
         // ============= Requiem Gifts =================
-
+/*
         //TODO finish me
         boolean steamIdGifted = false;
         boolean thisYear = false;
@@ -234,7 +230,7 @@ public class DatabaseHelper {
         } catch (SQLException e) {
             RequiemLogging.logException("[Error] in action in ScrollOfVillageCreateAction", e);
         }
-
+ */
     }
 
     public static void onServerStarted() {

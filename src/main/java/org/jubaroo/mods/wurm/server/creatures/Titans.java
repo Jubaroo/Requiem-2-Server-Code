@@ -3,6 +3,7 @@ package org.jubaroo.mods.wurm.server.creatures;
 import com.wurmonline.mesh.Tiles;
 import com.wurmonline.server.Players;
 import com.wurmonline.server.Server;
+import com.wurmonline.server.Servers;
 import com.wurmonline.server.TimeConstants;
 import com.wurmonline.server.bodys.Wound;
 import com.wurmonline.server.bodys.Wounds;
@@ -40,7 +41,7 @@ public class Titans {
             if (Server.getSecondsUptime() >= TimeConstants.MINUTE * RandomUtils.getRandomIntegerInRange(5, 10) && Server.getSecondsUptime() <= TimeConstants.MINUTE * RandomUtils.getRandomIntegerInRange(11, 15)) {
                 for (Creature creature : Creatures.getInstance().getCreatures()) {
                     if (Titans.isTitan(creature)) {
-                        DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("A Titan has been detected by the mystical Wizards of Altura. The Titan has been identified as %s. The wizards are focusing their powers on it and pinpointing its location......", creature.getName()));
+                        DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("[%s] A Titan has been detected by the mystical Wizards of Altura. The Titan has been identified as %s. The wizards are focusing their powers on it and pinpointing its location......", Servers.getLocalServerName(), creature.getName()));
                         detected = true;
                     }
                 }
@@ -50,7 +51,7 @@ public class Titans {
             if (Server.getSecondsUptime() >= TimeConstants.MINUTE * RandomUtils.getRandomIntegerInRange(20, 30) && Server.getSecondsUptime() <= TimeConstants.MINUTE * RandomUtils.getRandomIntegerInRange(35, 45)) {
                 for (Creature creature : Creatures.getInstance().getCreatures()) {
                     if (Titans.isTitan(creature)) {
-                        DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("%s has been located! Its position in the world is %s, %s", creature.getName(), (int) creature.getPosX() / 4, (int) creature.getPosY() / 4));
+                        DiscordHandler.sendToDiscord(CustomChannel.TITAN, String.format("[%s] %s has been located! Its position in the world is %s, %s", Servers.getLocalServerName(), creature.getName(), (int) creature.getPosX() / 4, (int) creature.getPosY() / 4));
                         located = true;
                     }
                 }
@@ -748,62 +749,68 @@ public class Titans {
 				titans.remove(c);
 			}
 		}*/
-        int i = 0;
-        while (i < titans.size()) {
-            if (titans.get(i).isDead()) {
-                titans.remove(titans.get(i));
-                RequiemLogging.logInfo(String.format("Titan was found dead (%s). Removing from titan list.", titans.get(i).getName()));
-            } else {
-                i++;
+        try {
+            int i = 0;
+            while (i < titans.size()) {
+                if (titans.get(i).isDead()) {
+                    titans.remove(titans.get(i));
+                    RequiemLogging.logInfo(String.format("Titan was found dead (%s). Removing from titan list.", titans.get(i).getName()));
+                } else {
+                    i++;
+                }
             }
+        } catch (Exception e) {
+            RequiemLogging.logException("[ERROR] removing dead Titan from the list.", e);
         }
-        if (titans.isEmpty()) {
-            if (lastSpawnedTitan + titanRespawnTime < System.currentTimeMillis()) {
-                RequiemLogging.logInfo("No Titan was found, and the timer has expired. Spawning a new one.");
-                boolean found = false;
-                int spawnX = 2048;
-                int spawnY = 2048;
-                while (!found) {
-                    int x = Server.rand.nextInt(Server.surfaceMesh.getSize());
-                    int y = Server.rand.nextInt(Server.surfaceMesh.getSize());
-                    short height = Tiles.decodeHeight(Server.surfaceMesh.getTile(x, y));
-                    if (height > 0 && height < 1000 && Creature.getTileSteepness(x, y, true)[1] < 30) {
-                        Village v = Villages.getVillage(x, y, true);
-                        if (v == null) {
-                            for (int vx = -50; vx < 50; vx += 5) {
-                                for (int vy = -50; vy < 50 && (v = Villages.getVillage(x + vx, y + vy, true)) == null; vy += 5) {
-                                }
-                                if (v != null) {
-                                    break;
+        if (!Servers.isThisLoginServer() || !Servers.getLocalServerName().equals("Tranquil Garden")) {
+            if (titans.isEmpty()) {
+                if (lastSpawnedTitan + titanRespawnTime < System.currentTimeMillis()) {
+                    RequiemLogging.logInfo("No Titan was found, and the timer has expired. Spawning a new one.");
+                    boolean found = false;
+                    int spawnX = 2048;
+                    int spawnY = 2048;
+                    while (!found) {
+                        int x = Server.rand.nextInt(Server.surfaceMesh.getSize());
+                        int y = Server.rand.nextInt(Server.surfaceMesh.getSize());
+                        short height = Tiles.decodeHeight(Server.surfaceMesh.getTile(x, y));
+                        if (height > 0 && height < 1000 && Creature.getTileSteepness(x, y, true)[1] < 30) {
+                            Village v = Villages.getVillage(x, y, true);
+                            if (v == null) {
+                                for (int vx = -50; vx < 50; vx += 5) {
+                                    for (int vy = -50; vy < 50 && (v = Villages.getVillage(x + vx, y + vy, true)) == null; vy += 5) {
+                                    }
+                                    if (v != null) {
+                                        break;
+                                    }
                                 }
                             }
+                            if (v != null) {
+                                continue;
+                            }
+                            spawnX = x * 4;
+                            spawnY = y * 4;
+                            found = true;
                         }
-                        if (v != null) {
-                            continue;
-                        }
-                        spawnX = x * 4;
-                        spawnY = y * 4;
-                        found = true;
                     }
-                }
                 /*float worldSizeX = Zones.worldTileSizeX;
                 float worldSizeY = Zones.worldTileSizeY;
                 float minX = worldSizeX*0.25f;
                 float minY = worldSizeY*0.25f;
                 int tilex = (int) (minX+(minX*2*Server.rand.nextFloat()))*4;
                 int tiley = (int) (minY+(minY*2*Server.rand.nextFloat()))*4;*/
-                int[] titanTemplates = {CustomCreatures.lilithId, CustomCreatures.ifritId};
-                try {
-                    Creature.doNew(titanTemplates[Server.rand.nextInt(titanTemplates.length)], spawnX, spawnY, 360f * Server.rand.nextFloat(), 0, "", (byte) 0);
-                    lastSpawnedTitan = System.currentTimeMillis();
-                    updateLastSpawnedTitan();
-                } catch (Exception e) {
-                    RequiemLogging.logException("[ERROR] Failed to create Titan.", e);
+                    int[] titanTemplates = {CustomCreatures.lilithId, CustomCreatures.ifritId};
+                    try {
+                        Creature.doNew(titanTemplates[Server.rand.nextInt(titanTemplates.length)], spawnX, spawnY, 360f * Server.rand.nextFloat(), 0, "", (byte) 0);
+                        lastSpawnedTitan = System.currentTimeMillis();
+                        updateLastSpawnedTitan();
+                    } catch (Exception e) {
+                        RequiemLogging.logException("[ERROR] Failed to create Titan.", e);
+                    }
                 }
-            }
-        } else {
-            for (Creature c : titans) {
-                c.healRandomWound(1000);
+            } else {
+                for (Creature c : titans) {
+                    c.healRandomWound(1000);
+                }
             }
         }
     }

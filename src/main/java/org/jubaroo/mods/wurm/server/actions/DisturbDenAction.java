@@ -82,6 +82,15 @@ public class DisturbDenAction implements ModAction, ActionPerformer, BehaviourPr
             Communicator comm = performer.getCommunicator();
             int creatureType = target.getData1();
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(creatureType);
+            if (target.getData1() < 0) {
+                if (performer.getPower() > 2) {
+                    comm.sendNormalServerMessage("Set the type of creature that will spawn in data1 silly, nothing will spawn otherwise!");
+                    return true;
+                } else if (performer.getPower() < 2) {
+                    comm.sendNormalServerMessage("Please contact staff by using /support and report this issue - [DisturbDenAction Data1 < 0]");
+                    return true;
+                }
+            }
             if (target.getData2() > 0) {
                 comm.sendNormalServerMessage("Doesn't look like there's anything here, maybe return later.");
                 return true;

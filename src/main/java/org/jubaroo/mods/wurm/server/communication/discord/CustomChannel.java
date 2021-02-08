@@ -7,11 +7,11 @@ public enum CustomChannel {
     TITLES("Titles", (byte) -4, false, false),
     EVENTS("Events", (byte) -5, false, false),
     TITAN("Titan", (byte) -6, false, false),
-    UNIQUES("Uniques", (byte) -6, true, false),
-    TRADE("Trade", (byte) -7, true, false),
-    SERVER_STATUS("*", (byte) -8, false, true),
-    TICKETS("*", (byte) -9, false, true),
-    LOGINS("*", (byte) -10, false, true);
+    UNIQUES("Uniques", (byte) -7, false, false),
+    TRADE("Trade", (byte) -8, true, false),
+    SERVER_STATUS("*", (byte) -9, false, true),
+    TICKETS("Tickets", (byte) -10, false, true),
+    LOGINS("*", (byte) -11, false, true);
 
     public final String ingameName;
     public String discordName;
