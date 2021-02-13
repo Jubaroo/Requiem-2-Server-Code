@@ -150,12 +150,12 @@ public class ChatHandler {
     }
 
     public static void handleBroadcast(String msg) {
-        if (msg.startsWith("The settlement of") ||/* msg.startsWith("Rumours of") ||*/ msg.endsWith("has been slain.")) {
-            ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
-            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("[%s] %s", Servers.getLocalServerName(), msg));
+        if (msg.startsWith("The settlement of") || msg.endsWith("has been slain.")) {
+            ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("%s", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s %s", Servers.getLocalServerName(), msg));
         } else if (msg.startsWith("Rumours of")) {
-            ChatHandler.sendToPlayersAndServers(CustomChannel.UNIQUES, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
-            DiscordHandler.sendToDiscord(CustomChannel.UNIQUES, String.format("[%s] %s", Servers.getLocalServerName(), msg));
+            ChatHandler.sendToPlayersAndServers(CustomChannel.UNIQUES, String.format("%s", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            DiscordHandler.sendToDiscord(CustomChannel.UNIQUES, String.format("%s %s", Servers.getLocalServerName(), msg));
         }
     }
 

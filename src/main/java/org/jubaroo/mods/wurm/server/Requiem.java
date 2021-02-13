@@ -4,6 +4,8 @@ import com.wurmonline.server.Message;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.players.Player;
+import javassist.CannotCompileException;
+import javassist.NotFoundException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.jubaroo.mods.wurm.server.communication.commands.ArgumentTokenizer;
@@ -77,6 +79,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
             }
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new HookException(e);
+        } catch (CannotCompileException | NotFoundException e) {
+            e.printStackTrace();
         }
         RequiemLogging.logInfo("all preInit completed");
     }
@@ -129,6 +133,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public MessagePolicy onPlayerMessage(Communicator communicator, String message, String title) {
+        // MessagePolicy.DISCARD = true
+        // MessagePolicy.PASS = false
         if (!disableOnPlayerMessage) {
             String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
             if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
@@ -143,7 +149,12 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                 else
                     communicator.sendNormalServerMessage("Cleared event line.");
                 return MessagePolicy.DISCARD;
-            } else if (!message.startsWith("#") && !message.startsWith("/")) {
+            }
+            //else if (message.equals("/stitles")) {
+            //    SorceryTitleQuestion.send(communicator.getPlayer());
+            //    return MessagePolicy.DISCARD;
+            //}
+            else if (!message.startsWith("#") && !message.startsWith("/")) {
                 CustomChannel chan = CustomChannel.findByIngameName(title);
                 if (chan != null) {
                     if (chan.canPlayersSend)

@@ -11,7 +11,7 @@ import com.wurmonline.server.players.Player;
 import org.gotti.wurmunlimited.modsupport.actions.*;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 import org.jubaroo.mods.wurm.server.items.CustomItems;
-import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.tools.database.DbChanges;
 
 import java.util.Collections;
 import java.util.List;
@@ -71,7 +71,7 @@ public class BankSlotsAction implements ModAction {
                         if (target.getTemplate().getTemplateId() != CustomItems.scrollOfBankSlots.getTemplateId()) {
                             return propagate(act, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
                         }
-                        DatabaseHelper.addFiveBankSlots(player.getWurmId());
+                        DbChanges.addFiveBankSlots(player.getWurmId());
                         Items.destroyItem(target.getWurmId());
                         player.getCommunicator().sendSafeServerMessage(String.format("The %s exhausts the last of its energy from creating space in your bank and crumbles to dust in your hand.", itemName));
                         player.getCommunicator().sendSafeServerMessage("5 additional slots have been added to your bank account.");

@@ -26,9 +26,9 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 
 import java.util.logging.Level;
 
-public class GreaterDirt extends ModReligiousSpell {
+class GreaterDirt extends ModReligiousSpell {
 
-    public GreaterDirt() {
+    GreaterDirt() {
         super("Dirt", ModActions.getNextActionId(), 10, 20, 50, 40, 1000L);
         this.targetTile = true;
         this.targetItem = true;

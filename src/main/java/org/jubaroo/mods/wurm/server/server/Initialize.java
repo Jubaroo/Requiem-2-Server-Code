@@ -2,7 +2,6 @@ package org.jubaroo.mods.wurm.server.server;
 
 import com.wurmonline.server.Items;
 import com.wurmonline.server.MiscConstants;
-import com.wurmonline.server.behaviours.Actions;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.CreatureTemplateIds;
 import com.wurmonline.server.economy.Change;
@@ -27,6 +26,7 @@ import org.jubaroo.mods.wurm.server.misc.DecorativeKingdoms;
 import org.jubaroo.mods.wurm.server.misc.MiscHooks;
 import org.jubaroo.mods.wurm.server.misc.templates.StructureTemplate;
 import org.jubaroo.mods.wurm.server.tools.Hooks;
+import org.jubaroo.mods.wurm.server.spells.SpellExamine;
 import org.jubaroo.mods.wurm.server.vehicles.CustomVehicles;
 
 import java.lang.reflect.InvocationHandler;
@@ -49,64 +49,131 @@ public class Initialize {
         CtClass ctCommunicator = classPool.getCtClass("com.wurmonline.server.creatures.Communicator");
         CtClass ctItem = classPool.getCtClass("com.wurmonline.server.items.Item");
         CtClass ctServer = classPool.getCtClass("com.wurmonline.server.Server");
-
-        HookManager.getInstance().registerHook("com.wurmonline.server.Players", "sendAltarsToPlayer", "(Lcom/wurmonline/server/players/Player;)V", new InvocationHandlerFactory() {
-
-            @Override
-            public InvocationHandler createInvocationHandler() {
-                return new InvocationHandler() {
-
-                    @Override
-                    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-
-                        Player player = (Player) args[0];
-
-                        SupplyDepots.sendDepotEffectsToPlayer(player);
-
-                        return method.invoke(object, args);
-                    }
-
-                };
-            }
-        });
-
-        CtMethod ctDoNew = ctCreature.getMethod("doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;");
-
-        ctDoNew.instrument(new ExprEditor() {
-            public void edit(MethodCall m) throws CannotCompileException {
-                if (m.getMethodName().equals("sendToWorld")) {
-                    m.replace("$_ = $proceed($$);org.jubaroo.mods.wurm.server.tools.Hooks.modifyNewCreature($1);");
-                    return;
-                }
-            }
-        });
-
-        // -- Enable adjusting size for creatures -- //
-        ctCreatureStatus.getDeclaredMethod("getSizeMod").setBody("{return org.jubaroo.mods.wurm.server.tools.CreatureTools.getAdjustedSizeMod(this);}");
+        CtClass ctMethodsItems = classPool.getCtClass("com.wurmonline.server.behaviours.MethodsItems");
 
         try {
-            //setUpNpcMovement();
-            HookManager hooks = HookManager.getInstance();
-            ClassPool pool = hooks.getClassPool();
-            if (stfuNpcs) {
-                hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
-                        "answerLocalChat",
-                        "(Lcom/wurmonline/server/Message;Ljava/lang/String;)V",
-                        () -> (proxy, method, args) -> null);
-                hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
-                        "getSayToCreature",
-                        "(Lcom/wurmonline/server/creatures/Creature;)Ljava/lang/String;",
-                        () -> (proxy, method, args) -> null);
-            }
+            // Spell examine
+            ctMethodsItems.getMethod("getEnhancementStrings", "(Lcom/wurmonline/server/items/Item;)Ljava/util/List;")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("getName")) {
+                                m.replace(String.format("$_ = %s.getName($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getName at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            } else if (m.getMethodName().equals("getLongDesc")) {
+                                m.replace(String.format("$_ = %s.getLongDesc($0, item);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied getEnhancementStrings patch for getLongDesc at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            }
+                        }
+                    });
 
-            if (hidePlayerGodInscriptions) {
-                hooks.registerHook("com.wurmonline.server.deities.Deities",
-                        "getRandomNonHateDeity",
-                        "()Lcom/wurmonline/server/deities/Deity;",
-                        () -> (proxy, method, args) -> null);
-            }
+            ctItem.getMethod("sendColoredEnchant", "(Lcom/wurmonline/server/creatures/Communicator;Lcom/wurmonline/server/spells/SpellEffect;)V")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("getName")) {
+                                m.replace(String.format("$_ = %s.getName($0, this);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied sendColoredEnchant patch for getName at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            } else if (m.getMethodName().equals("getLongDesc")) {
+                                m.replace(String.format("$_ = %s.getLongDesc($0, this);", SpellExamine.class.getName()));
+                                RequiemLogging.logInfo(String.format("Applied sendColoredEnchant patch for getLongDesc at %s line %d", m.where().getLongName(), m.getLineNumber()));
+                            }
+                        }
+                    });
+        } catch (CannotCompileException | NotFoundException e) {
+            RequiemLogging.logException("[ERROR] in custom spell display.", e);
+        }
 
-            if (gmFullFavor) {
+        try {
+            classPool.getCtClass("com.wurmonline.server.spells.Dirt")
+                    .getMethod("doEffect", "(Lcom/wurmonline/server/skills/Skill;DLcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;)V")
+                    .instrument(new ExprEditor() {
+                        @Override
+                        public void edit(MethodCall m) throws CannotCompileException {
+                            if (m.getMethodName().equals("min"))
+                                m.replace("$_=$proceed(20,$2);");
+                        }
+                    });
+        } catch (CannotCompileException | NotFoundException e) {
+            RequiemLogging.logException("[ERROR] in changing amount of dirt created in the Dirt spell.", e);
+        }
+
+        try {
+            HookManager.getInstance().registerHook("com.wurmonline.server.Players", "sendAltarsToPlayer", "(Lcom/wurmonline/server/players/Player;)V", new InvocationHandlerFactory() {
+
+                @Override
+                public InvocationHandler createInvocationHandler() {
+                    return new InvocationHandler() {
+
+                        @Override
+                        public Object invoke(Object object, Method method, Object[] args) throws Throwable {
+
+                            Player player = (Player) args[0];
+
+                            SupplyDepots.sendDepotEffectsToPlayer(player);
+
+                            return method.invoke(object, args);
+                        }
+
+                    };
+                }
+            });
+        } catch (Exception e) {
+            RequiemLogging.logException("[ERROR] in sendAltarsToPlayer.", e);
+        }
+
+        try {
+            CtMethod ctDoNew = ctCreature.getMethod("doNew", "(IZFFFILjava/lang/String;BBBZB)Lcom/wurmonline/server/creatures/Creature;");
+            ctDoNew.instrument(new ExprEditor() {
+                public void edit(MethodCall m) throws CannotCompileException {
+                    if (m.getMethodName().equals("sendToWorld")) {
+                        m.replace("$_ = $proceed($$);org.jubaroo.mods.wurm.server.tools.Hooks.modifyNewCreature($1);");
+                        return;
+                    }
+                }
+            });
+        } catch (NotFoundException | CannotCompileException e) {
+            RequiemLogging.logException("[ERROR] in doNew.", e);
+        }
+
+        try {
+            // -- Enable adjusting size for creatures -- //
+            ctCreatureStatus.getDeclaredMethod("getSizeMod").setBody("{return org.jubaroo.mods.wurm.server.tools.CreatureTools.getAdjustedSizeMod(this);}");
+        } catch (CannotCompileException | NotFoundException e) {
+            RequiemLogging.logException("[ERROR] in getSizeMod.", e);
+        }
+
+        //setUpNpcMovement();
+        HookManager hooks = HookManager.getInstance();
+        ClassPool pool = hooks.getClassPool();
+        if (stfuNpcs) {
+            try {
+            hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
+                    "answerLocalChat",
+                    "(Lcom/wurmonline/server/Message;Ljava/lang/String;)V",
+                    () -> (proxy, method, args) -> null);
+            hooks.registerHook("com.wurmonline.server.creatures.ai.ChatManager",
+                    "getSayToCreature",
+                    "(Lcom/wurmonline/server/creatures/Creature;)Ljava/lang/String;",
+                    () -> (proxy, method, args) -> null);
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in getRandomNonHateDeity.", e);
+            }
+        }
+
+        if (hidePlayerGodInscriptions) {
+            try {
+            hooks.registerHook("com.wurmonline.server.deities.Deities",
+                    "getRandomNonHateDeity",
+                    "()Lcom/wurmonline/server/deities/Deity;",
+                    () -> (proxy, method, args) -> null);
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in getRandomNonHateDeity.", e);
+            }
+        }
+
+        if (gmFullFavor) {
+            try {
                 hooks.registerHook("com.wurmonline.server.players.Player",
                         "depleteFavor",
                         "(FZ)V",
@@ -119,7 +186,11 @@ public class Initialize {
                             }
                             return method.invoke(proxy, args);
                         });
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in depleteFavor.", e);
             }
+        }
+        try {
             hooks.registerHook("com.wurmonline.server.players.Player",
                     "increaseAffinity",
                     "(II)V",
@@ -127,15 +198,23 @@ public class Initialize {
                         RequiemLogging.logWarning(String.format("incAff: %d %d", args[0], args[1]));
                         return method.invoke(proxy, args);
                     });
+        } catch (Exception e) {
+            RequiemLogging.logException("[ERROR] in increaseAffinity.", e);
+        }
 
-            if (loadFullContainers) {
+        if (loadFullContainers) {
+            try {
                 hooks.registerHook("com.wurmonline.server.behaviours.CargoTransportationMethods",
                         "targetIsNotEmptyContainerCheck",
                         "(Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;Z)Z",
                         () -> (proxy, method, args) -> false);
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in targetIsNotEmptyContainerCheck.", e);
             }
+        }
 
-            if (noMineDrift) {
+        if (noMineDrift) {
+            try {
                 hooks.registerHook("com.wurmonline.server.behaviours.TileRockBehaviour",
                         "getFloorAndCeiling",
                         "(IIIIZZLcom/wurmonline/server/creatures/Creature;)[I",
@@ -151,19 +230,31 @@ public class Initialize {
                             }
                             return ret;
                         });
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in getFloorAndCeiling.", e);
             }
+        }
 
-            if (allowTentsOnDeed) {
+        if (allowTentsOnDeed) {
+            try {
                 hooks.registerHook("com.wurmonline.server.behaviours.MethodsItems",
                         "mayDropTentOnTile",
                         "(Lcom/wurmonline/server/creatures/Creature;)Z",
                         () -> (proxy, method, args) -> true);
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in mayDropTentOnTile.", e);
             }
+        }
 
-            if (allSurfaceMine) {
+        if (allSurfaceMine) {
+            try {
                 MiscHooks.hookSurfaceMine(pool);
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in hookSurfaceMine.", e);
             }
+        }
 
+        try {
             /* Hook Item Creation */
             for (String desc : createItemDescs) {
                 RequiemLogging.logInfo("createItem: " + desc);
@@ -177,26 +268,23 @@ public class Initialize {
                             return retn;
                         });
             }
+        } catch (Exception e) {
+            RequiemLogging.logException("[ERROR] in createItem.", e);
+        }
 
-            if (lampsAutoLight) {
+        if (lampsAutoLight) {
+            try {
                 hooks.registerHook("com.wurmonline.server.items.Item", "refuelLampFromClosestVillage", "()V",
                         () -> (proxy, method, args) -> {
                             Item lamp = (Item) proxy;
                             lamp.setAuxData((byte) 127);
                             return method.invoke(proxy, args);
                         });
+            } catch (Exception e) {
+                RequiemLogging.logException("[ERROR] in refuelLampFromClosestVillage.", e);
             }
+        }
 
-            hooks.registerHook("com.wurmonline.server.structures.Structure",
-                    "isEnemyAllowed",
-                    "(Lcom/wurmonline/server/creatures/Creature;S)Z",
-                    () -> (proxy, method, args) -> {
-                        short act = (short) args[1];
-                        if (act >= Actions.actionEntrys.length) {
-                            return false;
-                        }
-                        return method.invoke(proxy, args);
-                    });
 /*
         if ( gmFullStamina ) {
                 CtClass ex = HookManager.getInstance().getClassPool().get("com.wurmonline.server.creatures.CreatureStatus");
@@ -225,9 +313,6 @@ public class Initialize {
             });
         }
 */
-        } catch (IllegalArgumentException | ClassCastException e) {
-            throw new HookException(e);
-        }
 
         try {
             RequiemLogging.logInfo("========= Initializing ItemMod.init =========");

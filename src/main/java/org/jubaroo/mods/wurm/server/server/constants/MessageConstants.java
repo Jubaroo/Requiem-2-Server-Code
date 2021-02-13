@@ -2,10 +2,6 @@ package org.jubaroo.mods.wurm.server.server.constants;
 
 public class MessageConstants {
     public static byte displayOnScreen = 1;
-    public static String dayOneBuffMessage = "You regenerate health faster on the first day of each month.";
-    public static String daySevenBuffMessage = "Your defensive combat rating is increased on the seventh day of each month.";
-    public static String dayFifteenBuffMessage = "You require food less on the fifteenth day of each month.";
-    public static String dayTwentyThreeBuffMessage = "Your offensive combat rating is increased on the twenty third day of each month.";
 
     public static final String[] randomServerGreetings = {
             "Put that :cookie: down, the server is back online!",

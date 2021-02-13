@@ -319,7 +319,7 @@ public class AchievementChanges {
             }
             RequiemLogging.logInfo(String.format("Total achievements loaded into system: %d", goodAchievements.size()));
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            e.printStackTrace();
+            RequiemLogging.logException("[ERROR] in onServerStarted in AchievementChanges.", e);
         }
     }
 

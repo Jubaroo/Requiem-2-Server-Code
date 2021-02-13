@@ -37,7 +37,7 @@ public class DepthDrillAction implements ModAction {
         return new BehaviourProvider() {
             // Menu with activated object
             @Override
-            public List<ActionEntry> getBehavioursFor(Creature performer, Item object, int tilex, int tiley, boolean onSurface, boolean corner, int tile) {
+            public List<ActionEntry> getBehavioursFor(Creature performer, Item object, int tilex, int tiley, boolean onSurface, boolean corner, int tile, int heightOffset) {
                 if (performer instanceof Player && object != null && object.getTemplateId() == CustomItems.depthDrillId) {
                     return Collections.singletonList(actionEntry);
                 }
@@ -57,7 +57,7 @@ public class DepthDrillAction implements ModAction {
 
             // With activated object
             @Override
-            public boolean action(Action action, Creature performer, Item source, int tilex, int tiley, boolean onSurface, boolean corner, int tile, short num, float counter) {
+            public boolean action(Action action, Creature performer, Item source, int tilex, int tiley, boolean onSurface, boolean corner, int tile, int heightOffset, short num, float counter) {
                 try {
                     if (performer instanceof Player) {
                         if (source.getTemplate().getTemplateId() != CustomItems.depthDrillId) {

@@ -66,7 +66,7 @@ public class RequiemReloadAction implements WurmServerMod, ItemTypes, MiscConsta
                 return true;
             }
             InputStream stream = null;
-            //DatabaseHelper.setUniques();
+            //DbChanges.setUniques();
             try {
                 performer.getCommunicator().sendAlertServerMessage("Opening the config file.");
                 stream = Files.newInputStream(path);

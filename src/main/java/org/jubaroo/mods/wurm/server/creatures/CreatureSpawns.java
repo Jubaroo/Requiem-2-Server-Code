@@ -22,7 +22,7 @@ import org.jubaroo.mods.wurm.server.communication.discord.CustomChannel;
 import org.jubaroo.mods.wurm.server.creatures.traitedCreatures.Zebra;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.database.holidays.Holidays;
+import org.jubaroo.mods.wurm.server.misc.Holidays;
 
 import java.io.IOException;
 
