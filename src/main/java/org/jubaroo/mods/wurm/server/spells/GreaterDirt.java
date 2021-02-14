@@ -24,17 +24,19 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionEntryBuilder;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 
-public class GreaterDirt extends ModReligiousSpell {
+import java.util.logging.Level;
 
-    public GreaterDirt() {
-        super("Greater Dirt", ModActions.getNextActionId(), 15, 40, 50, 40, 1000L);
+class GreaterDirt extends ModReligiousSpell {
+
+    GreaterDirt() {
+        super("Dirt", ModActions.getNextActionId(), 10, 20, 50, 40, 1000L);
         this.targetTile = true;
         this.targetItem = true;
 
         try {
             ReflectionUtil.setPrivateField(this, ReflectionUtil.getField(Spell.class, "description"), "Creates and destroys dirt");
         } catch (Exception e) {
-            RequiemLogging.logException( null, e);
+            logger.log(Level.WARNING, null, e);
         }
 
         ActionEntry actionEntry = new ActionEntryBuilder((short) number, name, "casting",
@@ -154,13 +156,13 @@ public class GreaterDirt extends ModReligiousSpell {
                         if (target.getOwnerId() == performer.getWurmId()) {
                             if (!performer.canCarry(template.getWeightGrams())) {
                                 if (created) {
-                                    performer.getCommunicator().sendNormalServerMessage("You create a lot of  dirt.", (byte) 2);
+                                    performer.getCommunicator().sendNormalServerMessage("You create some dirt.", (byte) 2);
                                 }
                                 return;
                             }
                         } else if (!target.mayCreatureInsertItem()) {
                             if (created) {
-                                performer.getCommunicator().sendNormalServerMessage("You create a lot of dirt.", (byte) 2);
+                                performer.getCommunicator().sendNormalServerMessage("You create some dirt.", (byte) 2);
                             }
                             return;
                         }
@@ -171,7 +173,7 @@ public class GreaterDirt extends ModReligiousSpell {
                 }
             }
             if (created) {
-                performer.getCommunicator().sendNormalServerMessage("You create a lot of dirt.", (byte) 2);
+                performer.getCommunicator().sendNormalServerMessage("You create some dirt.", (byte) 2);
             }
         } catch (NoSuchTemplateException | FailedException e) {
             RequiemLogging.logException("[Error] in doEffect in GreaterDirt", e);

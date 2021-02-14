@@ -40,7 +40,6 @@ public class AddActions {
         ModActions.registerAction(new AddUpkeepAction());
         ModActions.registerAction(new ActivatePortalAction());
         ModActions.registerAction(new EmptyTrashHeapAction());
-        ModActions.registerAction(new LightningStormAction());
         ModActions.registerAction(new TreasureHuntChestAction());
         ModActions.registerAction(new SummoningStoneAction());
         ModActions.registerAction(new ShopSignAction());
@@ -88,7 +87,6 @@ public class AddActions {
         ModActions.registerAction(new InnkeeperFoodAction());
         ModActions.registerAction(new SmashAction());
         ModActions.registerAction(new StealthAction());
-        ModActions.registerAction(new SkullAction());
         ModActions.registerAction(new TentSleepAction());
         //ModActions.registerAction(new SummonScrollAction());
         ModActions.registerAction(new CreateAshAction());

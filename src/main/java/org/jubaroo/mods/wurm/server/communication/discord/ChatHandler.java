@@ -6,7 +6,9 @@ import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.server.webinterface.WcKingdomChat;
 import net.bdew.wurm.tools.server.ServerThreadExecutor;
+import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
+import org.jubaroo.mods.wurm.server.tools.ItemTools;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -80,18 +82,21 @@ public class ChatHandler {
         systemMessage(player, CustomChannel.GLOBAL, "This is the Global channel, you can use it to communicate with players across all servers and kingdoms.");
         systemMessage(player, CustomChannel.HELP, "This is the Help channel, if you have any questions about the game ask them here and we'll do our best to answer them.");
         systemMessage(player, CustomChannel.HELP, "Please refrain from general chatter in this channel.");
-        systemMessage(player, CustomChannel.INFO, "Welcome to Requiem of Wurm!");
-        systemMessage(player, CustomChannel.INFO, "Check out our website for all info on the servers and maps: https://requiemofwurm.wixsite.com/main");
-        systemMessage(player, CustomChannel.INFO, "Join us in discord - https://discord.gg/3CPJKXp");
+        systemMessage(player, CustomChannel.INFO, "Welcome to the Requiem of Wurm server cluster!");
+        systemMessage(player, CustomChannel.INFO, "Check out our website for all info on the servers and maps:");
+        systemMessage(player, CustomChannel.INFO, "https://requiemofwurm.wixsite.com/main", 255, 255, 255);
+        systemMessage(player, CustomChannel.INFO, "Join us in discord:");
+        systemMessage(player, CustomChannel.INFO, "https://discord.gg/3CPJKXp", 255, 255, 255);
         systemMessage(player, CustomChannel.INFO, "This is a HEAVILY MODDED server with a lot of custom content. To be able to enjoy all the server has to offer, it is STRONGLY RECOMMENDED to visit the Mod loader installer link below.");
         systemMessage(player, CustomChannel.INFO, "Right click on and choose open in browser to go to the websites below.");
-        systemMessage(player, CustomChannel.INFO, "If you expience any crashes while playing, please install this mod to prevent future crashing. https://github.com/bdew-wurm/modelcrashfix/releases. NOTE: It is included with the installer linked below");
+        systemMessage(player, CustomChannel.INFO, "If you expience any crashes while playing, please install this mod to prevent future crashing: https://github.com/bdew-wurm/modelcrashfix/releases. NOTE: It is included with the installer linked below");
+        systemMessage(player, CustomChannel.INFO, "https://github.com/bdew-wurm/modelcrashfix/releases. NOTE: It is included with the installer linked below", 255, 255, 255);
         systemMessage(player, CustomChannel.INFO, "Mod loader installer:");
-        systemMessage(player, CustomChannel.INFO, "https://requiemofwurm.wixsite.com/main/client-modloader-installer");
+        systemMessage(player, CustomChannel.INFO, "https://requiemofwurm.wixsite.com/main/client-modloader-installer", 255, 255, 255);
         systemMessage(player, CustomChannel.INFO, "Requiem of Wurm custom Wiki:");
-        systemMessage(player, CustomChannel.INFO, "http://requiemofwurm.wikidot.com/start");
+        systemMessage(player, CustomChannel.INFO, "http://requiemofwurm.wikidot.com/start", 255, 255, 255);
         systemMessage(player, CustomChannel.INFO, "Vote for the server as often as you can!");
-        systemMessage(player, CustomChannel.INFO, "https://wurm-unlimited.com/server/2701/vote/");
+        systemMessage(player, CustomChannel.INFO, "https://wurm-unlimited.com/server/2701/vote/", 255, 255, 255);
         systemMessage(player, CustomChannel.INFO, "SCROLL UP to see all of the information on the server.");
         systemMessage(player, CustomChannel.INFO, "Enjoy your time on Requiem of Wurm!");
         if (eventsMsg.length() > 0)
@@ -129,9 +134,17 @@ public class ChatHandler {
 
     public static void serverStarted() {
         if (Servers.localServer.LOGINSERVER) {
-            RequiemLogging.logInfo("Server started, connecting to discord");
-            DiscordHandler.initJda();
-            DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:green_circle: Servers are starting up... :green_circle:**");
+            if (!ItemTools.isWhitespaceSequenceOrEmpty(ModConfig.botToken)) {
+                if (!ItemTools.isWhitespaceSequenceOrEmpty(ModConfig.serverName)) {
+                    RequiemLogging.logInfo("Server started, connecting to discord");
+                    DiscordHandler.initJda();
+                    DiscordHandler.sendToDiscord(CustomChannel.SERVER_STATUS, "**:green_circle: Servers are starting up... :green_circle:**");
+                } else {
+                    RequiemLogging.logWarning("No Discord server name was given. Discord bot will not work unless one is provided.");
+                }
+            } else {
+                RequiemLogging.logWarning("No Discord bot token was given. Discord bot will not work unless one is provided.");
+            }
         }
     }
 
@@ -150,12 +163,12 @@ public class ChatHandler {
     }
 
     public static void handleBroadcast(String msg) {
-        if (msg.startsWith("The settlement of") ||/* msg.startsWith("Rumours of") ||*/ msg.endsWith("has been slain.")) {
-            ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
-            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("[%s] %s", Servers.getLocalServerName(), msg));
+        if (msg.startsWith("The settlement of") || msg.endsWith("has been slain.")) {
+            ChatHandler.sendToPlayersAndServers(CustomChannel.EVENTS, String.format("%s", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("%s %s", Servers.getLocalServerName(), msg));
         } else if (msg.startsWith("Rumours of")) {
-            ChatHandler.sendToPlayersAndServers(CustomChannel.UNIQUES, String.format("[%s]", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
-            DiscordHandler.sendToDiscord(CustomChannel.UNIQUES, String.format("[%s] %s", Servers.getLocalServerName(), msg));
+            ChatHandler.sendToPlayersAndServers(CustomChannel.UNIQUES, String.format("%s", Servers.getLocalServerName()), msg, MiscConstants.NOID, 255, 140, 0);
+            DiscordHandler.sendToDiscord(CustomChannel.UNIQUES, String.format("%s %s", Servers.getLocalServerName(), msg));
         }
     }
 

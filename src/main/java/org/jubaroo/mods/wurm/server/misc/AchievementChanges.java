@@ -311,20 +311,21 @@ public class AchievementChanges {
             for (int i : templates.keySet()) {
                 AchievementTemplate temp = templates.get(i);
                 addRequirements(temp);
-                if (
-                        !temp.getRequirement().equals("") && //TODO fix this line
-                                !temp.isForCooking() &&
-                                !blacklist.contains(i)) {
-                    fixName(temp);
-                    goodAchievements.put(i, temp);
-                    RequiemLogging.logInfo(String.format("%d: %s - %s (%s)", temp.getNumber(), temp.getName(), temp.getDescription(), temp.getRequirement()));
+                if (!temp.isForCooking()) {
+                    //if (!temp.getRequirement().equals("")) { //throws a NullPointerException
+                        if (!blacklist.contains(i)) {
+                            fixName(temp);
+                            goodAchievements.put(i, temp);
+                            RequiemLogging.logInfo(String.format("%d: %s - %s (%s)", temp.getNumber(), temp.getName(), temp.getDescription(), temp.getRequirement()));
+                        }
+                    //}
                 }
             }
             RequiemLogging.logInfo(String.format("Total achievements loaded into system: %d", goodAchievements.size()));
-        } catch (NullPointerException | IllegalAccessException | NoSuchFieldException e) {
-            RequiemLogging.logException("[ERROR] in onServerStarted in AchievementChanges", e);
-            e.getCause();
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            RequiemLogging.logException("[ERROR] in onServerStarted in AchievementChanges.", e);
+        } catch (NullPointerException e) {
+            RequiemLogging.logException("[ERROR] checking AchievementTemplate in AchievementChanges.", e);
         }
     }
-
 }

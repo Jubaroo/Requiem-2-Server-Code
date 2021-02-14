@@ -32,8 +32,8 @@ import org.jubaroo.mods.wurm.server.server.constants.CreatureConstants;
 import org.jubaroo.mods.wurm.server.tools.CreatureTools;
 import org.jubaroo.mods.wurm.server.tools.ItemTools;
 import org.jubaroo.mods.wurm.server.tools.RandomUtils;
-import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
-import org.jubaroo.mods.wurm.server.tools.database.holidays.Holidays;
+import org.jubaroo.mods.wurm.server.tools.database.DbChanges;
+import org.jubaroo.mods.wurm.server.misc.Holidays;
 
 import static org.jubaroo.mods.wurm.server.ModConfig.creatureDeathLogging;
 import static org.jubaroo.mods.wurm.server.ModConfig.disableHolidayCreatures;
@@ -96,7 +96,7 @@ public class LootTable {
         // Uniques
         LootManager.add(LootRule.create()
                         .requireUnique()
-                        .addTrigger((c, k) -> DatabaseHelper.addPlayerStat(k.getName(), "UNIQUES"))
+                        .addTrigger((c, k) -> DbChanges.addPlayerStat(k.getName(), "UNIQUES"))
                         // Spawn Undead Creature
                         .addSubRule(LootRule.create()
                                 .chance(c -> c.getStatus().isChampion() ? 0.5f : 0.1f)
@@ -204,7 +204,7 @@ public class LootTable {
                         .addTrigger((c, k) -> {
                             DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes()));
                             k.addTitle(Titles.Title.getTitle(CustomTitles.TREASURE_GOBLIN));
-                            DatabaseHelper.addPlayerStat(k.getName(), "GOBLINS");
+                            DbChanges.addPlayerStat(k.getName(), "GOBLINS");
                         })
                         .addSubRule(LootRule.create()
                                 .requireTemplateIds(CustomCreatures.treasureGoblinMenageristGoblinId)
@@ -215,7 +215,7 @@ public class LootTable {
                         .addTrigger((c, k) -> {
                             DiscordHandler.sendToDiscord(CustomChannel.EVENTS, String.format("A %s has been killed by %s.", c.getNameWithoutPrefixes(), k.getNameWithoutPrefixes()));
                             k.addTitle(Titles.Title.getTitle(CustomTitles.TREASURE_GOBLIN));
-                            DatabaseHelper.addPlayerStat(k.getName(), "GOBLINS");
+                            DbChanges.addPlayerStat(k.getName(), "GOBLINS");
                         })
         );
 

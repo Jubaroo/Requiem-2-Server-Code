@@ -52,31 +52,13 @@ public class Misc {
     }
 
     public static boolean isRequiemPatreon(Player player) {
-        switch (player.getName()) {
-            case "Taita":
-                return true;
-            case "Oluf":
-                return true;
-            case "Akuzic":
-                return true;
-            default:
-                return player.getName().equals("Callanish");
-        }
+        if ("Taita".equals(player.getName())) {
+            return true;
+        } else return "Zeus".equals(player.getName());
     }
 
     public static boolean isWeaponOrArmor(Item target) {
         return target.isWeapon() || target.isArmour() || target.isShield() || target.isWeaponBow() || target.isBowUnstringed();
-    }
-
-    public static boolean isBoss(final Creature creature) {
-        String[] bossids;
-        for (int length = (bossids = bossIds).length, i = 0; i < length; ++i) {
-            final String boss = bossids[i];
-            if (creature.getTemplate().getTemplateId() == Integer.parseInt(boss)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static void sendHotaMessage(String message) {

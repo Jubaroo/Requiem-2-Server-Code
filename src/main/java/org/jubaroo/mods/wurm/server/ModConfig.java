@@ -5,6 +5,9 @@ import com.wurmonline.server.TimeConstants;
 public class ModConfig {
     public static String botToken;
     public static String serverName;
+    public static String user;
+    public static String pass;
+    public static String name;
     public static boolean terrainSmoothing = false;
     public static boolean changeToMycelium = false;
     public static boolean addGmProtect = false;

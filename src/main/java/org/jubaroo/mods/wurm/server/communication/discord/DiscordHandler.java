@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.events.StatusChangeEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.jubaroo.mods.wurm.server.ModConfig;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 
@@ -33,6 +34,7 @@ public class DiscordHandler extends ListenerAdapter {
     private static long lastStatusUpdate = Long.MIN_VALUE;
     private static int lastPlayers = -1;
 
+    // TODO see about adding emojis the other way also so that discord converts them to emojis
     static {
         emojis.put("\uD83D\uDE1B", ":P");
         emojis.put("\uD83D\uDE03", ":)");
@@ -53,7 +55,8 @@ public class DiscordHandler extends ListenerAdapter {
         }
 
         try {
-            jda = JDABuilder.create(ModConfig.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).build();
+            jda = JDABuilder.create(ModConfig.botToken, GatewayIntent.GUILD_MESSAGES).addEventListeners(new DiscordHandler()).disableCache(CacheFlag.ACTIVITY,CacheFlag.VOICE_STATE, CacheFlag.EMOTE, CacheFlag.CLIENT_STATUS).build();
+
         } catch (LoginException e) {
             RequiemLogging.logException("Error connecting to discord", e);
         }
@@ -106,7 +109,6 @@ public class DiscordHandler extends ListenerAdapter {
 
     public static void sendToDiscord(CustomChannel channel, String msg) {
         try {
-            //if (Servers.isThisATestServer()) return;
             if (jda == null || channel.discordName == null) return;
             if (jda.getStatus() != JDA.Status.CONNECTED) {
                 RequiemLogging.logInfo(String.format("Discord not ready, queueing: [%s] %s", channel, msg));

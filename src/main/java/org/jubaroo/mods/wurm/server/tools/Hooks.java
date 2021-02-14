@@ -214,7 +214,6 @@ public class Hooks {
                     FeedingHand.poll(item, effect.power);
             }
         }
-
     }
 
     // Allow ghost creatures to drop corpses
@@ -284,7 +283,7 @@ public class Hooks {
         return immune;
     }
 
-    // Auto-DarkGenesis a creature born on enchanted grass
+    // Auto-Genesis a creature born on enchanted grass
     public static void checkEnchantedBreed(Creature creature) {
         int tile = Server.surfaceMesh.getTile(creature.getTileX(), creature.getTileY());
         byte type = Tiles.decodeType(tile);

@@ -45,6 +45,10 @@ public class Config {
         CustomChannel.TRADE.discordName = properties.getProperty("tradeName");
         CustomChannel.LOGINS.discordName = properties.getProperty("loginsName");
         CustomChannel.SERVER_STATUS.discordName = properties.getProperty("serverStatusName");
+        // ========================== Database ===========================
+        user = properties.getProperty("user");
+        pass = properties.getProperty("pass");
+        name = properties.getProperty("name");
         // ========================== AddActions ===========================
         addGmProtect = Boolean.parseBoolean(properties.getProperty("addGmProtect", String.valueOf(addGmProtect)));
         addGmUnprotect = Boolean.parseBoolean(properties.getProperty("addGmUnprotect", String.valueOf(addGmUnprotect)));

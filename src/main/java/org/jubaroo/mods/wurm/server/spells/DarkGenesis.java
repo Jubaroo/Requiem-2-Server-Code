@@ -11,9 +11,9 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionEntryBuilder;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.jubaroo.mods.wurm.server.RequiemLogging;
 
-public class DarkGenesis extends ModReligiousSpell {
+class DarkGenesis extends ModReligiousSpell {
 
-    public DarkGenesis() {
+    DarkGenesis() {
         super("DarkGenesis", ModActions.getNextActionId(), 10, 30, 40, 70, 30000L);
         this.targetCreature = true;
         this.type = SPELL_TYPE_RELIGIOUS;

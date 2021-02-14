@@ -876,7 +876,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "pierceVulnerability"), pierceVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its pierce vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), pierceVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setPierceVulnerability in CreatureTemplateModifier", e);
@@ -888,7 +887,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "slashVulnerability"), slashVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its slash vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), slashVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setSlashVulnerability in CreatureTemplateModifier", e);
@@ -900,7 +898,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "biteVulnerability"), biteVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its bite vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), biteVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setBiteVulnerability in CreatureTemplateModifier", e);
@@ -912,7 +909,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "poisonVulnerability"), poisonVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its poison vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), poisonVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setPoisonVulnerability in CreatureTemplateModifier", e);
@@ -924,7 +920,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "waterVulnerability"), waterVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its water vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), waterVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setWaterVulnerability in CreatureTemplateModifier", e);
@@ -936,7 +931,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "acidVulnerability"), acidVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its acid vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), acidVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setAcidVulnerability in CreatureTemplateModifier", e);
@@ -948,7 +942,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "internalVulnerability"), internalVulnerability);
-                RequiemLogging.logInfo(String.format("Creature %s had its internal vulnerability changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), internalVulnerability));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setInternalVulnerability in CreatureTemplateModifier", e);
@@ -960,7 +953,6 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "maxPercentOfCreatures"), maxPercentOfCreatures);
-                RequiemLogging.logInfo(String.format("The maximum percentage of %s on the map has changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), maxPercentOfCreatures));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setMaxPercentOfCreatures in CreatureTemplateModifier", e);
@@ -972,18 +964,16 @@ public class CreatureTemplateModifier {
             CreatureTemplate template = CreatureTemplateFactory.getInstance().getTemplate(templateId);
             if (template != null) {
                 ReflectionUtil.setPrivateField(template, ReflectionUtil.getField(template.getClass(), "maxPopulationOfCreatures"), maxPopulationOfCreatures);
-                RequiemLogging.logInfo(String.format("The maximum population of %s on the map has changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName(), maxPopulationOfCreatures));
             }
         } catch (NoSuchCreatureTemplateException | IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setMaxPopulationOfCreatures in CreatureTemplateModifier", e);
         }
     }
 
-    public static void setSentinel(int templateId, boolean sentinel) {
+    public static void setNonSentinel(int templateId) {
         try {
             if (templateId > 0)
-                ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), sentinel);
-            RequiemLogging.logInfo(String.format("%s had the flag for sentinel changed. It is now %s.", CreatureTemplateFactory.getInstance().getTemplate(templateId).getName()));
+                ReflectionUtil.setPrivateField(CreatureTemplateFactory.getInstance().getTemplate(templateId), ReflectionUtil.getField(CreatureTemplate.class, "sentinel"), false);
         } catch (IllegalArgumentException | IllegalAccessException | ClassCastException | NoSuchCreatureTemplateException | NoSuchFieldException e) {
             RequiemLogging.logException("[ERROR] in setNonSentinel in CreatureTemplateModifier", e);
         }

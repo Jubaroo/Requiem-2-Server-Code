@@ -8,7 +8,7 @@ import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.players.Player;
 import com.wurmonline.shared.constants.SoundNames;
-import org.jubaroo.mods.wurm.server.tools.database.DatabaseHelper;
+import org.jubaroo.mods.wurm.server.tools.database.DbChanges;
 
 public class CmdAdd5BankSlots extends WurmCmd {
 
@@ -26,7 +26,7 @@ public class CmdAdd5BankSlots extends WurmCmd {
         try {
             Player player = Players.getInstance().getPlayer(argv[1]);
             Methods.sendSound(player, SoundNames.HUMM_SND);
-            DatabaseHelper.addFiveBankSlots(player.getWurmId());
+            DbChanges.addFiveBankSlots(player.getWurmId());
             player.getCommunicator().sendSafeServerMessage("You now have access to 5 additional bank slots!", (byte) 2);
             String mesg = String.format("Player %s has had 5 bank slots added.", argv[1]);
             comm.sendNormalServerMessage(mesg);

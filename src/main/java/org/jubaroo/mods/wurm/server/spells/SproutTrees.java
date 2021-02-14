@@ -23,9 +23,9 @@ import org.jubaroo.mods.wurm.server.RequiemLogging;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SproutTrees extends ModReligiousSpell {
+class SproutTrees extends ModReligiousSpell {
 
-    public SproutTrees() {
+    SproutTrees() {
         super("Sprout trees", ModActions.getNextActionId(), 30, 50, 60, 50, 300000L);
         this.offensive = false;
         this.targetTile = true;

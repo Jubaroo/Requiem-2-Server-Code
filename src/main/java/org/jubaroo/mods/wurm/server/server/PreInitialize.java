@@ -35,11 +35,8 @@ import static org.jubaroo.mods.wurm.server.ModConfig.*;
 public class PreInitialize {
 
     public static void preInit() throws NotFoundException, CannotCompileException {
-        RequiemLogging.logInfo("@Zeus preInit 1");
         ModActions.init();
-        RequiemLogging.logInfo("@Zeus preInit 2");
         ModVehicleBehaviours.init();
-        RequiemLogging.logInfo("@Zeus preInit 3");
         ClassPool classPool = HookManager.getInstance().getClassPool();
         CtClass ctClass = classPool.getCtClass("com.wurmonline.server.items.ItemFactory");
         CtMethod ctGuardPlan = classPool.getCtClass("com.wurmonline.server.villages.GuardPlan").getMethod("pollGuards", "()V");
@@ -87,7 +84,6 @@ public class PreInitialize {
         CtClass ctPlayer = classPool.getCtClass("com.wurmonline.server.players.Player");
         CtClass ctLoginHandler = classPool.getCtClass("com.wurmonline.server.LoginHandler");
         CtClass CtServer = classPool.getCtClass("com.wurmonline.server.Server");
-        RequiemLogging.logInfo("@Zeus preInit 4");
 
         try {
             // Discord Stuff

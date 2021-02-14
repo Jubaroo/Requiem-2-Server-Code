@@ -21,6 +21,10 @@ import java.util.Set;
 public class ItemTools {
     public static Item lumps;
 
+    public static boolean isWhitespaceSequenceOrEmpty(String string) {
+        return string.matches("^\\s*$");
+    }
+
     public static String getRarityString(byte rarity) {
         switch (rarity) {
             case 0:

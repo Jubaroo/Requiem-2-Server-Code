@@ -4,7 +4,6 @@ import com.wurmonline.server.Message;
 import com.wurmonline.server.MiscConstants;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.players.Player;
-import com.wurmonline.server.questions.SorceryTitleQuestion;
 import javassist.CannotCompileException;
 import javassist.NotFoundException;
 import org.gotti.wurmunlimited.modloader.classhooks.HookException;
@@ -33,50 +32,6 @@ import static org.jubaroo.mods.wurm.server.ModConfig.*;
 public class Requiem implements WurmServerMod, ServerStartedListener, ServerShutdownListener, PlayerLoginListener, ItemTemplatesCreatedListener, Configurable, PreInitable, ServerPollListener, Initable, PlayerMessageListener, ChannelMessageListener {
     public static String VERSION = "3.0";
     public static Logger logger = Logger.getLogger(String.format("%s %s", Requiem.class.getName(), VERSION));
-
-
-    @Override
-    public void configure(final Properties properties) {
-        Config.doConfig(properties);
-    }
-
-    @Override
-    public void preInit() {
-        RequiemLogging.logInfo("preInit called");
-        try {
-            if (!disableEntireMod) {
-                if (!disablePreInit) {
-                    PreInitialize.preInit();
-                }
-            }
-        } catch (IllegalArgumentException | ClassCastException e) {
-            RequiemLogging.logException("Error in preInit()", e);
-            throw new HookException(e);
-        } catch (CannotCompileException | NotFoundException e) {
-            RequiemLogging.logException("Error in preInit()", e);
-        }
-        RequiemLogging.logInfo("all preInit completed");
-    }
-
-    @Override
-    public void init() {
-        RequiemLogging.logInfo("init called");
-        try {
-            if (!disableEntireMod) {
-                if (!disableInit) {
-                    try {
-                        RequiemLogging.logInfo("Started Init.init()");
-                        Initialize.init();
-                    } catch (Throwable e) {
-                        RequiemLogging.logException("Error in init()", e);
-                    }
-                }
-            }
-        } catch (Throwable e) {
-            RequiemLogging.logException("Error in init()", e);
-        }
-        RequiemLogging.logInfo("all init completed");
-    }
 
     @Override
     public void onItemTemplatesCreated() {
@@ -109,13 +64,55 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     }
 
     @Override
+    public void configure(final Properties properties) {
+        Config.doConfig(properties);
+    }
+
+    @Override
+    public void preInit() {
+        RequiemLogging.logInfo("preInit called");
+        try {
+            if (!disableEntireMod) {
+                if (!disablePreInit) {
+                    PreInitialize.preInit();
+                }
+            }
+        } catch (IllegalArgumentException | ClassCastException e) {
+            throw new HookException(e);
+        } catch (CannotCompileException | NotFoundException e) {
+            e.printStackTrace();
+        }
+        RequiemLogging.logInfo("all preInit completed");
+    }
+
+    @Override
+    public void init() {
+        RequiemLogging.logInfo("init called");
+        try {
+            if (!disableEntireMod) {
+                if (!disableInit) {
+                    try {
+                        RequiemLogging.logInfo("Started Init.init()");
+                        Initialize.init();
+                    } catch (Throwable e) {
+                        RequiemLogging.logException("Error in init()", e);
+                    }
+                }
+            }
+        } catch (Throwable e) {
+            RequiemLogging.logException("Error in init()", e);
+        }
+        RequiemLogging.logInfo("all init completed");
+    }
+
+    @Override
     public void onServerStarted() {
         RequiemLogging.logInfo("onServerStarted called");
         try {
             if (!disableEntireMod) {
                 if (!disableOnServerStarted) {
-                    OnServerStarted.onServerStarted();
                     ChatHandler.serverStarted();
+                    OnServerStarted.onServerStarted();
                 }
             }
         } catch (IllegalArgumentException | ClassCastException e) {
@@ -136,6 +133,8 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
 
     @Override
     public MessagePolicy onPlayerMessage(Communicator communicator, String message, String title) {
+        // MessagePolicy.DISCARD = true
+        // MessagePolicy.PASS = false
         if (!disableOnPlayerMessage) {
             String[] argv = ArgumentTokenizer.tokenize(message).toArray(new String[0]);
             if (communicator.player.getPower() >= 4 && message.startsWith("#discordreconnect")) {
@@ -150,10 +149,12 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
                 else
                     communicator.sendNormalServerMessage("Cleared event line.");
                 return MessagePolicy.DISCARD;
-            } else if (message.equals("/stitles")) {
-                SorceryTitleQuestion.send(communicator.getPlayer());
-                return MessagePolicy.DISCARD;
-            } else if (!message.startsWith("#") && !message.startsWith("/")) {
+            }
+            //else if (message.equals("/stitles")) {
+            //    SorceryTitleQuestion.send(communicator.getPlayer());
+            //    return MessagePolicy.DISCARD;
+            //}
+            else if (!message.startsWith("#") && !message.startsWith("/")) {
                 CustomChannel chan = CustomChannel.findByIngameName(title);
                 if (chan != null) {
                     if (chan.canPlayersSend)
@@ -308,5 +309,4 @@ public class Requiem implements WurmServerMod, ServerStartedListener, ServerShut
     // Bag that only holds tools. Able to hold tools a normal backpack cannot
     // Make hitching post turned the correct way
     // Copy/paste action for terrain data to auxData on ebony wand
-    // pick your sorcery title from all the ones you earned
 }
